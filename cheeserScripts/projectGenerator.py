@@ -48,6 +48,7 @@ class ProjectGenerator:
         self.generateFolder(ResMan.tests())
         self.generateFolder(ResMan.web())
         self.generateFolder(ResMan.error())
+        self.generateFolder(ResMan.cheese() + "/repositories")
 
     def generateFiles(self):
         self.generateFile("mainTemplate.py", f"{ResMan.src()}/{self.pname}.py")
