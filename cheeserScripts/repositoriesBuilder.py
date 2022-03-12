@@ -435,7 +435,7 @@ class RepositoriesBuilder:
         #delete
         commits.append(
             {
-                "query": "\"delete {" + name + "Impl.table} set {" + name + "Impl.scheme} = :obj where id={obj[0]};\"",
+                "query": "\"delete from {" + name + "Impl.table} where id={obj[0]};\"",
                 "defName": "delete",
                 "def": "def delete(obj):",
                 "arguments": self.arguments("def delete(obj):"),
