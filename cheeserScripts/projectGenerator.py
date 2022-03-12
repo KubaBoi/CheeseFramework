@@ -56,6 +56,7 @@ class ProjectGenerator:
         self.generateFile("index.html", f"{ResMan.web()}/index.html")
         self.generateFile("error404.html", f"{ResMan.error()}/error404.html")
         self.generateFile("authorization.py", f"{ResMan.pythonSrc()}/authorization.py")
+        self.generateFile(".gitignore", f"{ResMan.root()}/.gitignore")
 
     def copyFramework(self):
         fmPath = f"{ResMan.src()}/cheese"
