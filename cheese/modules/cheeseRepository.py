@@ -48,8 +48,6 @@ class CheeseRepository:
                     newArgs.append(f"\'{arg}\'")
             elif (type(arg) is list):
                 newArgs.append("(" + ",".join(CheeseRepository.getTypeOf(arg)) + ")")
-            elif (type(arg) is object):
-                newArgs.append(arg)
             else:
                 newArgs.append(str(arg))
         return newArgs
