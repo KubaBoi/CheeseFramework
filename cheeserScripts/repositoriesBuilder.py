@@ -432,5 +432,15 @@ class RepositoriesBuilder:
                 "object": "enabled"
             }
         )
+        #delete
+        commits.append(
+            {
+                "query": "\"delete {" + name + "Impl.table} set {" + name + "Impl.scheme} = :obj where id={obj[0]};\"",
+                "defName": "delete",
+                "def": "def delete(obj):",
+                "arguments": self.arguments("def delete(obj):"),
+                "object": "enabled"
+            }
+        )
 
         return commits

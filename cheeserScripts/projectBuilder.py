@@ -25,7 +25,7 @@ class ProjectBuilder:
         contBuilder = ControllerBuilder(self.sourceFiles)
         contBuilder.buildControllers()
 
-        #build repositorie
+        #build repositories
         repBuilder = RepositoriesBuilder(self.sourceFiles)
         repBuilder.buildRepositories()
 
