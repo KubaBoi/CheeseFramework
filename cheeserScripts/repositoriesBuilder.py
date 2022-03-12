@@ -191,6 +191,7 @@ class RepositoriesBuilder:
 
         for i, arg in enumerate(method["arguments"]):
             if (arg != ""):
+                arg = arg.strip()
                 if (method["object"] == "enabled"):
                     content += f"\t\t{arg} = " + repo["name"] + "Impl.fromModel(args[" + str(i) + "])\n"
                 else:
