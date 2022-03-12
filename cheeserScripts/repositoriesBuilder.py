@@ -74,7 +74,8 @@ class RepositoriesBuilder:
 
     def createCommitMethod(self, defName):
         self.commitString += f"\t@staticmethod\n\tdef {defName}(args):\n"
-        self.commitString += f"\t\tuserRepository = CheeseRepository.findUserRepository()\n\n"
+        self.commitString += f"\t\tuserRepository = CheeseRepository.findUserRepository()\n"
+        self.commitString += f"\t\targs = CheeseRepository.getTypeOf(args)\n\n"
 
         for r in self.repositories:
             for q in r["commits"]:
