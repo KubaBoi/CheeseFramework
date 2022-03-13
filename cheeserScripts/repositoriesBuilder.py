@@ -156,8 +156,9 @@ class RepositoriesBuilder:
 
         content += "\t\tresponse = None\n"
         content += "\t\ttry:\n"
-        content += f"\t\t\tresponse = Database.query(f{newQuery})\n"
-        content += "\t\t\tDatabase.done()\n"
+        content += "\t\t\tdb = Database()\n"
+        content += f"\t\t\tresponse = db.query(f{newQuery})\n"
+        content += "\t\t\tdb.done()\n"
         content += "\t\texcept Exception as e:\n"
         content += "\t\t\tLogger.fail(str(e))\n\n"
         content += "\t\tif (response == None): return response\n"
@@ -200,8 +201,9 @@ class RepositoriesBuilder:
         content += "\n"
 
         content += f"\t\ttry:\n"
-        content += f"\t\t\tDatabase.commit(f{newQuery})\n"
-        content += f"\t\t\tDatabase.done()\n"
+        content += f"\t\t\tdb = Database()\n"
+        content += f"\t\t\tdb.commit(f{newQuery})\n"
+        content += f"\t\t\tdb.done()\n"
         content += f"\t\t\treturn True\n"
         content += f"\t\texcept Exception as e:\n"
         content += f"\t\t\tLogger.fail(str(e))\n"
