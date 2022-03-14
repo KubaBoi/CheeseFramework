@@ -53,11 +53,11 @@ class ProjectGenerator:
     def generateFiles(self):
         self.generateFile("mainTemplate.py", f"{ResMan.src()}/{self.pname}.py")
         self.generateFile("appSettings.json", f"{ResMan.root()}/appSettings.json")
+        self.generateFile("adminSettings.json", f"{ResMan.root()}/adminSettings.json")
         self.generateFile("index.html", f"{ResMan.web()}/index.html")
         self.generateFile("error404.html", f"{ResMan.error()}/error404.html")
         self.generateFile("authorization.py", f"{ResMan.pythonSrc()}/authorization.py")
         self.generateFile(".gitignore", f"{ResMan.root()}/.gitignore")
-        self.generateFile("logJSscript.js", f"{ResMan.logs()}/logJSscript.js")
 
     def copyFramework(self):
         fmPath = f"{ResMan.src()}/cheese"
