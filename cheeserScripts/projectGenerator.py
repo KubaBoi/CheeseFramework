@@ -48,7 +48,7 @@ class ProjectGenerator:
         self.generateFolder(ResMan.tests())
         self.generateFolder(ResMan.web())
         self.generateFolder(ResMan.error())
-        self.generateFolder(ResMan.cheese() + "/repositories")
+        self.generateFolder(ResMan.root() + "/logs")
 
     def generateFiles(self):
         self.generateFile("mainTemplate.py", f"{ResMan.src()}/{self.pname}.py")
@@ -57,6 +57,7 @@ class ProjectGenerator:
         self.generateFile("error404.html", f"{ResMan.error()}/error404.html")
         self.generateFile("authorization.py", f"{ResMan.pythonSrc()}/authorization.py")
         self.generateFile(".gitignore", f"{ResMan.root()}/.gitignore")
+        self.generateFile("logJSscript.js", f"{ResMan.logs()}/logJSscript.js")
 
     def copyFramework(self):
         fmPath = f"{ResMan.src()}/cheese"
