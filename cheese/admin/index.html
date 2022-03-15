@@ -7,7 +7,12 @@
     <title>CHAdmin</title>
 </head>
 <body>
-    <h1>Giga CHAdmin</h1>
+    <h1>CHAdmin</h1>
+    <div id="control" class="controlDiv">
+        <button onclick="restart()" id="restartButt">Restart server</button>
+        <button onclick="saveChanges()" id="saveButt">Save configuration</button>
+        <button onclick="pullChanges()" id="saveButt">Get new version from git</button>
+    </div>
     <table id="settingsTable"></table>
     <label id="logDesc"></label><br><br>
     <div id="log" class="logDiv">
@@ -18,6 +23,7 @@
     <script src="http://frogie.cz/scripts/public/communication.js"></script>
     <script src="admin/scripts/settings.js"></script>
     <script src="admin/scripts/log.js"></script>
+    <script src="admin/scripts/controll.js"></script>
     <script>
         buildSettingTable();
         buildLogTable();

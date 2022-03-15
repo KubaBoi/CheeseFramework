@@ -10,6 +10,16 @@ function getActiveLog() {
     });
 }
 
+function deleteLog(log) {
+    url = "/admin/deleteLog?log=" + log;
+    
+    return new Promise(resolve => {
+        sendGet(url, debug, function(response){
+            resolve(response);
+        });  
+    });
+}
+
 async function buildLogTable() {
     response = await getActiveLog();
     if (!response.ERROR) {
@@ -28,7 +38,7 @@ async function buildLogTable() {
     }
 }
 
-if (typeof dontRunScript == "undefined") setInterval(update, 1000);
+if (typeof dontRunScript == "undefined") updateInterval = setInterval(update, 1000);
 var oldC = 1;
 var oldScrollHeight = 0;
 function update() {
@@ -42,4 +52,15 @@ function update() {
 
     oldScrollHeight = element.scrollHeight;
     oldC = b - a;
+}
+
+async function deleteFile(log) {
+    response = await deleteLog(log);
+    if (!response.ERROR) {
+        alert("Log " + log + " was deleted")
+        location.reload();
+    }
+    else {
+        alert("An error occurred: " + response.ERROR);
+    }
 }
