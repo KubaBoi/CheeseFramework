@@ -39,14 +39,14 @@ async function buildLogTable() {
 }
 
 if (typeof dontRunScript == "undefined") updateInterval = setInterval(update, 1000);
-var oldC = 1;
+var oldC = 0;
 var oldScrollHeight = 0;
 function update() {
     buildLogTable();
     element = document.getElementById("log");
     var a = element.scrollTop;
     var b = element.scrollHeight - element.clientHeight;
-    if (oldC < 500 && oldScrollHeight < element.scrollHeight) {
+    if (oldC < 500 && oldScrollHeight != element.scrollHeight) {
         element.scrollTop = b;
     }
 
