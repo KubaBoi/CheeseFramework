@@ -160,7 +160,7 @@ class RepositoriesBuilder:
         content += f"\t\t\tresponse = db.query(f{newQuery})\n"
         content += "\t\t\tdb.done()\n"
         content += "\t\texcept Exception as e:\n"
-        content += "\t\t\tLogger.fail(str(e))\n\n"
+        content += "\t\t\tLogger.fail(\"An error occurred while query request\", str(e))\n\n"
         content += "\t\tif (response == None): return response\n"
         
         name = repo["name"] + "Impl"
@@ -206,7 +206,7 @@ class RepositoriesBuilder:
         content += f"\t\t\tdb.done()\n"
         content += f"\t\t\treturn True\n"
         content += f"\t\texcept Exception as e:\n"
-        content += f"\t\t\tLogger.fail(str(e))\n"
+        content += f"\t\t\tLogger.fail(\"An error occurred while commit request\", str(e))\n"
         content += f"\t\t\treturn False\n"
         content += "\n"
         return content
