@@ -258,10 +258,10 @@ class RepositoriesBuilder:
 
     def createConvertMethod(self):
         content = "\t@staticmethod\n\tdef convert(var):\n"
-        content += "\t\ttry:\n"
+        content += "\t\tif (type(var) is int):\n"
         content += "\t\t\tvar = int(var)\n"
-        content += "\t\texcept:\n"
-        content += "\t\t\tvar = var\n"
+        content += "\t\telif (type(var) is float):\n"
+        content += "\t\t\tvar = float(var)\n"
         content += "\t\treturn var\n\n"
         return content
 

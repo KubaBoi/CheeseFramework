@@ -65,8 +65,16 @@ class ControllerBuilder:
                     getsS += f"\t\t\t\t\t{cName}.{defName}(self, self.path, auth)\n"
 
                 self.gets += getsS
-                self.gets += "\t\t\t\telse:\n\t\t\t\t\tCheeseController.serveFile(self, self.path)\n"
-        self.gets += "\t\t\telse:\n\t\t\t\tCheeseController.serveFile(self, self.path)\n"
+                self.gets += "\t\t\t\telse:"
+                self.gets += "\t\t\t\t\tif (self.path.endswith(\".css\")):\n"
+                self.gets += "\t\t\t\t\t\tCheeseController.serveFile(self, self.path, \"text/css\")\n"
+                self.gets += "\t\t\t\t\telse:\n"
+                self.gets += "\t\t\t\t\t\tCheeseController.serveFile(self, self.path)\n"
+        self.gets += "\t\t\telse:\n"
+        self.gets += "\t\t\t\tif (self.path.endswith(\".css\")):\n"
+        self.gets += "\t\t\t\t\tCheeseController.serveFile(self, self.path, \"text/css\")\n"
+        self.gets += "\t\t\t\telse:\n"
+        self.gets += "\t\t\t\t\tCheeseController.serveFile(self, self.path)\n"
 
         if (self.isAuthorizationEnabled):
             self.gets = ("\t\t\tauth = Authorization.authorize(self, path, \"GET\")\n" 
