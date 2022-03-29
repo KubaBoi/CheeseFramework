@@ -65,7 +65,7 @@ class ControllerBuilder:
                     getsS += f"\t\t\t\t\t{cName}.{defName}(self, self.path, auth)\n"
 
                 self.gets += getsS
-                self.gets += "\t\t\t\telse:"
+                self.gets += "\t\t\t\telse:\n"
                 self.gets += "\t\t\t\t\tif (self.path.endswith(\".css\")):\n"
                 self.gets += "\t\t\t\t\t\tCheeseController.serveFile(self, self.path, \"text/css\")\n"
                 self.gets += "\t\t\t\t\telse:\n"
