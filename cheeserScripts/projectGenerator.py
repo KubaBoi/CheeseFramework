@@ -51,6 +51,7 @@ class ProjectGenerator:
         self.generateFolder(ResMan.root() + "/logs")
 
     def generateFiles(self):
+        print("=====Generating Files=====")
         self.generateFile("mainTemplate.py", f"{ResMan.src()}/{self.pname}.py")
         self.generateFile("appSettings.json", f"{ResMan.root()}/appSettings.json")
         self.generateFile("adminSettings.json", f"{ResMan.root()}/adminSettings.json")
@@ -60,9 +61,11 @@ class ProjectGenerator:
         self.generateFile(".gitignore", f"{ResMan.root()}/.gitignore")
 
     def copyFramework(self):
+        print("=====Copying Framework=====")
         fmPath = f"{ResMan.src()}/cheese"
         if os.path.exists(fmPath):
             shutil.rmtree(fmPath)
+        print(f"{Path(__file__).parent.parent}/cheese", f"{ResMan.src()}/cheese")
         shutil.copytree(f"{Path(__file__).parent.parent}/cheese", f"{ResMan.src()}/cheese")
 
     def removePyCache(self):
