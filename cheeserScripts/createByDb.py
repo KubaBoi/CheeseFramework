@@ -21,14 +21,7 @@ class CreateByDB:
 
     @staticmethod
     def createFiles(path):
-        Settings.dbHost = "localhost"#input("Host: ")
-        Settings.dbName = "judo"#input("Name: ")
-        Settings.dbUser = "postgres"#input("User: ")
-        Settings.dbPassword = "admin"#input("Password: ")
-        Settings.dbPort = "5432"#input("Port: ")
-        Settings.dbDriver = "n"#input("Driver (type 'n' if postgres): ")
-        if (Settings.dbDriver == "n"):
-            Settings.dbDriver = "postgres"
+        Settings.loadSettings()
 
         Settings.allowDebug = True
         Settings.allowDB = True

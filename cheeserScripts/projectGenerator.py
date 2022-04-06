@@ -56,8 +56,7 @@ class ProjectGenerator:
     def generateFiles(self):
         print("=====Generating Files=====")
         if (not os.path.exists(f"{ResMan.src()}/{self.pname}.py")):
-            pass
-        self.generateFile("HelloWorldController.py", f"{ResMan.pythonSrc()}/controllers/HelloWorldController.py")
+            self.generateFile("HelloWorldController.py", f"{ResMan.pythonSrc()}/controllers/HelloWorldController.py")
 
         self.generateFile("mainTemplate.py", f"{ResMan.src()}/{self.pname}.py")
         self.generateFile("appSettings.json", f"{ResMan.root()}/appSettings.json")
