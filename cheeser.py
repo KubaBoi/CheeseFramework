@@ -8,6 +8,7 @@ import ntpath
 from cheeserScripts.projectGenerator import ProjectGenerator
 from cheeserScripts.projectBuilder import ProjectBuilder
 from cheeserScripts.createByDb import CreateByDB
+from cheeserScripts.createApi import ApiControllerCreator
 from cheese.resourceManager import ResMan
 
 
@@ -42,3 +43,5 @@ for opt, arg in opts:
         sys.exit()
     elif opt in ("-d", "--database"):
         CreateByDB.createFiles(f"{os.path.dirname(__file__)}/projects/{arg}")
+
+ApiControllerCreator.createApiControllers(f"{os.path.dirname(__file__)}/projects/Judo")

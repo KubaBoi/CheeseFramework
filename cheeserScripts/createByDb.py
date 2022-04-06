@@ -1,21 +1,8 @@
-import sys
-import os
-from venv import create
 
 from cheese.databaseControll.database import Database
 from cheese.resourceManager import ResMan
 from cheese.Logger import Logger
 from cheese.appSettings import Settings
-
-
-"""
-"dbDriver": "postgres",
-"dbHost": "localhost",
-"dbName": "database",
-"dbUser": "postgres",
-"dbPassword": "admin",
-"dbPort": 5432,
-"""
 
 class CreateByDB:
 
@@ -46,17 +33,23 @@ class CreateByDB:
             modelName = CreateByDB.generateModel(table[0], columns)
             CreateByDB.generateRepository(table[0], columns, modelName)
 
-    def generateModel(name, columns):
-        modelName = name[0].capitalize()
+    @staticmethod
+    def removeSpaces(name, newName):
         capitalized = False
         for i in range(len(name[1:])):
             if (name[i+1] == "_"):
-                modelName += name[i+2].capitalize()
+                newName += name[i+2].capitalize()
                 capitalized = True
                 continue
             elif (not capitalized):
-                modelName += name[i+1]
+                newName += name[i+1]
             capitalized = False
+        return newName
+
+    @staticmethod
+    def generateModel(name, columns):
+        modelName = name[0].capitalize()
+        modelName = CreateByDB.removeSpaces(name, modelName)
 
         content = "#!/usr/bin/env python\n"
         content += "# -*- coding: utf-8 -*-\n\n"
@@ -93,17 +86,10 @@ class CreateByDB:
             f.write(content)
         return modelName
 
+    @staticmethod
     def generateRepository(name, columns, modelName):
-        repositoryName = ""
-        capitalized = False
-        for i in range(len(name)):
-            if (name[i] == "_"):
-                repositoryName += name[i+1].capitalize()
-                capitalized = True
-                continue
-            elif (not capitalized):
-                repositoryName += name[i]
-            capitalized = False
+        repositoryName = name[0].capitalize()
+        repositoryName = CreateByDB.removeSpaces(name, repositoryName)
         repositoryName += "Repository"
         
         content = "#!/usr/bin/env python\n"
@@ -119,7 +105,7 @@ class CreateByDB:
                 content += ")\n"
         
         content += f"#@dbmodel {modelName}\n"
-        content += f"class {repositoryName.capitalize()}(CheeseRepository):\n\n\n\n"
+        content += f"class {repositoryName}(CheeseRepository):\n\n\n\n"
         content += f"\t#@query \"select max(id) from {name}\";\n"
         content += "\t#@return num\n"
         content += "\t#@staticmethod\n"

@@ -1,5 +1,6 @@
 pip install psycopg2
 pip install pyodbc
+pip install bs4
 
 INSTALLATION CentOS
 
