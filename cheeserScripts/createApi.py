@@ -68,11 +68,19 @@ class ApiControllerCreator:
                         errorBadRequest = ApiControllerCreator.getCodeFromFigure(fig)
                         break 
 
+                errorUnauthorized = None
+                for fig in figures:
+                    if (fig.figcaption.text.endswith("401:")):
+                        errorUnauthorized = ApiControllerCreator.getCodeFromFigure(fig)
+                        break 
+
                 responseOKRequest = None
                 for fig in figures:
                     if (fig.figcaption.text.endswith("200:")):
                         responseOKRequest = ApiControllerCreator.getCodeFromFigure(fig)
                         break 
+
+                content += ApiControllerCreator.getAuthorization(parent, errorUnauthorized)
 
                 for figure in figures:
                     ftext = figure.figcaption.text
@@ -185,10 +193,29 @@ class ApiControllerCreator:
                 content += f"\"columnName-{arg.lower()}\", "
                 content += ApiControllerCreator.toVariable(arg) + ")\n"
         
-        content += "\t\tresponse = cc.createResponse({\"ID\": newId}, 200)\n"
+        name = ApiControllerCreator.fromVariable(ApiControllerCreator.getPlural(name))
+        content += "\t\tjsonResponse = {}\n"
+        content += f"\t\tjsonResponse[\"{name.upper()}\"] = []\n"
+        content += f"\t\tfor {ApiControllerCreator.getSingular(name)} in {newVariable}:\n"
+        content += f"\t\t\tjsonResponse[\"{name.upper()}\"].append({ApiControllerCreator.getSingular(name)}.toJson())\n\n"
+        content += "\t\tresponse = cc.createResponse(jsonResponse, 200)\n"
         content += "\t\tcc.sendResponse(server, response)\n\n"
         return content
 
+    @staticmethod
+    def getAuthorization(li, errorUnauthorized):
+        ps = li.findAll("p")
+        role = None
+        for p in ps:
+            if (len(p.attrs) == 0): continue
+            if (p["class"][0] == "role"):
+                role = int(p.text.replace("Role = ", ""))
+
+        if (role == None): return ""
+        content = f"\t\tif (auth[\"role\"] > {role}):\n"
+        content += f"\t\t\tError.sendCustomError(server, \"{errorUnauthorized['ERROR']}\", 400)\n"
+        content += "\t\t\treturn\n\n"
+        return content
 
     @staticmethod
     def toVariable(arg):
@@ -206,7 +233,17 @@ class ApiControllerCreator:
         return json.loads(code)
 
     @staticmethod
+    def fromVariable(arg):
+        return CreateByDB.addSpaces(arg)
+
+    @staticmethod
     def getSingular(text):
         if (text.endswith("s")):
             return text[:-1]
         return text
+        
+    @staticmethod
+    def getPlural(text):
+        if (text.endswith("s")):
+            return text
+        return text + "s"

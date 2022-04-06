@@ -143,4 +143,16 @@ class CreateByDB:
                 newName += name[i+1]
             capitalized = False
         return newName
+
+    @staticmethod
+    def addSpaces(name):
+        newName = ""
+        for i, char in enumerate(name):
+            if (ord(char) < 97):
+                char = chr(ord(char) + 32)
+                if (i > 0):
+                    newName += "_"
+            newName += char
+        return newName
+            
         
