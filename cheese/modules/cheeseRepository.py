@@ -38,14 +38,16 @@ class CheeseRepository:
     def getTypeOf(args):
         newArgs = []
         for arg in args:
-            if (type(arg) is str and arg[-1] != "\'" 
-                and arg[-1] != ")" 
-                and not arg.endswith("DESC") 
-                and not arg.endswith("ASC")):
-                if (arg.startswith("columnName-")):
-                    newArgs.append(arg.replace("columnName-", ""))
-                else:
-                    newArgs.append(f"\'{arg}\'")
+            if (type(arg) is str):
+                if (len(arg) == 0): newArgs.append("")
+                elif (arg[-1] != "\'" 
+                    and arg[-1] != ")" 
+                    and not arg.endswith("DESC") 
+                    and not arg.endswith("ASC")):
+                    if (arg.startswith("columnName-")):
+                        newArgs.append(arg.replace("columnName-", ""))
+                    else:
+                        newArgs.append(f"\'{arg}\'")
             elif (type(arg) is list):
                 newArgs.append("(" + ",".join(CheeseRepository.getTypeOf(arg)) + ")")
             else:

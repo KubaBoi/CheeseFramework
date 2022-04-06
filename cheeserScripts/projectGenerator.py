@@ -49,9 +49,16 @@ class ProjectGenerator:
         self.generateFolder(ResMan.web())
         self.generateFolder(ResMan.error())
         self.generateFolder(ResMan.root() + "/logs")
+        self.generateFolder(ResMan.pythonSrc() + "/controllers")
+        self.generateFolder(ResMan.pythonSrc() + "/models")
+        self.generateFolder(ResMan.pythonSrc() + "/repositories")
 
     def generateFiles(self):
         print("=====Generating Files=====")
+        if (not os.path.exists(f"{ResMan.src()}/{self.pname}.py")):
+            pass
+        self.generateFile("HelloWorldController.py", f"{ResMan.pythonSrc()}/controllers/HelloWorldController.py")
+
         self.generateFile("mainTemplate.py", f"{ResMan.src()}/{self.pname}.py")
         self.generateFile("appSettings.json", f"{ResMan.root()}/appSettings.json")
         self.generateFile("adminSettings.json", f"{ResMan.root()}/adminSettings.json")

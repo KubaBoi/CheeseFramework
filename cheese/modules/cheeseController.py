@@ -66,6 +66,16 @@ class CheeseController:
                 arguments[spl[0]] = spl[1]
         return arguments
 
+    # return bytes from post body
+    @staticmethod
+    def readBytes(server):
+        try:
+            content_len = int(server.headers.get('Content-Length'))
+            post_body = server.rfile.read(content_len)
+            return post_body
+        except:
+            return False
+
     # return arguments from body of request 
     @staticmethod
     def readArgs(server):

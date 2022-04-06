@@ -7,7 +7,9 @@ import ntpath
 
 from cheeserScripts.projectGenerator import ProjectGenerator
 from cheeserScripts.projectBuilder import ProjectBuilder
+from cheeserScripts.createByDb import CreateByDB
 from cheese.resourceManager import ResMan
+
 
 __author__ = "Jakub Anderle"
 __version__ = "1.0.0"
@@ -16,7 +18,7 @@ __email__ = "jakubanderle@outlook.cz"
 __status__ = "Development"
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "hg:b:", ["pname=", "pname="])
+    opts, args = getopt.getopt(sys.argv[1:], "hg:b:d:", ["pname=", "pname=", "database="])
 except getopt.GetoptError:
     print("cheeser.py [argument]")
     sys.exit(2)
@@ -38,3 +40,5 @@ for opt, arg in opts:
         builder = ProjectBuilder(arg)
         builder.build()
         sys.exit()
+    elif opt in ("-d", "--database"):
+        CreateByDB.createFiles(f"{os.path.dirname(__file__)}/projects/{arg}")
