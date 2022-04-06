@@ -8,7 +8,7 @@ import ntpath
 from cheeserScripts.projectGenerator import ProjectGenerator
 from cheeserScripts.projectBuilder import ProjectBuilder
 from cheeserScripts.createByDb import CreateByDB
-from cheeserScripts.createApi import ApiControllerCreator
+from cheeserScripts.createApi import ApiControllerCreator as api
 from cheese.resourceManager import ResMan
 
 
@@ -19,7 +19,7 @@ __email__ = "jakubanderle@outlook.cz"
 __status__ = "Development"
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "hg:b:d:", ["pname=", "pname=", "database="])
+    opts, args = getopt.getopt(sys.argv[1:], "hg:b:d:a:", ["pname=", "pname=", "database=", "api="])
 except getopt.GetoptError:
     print("cheeser.py [argument]")
     sys.exit(2)
@@ -43,5 +43,7 @@ for opt, arg in opts:
         sys.exit()
     elif opt in ("-d", "--database"):
         CreateByDB.createFiles(f"{os.path.dirname(__file__)}/projects/{arg}")
+    elif opt in ("-a", "--api"):
+        api.createApiControllers(f"{os.path.dirname(__file__)}/projects/{arg}")
 
-ApiControllerCreator.createApiControllers(f"{os.path.dirname(__file__)}/projects/Judo")
+api.createApiControllers(f"{os.path.dirname(__file__)}/projects/Judo")

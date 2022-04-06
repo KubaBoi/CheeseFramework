@@ -34,19 +34,6 @@ class CreateByDB:
             CreateByDB.generateRepository(table[0], columns, modelName)
 
     @staticmethod
-    def removeSpaces(name, newName):
-        capitalized = False
-        for i in range(len(name[1:])):
-            if (name[i+1] == "_"):
-                newName += name[i+2].capitalize()
-                capitalized = True
-                continue
-            elif (not capitalized):
-                newName += name[i+1]
-            capitalized = False
-        return newName
-
-    @staticmethod
     def generateModel(name, columns):
         modelName = name[0].capitalize()
         modelName = CreateByDB.removeSpaces(name, modelName)
@@ -106,9 +93,14 @@ class CreateByDB:
         
         content += f"#@dbmodel {modelName}\n"
         content += f"class {repositoryName}(CheeseRepository):\n\n\n\n"
-        content += f"\t#@query \"select max(id) from {name}\";\n"
+
+        content += CreateByDB.createMethod("findAll", "query", f"select * from {name};", "array")
+        content += CreateByDB.createMethod("find", "query", f"select * from {name} where id=:id;", "one", "id")
+        content += CreateByDB.createMethod("findBy", "query", f"select * from {name} where :columnName=:value;", "array", "columnName, value")
+
+        content += f"\t#@query \"select max(id) from {name};\"\n"
         content += "\t#@return num\n"
-        content += "\t#@staticmethod\n"
+        content += "\t@staticmethod\n"
         content += "\tdef findNewId():\n"
         content += "\t\ttry:\n"
         content += "\t\t\treturn CheeseRepository.findNewId([])+1\n"
@@ -130,5 +122,25 @@ class CreateByDB:
         with open(f"{ResMan.pythonSrc()}/repositories/{repositoryName}.py", "w") as f:
             f.write(content)
 
+    @staticmethod
+    def createMethod(name, queryType, sql, ret, args=""):
+        content = f"\t#@{queryType} \"{sql}\"\n"
+        content += f"\t#@return {ret}\n"
+        content += "\t@staticmethod\n"
+        content += f"\tdef {name}({args}):\n"
+        content += f"\t\treturn CheeseRepository.{name}([{args}])\n\n"
+        return content
 
+    @staticmethod
+    def removeSpaces(name, newName):
+        capitalized = False
+        for i in range(len(name[1:])):
+            if (name[i+1] == "_"):
+                newName += name[i+2].capitalize()
+                capitalized = True
+                continue
+            elif (not capitalized):
+                newName += name[i+1]
+            capitalized = False
+        return newName
         
