@@ -3,7 +3,7 @@ name: releaseDate
 on: 
   push:
     branches:
-      - /refs/heads/main
+      - main
 
 jobs:
   build:
