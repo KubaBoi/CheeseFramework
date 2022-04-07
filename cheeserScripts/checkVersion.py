@@ -36,7 +36,7 @@ class Updater:
         subprocess.run("git pull", shell=True)
         version = Updater.getRelease()["release"]
         print("")
-        print(f"Cheese was update on release {version} :)")
+        print(f"Cheese was updated on release {version} :)")
         print("")
 
     @staticmethod
