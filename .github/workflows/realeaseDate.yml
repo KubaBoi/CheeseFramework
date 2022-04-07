@@ -21,7 +21,7 @@ jobs:
           python-version: '3.9' # install the python version needed
           
       - name: execute py script # execute python main
-        run: python releaseDate.py
+        run: python releaseDateCheese.py
 
       - name: commit files
         run: |
