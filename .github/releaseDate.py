@@ -13,4 +13,4 @@ with open(prepFile, "r") as f:
 data["release"] = releaseDate
 
 with open(prepFile, "w") as f:
-    f.write(data)
+    f.write(json.dumps(data))
