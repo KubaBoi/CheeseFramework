@@ -14,6 +14,7 @@ Generates structure of Cheese Application
 class ProjectGenerator:
     def __init__(self, pname):
         self.pname = pname
+        self.debug = False
 
     def generate(self):
         self.generateRoot()
@@ -23,16 +24,19 @@ class ProjectGenerator:
         self.removePyCache()
 
     def generateFolder(self, path):
-        print(f"Generating {path}")
+        if (self.debug):
+            print(f"Generating {path}")
         if not os.path.exists(path):
             os.makedirs(path)
-        else:
+        elif (self.debug):
             print(f"{path} already exists. Skipping")
 
     def generateFile(self, template, copy):
-        print(f"Generating {copy}")
+        if (self.debug):
+            print(f"Generating {copy}")
         if (os.path.exists(copy)):
-            print(f"{copy} already exists. Skipping")
+            if (self.debug):
+                print(f"{copy} already exists. Skipping")
         else:
             with open(f"{Path(__file__).parent.parent}/templates/{template}", "r") as r:
                 with open(copy, "w") as w:
@@ -54,7 +58,8 @@ class ProjectGenerator:
         self.generateFolder(ResMan.pythonSrc() + "/repositories")
 
     def generateFiles(self):
-        print("=====Generating Files=====")
+        if (self.debug):
+            print("=====Generating Files=====")
         if (not os.path.exists(f"{ResMan.src()}/{self.pname}.py")):
             self.generateFile("HelloWorldController.py", f"{ResMan.pythonSrc()}/controllers/HelloWorldController.py")
 
@@ -68,15 +73,18 @@ class ProjectGenerator:
         self.generateFile(".gitignore", f"{ResMan.root()}/.gitignore")
 
     def copyFramework(self):
-        print("=====Copying Framework=====")
+        if (self.debug):
+            print("=====Copying Framework=====")
         fmPath = f"{ResMan.src()}/cheese"
         if os.path.exists(fmPath):
             shutil.rmtree(fmPath)
-        print(f"{Path(__file__).parent.parent}/cheese", f"{ResMan.src()}/cheese")
+        if (self.debug):
+            print(f"{Path(__file__).parent.parent}/cheese", f"{ResMan.src()}/cheese")
         shutil.copytree(f"{Path(__file__).parent.parent}/cheese", f"{ResMan.src()}/cheese")
 
     def removePyCache(self):
-        print("Removing old pyCache")
+        if (self.debug):
+            print("Removing old pyCache")
         for (dirpath, dirnames, filenames) in os.walk(ResMan.root()):
             if (dirpath.endswith("__pycache__")):
                 shutil.rmtree(dirpath)
