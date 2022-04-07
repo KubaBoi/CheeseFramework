@@ -1,4 +1,4 @@
-name: release Date in html
+name: release Date in property
 
 on:
   push:
@@ -6,9 +6,15 @@ on:
       - main
 
 jobs:
-  release-sign:
+
+  release-property:
     runs-on: ubuntu-latest
     steps:
+
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content to github runner
+        with:
+            ref: main
 
       - name: checkout repo content
         uses: actions/checkout@v2 # checkout the repository content to github runner
