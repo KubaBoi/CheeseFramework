@@ -20,6 +20,7 @@ class Updater:
         Updater.starter()
 
         print("Checking latest Cheese release...")
+        print("")
         aversion = requests.get("https://kubaboi.github.io/CheeseFramework/public/version.html").text
         props = Updater.getRelease()
 
@@ -34,6 +35,7 @@ class Updater:
     def update():
         subprocess.run("git pull", shell=True)
         version = Updater.getRelease()["release"]
+        print("")
         print(f"Cheese was update on release {version} :)")
         print("")
 
