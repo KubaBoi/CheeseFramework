@@ -3,12 +3,12 @@
 
 import sys, getopt
 import os
-import ntpath
 
 from cheeserScripts.projectGenerator import ProjectGenerator
 from cheeserScripts.projectBuilder import ProjectBuilder
 from cheeserScripts.createByDb import CreateByDB
 from cheeserScripts.createApi import ApiControllerCreator as api
+from cheeserScripts.checkVersion import Updater
 from cheese.resourceManager import ResMan
 
 
@@ -17,6 +17,8 @@ __version__ = "1.0.0"
 __maintainer__ = "Jakub Anderle"
 __email__ = "jakubanderle@outlook.cz"
 __status__ = "Development"
+
+Updater.checkUpdate()
 
 try:
     opts, args = getopt.getopt(sys.argv[1:], "hg:b:d:a:", ["pname=", "pname=", "database=", "api="])
@@ -33,7 +35,6 @@ for opt, arg in opts:
     elif opt in ("-g", "--pname"):
         generator = ProjectGenerator(arg)
         generator.generate()
-        sys.exit()
     elif opt in ("-b", "--pname"):
         generator = ProjectGenerator(arg)
         generator.generate()
