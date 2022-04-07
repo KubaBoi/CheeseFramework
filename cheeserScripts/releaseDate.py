@@ -3,7 +3,7 @@ import json
 from datetime import datetime, timedelta, timezone
 
 propFile = os.path.abspath(os.path.join(os.path.dirname( __file__ ), "..", "cheese", "cheeseproperties.json"))
-htmlFile = os.path.abspath(os.path.join(os.path.dirname( __file__ ), "..", "public", "version"))
+htmlFile = os.path.abspath(os.path.join(os.path.dirname( __file__ ), "..", "public", "version.html"))
 
 print(propFile)
 with open(propFile, "r") as f:
