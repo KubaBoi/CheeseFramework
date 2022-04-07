@@ -73,7 +73,7 @@ class Cheese:
         except OSError:
             Logger.warning("SHUTING SERVER DOWN")
         except Exception as e:
-            Logger.fail("UNKNOWN ERROR WHILE RUNNING SERVER", e)
+            Logger.fail("UNKNOWN ERROR WHILE RUNNING SERVER ", e)
         Logger.info(f"Server Stops - {Settings.host}:{Settings.port}", silence=False)
         sys.exit()
 
