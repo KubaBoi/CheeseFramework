@@ -1,7 +1,4 @@
-import os
-import json
 from datetime import datetime, timedelta, timezone
-from platform import release
 
 htmlFile = "./public/version.html"
 
