@@ -82,4 +82,8 @@ class Cheese:
     def printInit():
         with open(f"{ResMan.cheese()}/initString.txt", "r") as f:
             print(f.read())
+        with open(f"{ResMan.cheese()}/cheeseproperties.json", "r") as f:
+            properties = json.loads(f.read())
+            print(properties['documentation'])
+            print(properties['release'])
 

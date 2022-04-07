@@ -178,7 +178,8 @@ class RepositoriesBuilder:
             content += f"\t\tif (response[0][0] == \"1\"): return True\n"
             content += f"\t\treturn False\n"
         elif (method["typeOfReturn"] == "num"):
-            content += f"\t\treturn int(response[0][0])\n" 
+            content += f"\t\ttry: return int(response[0][0])\n"
+            content += f"\t\texcept: return -1\n"
         elif (method["typeOfReturn"] == "raw"):
             content += f"\t\treturn response\n"
         content += "\n"
@@ -414,6 +415,16 @@ class RepositoriesBuilder:
     # prefabricated commit methods 
     def preCommits(self, commits, name, scheme):
         scheme = scheme.replace("(", "").replace(")", "")
+        #findNewId
+        commits.append(
+            {
+                "query": "\"select max(id) from {" + name + "Impl.table};\"",
+                "defName": "findNewId",
+                "typeOfReturn": "num",
+                "def": "def findNewId(obj):",
+                "arguments": "",
+            }
+        )
         #save
         commits.append(
             {

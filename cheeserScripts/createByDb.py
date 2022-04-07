@@ -98,14 +98,9 @@ class CreateByDB:
         content += CreateByDB.createMethod("find", "query", f"select * from {name} where id=:id;", "one", "id")
         content += CreateByDB.createMethod("findBy", "query", f"select * from {name} where :columnName=:value;", "array", "columnName, value")
 
-        content += f"\t#@query \"select max(id) from {name};\"\n"
-        content += "\t#@return num\n"
         content += "\t@staticmethod\n"
-        content += "\tdef findNewId():\n"
-        content += "\t\ttry:\n"
-        content += "\t\t\treturn CheeseRepository.findNewId([])+1\n"
-        content += "\t\texcept:\n"
-        content += "\t\t\treturn 0\n\n"
+        content += "\tdef findNewId(obj):\n"
+        content += "\t\treturn CheeseRepository.findNewId([obj])+1\n\n"
 
         content += "\t@staticmethod\n"
         content += "\tdef save(obj):\n"

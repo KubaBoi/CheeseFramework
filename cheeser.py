@@ -40,10 +40,7 @@ for opt, arg in opts:
 
         builder = ProjectBuilder(arg)
         builder.build()
-        sys.exit()
     elif opt in ("-d", "--database"):
         CreateByDB.createFiles(f"{os.path.dirname(__file__)}/projects/{arg}")
     elif opt in ("-a", "--api"):
         api.createApiControllers(f"{os.path.dirname(__file__)}/projects/{arg}")
-
-api.createApiControllers(f"{os.path.dirname(__file__)}/projects/Judo")

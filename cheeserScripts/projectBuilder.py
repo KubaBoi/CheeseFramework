@@ -29,7 +29,26 @@ class ProjectBuilder:
         repBuilder = RepositoriesBuilder(self.sourceFiles)
         repBuilder.buildRepositories()
 
+        gets = 0
+        posts = 0
+        for cont in contBuilder.controllers:
+            gets += len(cont["get"])
+            posts += len(cont["post"])
+
+        query = 0
+        commit = 0
+        for rep in repBuilder.repositories:
+            query += len(rep["queries"])
+            commit += len(rep["commits"])
+
         print("=====DONE======")
+        print(f"Created {len(contBuilder.controllers)} controllers")
+        print(f"GET methods: {gets}")
+        print(f"POST methods: {posts}")
+        print(10*"=")
+        print(f"Created {len(repBuilder.repositories)} repositories and {len(repBuilder.models)} models")
+        print(f"QUERY methods: {query}")
+        print(f"COMMIT methods: {commit}")
 
     def findSourceFiles(self):
         self.sourceFiles = []
