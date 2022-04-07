@@ -1,0 +1,745 @@
+
+<!-- saved from url=(0022)http://frogie.cz:8002/ -->
+<html lang="cs"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./Cheese Documentation_files/style.css">
+    <link rel="stylesheet" href="./Cheese Documentation_files/prism.css">
+    <link rel="icon" href="http://frogie.cz:8002/favicon.ico" type="image/x-icon">
+    <title>Cheese Documentation</title>
+</head>
+<body>
+<script src="./Cheese Documentation_files/prism.js.download"></script>
+
+<h1>Cheese Framework Documentation</h1>
+
+<div id="toc_container">
+    <p class="toc_title">Contents</p>
+    <ol>
+        <li>
+            <a href="http://frogie.cz:8002/#1">Introduction</a>
+        </li>
+        <li>
+            <a href="http://frogie.cz:8002/#2">Installation
+            </a><ol><a href="http://frogie.cz:8002/#2">
+                </a><li><a href="http://frogie.cz:8002/#2"></a><a href="http://frogie.cz:8002/#2.1">Download</a></li>
+                <li><a href="http://frogie.cz:8002/#2.2">Creating New project</a></li>
+                <li><a href="http://frogie.cz:8002/#2.3">Run Cheese application</a></li>
+            </ol>
+        </li>
+        <li><a href="http://frogie.cz:8002/#3">Project structure</a></li>
+        <li><a href="http://frogie.cz:8002/#4">Project settings</a></li>
+        <li>
+            <a href="http://frogie.cz:8002/#5">Python code</a>
+            <ol>
+                <li>
+                    <a href="http://frogie.cz:8002/#5.1">API Controllers</a>
+                    <ol>
+                        <li><a href="http://frogie.cz:8002/#5.1.1">Create controller</a></li>
+                        <li><a href="http://frogie.cz:8002/#5.1.2">Methods of controller</a></li>
+                        <li><a href="http://frogie.cz:8002/#5.1.3">Method arguments</a></li>
+                        <li><a href="http://frogie.cz:8002/#5.1.4">Example controller</a></li>
+                    </ol>
+                </li>
+                <li><a href="http://frogie.cz:8002/#5.2">Models</a></li>
+                <li>
+                    <a href="http://frogie.cz:8002/#5.3">Repositories</a>
+                    <ol>
+                        <li><a href="http://frogie.cz:8002/#5.3.1">Create repository</a></li>
+                        <li><a href="http://frogie.cz:8002/#5.3.2">Methods of repository</a></li>
+                    </ol>
+                </li>
+            </ol>
+        </li>
+        <li>
+            <a href="http://frogie.cz:8002/#6">Cheese functions</a>
+            <ol>
+                <li><a href="http://frogie.cz:8002/#6.1">CheeseController</a></li>
+                <li><a href="http://frogie.cz:8002/#6.2">Settings</a></li>
+                <li><a href="http://frogie.cz:8002/#6.3">Error</a></li>
+                <li><a href="http://frogie.cz:8002/#6.4">Logger</a></li>
+                <li><a href="http://frogie.cz:8002/#6.5">ResMan</a></li>
+            </ol>
+        </li>
+    </ol>
+    </div>
+
+<ol class="num">
+    <li class="num">
+        <span class="hd2" id="1">Introduction</span>
+        <p>
+            Cheese Framework is open source library for creating web applications with database connection (like Spring in Java).  
+            It can save a lot of time because developer does not have to making http server or creating whole database reader. 
+            Cheese is using pydobc library for database access so it is able to connect to most of modern database engines.
+        </p>
+    </li>
+    <li class="num">
+        <span class="hd2" id="2">Installation</span><br><br>
+        <ol class="num">
+            <li class="num">
+                <span class="hd3" id="2.1">Download</span>
+                <p>
+                    Download Cheese Framework <a href="https://github.com/KubaBoi/CheeseFramework" target="_blank">here</a> via git.<br>
+                    You will need install some python libraries via pip:
+                    </p><ul>
+                        <li>pip install pyodbc - <a href="https://pypi.org/project/pyodbc/" target="_blank">Documentation</a></li>
+                        <li>pip install psycopg2-binary - <a href="https://pypi.org/project/psycopg2/" target="_blank">Documentation</a></li>
+                        <li>pip install psycopg2 - <a href="https://pypi.org/project/psycopg2/" target="_blank">Documentation</a></li>
+                    </ul><br>
+                    And that's all for downloading :).
+                <p></p>
+            </li>
+            <li class="num">
+                <span class="hd3" id="2.2">Creating new project</span>
+                <p>
+                    Go in directory where you downloaded Cheese and into CheeseFramework folder.
+                    </p><figure>
+                        <figcaption>Open cmd and run:</figcaption>
+                        <pre class="language-markup" tabindex="0"><code class="language-markup">
+python cheeser.py -b CheeseApplication
+                    </code></pre></figure><br>
+                    This will create project in <i>projects</i> folder.<br><br>
+                    <figure>
+                        <figcaption>Note:</figcaption>
+                        <div class="note">
+                            Some changes needs rebuilding your application to be applied. I will marks them as:
+                            <div class="needBuild">NEED BUILD</div>
+                        </div>
+                    </figure><br>
+                <p></p>
+            </li>
+            <li class="num">
+                <span class="hd3" id="2.3">Run Cheese application</span>
+                <p>
+                    Whole application turns on by python script {name of your project}/src/{name of your project}.py.
+                    </p><figure>
+                        <figcaption>So in command:</figcaption>
+                        <pre class="language-markup" tabindex="0"><code class="language-markup">
+python projects/CheeseApplication/src/CheeseApplication.py
+                    </code></pre></figure><br>
+                    <img src="./Cheese Documentation_files/firstRun.png" width="800" ,="" height="600"><br><br>
+                    And you can check if everything works by typing into your web browser <a href="http://localhost:8080/">localhost:8080</a>.
+                <p></p>
+            </li>
+        </ol>
+    </li>
+    <li class="num">
+        <span class="hd2" id="3">Project structure</span>
+        <p>
+            In your project folder should be one folder named <i>src</i> and two files <i>.gitignore</i>, <i>appSettings</i>.<br>
+            Folder <i>src</i> contains source code of your application. 
+            </p><ul>
+                <li>
+                    <b>cheese</b><br><br>
+                    Do not touch anything in this folder. There are files guaranteeing fluent and "bugless" run.<br>
+                    Also everything is overwriten during build (command from 2.2).
+                </li><br>
+                <li>
+                    <b>python</b><br><br>
+                    Folder for your python code. It means API controllers, database repositories, database models and 
+                    whatever your application and you will need.
+                    You can see file <i>authorization.py</i>. It will be described later.<br>
+                    Create your own folder structure, it does not matter where files are located.
+                    Mechanism in cheeser.py is scanning whole folder <i>python</i>
+                </li><br>
+                <li>
+                    <b>resources</b><br><br>
+                    Resources folder contains anything non-python you will need.<br> 
+                    Inside folder <i>web</i> can be files served by CheeseServer. So html, javascript, css contains there.
+                    Of course any other files you want to serve.<br>
+                    Also there are <i>index.html</i> and folder <i>errors</i>. Those are default files for you to know everything works fine after first run.
+                </li><br>
+                <li>
+                    <b>tests</b><br><br>
+                    Work in progress :(
+                </li><br>
+                <li>
+                    <b>{name of your project}.py</b><br><br>
+                    This is THE file that runs your application. If you need do anything for initialization do it over here.<br><br>
+                    <figure>
+                        <figcaption>Application main file:</figcaption>
+                        <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    Cheese<span class="token punctuation">.</span>init<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token triple-quoted-string string">"""
+    here you can do anything
+    """</span>
+
+    Cheese<span class="token punctuation">.</span>serveForever<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    </code></pre></figure>
+                </li>
+            </ul><br>
+            That's all about structure of Cheese application. File <i>appSettings.json</i> will be described later.
+        <p></p>
+    </li>
+    <li class="num">
+        <span class="hd2" id="4">Project settings</span>
+        <p>
+            All settings are stored in file <i>appSettings.json</i> and looks like this:<br>
+            </p><figure>
+                <figcaption>Default appSettings.json:</figcaption>
+                <pre class="language-json" tabindex="0"><code class="language-json">
+<span class="token property">"host"</span><span class="token operator">:</span> <span class="token string">"0.0.0.0"</span><span class="token punctuation">,</span>
+<span class="token property">"port"</span><span class="token operator">:</span> <span class="token number">8000</span><span class="token punctuation">,</span>
+<span class="token property">"dbDriver"</span><span class="token operator">:</span> <span class="token string">"postgres"</span><span class="token punctuation">,</span>
+<span class="token property">"dbHost"</span><span class="token operator">:</span> <span class="token string">"localhost"</span><span class="token punctuation">,</span>
+<span class="token property">"dbName"</span><span class="token operator">:</span> <span class="token string">"database"</span><span class="token punctuation">,</span>
+<span class="token property">"dbUser"</span><span class="token operator">:</span> <span class="token string">"postgres"</span><span class="token punctuation">,</span>
+<span class="token property">"dbPassword"</span><span class="token operator">:</span> <span class="token string">"admin"</span><span class="token punctuation">,</span>
+<span class="token property">"dbPort"</span><span class="token operator">:</span> <span class="token number">5432</span><span class="token punctuation">,</span>
+<span class="token property">"allowCommit"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+<span class="token property">"allowMultiThreading"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+<span class="token property">"allowCORS"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+<span class="token property">"allowDB"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+                </code></pre></figure>
+            <br>
+            Most of those attributes are pretty intuitive so I will describe only some of them.<br><br>
+            <ul>
+                <li>
+                    <b>dbDriver</b><br><br>
+                    Driver for your database server. You can find them in 
+                    <a href="https://github.com/mkleehammer/pyodbc/wiki">pyodbc documentation</a>.
+                </li><br>
+                <li>
+                    <b>allowCommit</b><br><br>
+                    This is a rule that allows your application changing values in database. If allowCommit is false 
+                    application would not be able to execute SQL commands like UPDATE, INSERT etc...
+                </li><br>
+                <li>
+                    <b>allowMultiThreading</b><br><br>
+                    If true Cheese server would be able to handle more request at once. Otherwise clients have to wait little more.
+                </li><br>
+                <li>
+                    <b>allowCORS</b><br><br>
+                    If true Cheese server would be able to practise CORS. 
+                    <a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing">Learn about CORS</a>.
+                </li><br>
+                <li>
+                    <b>allowDB</b><br><br>
+                    Do not need database in your application? No problem, just leave this rule false and Cheese will not 
+                    connect to it.
+                </li>
+            </ul>
+        <p></p>
+    </li>
+    <li class="num">
+        <span class="hd2" id="5">Python code</span>
+        <p>
+            Reminding that every python code needs to be in <i>src/python</i> folder.
+        </p>
+        <ol class="num">
+            <li class="num">
+                <span class="hd3" id="5.1">API Controllers</span>
+                <p>
+                    Controllers are classes that handle requested endpoints. I recommend to create one folder just 
+                    for your controllers but it is not necessary.
+                </p>
+                <ol class="num">
+                    <li class="num">
+                        <span class="hd3" id="5.1.1">Create controller</span>
+                        <div class="needBuild">NEED BUILD</div>
+                        <p>
+                            As I said, controllers are classes. So create class that inherits from <i>CheeseController</i>.<br>
+                            To let cheeser know that this class is really controller you have to anotate it with #@controller annotation.
+                            <b>#@controller</b> annotation follows part of endpoint like this:
+                            </p><figure>
+                                <figcaption>Controller annotation:</figcaption>
+                                <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token comment">#@controller /apiController</span>
+<span class="token keyword">class</span> <span class="token class-name">apiController</span><span class="token punctuation">(</span>CheeseController<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                            </code></pre></figure>
+                        <p></p>
+                    </li>
+                    <li class="num">
+                        <span class="hd3" id="5.1.3">Methods of controller</span>
+                        <div class="needBuild">NEED BUILD</div>
+                        <p>
+                            There is sctrict scheme how should method in controller looks so it can handle endpoint.<br>
+                            Method have to be static, so add @staticmethod annotation above method definition.<br>
+                            Method have to be anotated. Annotation for endpoints contains HTTP method (right now only GET and POST) 
+                            and endpoint.<br>
+                            Method have to have 3 arguments: server, path, auth.
+                            </p><figure>
+                                <figcaption>Endpoint method in controller definiton:</figcaption>
+                                <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token comment">#@post /apiEndpoint</span>
+<span class="token decorator annotation punctuation">@staticmethod</span>
+<span class="token keyword">def</span> <span class="token function">getFiles</span><span class="token punctuation">(</span>server<span class="token punctuation">,</span> path<span class="token punctuation">,</span> auth<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                            </code></pre></figure>
+                        <p></p>
+                    </li>
+                    <li class="num">
+                        <span class="hd3" id="5.1.3">Method arguments</span>
+                        <p>
+                            So what are those 3 arguments? Argument number one <i>server</i> is instance of Cheese server handeling 
+                            this request. You can get some info about connection like client's IP etc... 
+                            Argument <i>path</i> is just string of request. For example:<br>
+                            Some one wants to see cats so he search for <i>http://hostname:port/wanna/see/pussy</i>. 
+                            And in this case <i>path</i> will be "/wanna/see/pussy"<br>
+                            Last argument <i>auth</i> is object created in <i>authorization.py</i> if it is enabled. 
+                            More about this later.
+                        </p>
+                    </li>
+                    <li class="num">
+                        <span class="hd3" id="5.1.4">Example controller</span>
+                        <p>
+                            Now you know almost everything you need to know to create your own controller. 
+                            There are some functions that was not described yet. Those will be of course later.<br>
+                            Controller will handle two endpoints:<br>
+                            /calculator/sum<br>
+                            /calculator/sub<br>
+                            </p><figure>
+                                <figcaption>Example controller:</figcaption>
+                                <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token comment">#!/usr/bin/env python</span>
+<span class="token comment"># -*- coding: utf-8 -*-</span>
+
+<span class="token keyword">from</span> cheese<span class="token punctuation">.</span>modules<span class="token punctuation">.</span>cheeseController <span class="token keyword">import</span> CheeseController
+
+<span class="token comment">#@controller /calculator</span>
+<span class="token keyword">class</span> <span class="token class-name">CalculatorController</span><span class="token punctuation">(</span>CheeseController<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token triple-quoted-string string">"""
+    sum two numbers in request body and return result
+    body looks for example like this:
+    {
+    "NUM1": 1,
+    "NUM2": 5
+    }
+    so result will looks like this:
+    {
+    "RESPONSE": 6
+    }
+    """</span>
+    <span class="token comment">#@post /sum</span>
+    <span class="token decorator annotation punctuation">@staticmethod</span>
+    <span class="token keyword">def</span> <span class="token function">sum</span><span class="token punctuation">(</span>server<span class="token punctuation">,</span> path<span class="token punctuation">,</span> auth<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+        <span class="token comment">#reads arguments from body of request </span>
+        args <span class="token operator">=</span> CheeseController<span class="token punctuation">.</span>readArgs<span class="token punctuation">(</span>server<span class="token punctuation">)</span>
+                
+        <span class="token comment">#arguments</span>
+        num1 <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>args<span class="token punctuation">[</span><span class="token string">"NUM1"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        num2 <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>args<span class="token punctuation">[</span><span class="token string">"NUM2"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+        result <span class="token operator">=</span> num1 <span class="token operator">+</span> num2
+
+        response <span class="token operator">=</span> CheeseController<span class="token punctuation">.</span>createResponse<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"RESPONSE"</span><span class="token punctuation">:</span> result<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">)</span>
+        CheeseController<span class="token punctuation">.</span>sendResponse<span class="token punctuation">(</span>server<span class="token punctuation">,</span> response<span class="token punctuation">)</span>
+
+    <span class="token triple-quoted-string string">"""
+    substract two numbers in request path and return result
+
+    path looks for example like this:
+    localhost:8000/calculator/sub?num1=5&amp;num2=3
+
+    so result will looks like this:
+    {
+    "RESPONSE": 2
+    }
+    """</span>
+    <span class="token comment">#@get /sub</span>
+    <span class="token decorator annotation punctuation">@staticmethod</span>
+    <span class="token keyword">def</span> <span class="token function">sub</span><span class="token punctuation">(</span>server<span class="token punctuation">,</span> path<span class="token punctuation">,</span> auth<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    
+        <span class="token comment">#reads arguments from endpoint path </span>
+        args <span class="token operator">=</span> CheeseController<span class="token punctuation">.</span>getArgs<span class="token punctuation">(</span>server<span class="token punctuation">)</span>
+        
+        <span class="token comment">#arguments</span>
+        num1 <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>args<span class="token punctuation">[</span><span class="token string">"num1"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        num2 <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>args<span class="token punctuation">[</span><span class="token string">"num2"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        
+        result <span class="token operator">=</span> num1 <span class="token operator">-</span> num2
+        
+        response <span class="token operator">=</span> CheeseController<span class="token punctuation">.</span>createResponse<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"RESPONSE"</span><span class="token punctuation">:</span> result<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">)</span>
+        CheeseController<span class="token punctuation">.</span>sendResponse<span class="token punctuation">(</span>server<span class="token punctuation">,</span> response<span class="token punctuation">)</span>
+                                        </code></pre></figure>
+                        <p></p>
+                    </li>
+                </ol>
+            </li>
+            <li class="num">
+                <span class="hd3" id="5.2">Models</span>
+                <p>
+                    Models are classes for storing data from database. Again, one folder for them.<br>
+                    One instance of model is one row of database table. Model needs only one annotation above class definition
+                    <b>#@model</b> and has to inherit from CheeseModel.<br>
+                    Arguments in initializer (constructor) should be indentic as scheme of table.<br>
+                    </p><figure>
+                        <figcaption>Model for table users with columns "id", "name", "age":</figcaption>
+                        <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token keyword">from</span> cheese<span class="token punctuation">.</span>modules<span class="token punctuation">.</span>cheeseModel <span class="token keyword">import</span> CheeseModel
+
+<span class="token comment">#@model</span>
+<span class="token keyword">class</span> <span class="token class-name">User</span><span class="token punctuation">(</span>CheeseModel<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> <span class="token builtin">id</span><span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> age<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span><span class="token builtin">id</span> <span class="token operator">=</span> <span class="token builtin">id</span>
+        self<span class="token punctuation">.</span>name <span class="token operator">=</span> name
+        self<span class="token punctuation">.</span>age <span class="token operator">=</span> age
+                    </code></pre></figure>
+                    <br>
+                    It is very useful but not necessary create a method toJson() which returns dictionary with data of model.
+                    <figure>
+                        <figcaption>toJson() method of model:</figcaption>
+                        <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token keyword">def</span> <span class="token function">toJson</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    response <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token string">"ID"</span><span class="token punctuation">:</span> self<span class="token punctuation">.</span><span class="token builtin">id</span><span class="token punctuation">,</span>
+        <span class="token string">"NAME"</span><span class="token punctuation">:</span> self<span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+        <span class="token string">"AGE"</span><span class="token punctuation">:</span> self<span class="token punctuation">.</span>age<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> response
+                    </code></pre></figure>
+                <p></p>
+            </li>
+            <li class="num">
+                <span class="hd3" id="5.3">Repositories</span>
+                <div class="needBuild">NEED BUILD</div>
+                <p>
+                    Repository is like access into one table of database. There are methods that communicate with database.
+                </p>
+                <ol class="num">
+                    <li class="num">
+                        <span class="hd3" id="5.3.1">Create repository</span>
+                        <div class="needBuild">NEED BUILD</div>
+                        <p>
+                            Repositories are last but most complex part of Cheese Framework. They are again classes but there 
+                            need to be more annotations. Also repository have to inherits from <i>CheeseRepository</i><br>
+                            First annotation is <b>#@repository</b>, so cheeser knows this is repository, followed by name of table.<br>
+                            Second annotation is <b>#@dbscheme</b> followed by name of table's columns in brackets where 
+                            first should be <b>Primary Key</b>.<br>
+                            </p><figure>
+                                <figcaption>IMPORTANT</figcaption>
+                                <div class="note">
+                                    Column names need to be in same order as in model initializer!!<br>
+                                    But do not have same names.
+                                </div>
+                            </figure>
+                            Last annotation is <b>#@dbmodel</b> followed by name of model for the table.
+                            <figure>
+                                <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token keyword">from</span> cheese<span class="token punctuation">.</span>modules<span class="token punctuation">.</span>cheeseRepository <span class="token keyword">import</span> CheeseRepository
+
+<span class="token comment">#@repository users</span>
+<span class="token comment">#@dbscheme (id, user_name, age)</span>
+<span class="token comment">#@dbmodel User</span>
+<span class="token keyword">class</span> <span class="token class-name">PasswordRepository</span><span class="token punctuation">(</span>CheeseRepository<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                                    </code></pre></figure>
+                        <p></p>
+                    </li>
+                    <li class="num">
+                        <span class="hd3" id="5.3.2">Methods of repository</span>
+                        <div class="needBuild">NEED BUILD</div>
+                        <p>
+                            Method scheme is again very strict. They need to be static and every method needs to have this line 
+                            in it's body:
+                            </p><figure>
+                                <figcaption>More line query:</figcaption>
+                                <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token keyword">return</span> CheeseRepository<span class="token punctuation">.</span>methodName<span class="token punctuation">(</span><span class="token punctuation">[</span>arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">]</span><span class="token punctuation">)</span>
+                                    </code></pre></figure>
+                            <figure>
+                                <figcaption>Note:</figcaption>
+                                <div class="note">
+                                    <i>arg1</i> and <i>arg2</i> are method's arguments. methodName have to be same as is in 
+                                    repository and arguments needs to be as list [].
+                                </div>
+                            </figure><br>
+                            There are two types of SQL query annotations <i>query</i> and <i>commit</i>.<br><br>
+                            <ul>
+                                <li>
+                                    <b>#@query</b><br><br>
+                                    This annotation says that we want to get data from database. It is followed by SQL query.
+                                    This query can be more than one line but have to be in quotation marks and the 
+                                    query must ends with semicolon.<br><br>
+                                    <figure>
+                                        <figcaption>More line query:</figcaption>
+                                        <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token comment">#@query "select * from users</span>
+<span class="token comment">#           where age &gt; 20;"</span>
+                                            </code></pre></figure>
+                                    With <b>#@query</b> annotation is related annotation <b>#@return</b>. It determines type of 
+                                    return. if annotation <b>#@return</b> is missing it is default.<br><br>
+                                    <ul>
+                                        <li>
+                                            DEFAULT - Returns raw data what get from database. Mostly it is tuple of tuples.
+                                            <pre class="language-python" tabindex="0"><code class="language-python"><span class="token comment">#@return raw</span></code></pre>
+                                        </li><br>
+                                        <li>
+                                            Returns array of models.
+                                            <pre class="language-python" tabindex="0"><code class="language-python"><span class="token comment">#@return array</span></code></pre>
+                                        </li><br>
+                                        <li>
+                                            Returns only one model. If there is more results returns first.
+                                            <pre class="language-python" tabindex="0"><code class="language-python"><span class="token comment">#@return one</span></code></pre>
+                                        </li><br>
+                                        <li>
+                                            Returns logical value.
+                                            <pre class="language-python" tabindex="0"><code class="language-python"><span class="token comment">#@return bool</span></code></pre>
+                                            <figcaption>#@retrun bool example:</figcaption>
+                                        <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token comment">#@query "select case when exists</span>
+<span class="token comment">#       (select * from tokens t where t.token = :token)</span>
+<span class="token comment">#       then cast(0 as bit)</span>
+<span class="token comment">#       else cast(1 as bit) end;"</span>
+<span class="token comment">#@return bool</span>
+                                            </code></pre>
+                                        </li><br>
+                                        <li>
+                                            Returns numeric value.
+                                            <pre class="language-python" tabindex="0"><code class="language-python"><span class="token comment">#@return num</span></code></pre>
+                                            <figcaption>#@return bool example:</figcaption>
+                                        <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token comment">#@query "select count(*) from users;"</span>
+<span class="token comment">#@return num</span>
+                                            </code></pre>
+                                        </li>
+                                    </ul>
+                                    
+                                 </li><br>
+                                 <li>
+                                    <b>#@commit</b>
+                                    This annotation is for writing data into database. 
+                                    <figure>
+                                        <figcaption>Commit query:</figcaption>
+                                        <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token comment">#@query "select * from users;"</span>
+                                            </code></pre></figure>
+                                    You will need it only when you want 
+                                    to change <b>Primary Key</b> of some row because there are three prebuilded methods that you should 
+                                    add into your repository. Those methods does not have any annotation and accepts only models.
+                                    The <i>update</i> and <i>delete</i> method search rows by <b>Primary Key</b> so if you want 
+                                    to update row's <b>Primary Key</b> you need to write your own SQL query. 
+                                    <figure>
+                                        <figcaption>Prebuilded methods:</figcaption>
+                                        <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token comment">#SQL = insert</span>
+<span class="token decorator annotation punctuation">@staticmethod</span>
+<span class="token keyword">def</span> <span class="token function">save</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> CheeseRepository<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token punctuation">[</span>obj<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment">#SQL = update</span>
+<span class="token decorator annotation punctuation">@staticmethod</span>
+<span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> CheeseRepository<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">[</span>obj<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment">#SQL = delete</span>
+<span class="token decorator annotation punctuation">@staticmethod</span>
+<span class="token keyword">def</span> <span class="token function">delete</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> CheeseRepository<span class="token punctuation">.</span>delete<span class="token punctuation">(</span><span class="token punctuation">[</span>obj<span class="token punctuation">]</span><span class="token punctuation">)</span>
+                                            </code></pre></figure>
+                                    <p>
+                                        Arguments of methods could be insert into SQL query via ":".<br>
+                                        </p><figure>
+                                            <figcaption>Variables in SQL query:</figcaption>
+                                            <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token comment">#@query "select * from users where name = :name and age &gt; :age;"</span>
+<span class="token keyword">def</span> <span class="token function">findUserByNameOlderThan</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> age<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> CheeseRepository<span class="token punctuation">.</span>findUserByName<span class="token punctuation">(</span><span class="token punctuation">[</span>name<span class="token punctuation">,</span> age<span class="token punctuation">]</span><span class="token punctuation">)</span>
+                                                </code></pre></figure>
+                                    <p></p>
+                                 </li>
+                             </ul>
+                        <p></p>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+    <li class="num">
+        <span class="hd2" id="6">Cheese functions</span>
+        <p>
+            There is a lot of classes and functions which Cheese Framework at its disposal. Here is list of them.
+        </p>
+        <ol class="num">
+            <li class="num">
+                <span class="hd3" id="6.1">CheeseController</span>
+                <figure>
+                    <figcaption>Import:</figcaption>
+                    <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token keyword">from</span> cheese<span class="token punctuation">.</span>modules<span class="token punctuation">.</span>cheeseController <span class="token keyword">import</span> CheeseController
+                        </code></pre></figure>
+                <p>
+                    This is REST controller.
+                    </p><ul>
+                        <li>
+                            <b>getClientAddress(server)</b><br><br>
+                            Returns IP address of client which send request. 
+                            <ul><li><b>server:</b><br>instance of Cheese server handeling request</li></ul>
+                        </li><br>
+                        <li>
+                            <b>createResponse(dict, code)</b><br><br>
+                            Returns HTTP response in form for send back to client.<br><br>
+                            <ul>
+                                <li>
+                                    <b>dict:</b><br>
+                                    dictionary with informations<br>
+                                    <figcaption>Example:</figcaption>
+                    <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token builtin">dict</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"REPONSE"</span><span class="token punctuation">:</span> <span class="token string">"hello"</span><span class="token punctuation">}</span>
+                        </code></pre>
+                                </li><br>
+                                <li><b>code:</b><br>HTTP status code of your response</li>
+                            </ul> 
+                        </li><br>
+                        <li>
+                            <b>modulesToJsonArray(modules)</b><br><br>
+                            Returns array of models but in json. Using toJson() method from model.
+                            <ul><b>modules:</b><br>array of models</ul> 
+                        </li><br>
+                        <li>
+                            <b>getTime(addTime=0)</b><br><br>
+                            Returns UNIX timestamp and adds it to addTime (in seconds).
+                            <ul><b>addTime:</b><br>time in seconds added to current time</ul> 
+                        </li><br>
+                        <li>
+                            <b>validateJson(keys, dict)</b><br><br>
+                            Returns True if every single item in keys appears in dict.
+                            <ul><b>keys:</b><br>array of strings, keys for dictionary</ul> 
+                            <ul><b>dict:</b><br>validated dictionary</ul> 
+                        </li><br>
+                        <li>
+                            <b>getPath(url)</b><br><br>
+                            Returns part of url before ?.
+                            <ul><b>url:</b><br>url</ul> 
+                        </li><br>
+                        <li>
+                            <b>getArgs(url)</b><br><br>
+                            Returns dictionary of arguments from rest request url.
+                            <ul><b>url:</b><br>url</ul>
+                        </li><br>
+                        <li>
+                            <b>readArgs(server)</b><br><br>
+                            Returns arguments from body of request.
+                            <ul><li><b>server:</b><br>instance of Cheese server handeling request</li></ul>
+                        </li><br>
+                        <li>
+                            <b>sendResponse(server, response, contentType="text/html")</b><br><br>
+                            Sends response created with createResponse.
+                            <ul>
+                                <li><b>server:</b><br>instance of Cheese server handeling request</li>
+                                <li><b>response:</b><br>response created with createResponse</li>
+                                <li><b>contentType:</b><br>type of content :D</li>
+                            </ul>
+                        </li>
+                    </ul>
+                <p></p>
+            </li><br>
+            <li class="num">
+                <span class="hd3" id="6.2">Settings</span>
+                <figure>
+                    <figcaption>Import:</figcaption>
+                    <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token keyword">from</span> cheese<span class="token punctuation">.</span>appSettings <span class="token keyword">import</span> Settings
+                        </code></pre></figure>
+                <p>
+                    This is access to read appSettings.
+                    </p><pre class="language-python" tabindex="0"><code class="language-python">Settings<span class="token punctuation">.</span>host</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">Settings<span class="token punctuation">.</span>port</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">Settings<span class="token punctuation">.</span>dbDriver</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">Settings<span class="token punctuation">.</span>dbHost</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">Settings<span class="token punctuation">.</span>dbName</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">Settings<span class="token punctuation">.</span>dbUser</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">Settings<span class="token punctuation">.</span>dbPassword</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">Settings<span class="token punctuation">.</span>dbPort</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">Settings<span class="token punctuation">.</span>allowCommit</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">Settings<span class="token punctuation">.</span>allowMultiThreading</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">Settings<span class="token punctuation">.</span>allowCORS</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">Settings<span class="token punctuation">.</span>allowDB</code></pre>
+                <p></p>
+            </li><br>
+            <li class="num">
+                <span class="hd3" id="6.3">Error</span>
+                <figure>
+                    <figcaption>Import:</figcaption>
+                    <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token keyword">from</span> cheese<span class="token punctuation">.</span>ErrorCodes <span class="token keyword">import</span> Error
+                        </code></pre></figure>
+                <p>
+                    Prebuilded error responses and ability to create custom error responses.
+                    </p><figure><figcaption>Bad request 400 - Wrong json structure</figcaption>
+                        <pre class="language-python" tabindex="0"><code class="language-python">Error<span class="token punctuation">.</span>BadJson</code></pre></figure>
+                    <figure><figcaption>Unauthorized 401 - Old password</figcaption>
+                        <pre class="language-python" tabindex="0"><code class="language-python"></code>Error.OldPass</pre></figure>
+                    <figure><figcaption>Unauthorized 401 - Wrong credentials</figcaption>
+                        <pre class="language-python" tabindex="0"><code class="language-python"></code>Error.BadCred</pre></figure>
+                    <figure><figcaption>Unauthorized 401 - Unable to authorize with this token</figcaption>
+                        <pre class="language-python" tabindex="0"><code class="language-python"></code>Error.BadToken</pre></figure>
+                    <figure><figcaption>Unauthorized 401 - Access denied</figcaption>
+                        <pre class="language-python" tabindex="0"><code class="language-python"></code>Error.AccDenied</pre></figure>
+                    <figure><figcaption>File not found 404 - File not found</figcaption>
+                        <pre class="language-python" tabindex="0"><code class="language-python"></code>Error.FileNotFound</pre></figure>
+                    <ul>
+                        <li>
+                            <b>sendCustomError(server, comment, code)</b><br><br>
+                            Create and send custom error.
+                            <ul>
+                                <li><b>server:</b><br>instance of Cheese server handeling request</li>
+                                <li><b>comment:</b><br>comment of error</li>
+                                <li><b>code:</b><br>HTTP status code of error</li>
+                            </ul>
+                        </li>
+                    </ul>
+                <p></p>
+            </li><br>
+            <li class="num">
+                <span class="hd3" id="6.4">Logger</span>
+                <figure>
+                    <figcaption>Import:</figcaption>
+                    <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token keyword">from</span> cheese<span class="token punctuation">.</span>Logger <span class="token keyword">import</span> Logger
+                        </code></pre></figure>
+                <p>
+                    Prints logs and saves them into /log.log. And provides text colors.
+                    </p><pre class="language-python" tabindex="0"><code class="language-python">HEADER</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">OKBLUE</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">OKCYAN</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">OKGREEN</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">WARNING</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">FAIL</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">ENDC</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">BOLD</code></pre>
+                    <pre class="language-python" tabindex="0"><code class="language-python">UNDERLINE</code></pre><br>
+                    <ul>
+                        <li><b>info(message)</b><br><br>info log</li><br>
+                        <li><b>okBlue(message)</b><br><br>okBlue log</li><br>
+                        <li><b>okCyan(message)</b><br><br>okCyan log</li><br>
+                        <li><b>okGreen(message)</b><br><br>okGreen log</li><br>
+                        <li><b>warning(message)</b><br><br>warning log</li><br>
+                        <li><b>fail(message)</b><br><br>fail log</li><br>
+                        <li><b>bold(message)</b><br><br>bold log</li><br>
+                        <li><b>underline(message)</b><br><br>underline log</li><br>
+                    </ul>
+                <p></p>
+            </li><br>
+            <li class="num">
+                <span class="hd3" id="6.5">ResMan</span>
+                <figure>
+                    <figcaption>Import:</figcaption>
+                    <pre class="language-python" tabindex="0"><code class="language-python">
+<span class="token keyword">from</span> cheese<span class="token punctuation">.</span>ResourceManager <span class="token keyword">import</span> ResMan
+                        </code></pre></figure>
+                <p>
+                    </p><ul>
+                        <li><b>getFileName(path)</b><br><br>Returns name of file from path.</li><br>
+                        <li><b>getRelativePathFrom(path, fromPath)</b><br><br>Return relative path from.</li><br>
+                        <li><b>removeSlash(path, start=True)</b><br><br>Remove / from start or end.</li><br>
+                        <li><b>joinPath(path1, path2)</b><br><br>Joins two path together.</li><br>
+                        <li><b>joinArray(array)</b><br><br>Joins array together.</li><br>
+                        <li><b>root()</b><br><br>Root dir of project.</li><br>
+                        <li><b>src()</b><br><br>All source codes of project.</li><br>
+                        <li><b>pythonSrc()</b><br><br>Python source codes dir.</li><br>
+                        <li><b>resources()</b><br><br>Other resources of project.</li><br>
+                        <li><b>tests()</b><br><br>Tests.</li><br>
+                        <li><b>web()</b><br><br>Dir from which CheeseFramework is able to serve files (index.html).</li><br>
+                        <li><b>error()</b><br><br>Dir for error sites.</li><br>
+                    </ul>
+                <p></p>
+            </li>
+        </ol>
+    </li>
+</ol>
+<label style="position: fixed;right: 5px;bottom: 5px; font-family: Arial, Helvetica, sans-serif;">Powered By Cheese Framework </label>
+</body></html>

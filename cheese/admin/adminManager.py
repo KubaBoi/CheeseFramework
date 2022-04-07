@@ -115,7 +115,7 @@ class AdminManager:
             min = 0
             if (len(lines) >= 1000): min = len(lines) - 1000
             onlyTable = "".join(lines[min:(min+1000)])
-        response = CheeseController.createResponse({"RESPONSE": {"LOG_DESC": activeLog, "LOG": onlyTable}}, 200)
+        response = CheeseController.createResponse({"RESPONSE": {"LOG_DESC": activeLog.replace(".html", ""), "LOG": onlyTable}}, 200)
         CheeseController.sendResponse(server, response, "text/html")
 
     @staticmethod
