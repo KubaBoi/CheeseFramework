@@ -15,6 +15,8 @@ function addRow(table, cells, rowAttributes=[]) {
 function addHeader(table, cells, rowAttributes=[]) {
     var row = createElement("tr", table, "", rowAttributes);
     for (let i = 0; i < cells.length; i++) {
-        createElement("th", row, cells[i]);
+        if (!cells[i].attributes)
+            cells[i].attributes = []
+        createElement("th", row, cells[i].text, cells[i].attributes);
     }
 }
