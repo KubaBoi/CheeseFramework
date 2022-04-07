@@ -5,7 +5,7 @@ on: push
 jobs:
   release-sign:
     runs-on: ubuntu-latest
-    if: githu.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     steps:
 
       - name: checkout repo content
