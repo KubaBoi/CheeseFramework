@@ -25,7 +25,7 @@ class Updater:
         props = Updater.getRelease()
 
         if (props['release'] != aversion):
-            print(f"You have got release {props['release']}, but latest Cheese is {aversion}")
+            print(f"You have got release {props['release']} but the latest Cheese is {aversion}")
             accept = input("Would you like to update? [y/n]")
             if (accept.startswith("y")):
                 Updater.update()
