@@ -6,7 +6,7 @@ class Updater:
 
     @staticmethod
     def checkUpdate():
-        aversion = requests.get("https://kubaboi.github.io/CheeseFramework/public/version.html")
+        aversion = requests.get("https://kubaboi.github.io/CheeseFramework/public/version.html").text
         with open("./cheese/cheeseproperties.json", "r") as f:
             version = json.loads(f.read())["release"]
 
