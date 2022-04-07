@@ -1,6 +1,6 @@
-name: releaseDate
+name: release Date in html
 
-on: 
+on:
   push:
     branches:
       - main
