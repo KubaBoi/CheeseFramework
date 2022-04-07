@@ -8,7 +8,7 @@ with open(propFile, "r") as f:
     properties = json.loads(f.read())
 
 now = datetime.now(timezone.utc)
-properties["release"] = now.strftime("%y.%m.%d.%H")
+properties["release"] = now.strftime("%y.%m.%d.%H.%M")
 print(properties["release"])
 
 with open(propFile, "w") as f:
