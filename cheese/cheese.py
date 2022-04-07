@@ -84,6 +84,9 @@ class Cheese:
             print(f.read())
         with open(f"{ResMan.cheese()}/cheeseproperties.json", "r") as f:
             properties = json.loads(f.read())
-            print(properties['documentation'])
-            print(properties['release'])
+            print("Cheese: " + properties['release'])
+            print(20*"=")
+            print("Documentation: " + properties['documentation'])
+            print(20*"=")
+            print("")
 
