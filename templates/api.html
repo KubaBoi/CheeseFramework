@@ -31,12 +31,30 @@
                     <figure>
                         <figcaption>Accepts:</figcaption>
                         <pre><code class="language-json">
-"ACCEPT": "json"
+{
+    "ACCEPT": "json"
+}
                         </code></pre></figure>
                     <figure>
                         <figcaption>Return OK - 200:</figcaption>
                         <pre><code class="language-json">
-"RETURN": "json"
+{
+    "RETURN": "json"
+}
+                            </code></pre></figure>
+                    <figure>
+                        <figcaption>Return Bad request - 400:</figcaption>
+                        <pre><code class="language-json">
+{
+    "ERROR": "Wrong json structure"
+}
+                            </code></pre></figure>
+                    <figure>
+                        <figcaption>Return Unauthorized - 401:</figcaption>
+                        <pre><code class="language-json">
+{
+    "ERROR": "Unauthorized"
+}
                             </code></pre></figure>
                 </li>
             </ol>

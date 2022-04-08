@@ -98,8 +98,8 @@ class CreateByDB:
         content += CreateByDB.createMethod("findBy", "query", f"select * from {name} where :columnName=:value;", "array", "columnName, value")
 
         content += "\t@staticmethod\n"
-        content += "\tdef findNewId(obj):\n"
-        content += "\t\treturn CheeseRepository.findNewId([obj])+1\n\n"
+        content += "\tdef findNewId():\n"
+        content += "\t\treturn CheeseRepository.findNewId([])+1\n\n"
 
         content += "\t@staticmethod\n"
         content += "\tdef save(obj):\n"
