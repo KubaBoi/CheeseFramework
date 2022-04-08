@@ -128,7 +128,8 @@ class CheeseController:
             with open(f"{file}", "r", encoding="utf-8") as f:
                 data = f.read()
                 data = (data.split("</body>")[0] + "<label style='position: fixed;right: 5px;bottom: 5px; font-family: Arial, Helvetica, sans-serif;'>"
-                + "Powered By Cheese Framework </label></body>" + data.split("</body>")[1])
+                + "Powered By <a href='https://kubaboi.github.io/CheeseFramework/'"
+                + "style='color: var(--text-color);' target='_blank'>Cheese Framework</a> </label></body>" + data.split("</body>")[1])
                 CheeseController.sendResponse(server, (bytes(data, "utf-8"), 200), header)
         else:
             with open(f"{file}", "rb") as f:
