@@ -25,6 +25,14 @@
                 </a><li><a href="#2"></a><a href="#2.1">Download</a></li>
                 <li><a href="#2.2">Creating New project</a></li>
                 <li><a href="#2.3">Run Cheese application</a></li>
+                <li><a href="#2.4">Create by database</a></li>
+                <li>
+                    <a href="#2.5">Create by api (How to write API for Cheese)</a>
+                    <ol>
+                        <li><a href="#2.5.1">Running controller creator</a></li>
+                        <li><a href="#2.5.2">API pattern</a></li>
+                    </ol>
+                </li>
             </ol>
         </li>
         <li><a href="#3">Project structure</a></li>
@@ -96,7 +104,7 @@
                     </p><figure>
                         <figcaption>Open cmd and run:</figcaption>
                         <pre class="language-markup" tabindex="0"><code class="language-markup">
-python cheeser.py -b CheeseApplication
+python cheeser.py --build CheeseApplication
                     </code></pre></figure><br>
                     This will create project in <i>projects</i> folder.<br><br>
                     <figure>
@@ -117,9 +125,51 @@ python cheeser.py -b CheeseApplication
                         <pre class="language-markup" tabindex="0"><code class="language-markup">
 python projects/CheeseApplication/src/CheeseApplication.py
                     </code></pre></figure><br>
-                    <img src="documentation/images/firstRun.png" width="800" ,="" height="600"><br><br>
+                    <img src="documentation/images/firstRun.png" width="850" height="600"><br><br>
                     And you can check if everything works by typing into your web browser <a href="http://localhost:8080/" target="_blank">localhost:8080</a>.
                 <p></p>
+            </li>
+            <li class="num">
+                <span class="hd3" id="2.4">Create by database</span>
+                <p>
+                    If you have a database with more than 5 tables and every table have atleast 4 columns, it could be annoying to write all Models and Repositories by hand
+                     (viz <a href="#5.2">Models</a> and <a href="#5.3">Repositories</a>). So there is a tool for that to not be annoying. <br><br>
+                    After first run of your application you need to complete database setting in <a href="#4">appSettings.json</a> (those are that starts with db).<br>
+                    <figure>
+                        <figcaption>Then run ByDBCreator:</figcaption>
+                        <pre class="language-markup" tabindex="0"><code class="language-markup">
+python cheeser.py --database CheeseApplication
+                    </code></pre></figure><br>
+                    if your <a href="#4">appSettings.json</a> is configured correctly ByDBCreator should generate <a href="#5.2">Model</a> and <a href="#5.3">Repostiory</a> files for 
+                    every table in your database.
+                </p>
+            </li>
+            <li class="num">
+                <span class="hd3" id="2.5">Create by api (How to write API for Cheese)</span>
+                <p>
+                    Like in <a href="#2.3">Create by database</a> writing controllers (viz <a href="#5.1">API Controllers</a>) could be monotonous work. 
+                    In <i>src/resources/web/</i> is file <i>api.html</i>. This file is served like any other file and is used for creating controllers.
+                    Api will also helps you fabricate your application structure, so I recommend to create an api before coding.<br><br>
+                    Creating controllers via <i>api.html</i> is pretty easy proccess. All you need to do is create your <i>api.html</i> in certain <a href="#2.5.2">pattern</a>.
+                </p>
+                <ol class="num">
+                    <li class="num">
+                        <span class="hd3" id="2.5.1">Running controller creator</span>
+                        <p>
+                            <figure>
+                                <figcaption>If your <i>api.html</i> is in that pattern you can run controller creator:</figcaption>
+                                <pre class="language-markup" tabindex="0"><code class="language-bash">
+python cheeser.py --controller CheeseApplication
+                            </code></pre></figure><br>
+                            This will create controllers in folder <i>src/python/controllers</i> as it is described in <i>api.html</i>.<br><br>
+                            Files are not going to be overwriten so do not be affraid that you ruin everything you have been working on. 
+                            So if you want to generate a controller again for any reasons you need to remove its file.
+                        </p>
+                    </li>
+                    <li class="num">
+                        <span class="hd3" id="2.5.2">API pattern</span>
+                    </li>
+                </ol>
             </li>
         </ol>
     </li>
@@ -147,7 +197,7 @@ python projects/CheeseApplication/src/CheeseApplication.py
                     Resources folder contains anything non-python you will need.<br> 
                     Inside folder <i>web</i> can be files served by CheeseServer. So html, javascript, css contains there.
                     Of course any other files you want to serve.<br>
-                    Also there are <i>index.html</i> and folder <i>errors</i>. Those are default files for you to know everything works fine after first run.
+                    Also there are <i>index.html</i>, <i>api.html</i> and folder <i>errors</i>. Those are default files for you to know everything works fine after first run.
                 </li><br>
                 <li>
                     <b>tests</b><br><br>
