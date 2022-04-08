@@ -22,7 +22,7 @@ __status__ = "Development"
 Updater.checkUpdate()
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "hb:d:a:g:", ["build=", "database=", "api=", "generateApi="])
+    opts, args = getopt.getopt(sys.argv[1:], "hb:d:c:a:", ["build=", "database=", "controller=", "api="])
 except getopt.GetoptError:
     print("cheeser.py [argument]")
     sys.exit(2)
@@ -41,9 +41,9 @@ for opt, arg in opts:
         builder.build()
     elif opt in ("-d", "--database"):
         CreateByDB.createFiles()
-    elif opt in ("-a", "--api"):
+    elif opt in ("-c", "--controller"):
         api.createApiControllers()
-    elif opt in ("-g", "--generateApi"):
+    elif opt in ("-a", "--api"):
         apiG.generateApi()
 
 ResMan.setPath(f"{os.path.dirname(__file__)}/projects/CheeseApplication")
