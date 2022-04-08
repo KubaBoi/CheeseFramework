@@ -9,9 +9,7 @@ from cheeserScripts.createByDb import CreateByDB
 class ApiControllerCreator:
 
     @staticmethod
-    def createApiControllers(path):
-        ResMan.setPath(path)
-
+    def createApiControllers():
         ApiControllerCreator.notSorted = []
 
         with open(f"{ResMan.web()}/api.html", "r") as f:
@@ -113,7 +111,7 @@ class ApiControllerCreator:
                             content += ApiControllerCreator.createScript(name, args)
                         elif (methodName.startswith("/update")):
                             content += ApiControllerCreator.updateScript(name, args, responseOKRequest)
-                        elif (methodName.startswith("/remove")):
+                        elif (methodName.startswith("/delete")):
                             content += ApiControllerCreator.removeScript(name, responseOKRequest)
                         elif (methodName.startswith("/get")):
                             content += ApiControllerCreator.getScript(name, args, methodName)

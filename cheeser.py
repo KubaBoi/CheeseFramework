@@ -8,6 +8,7 @@ from cheeserScripts.projectGenerator import ProjectGenerator
 from cheeserScripts.projectBuilder import ProjectBuilder
 from cheeserScripts.createByDb import CreateByDB
 from cheeserScripts.createApi import ApiControllerCreator as api
+from cheeserScripts.generateApi import ApiGenerator as apiG
 from cheeserScripts.checkVersion import Updater
 from cheese.resourceManager import ResMan
 
@@ -21,7 +22,7 @@ __status__ = "Development"
 Updater.checkUpdate()
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "hg:b:d:a:", ["pname=", "pname=", "database=", "api="])
+    opts, args = getopt.getopt(sys.argv[1:], "hb:d:a:g:", ["build=", "database=", "api=", "generateApi="])
 except getopt.GetoptError:
     print("cheeser.py [argument]")
     sys.exit(2)
@@ -32,9 +33,6 @@ for opt, arg in opts:
         print("b - build <path>")
         print("g - generate <project name>")
         sys.exit()
-    elif opt in ("-g", "--pname"):
-        generator = ProjectGenerator(arg)
-        generator.generate()
     elif opt in ("-b", "--pname"):
         generator = ProjectGenerator(arg)
         generator.generate()
@@ -42,6 +40,11 @@ for opt, arg in opts:
         builder = ProjectBuilder(arg)
         builder.build()
     elif opt in ("-d", "--database"):
-        CreateByDB.createFiles(f"{os.path.dirname(__file__)}/projects/{arg}")
+        CreateByDB.createFiles()
     elif opt in ("-a", "--api"):
-        api.createApiControllers(f"{os.path.dirname(__file__)}/projects/{arg}")
+        api.createApiControllers()
+    elif opt in ("-g", "--generateApi"):
+        apiG.generateApi()
+
+ResMan.setPath(f"{os.path.dirname(__file__)}/projects/CheeseApplication")
+apiG.generateApi()

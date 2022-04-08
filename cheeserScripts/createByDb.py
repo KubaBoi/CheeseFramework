@@ -7,12 +7,11 @@ from cheese.appSettings import Settings
 class CreateByDB:
 
     @staticmethod
-    def createFiles(path):
+    def createFiles():
         Settings.loadSettings()
 
-        Settings.allowDebug = True
+        Settings.allowDebug = False
         Settings.allowDB = True
-        ResMan.setPath(path)
         Logger.initLogger()
         CreateByDB.create()
 
