@@ -48,6 +48,8 @@ class CheeseRepository:
                         newArgs.append(arg.replace("columnName-", ""))
                     else:
                         newArgs.append(f"\'{arg}\'")
+                else:
+                    newArgs.append(str(arg))
             elif (type(arg) is list):
                 newArgs.append("(" + ",".join(CheeseRepository.getTypeOf(arg)) + ")")
             else:
