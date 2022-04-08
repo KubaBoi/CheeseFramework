@@ -33,7 +33,7 @@ for opt, arg in opts:
         print("b - build <path>")
         print("g - generate <project name>")
         sys.exit()
-    elif opt in ("-b", "--pname"):
+    elif opt in ("-b", "--build"):
         generator = ProjectGenerator(arg)
         generator.generate()
 
@@ -45,6 +45,3 @@ for opt, arg in opts:
         api.createApiControllers()
     elif opt in ("-a", "--api"):
         apiG.generateApi()
-
-ResMan.setPath(f"{os.path.dirname(__file__)}/projects/CheeseApplication")
-apiG.generateApi()
