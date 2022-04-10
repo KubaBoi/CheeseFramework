@@ -1126,8 +1126,18 @@ from cheese.ResourceManager import ResMan
 &lt;script src="https://kubaboi.github.io/CheeseFramework/public/scripts/autoComplete.js"&gt;&lt;/script&gt;
                         </code></pre></figure>
                         <p>
+                            <a href="https://www.w3schools.com/howto/howto_js_autocomplete.asp">Credit</a><br>
                             The name reveals. 
                         </p>
+                        <ul>
+                            <li>
+                                <b>autocomplete(inp, arr)</b>
+                                <ul>
+                                    <li><b>inp</b> - input html element</li>
+                                    <li><b>arr</b> - array with data for autocompletion</li>
+                                </ul>
+                            </li>
+                        </ul>
                     </li>
                     <li class="num">
                         <span class="hd3" id="8.1.2">prism</span>
@@ -1136,6 +1146,9 @@ from cheese.ResourceManager import ResMan
                             <pre><code class="language-markup">
 &lt;script src="https://kubaboi.github.io/CheeseFramework/public/scripts/prism.js"&gt;&lt;/script&gt;
                         </code></pre></figure>
+                        <p>
+                            <a href="https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+clike+javascript">Credit</a><br>
+                        </p>
                     </li>
                     <li class="num">
                         <span class="hd3" id="8.1.3">cookies</span>
@@ -1144,6 +1157,26 @@ from cheese.ResourceManager import ResMan
                             <pre><code class="language-markup">
 &lt;script src="https://kubaboi.github.io/CheeseFramework/public/scripts/cookies.js"&gt;&lt;/script&gt;
                         </code></pre></figure>
+                        <p>
+                            Script for saving and loading cookies.
+                        </p>
+                        <ul>
+                            <li>
+                                <b>setCookie(cname, cvalue, exdays)</b>
+                                <ul>
+                                    <li><b>cname</b> - str, name of the cookie</li>
+                                    <li><b>cvalue</b> - cookie value</li>
+                                    <li><b>exdays</b> - float, how many days will the cookie be stored</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <b>getCookie(cname)</b>
+                                <ul>
+                                    <li><b>cname</b> - str, name of the cookie</li>
+                                    <li><b>return</b> - cookie value</li>
+                                </ul>
+                            </li>
+                        </ul>
                     </li>
                     <li class="num">
                         <span class="hd3" id="8.1.4">communication</span>
@@ -1151,6 +1184,35 @@ from cheese.ResourceManager import ResMan
                             <figcaption>Import:</figcaption>
                             <pre><code class="language-markup">
 &lt;script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"&gt;&lt;/script&gt;
+                        </code></pre></figure>
+                        <p>
+                            Script for communication with server.<br>
+                            There is var <i>debug</i> variable set at true. So it will print in console informations about requests.
+                            Set at false anywhere in your scripts if you do not want to see those informations.
+                        </p>
+                        <ul>
+                            <li>
+                                <b>callEndpoint(type, url, request)</b>
+                                <ul>
+                                    <li><b>type</b> - "GET"/"POST"</li>
+                                    <li><b>url</b> - endpoint url</li>
+                                    <li><b>request</b> - javascript model, null if type = "GET"</li>
+                                    <li><b>return</b> - returns Promise with server JSON response</li>
+                                </ul>
+                                <figure>
+                                    <figcaption>Usage:</figcaption>
+                                    <pre><code class="language-javascript">
+async function getData() {
+    var response = await callEndpoint("POST", "/endpoint", someObject);
+    if (!response.ERROR) {
+        console.log(response);
+    }
+    else {
+        alert(response.ERROR);
+    }
+}
+                            </li>
+                        </ul>
                         </code></pre></figure>
                     </li>
                     <li class="num">
@@ -1160,6 +1222,46 @@ from cheese.ResourceManager import ResMan
                             <pre><code class="language-markup">
 &lt;script src="https://kubaboi.github.io/CheeseFramework/public/scripts/elementManager.js"&gt;&lt;/script&gt;
                         </code></pre></figure>
+                        <p>
+                            Script for creating html elements.
+                        </p>
+                        <ul>
+                            <li>
+                                <b>createElement(type, parent=null, innerHTML="", attributes=[])</b>
+                                <ul>
+                                    <li><b>type</b> - html tag ('div', 'label'...)</li>
+                                    <li><b>parent</b> - parent element</li>
+                                    <li><b>innerHTML</b> - text inside of element</li>
+                                    <li>
+                                        <b>attributes</b> - list of attributes ('id', 'class', 'onclick'...)<br>
+                                        - attributes are javascript objects containing "name" and "value"
+                                    </li>
+                                    <li><b>return</b> - created element</li>
+                                </ul>
+                                <figure>
+                                    <figcaption>Usage:</figcaption>
+                                    <pre><code class="language-javascript">
+// function will create div and button inside that div with text "Click me :)"
+// button will have class "coolButton" and onclick will print in console "hello"
+function makeElement() {
+    var div = createElement("div");
+    var element = createElement("button", div, "Click me :)",
+        [
+            {"name": "onclick", "value": "console.log('hello');"},
+            {"name": "class", "value": "coolButton"}
+        ]
+    );
+}
+                                </code></pre></figure>
+                            </li>
+                            <li>
+                                <b>getValueOf(id)</b>
+                                <ul>
+                                    <li><b>id</b> - if of element</li>
+                                    <li><b>return</b> - if emelement has any value it will be returned</li>
+                                </ul>
+                            </li>
+                        </ul>
                     </li>
                     <li class="num">
                         <span class="hd3" id="8.1.6">tableBuilder</span>
@@ -1168,6 +1270,41 @@ from cheese.ResourceManager import ResMan
                             <pre><code class="language-markup">
 &lt;script src="https://kubaboi.github.io/CheeseFramework/public/scripts/tableBuilder.js"&gt;&lt;/script&gt;
                         </code></pre></figure>
+                        <p>
+                            Script for building a tables.
+                        </p>
+                        <ul>
+                            <li>
+                                <b>clearTable(table)</b>
+                                <ul>
+                                    <li><b>table</b> - javascript object of table</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <b>addRow(table, cells, rowAttributes=[])</b>
+                                <ul>
+                                    <li><b>table</b> - javascript object of table</li>
+                                    <li><b>cells</b> - array of cell objects<br>
+                                        - cell are javascript objects containing "text" and "attributes" which is a list<br>
+                                        - attributes are javascript objects containing "name" and "value"
+                                    </li>
+                                    <li><b>rowAttributes</b> - list of attributes for row element ('id', 'class', 'onclick'...)<br>
+                                        - attributes are javascript objects containing "name" and "value"
+                                </ul>
+                            </li>
+                            <li>
+                                <b>addHeader(table, cells, rowAttributes=[])</b>
+                                <ul>
+                                    <li><b>table</b> - javascript object of table</li>
+                                    <li><b>cells</b> - array of cell objects<br>
+                                        - cell are javascript objects containing "text" and "attributes" which is a list<br>
+                                        - attributes are javascript objects containing "name" and "value"
+                                    </li>
+                                    <li><b>rowAttributes</b> - list of attributes for row element ('id', 'class', 'onclick'...)<br>
+                                        - attributes are javascript objects containing "name" and "value"
+                                </ul>
+                            </li>
+                        </ul>
                     </li>
                 </ol>
             </li>
