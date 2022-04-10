@@ -25,7 +25,12 @@ function sendGet(url, output, callback) {
 
     xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4) {
-            json = JSON.parse(this.responseText);
+            try {
+                json = JSON.parse(this.responseText);
+            }
+            catch {
+                json = this.responseText;
+            }
             if(output) console.log("RESPONSE", date.getTime(), url, json);
             if(callback) callback(json);
         }
@@ -35,7 +40,7 @@ function sendGet(url, output, callback) {
     xmlHttp.send();
 }
 
-function callEndpoint(type, url, request) {
+function callEndpoint(type, url, request=null) {
     if (type == "GET") {
         return new Promise(resolve => {
             sendGet(url, debug, function(response) {

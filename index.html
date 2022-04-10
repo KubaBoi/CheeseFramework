@@ -13,9 +13,18 @@
 <script src="public/scripts/communication.js"></script>
 
 <h1>Cheese Framework Documentation</h1>
-<label>Last updated: </label><br><br>
+<label id="update"></label><br><br>
 <script>
-    var response = callEndpoint("GET", "/")
+    debug = false;
+    getRelease();
+
+    async function getRelease() {
+        var response = await callEndpoint("GET", "https://kubaboi.github.io/CheeseFramework/public/docVersion.html");
+        if (!response.ERROR) {
+            var label = document.getElementById("update");
+            label.innerHTML = "Documentation release: " + response;
+        }
+    }
 </script>
 <img src="documentation/documentation300x300.png" width="150" height="150" style="position: absolute; right: 5px; top: 0;">
 
