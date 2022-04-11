@@ -22,19 +22,19 @@
     100% { top: -200px; }
 }
 
-.alertDiv h2 {
+.alertH2 {
     position: absolute;
     top: -5px;
     left: 5px;
 }
 
-.alertDiv label {
+.alertLabel {
     position: absolute;
     top: 50px;
     left: 10px;
 }
 
-.alertDiv button {
+.alertOKbutton {
     position: absolute;
     right: 5px;
     bottom: 5px;
@@ -43,13 +43,13 @@
     transition-duration: 0.4s;
 }
 
-.alertDiv button:hover {
+.alertOKbutton:hover {
     background-color: var(--secondary-light-color);
     transition: all;
     transition-duration: 0.4s;
 }
 
-.alertDiv .cancelButton {
+.alertCancelButton {
     position: absolute;
     right: 60px;
     bottom: 5px;
@@ -58,7 +58,7 @@
     transition-duration: 0.4s;
 }
 
-.alertDiv .cancelButton:hover {
+.cancelButton:hover {
     background-color: var(--secondary-light-color);
     transition: all;
     transition-duration: 0.4s;

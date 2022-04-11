@@ -9,10 +9,11 @@ function showAlert(title, message, divClass="alertDiv",
         {"name": "id", "value": "alertDiv"}
     ]);
 
-    createElement("h2", alertDiv, title);
-    createElement("label", alertDiv, message);
+    createElement("h2", alertDiv, title, [{"name":"class","value":"alertH2"}]);
+    createElement("label", alertDiv, message, [{"name":"class","value":"alertLabel"}]);
     createElement("button", alertDiv, "OK",
     [
+        {"name": "class", "value": "alertOKButton"},
         {"name": "onclick", "value": "hideAlert(true, " + closeAnimation + ")"}
     ]);
 
@@ -31,16 +32,17 @@ function showConfirm(title, message, ifOk, divClass="alertDiv",
         {"name": "id", "value": "alertDiv"}
     ]);
 
-    createElement("h2", alertDiv, title);
-    createElement("label", alertDiv, message);
+    createElement("h2", alertDiv, title, [{"name":"class","value":"alertH2"}]);
+    createElement("label", alertDiv, message, [{"name":"class","value":"alertLabel"}]);
     createElement("button", alertDiv, "OK",
     [
+        {"name": "class", "value": "alertOKButton"},
         {"name": "onclick", "value": "hideAlert(true, " + closeAnimation + ")"}
     ]);
     createElement("button", alertDiv, "Cancel",
     [
         {"name": "onclick", "value": "hideAlert(false, " + closeAnimation + ")"},
-        {"name": "class", "value": "cancelButton"}
+        {"name": "class", "value": "alertCancelButton"}
     ]);
 
     alertDiv.style.animationName = animation.name;
