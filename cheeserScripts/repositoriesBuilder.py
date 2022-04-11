@@ -381,6 +381,7 @@ class RepositoriesBuilder:
                 )
 
         commits = self.preCommits(commits, name, scheme)
+        queries = self.preQueries(queries, name, scheme)
 
         self.repositories.append(
             {
@@ -411,12 +412,10 @@ class RepositoriesBuilder:
 
             
 
-
-    # prefabricated commit methods 
-    def preCommits(self, commits, name, scheme):
+    def preQueries(self, queries, name, scheme):
         scheme = scheme.replace("(", "").replace(")", "")
         #findNewId
-        commits.append(
+        queries.append(
             {
                 "query": "\"select max(id) from {" + name + "Impl.table};\"",
                 "defName": "findNewId",
@@ -425,6 +424,12 @@ class RepositoriesBuilder:
                 "arguments": "",
             }
         )
+
+        return queries
+
+    # prefabricated commit methods 
+    def preCommits(self, commits, name, scheme):
+        scheme = scheme.replace("(", "").replace(")", "")
         #save
         commits.append(
             {
