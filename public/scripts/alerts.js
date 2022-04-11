@@ -6,7 +6,7 @@ function showAlert(title, message, divClass="alertDiv",
     var alertDiv = createElement("div", document.body, "", 
     [
         {"name": "class", "value": divClass},
-        {"name": "id", "value": divClass}
+        {"name": "id", "value": "alertDiv"}
     ]);
 
     createElement("h2", alertDiv, title, [{"name":"class","value":"alertH2"}]);
@@ -29,7 +29,7 @@ function showConfirm(title, message, ifOk, divClass="alertDiv",
     var alertDiv = createElement("div", document.body, "", 
     [
         {"name": "class", "value": divClass},
-        {"name": "id", "value": divClass}
+        {"name": "id", "value": "alertDiv"}
     ]);
 
     createElement("h2", alertDiv, title, [{"name":"class","value":"alertH2"}]);
