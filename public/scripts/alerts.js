@@ -1,4 +1,8 @@
-function showAlert(title, message) {
+
+
+function showAlert(title, message, divClass="alertDiv", 
+    animation={"name":"showAlert","duration":"0.5s"},
+    closeAnimation={"name":"hideAlert","duration":"0.5s"}) {
     var alertDiv = createElement("div", document.body, "", 
     [
         {"name": "class", "value": "alertDiv"},
@@ -9,15 +13,18 @@ function showAlert(title, message) {
     createElement("label", alertDiv, message);
     createElement("button", alertDiv, "OK",
     [
-        {"name": "onclick", "value": "hideAlert()"}
+        {"name": "onclick", "value": "hideAlert(true, " + closeAnimation + ")"}
     ]);
 
-    alertDiv.style.animationName = "showAlert";
-    alertDiv.style.animationDuration = "0.5s";
+    alertDiv.style.animationName = animation.name;
+    alertDiv.style.animationDuration = animation.duration;
     alertDiv.style.animationFillMode = "both";
 }
 
-function showConfirm(title, message, ifOk) {
+function showConfirm(title, message, ifOk, divClass="alertDiv",
+    animation={"name":"showAlert","duration":"0.5s"}, 
+    closeAnimation={"name":"hideAlert","duration":"0.5s"}) {
+
     var alertDiv = createElement("div", document.body, "", 
     [
         {"name": "class", "value": "alertDiv"},
@@ -28,16 +35,16 @@ function showConfirm(title, message, ifOk) {
     createElement("label", alertDiv, message);
     createElement("button", alertDiv, "OK",
     [
-        {"name": "onclick", "value": "hideAlert()"}
+        {"name": "onclick", "value": "hideAlert(true, " + closeAnimation + ")"}
     ]);
     createElement("button", alertDiv, "Cancel",
     [
-        {"name": "onclick", "value": "hideAlert(false)"},
+        {"name": "onclick", "value": "hideAlert(false, " + closeAnimation + ")"},
         {"name": "class", "value": "cancelButton"}
     ]);
 
-    alertDiv.style.animationName = "showAlert";
-    alertDiv.style.animationDuration = "0.5s";
+    alertDiv.style.animationName = animation.name;
+    alertDiv.style.animationDuration = animation.duration;
     alertDiv.style.animationFillMode = "both";
     decision = null;
 
@@ -58,10 +65,10 @@ function doIfOk(ifOk) {
 }
 
 var decision = null;
-function hideAlert(dec=true) {
+function hideAlert(dec, animation) {
     var alertDiv = document.getElementById("alertDiv");
-    alertDiv.style.animationName = "hideAlert";
-    alertDiv.style.animationDuration = "0.5s";
+    alertDiv.style.animationName = animation.name;
+    alertDiv.style.animationDuration = animation.duration;
     alertDiv.style.animationFillMode = "both";
     decision = dec;
 
