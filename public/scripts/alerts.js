@@ -5,8 +5,8 @@ function showAlert(title, message, divClass="alertDiv",
     closeAnimation={"name":"hideAlert","duration":"0.5s"}) {
     var alertDiv = createElement("div", document.body, "", 
     [
-        {"name": "class", "value": "alertDiv"},
-        {"name": "id", "value": "alertDiv"}
+        {"name": "class", "value": divClass},
+        {"name": "id", "value": divClass}
     ]);
 
     createElement("h2", alertDiv, title, [{"name":"class","value":"alertH2"}]);
@@ -28,8 +28,8 @@ function showConfirm(title, message, ifOk, divClass="alertDiv",
 
     var alertDiv = createElement("div", document.body, "", 
     [
-        {"name": "class", "value": "alertDiv"},
-        {"name": "id", "value": "alertDiv"}
+        {"name": "class", "value": divClass},
+        {"name": "id", "value": divClass}
     ]);
 
     createElement("h2", alertDiv, title, [{"name":"class","value":"alertH2"}]);
