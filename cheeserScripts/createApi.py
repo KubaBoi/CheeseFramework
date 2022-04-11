@@ -15,7 +15,7 @@ class ApiControllerCreator:
         with open(f"{ResMan.web()}/api.html", "r") as f:
             api = f.read()
 
-        ApiControllerCreator.soup = BeautifulSoup(api)
+        ApiControllerCreator.soup = BeautifulSoup(api, features="html.parser")
 
         spans = ApiControllerCreator.soup.findAll("span")
         for span in spans:
