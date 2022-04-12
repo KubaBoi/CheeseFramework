@@ -14,5 +14,12 @@ function createElement(type, parent=null, innerHTML="", attributes=[]) {
 }
 
 function getValueOf(id) {
-    return document.getElementById(id).value;
+    var element = document.getElementById(id);
+    if (element.getAttribute("type") == "text") 
+        return element.value;
+    else if (element.getAttribute("type") == "radio")
+        return element.checked;
+    else if (element.getAttribute("type") == "checkbox")
+        return element.checked;
+    
 }
