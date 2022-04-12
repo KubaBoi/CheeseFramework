@@ -14,15 +14,25 @@
 
 <h1>Cheese Framework Documentation</h1>
 <label id="update"></label><br><br>
+<label id="release"></label><br><br>
 <script>
     debug = false;
+    getDocRelease();
     getRelease();
 
-    async function getRelease() {
+    async function getDocRelease() {
         var response = await callEndpoint("GET", "https://kubaboi.github.io/CheeseFramework/public/docVersion.html");
         if (!response.ERROR) {
             var label = document.getElementById("update");
             label.innerHTML = "Documentation release: " + response;
+        }
+    }
+    
+    async function getRelease() {
+        var response = await callEndpoint("GET", "https://kubaboi.github.io/CheeseFramework/public/version.html");
+        if (!response.ERROR) {
+            var label = document.getElementById("release");
+            label.innerHTML = "Cheese Framework (v" + response + ")";
         }
     }
 </script>
