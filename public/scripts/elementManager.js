@@ -15,13 +15,11 @@ function createElement(type, parent=null, innerHTML="", attributes=[]) {
 
 function getValueOf(id) {
     var element = document.getElementById(id);
-    if (element.getAttribute("type") == "text") 
+    var type = element.getAttribute("type");
+
+    if (type == "text" || type == "number" || type == "datetime-local") 
         return element.value;
-    else if (element.getAttribute("type") == "radio")
+    else if (type == "radio" || type == "checkbox")
         return element.checked;
-    else if (element.getAttribute("type") == "checkbox")
-        return element.checked;
-    else if (element.getAttribute("type") == "datetime-local")
-        return element.value;
     
 }
