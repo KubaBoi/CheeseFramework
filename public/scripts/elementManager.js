@@ -21,5 +21,7 @@ function getValueOf(id) {
         return element.checked;
     else if (element.getAttribute("type") == "checkbox")
         return element.checked;
+    else if (element.getAttribute("type") == "datetime-local")
+        return element.value;
     
 }
