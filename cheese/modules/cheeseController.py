@@ -115,12 +115,12 @@ class CheeseController:
     @staticmethod
     def serveFile(server, file, header="text/html"):
         file = unquote(file)
-        file = ResMan.joinPath(ResMan.web(), file)
+        file = os.path.join(ResMan.web(), file)
 
         Logger.info(f"Serving file: {file}")
         
         if (not os.path.exists(f"{file}")):
-            with open(f"{ResMan.error()}/error404.html", "rb") as f:
+            with open(os.path.join(ResMan.error(), "error404.html"), "rb") as f:
                 CheeseController.sendResponse(server, (f.read(), 404))
             return
 
