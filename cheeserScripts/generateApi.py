@@ -34,7 +34,7 @@ class ApiGenerator:
         print("[3] - semi automatic heavy")
         print("         - api will be generated for every table and there will be /create, /get, /getAll, /update, /delete and /getBy for every column")
         print("             but user can choose if endpoint will be generated or not")
-        print("[4] - fully manual - WIP - !!!this option will be changed at [3] if chosen!!!")
+        print("[4] - fully manual - WIP")
         print("         - api will be generated with all endpoints")
         print("             but user can choose if endpoint will be generated or not")
         print("             and user can make custom endpoints")
@@ -52,9 +52,6 @@ class ApiGenerator:
             return
 
         ApiGenerator.mode = int(ApiGenerator.mode)
-        if (ApiGenerator.mode == 4):
-            print("[4] is WIP -  changing at [3]")
-            ApiGenerator.mode = 3
 
         ApiGenerator.create()
 
@@ -79,6 +76,15 @@ class ApiGenerator:
                     columns = [column] + columns
             cont, index = ApiGenerator.createEndpoint(index, table, columns)
             apiContent += cont
+
+        if (ApiGenerator.mode == 4):
+            while True:
+                if (input(f"Do you want to create custom main endpoint [y/n]: ") == "y"):
+                    mainEndpointName = input("Name (without /): ")
+                    cont, index = ApiGenerator.createEndpoint(index, (mainEndpointName,), [])
+                    apiContent += cont
+                else:
+                    break
 
         content += ApiGenerator.tableOfContents
         content += "\t\t</ol>\n"
@@ -120,7 +126,7 @@ class ApiGenerator:
         mainEndpointName = CreateByDB.removeSpaces(table[0], table[0][0])
 
         if (ApiGenerator.mode > 1):
-            if (input(10*"=" + f"Create main endpoint /{mainEndpointName} ? [y/n] ") != "y"):
+            if (input(10*"=" + f"Create main endpoint /{mainEndpointName} ? [y/n]: ") != "y"):
                 return ("", index)
 
         ApiGenerator.tableOfContents += "\t\t\t<li>\n"
@@ -147,6 +153,15 @@ class ApiGenerator:
             for i, column in enumerate(columns):
                 cont, count = ApiGenerator.createGETBY(index, count+i, mainEndpointName, columns, column, True)
                 content += cont
+            if (ApiGenerator.mode == 4):
+                while True:
+                    if (input(f"Do you want to create custom endpoint in {mainEndpointName} [y/n]: ") == "y"):
+                        content += ApiGenerator.createCustom(index, count, mainEndpointName)
+                        count += 1
+                    else:
+                        break
+
+                    
 
         content += "\t\t\t</ol>\n"
         content += "\t\t</li>\n\n\n"
@@ -162,7 +177,7 @@ class ApiGenerator:
         content = ""
         do = True
         if (ask):
-            if (input(f"Create /{mainEndpointName}/create ? [y/n] ") != "y"):
+            if (input(f"Create /{mainEndpointName}/create ? [y/n]: ") != "y"):
                 do = False
         if (do):
             content += ApiGenerator.createCREATE(index, count, mainEndpointName, columns)
@@ -170,7 +185,7 @@ class ApiGenerator:
         do = True
 
         if (ask):
-            if (input(f"Create /{mainEndpointName}/get ? [y/n] ") != "y"):
+            if (input(f"Create /{mainEndpointName}/get ? [y/n]: ") != "y"):
                 do = False
         if (do):
             content += ApiGenerator.createGET(index, count, mainEndpointName, columns)
@@ -178,7 +193,7 @@ class ApiGenerator:
         do = True
 
         if (ask):
-            if (input(f"Create /{mainEndpointName}/getAll ? [y/n] ") != "y"):
+            if (input(f"Create /{mainEndpointName}/getAll ? [y/n]: ") != "y"):
                 do = False
         if (do):
             content += ApiGenerator.createGETALL(index, count, mainEndpointName, columns)
@@ -186,7 +201,7 @@ class ApiGenerator:
         do = True
 
         if (ask):
-            if (input(f"Create /{mainEndpointName}/update ? [y/n] ") != "y"):
+            if (input(f"Create /{mainEndpointName}/update ? [y/n]: ") != "y"):
                 do = False
         if (do):
             content += ApiGenerator.createUPDATE(index, count, mainEndpointName, columns)
@@ -194,13 +209,80 @@ class ApiGenerator:
         do = True
 
         if (ask):
-            if (input(f"Create /{mainEndpointName}/delete ? [y/n] ") != "y"):
+            if (input(f"Create /{mainEndpointName}/delete ? [y/n]: ") != "y"):
                 do = False
         if (do):
             content += ApiGenerator.createDELETE(index, count, mainEndpointName)
             count += 1
 
         return (content, count)
+
+    @staticmethod
+    def printOptions(name, array):
+        while True:
+            print(10*"=")
+            print(name)
+            for i, opt in enumerate(array):
+                print(f"[{i}] - {opt}")
+
+            answer = input("Choose: ")
+            try:
+                answer = int(answer)
+            except:
+                print("Choise must be integer from 0 to " + str(len(array)-1))
+                continue
+            
+            if (answer < 0 or answer >= len(array)):
+                print("Choise must be integer from 0 to " + str(len(array)-1))
+                continue
+
+            break
+        return array[answer]
+
+    @staticmethod
+    def createCustom(index, secondIndex, mainEndpoint):
+        name = input("Name of endpoint (without /): ")
+        method = ApiGenerator.printOptions("HTTP method", ["GET", "POST"])
+        role = input("Role: ")
+        accepts = ApiGenerator.printOptions("Accepts", ["nothing", "path arguments", "post body", "bytes"])
+        if (accepts == "path arguments" or accepts == "post body"):
+            acceptJson = input("Accept JSON: ")
+        elif (accepts == "bytes"):
+            acceptJson = "Accepts bytes"
+        else:
+            acceptJson = ""
+        
+        comment = input("Comment: ")
+
+        responses = []
+        while True:
+            if (input("Add response [y/n]: ") == "y"):
+                respName = input("Response [Name - Code]: ")
+                respJson = input("JSON response: ")
+                responses.append({"name": respName, "json": respJson})
+            else:
+                break
+
+        print(f"Creating /{mainEndpoint}/{name}")
+        content = "\t\t\t\t<li class=\"num\">\n"
+        content += f"\t\t\t\t\t<span class=\"hd3\" id=\"{index}.{secondIndex}\">/{name} - {method}</span>\n"
+        content += f"\t\t\t\t\t<p>{comment}</p>\n"
+        content += f"\t\t\t\t\t<p class=\"role\">Role = {role}</p>\n"
+        
+        content += ApiGenerator.startFigure(f"Accepts {accepts}")
+        content += acceptJson
+        content += ApiGenerator.endFigure()
+
+        for resp in responses:
+            content += ApiGenerator.startFigure(f"Return {resp['name']}:")
+            content += resp["json"]
+            content += ApiGenerator.endFigure()
+
+        ApiGenerator.tableOfContents += f"\t\t\t\t\t<li><a href=\"#{index}.{secondIndex}\">/{name}</a>\n"
+
+        content += "\t\t\t\t</li>\n\n"
+
+        return content
 
     @staticmethod
     def createGETBY(index, secondIndex, mainEndpoint, columns, column, ask=False):
