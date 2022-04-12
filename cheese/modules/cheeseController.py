@@ -115,10 +115,7 @@ class CheeseController:
     @staticmethod
     def serveFile(server, file, header="text/html"):
         file = unquote(file)
-        if (file[0] == "/"):
-            file = os.path.join(ResMan.web(), file[1:])
-        else:
-            file = os.path.join(ResMan.web(), file)
+        file = ResMan.joinPath(ResMan.web(), file)
 
         Logger.info(f"Serving file: {file}")
         
