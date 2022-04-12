@@ -216,7 +216,7 @@ class ApiGenerator:
         content += f"\t\t\t\t\t<p>Gets all {mainEndpoint} by {column[0].upper()}</p>\n"
         content += f"\t\t\t\t\t<p class=\"role\">Role = 1</p>\n"
         
-        content += ApiGenerator.startFigure("Accepts post body:")
+        content += ApiGenerator.startFigure("Accepts path arguments:")
         content += ApiGenerator.getJson([column], "", True)
         content += ApiGenerator.endFigure()
 
@@ -280,11 +280,11 @@ class ApiGenerator:
 
         modelName = ac.getSingular(mainEndpoint)
         content = "\t\t\t\t<li class=\"num\">\n"
-        content += f"\t\t\t\t\t<span class=\"hd3\" id=\"{index}.{secondIndex}\">/get - POST</span>\n"
+        content += f"\t\t\t\t\t<span class=\"hd3\" id=\"{index}.{secondIndex}\">/get - GET</span>\n"
         content += f"\t\t\t\t\t<p>Get {modelName} by ID</p>\n"
         content += f"\t\t\t\t\t<p class=\"role\">Role = 1</p>\n"
         
-        content += ApiGenerator.startFigure("Accepts post body:")
+        content += ApiGenerator.startFigure("Accepts path arguments:")
         content += ApiGenerator.getJson([("ID", "bigint")], "", True)
         content += ApiGenerator.endFigure()
 
