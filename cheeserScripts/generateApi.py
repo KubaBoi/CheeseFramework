@@ -1,8 +1,5 @@
 
-from operator import concat
 import os
-
-from certifi import contents
 
 from cheese.databaseControll.database import Database
 from cheese.resourceManager import ResMan
