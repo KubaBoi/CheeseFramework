@@ -26,7 +26,7 @@ class CheeseController:
     # return response
     @staticmethod
     def createResponse(dict, code):
-        return (bytes(json.dumps(dict), "utf-8"), code)
+        return (bytes(json.dumps(dict, indent=4, sort_keys=True, default=str), "utf-8"), code)
 
     # return json array from array of modules
     @staticmethod
