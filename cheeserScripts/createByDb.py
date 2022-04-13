@@ -36,6 +36,7 @@ class CreateByDB:
     def generateModel(name, columns):
         modelName = name[0].capitalize()
         modelName = CreateByDB.removeSpaces(name, modelName)
+        modelFileName = modelName[0].lower() + modelName[1:]
 
         content = "#!/usr/bin/env python\n"
         content += "# -*- coding: utf-8 -*-\n\n"
@@ -68,7 +69,7 @@ class CreateByDB:
         for i, column in enumerate(columns):
             content += f"\t\tself.{column[0]} = json[\"{column[0].upper()}\"]\n"
 
-        with open(f"{ResMan.pythonSrc()}/models/{modelName}.py", "w") as f:
+        with open(f"{ResMan.pythonSrc()}/models/{modelFileName}.py", "w") as f:
             f.write(content)
         return modelName
 

@@ -33,7 +33,8 @@ class ApiControllerCreator:
     def createController(span):
         contName = span.text.replace("/", "")
         name = contName[0].upper() + contName[1:]
-        controllerFileName = name + "Controller"
+        controllerClassName = name + "Controller"
+        controllerFileName = name[0].lower() + name[1:] + "Controller"
         if (os.path.exists(f"{ResMan.pythonSrc()}/controllers/{controllerFileName}.py")):
             return
         print(f"Creating controller: {span.text}")
@@ -45,7 +46,7 @@ class ApiControllerCreator:
         content += f"from python.repositories.{name}Repository import {name}Repository\n\n"
         content += f"from python.models.{name} import {name}\n\n"
         content += f"#@controller {span.text}\n"
-        content += f"class {controllerFileName}(cc):\n\n"
+        content += f"class {controllerClassName}(cc):\n\n"
 
         spans = ApiControllerCreator.soup.findAll("span")
         for subSpan in spans:
