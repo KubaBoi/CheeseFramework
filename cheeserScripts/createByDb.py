@@ -78,6 +78,7 @@ class CreateByDB:
         repositoryName = name[0].capitalize()
         repositoryName = CreateByDB.removeSpaces(name, repositoryName)
         repositoryName += "Repository"
+        repositoryFileName = repositoryName[0].lower() + repositoryName[1:]
         
         content = "#!/usr/bin/env python\n"
         content += "# -*- coding: utf-8 -*-\n\n"
@@ -114,7 +115,7 @@ class CreateByDB:
         content += "\tdef delete(obj):\n"
         content += "\t\treturn CheeseRepository.delete([obj])\n\n"
 
-        with open(f"{ResMan.pythonSrc()}/repositories/{repositoryName}.py", "w") as f:
+        with open(f"{ResMan.pythonSrc()}/repositories/{repositoryFileName}.py", "w") as f:
             f.write(content)
 
     @staticmethod
