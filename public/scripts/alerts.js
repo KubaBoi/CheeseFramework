@@ -1,7 +1,3 @@
-/**
-* @deprecated Since version 1.0. Will be deleted in version 3.0. Use alerts.mjs instead.
-*/
-console.warn("WARNING! alerts.js is deprecated. Use alerts.mjs instead");
 
 function showAlert(title, message, divClass="alertDiv", 
     animation={"name":"showAlert","duration":"0.5s"},

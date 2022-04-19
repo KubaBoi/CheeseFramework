@@ -1,7 +1,3 @@
-/**
-* @deprecated Since version 1.0. Will be deleted in version 3.0. Use elementManager.mjs instead.
-*/
-console.warn("WARNING! elementManager.js is deprecated. Use elementManager.mjs instead");
 
 function createElement(type, parent=null, innerHTML="", attributes=[]) {
     var element = document.createElement(type);

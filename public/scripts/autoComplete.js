@@ -1,8 +1,3 @@
-/**
-* @deprecated Since version 1.0. Will be deleted in version 3.0. Use autoComplete.mjs instead.
-*/
-console.warn("WARNING! autoComplete.js is deprecated. Use autoComplete.mjs instead");
-
 var currentFocus;
 
 function autocomplete(inp, arr) {

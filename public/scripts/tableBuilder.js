@@ -1,7 +1,3 @@
-/**
-* @deprecated Since version 1.0. Will be deleted in version 3.0. Use tableBuilder.mjs instead.
-*/
-console.warn("WARNING! tableBuilder.js is deprecated. Use tableBuilder.mjs instead");
 
 function clearTable(table) {
     table.innerHTML = "";

@@ -1,7 +1,3 @@
-/**
-* @deprecated Since version 1.0. Will be deleted in version 3.0. Use cookies.mjs instead.
-*/
-console.warn("WARNING! cookies.js is deprecated. Use cookies.mjs instead");
 
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();
