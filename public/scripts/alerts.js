@@ -1,7 +1,28 @@
 
+function showTimerAlert(title, message, time, divClass="alertDiv", 
+    animation={"name":"showAlert","duration":"0.5s"},
+    closeAnimation={"name":"hideAlert","duration":"0.5s"}) {
+        
+    var alertDiv = createElement("div", document.body, "", 
+    [
+        {"name": "class", "value": divClass},
+        {"name": "id", "value": "alertDiv"}
+    ]);
+
+    createElement("h2", alertDiv, title, [{"name":"class","value":"alertH2"}]);
+    createElement("label", alertDiv, message, [{"name":"class","value":"alertLabel"}]);
+
+    alertDiv.style.animationName = animation.name;
+    alertDiv.style.animationDuration = animation.duration;
+    alertDiv.style.animationFillMode = "both";
+
+    setTimeout(function() { hideAlert(true, closeAnimation) }, time);
+}
+
 function showAlert(title, message, divClass="alertDiv", 
     animation={"name":"showAlert","duration":"0.5s"},
     closeAnimation={"name":"hideAlert","duration":"0.5s"}) {
+        
     var alertDiv = createElement("div", document.body, "", 
     [
         {"name": "class", "value": divClass},
