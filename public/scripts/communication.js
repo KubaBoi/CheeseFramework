@@ -61,7 +61,8 @@ function callEndpoint(type, url, request=null) {
 }
 
 function nowTime() {
-    var date = new Date().getTime();
+    var now = new Date();
+    var date = new Date(now.getTime());
 
     var hours = date.getHours();
     var minutes = "0" + date.getMinutes();
