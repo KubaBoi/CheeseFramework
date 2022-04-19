@@ -1,4 +1,4 @@
-function createElement(type, parent=null, innerHTML="", attributes=[]) {
+export function createElement(type, parent=null, innerHTML="", attributes=[]) {
     var element = document.createElement(type);
     element.innerHTML = innerHTML;
 
@@ -13,7 +13,7 @@ function createElement(type, parent=null, innerHTML="", attributes=[]) {
     return element;
 }
 
-function getValueOf(id) {
+export function getValueOf(id) {
     var element = document.getElementById(id);
     var type = element.getAttribute("type");
 

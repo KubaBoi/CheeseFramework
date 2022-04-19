@@ -1,9 +1,10 @@
+import { createElement } from "https://kubaboi.github.io/CheeseFramework/public/elementManager.js";
 
-function clearTable(table) {
+export function clearTable(table) {
     table.innerHTML = "";
 }
 
-function addRow(table, cells, rowAttributes=[]) {
+export function addRow(table, cells, rowAttributes=[]) {
     var row = createElement("tr", table, "", rowAttributes);
     for (let i = 0; i < cells.length; i++) {
         if (!cells[i].attributes)
@@ -12,7 +13,7 @@ function addRow(table, cells, rowAttributes=[]) {
     }
 }
 
-function addHeader(table, cells, rowAttributes=[]) {
+export function addHeader(table, cells, rowAttributes=[]) {
     var row = createElement("tr", table, "", rowAttributes);
     for (let i = 0; i < cells.length; i++) {
         if (!cells[i].attributes)

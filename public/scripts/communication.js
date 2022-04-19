@@ -1,3 +1,5 @@
+import { nowTime } from "https://kubaboi.github.io/CheeseFramework/public/time.js";
+
 debug = true;
 function sendPost(url, jsonRequest, output, callback) {
     var xmlHttp = new XMLHttpRequest(); 
@@ -38,7 +40,7 @@ function sendGet(url, output, callback) {
     xmlHttp.send();
 }
 
-function callEndpoint(type, url, request=null) {
+export function callEndpoint(type, url, request=null) {
     if (type == "GET") {
         return new Promise(resolve => {
             sendGet(url, debug, function(response) {
@@ -58,16 +60,4 @@ function callEndpoint(type, url, request=null) {
         console.log(type);
         return null;
     }
-}
-
-function nowTime() {
-    var now = new Date();
-    var date = new Date(now.getTime());
-
-    var hours = date.getHours();
-    var minutes = "0" + date.getMinutes();
-    var seconds = "0" + date.getSeconds();
-
-    return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-
 }
