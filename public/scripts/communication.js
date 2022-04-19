@@ -1,14 +1,16 @@
+import "https://kubaboi.github.io/CheeseFramework/public/scripts/time.js";
+
 debug = true;
 function sendPost(url, jsonRequest, output, callback) {
     var xmlHttp = new XMLHttpRequest(); 
     
     var date = new Date();
-    if (output) console.log("SENDING", date.getTime(), url, jsonRequest);
+    if (output) console.log("SENDING", nowTime(), url, jsonRequest);
 
     xmlHttp.onreadystatechange = function() {
         if (this.readyState == 4) {
             json = JSON.parse(this.responseText);
-            if(output) console.log("RESPONSE", date.getTime(), url, json);
+            if(output) console.log("RESPONSE", nowTime(), url, json);
             if(callback) callback(json);
         }
     };
@@ -21,7 +23,7 @@ function sendGet(url, output, callback) {
     var xmlHttp = new XMLHttpRequest();
 
     var date = new Date();
-    if (output) console.log("SENDING", date.getTime(), url);
+    if (output) console.log("SENDING", nowTime(), url);
 
     xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4) {
@@ -31,11 +33,11 @@ function sendGet(url, output, callback) {
             catch {
                 json = this.responseText;
             }
-            if(output) console.log("RESPONSE", date.getTime(), url, json);
+            if(output) console.log("RESPONSE", nowTime(), url, json);
             if(callback) callback(json);
         }
     }
-    xmlHttp.open("GET", url); // true for asynchronous 
+    xmlHttp.open("GET", url); 
     xmlHttp.setRequestHeader("Content-Type", "text/plain;charset=UTF-8;");
     xmlHttp.send();
 }
