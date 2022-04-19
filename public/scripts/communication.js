@@ -1,4 +1,4 @@
-import "https://kubaboi.github.io/CheeseFramework/public/scripts/time.js";
+var promise = import("https://kubaboi.github.io/CheeseFramework/public/scripts/time.js");
 
 debug = true;
 function sendPost(url, jsonRequest, output, callback) {
