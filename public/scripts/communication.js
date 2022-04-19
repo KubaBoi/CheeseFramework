@@ -1,10 +1,7 @@
-var promise = import("https://kubaboi.github.io/CheeseFramework/public/scripts/time.js");
-
 debug = true;
 function sendPost(url, jsonRequest, output, callback) {
     var xmlHttp = new XMLHttpRequest(); 
     
-    var date = new Date();
     if (output) console.log("SENDING", nowTime(), url, jsonRequest);
 
     xmlHttp.onreadystatechange = function() {
@@ -22,7 +19,6 @@ function sendPost(url, jsonRequest, output, callback) {
 function sendGet(url, output, callback) {
     var xmlHttp = new XMLHttpRequest();
 
-    var date = new Date();
     if (output) console.log("SENDING", nowTime(), url);
 
     xmlHttp.onreadystatechange = function() { 
