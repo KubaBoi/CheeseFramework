@@ -1,4 +1,4 @@
-import { createElement } from "https://kubaboi.github.io/CheeseFramework/public/elementManager.js";
+import { createElement } from "https://kubaboi.github.io/CheeseFramework/public/elementManager.mjs";
 
 export function clearTable(table) {
     table.innerHTML = "";

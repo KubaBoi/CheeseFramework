@@ -1,4 +1,4 @@
-import { createElement } from "https://kubaboi.github.io/CheeseFramework/public/elementManager.js";
+import { createElement } from "https://kubaboi.github.io/CheeseFramework/public/elementManager.mjs";
 
 export function showAlert(title, message, divClass="alertDiv", 
     animation={"name":"showAlert","duration":"0.5s"},
