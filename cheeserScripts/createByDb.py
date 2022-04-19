@@ -1,4 +1,6 @@
 
+import os
+
 from cheese.databaseControll.database import Database
 from cheese.resourceManager import ResMan
 from cheese.Logger import Logger
@@ -69,7 +71,14 @@ class CreateByDB:
         for i, column in enumerate(columns):
             content += f"\t\tself.{column[0]} = json[\"{column[0].upper()}\"]\n"
 
-        with open(f"{ResMan.pythonSrc()}/models/{modelFileName}.py", "w") as f:
+        if (os.path.exists(os.path.join(ResMan.pythonSrc(), "models", modelFileName + ".py"))):
+            acc = input(f"{modelFileName} already exists. Do you want to rewrite? [y/n]: ")
+            if (acc != "y"):
+                return modelName
+
+        print(f"Creating {modelFileName}.py")
+
+        with open(os.path.join(ResMan.pythonSrc(), "models", modelFileName + ".py"), "w") as f:
             f.write(content)
         return modelName
 
@@ -95,6 +104,8 @@ class CreateByDB:
         content += f"#@dbmodel {modelName}\n"
         content += f"class {repositoryName}(CheeseRepository):\n\n\n\n"
 
+        content += "\t#GENERATED METHODS\n\n"
+
         content += CreateByDB.createMethod("findAll", "query", f"select * from {name};", "array")
         content += CreateByDB.createMethod("find", "query", f"select * from {name} where id=:id;", "one", "id")
         content += CreateByDB.createMethod("findBy", "query", f"select * from {name} where :columnName=:value;", "array", "columnName, value")
@@ -115,7 +126,13 @@ class CreateByDB:
         content += "\tdef delete(obj):\n"
         content += "\t\treturn CheeseRepository.delete([obj])\n\n"
 
-        with open(f"{ResMan.pythonSrc()}/repositories/{repositoryFileName}.py", "w") as f:
+        if (os.path.exists(os.path.join(ResMan.pythonSrc(), "repositories", repositoryFileName + ".py"))):
+            acc = input(f"{repositoryFileName} already exists. Do you want to rewrite? [y/n]: ")
+            if (acc != "y"):
+                return
+
+        print(f"Creating {repositoryFileName}.py")
+        with open(os.path.join(ResMan.pythonSrc(), "repositories", repositoryFileName + ".py"), "w") as f:
             f.write(content)
 
     @staticmethod
