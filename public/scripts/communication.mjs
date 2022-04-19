@@ -1,7 +1,4 @@
-/**
- * @deprecated Since version 1.0. Will be deleted in version 3.0. Use communication.mjs instead.
- */
-console.warn("WARNING! communication.js is deprecated. Use communication.mjs instead");
+import { nowTime } from "https://kubaboi.github.io/CheeseFramework/public/time.js";
 
 debug = true;
 function sendPost(url, jsonRequest, output, callback) {
@@ -43,7 +40,7 @@ function sendGet(url, output, callback) {
     xmlHttp.send();
 }
 
-function callEndpoint(type, url, request=null) {
+export function callEndpoint(type, url, request=null) {
     if (type == "GET") {
         return new Promise(resolve => {
             sendGet(url, debug, function(response) {
@@ -63,16 +60,4 @@ function callEndpoint(type, url, request=null) {
         console.log(type);
         return null;
     }
-}
-
-function nowTime() {
-    var now = new Date();
-    var date = new Date(now.getTime());
-
-    var hours = date.getHours();
-    var minutes = "0" + date.getMinutes();
-    var seconds = "0" + date.getSeconds();
-
-    return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-
 }

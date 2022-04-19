@@ -1,9 +1,6 @@
-/**
-* @deprecated Since version 1.0. Will be deleted in version 3.0. Use alerts.mjs instead.
-*/
-console.warn("WARNING! alerts.js is deprecated. Use alerts.mjs instead");
+import { createElement } from "https://kubaboi.github.io/CheeseFramework/public/elementManager.js";
 
-function showAlert(title, message, divClass="alertDiv", 
+export function showAlert(title, message, divClass="alertDiv", 
     animation={"name":"showAlert","duration":"0.5s"},
     closeAnimation={"name":"hideAlert","duration":"0.5s"}) {
     var alertDiv = createElement("div", document.body, "", 
@@ -25,7 +22,7 @@ function showAlert(title, message, divClass="alertDiv",
     alertDiv.style.animationFillMode = "both";
 }
 
-function showConfirm(title, message, ifOk, divClass="alertDiv",
+export function showConfirm(title, message, ifOk, divClass="alertDiv",
     animation={"name":"showAlert","duration":"0.5s"}, 
     closeAnimation={"name":"hideAlert","duration":"0.5s"}) {
 
