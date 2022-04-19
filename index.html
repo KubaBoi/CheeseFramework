@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="public/styles/style.css">
     <link rel="stylesheet" href="public/styles/prism.css">
     <link rel="stylesheet" href="public/styles/logColors.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="documentation/documentation.png" type="image/x-icon">
     <title>Cheese Documentation </title>
 </head>
 <body>
@@ -1156,7 +1156,14 @@ from cheese.ResourceManager import ResMan
                                 <pre><code class="language-markup">
 &lt;script src="https://kubaboi.github.io/CheeseFramework/public/styles/alertStyle.js"&gt;&lt;/script&gt;
                             </code></pre></figure>
+                            Css colors can be changed:
+                            <ul>
+                                <li><b>--light-color</b> - background color of main dialog</li>
+                                <li><b>--text-color</b> - text color of not chosen row</li>
+                                <li><b>--secondary-color</b> - background color of chosen row</li>
+                            </ul>
                         </p>
+                        <br>
                         <ul>
                             <li>
                                 <b>autocomplete(inp, arr)</b><br>
@@ -1350,7 +1357,27 @@ function makeElement() {
                                 <pre><code class="language-markup">
 &lt;script src="https://kubaboi.github.io/CheeseFramework/public/styles/alertStyle.css"&gt;&lt;/script&gt;
                             </code></pre></figure>
+                            Css colors can be changed:
+                            <ul>
+                                <li><b>--light-color</b> - background color of main dialog</li>
+                                <li><b>--text-color</b> - text color of not chosen row</li>
+                                <li><b>--secondary-color</b> - background color of chosen row</li>
+                            </ul><br>
+                            Css can be changed:
+                            <ul>
+                                <li><b>.alertDiv</b> - main alert div</li>
+                                <li><b>.alertH2</b> - alert header</li>
+                                <li><b>.alertLabel</b> - alert label</li>
+                                <li><b>.alertOKbutton</b> - ok button</li>
+                                <li><b>.alertCancelButton</b> - cancel button</li>
+                            </ul><br>
+                            Css animations can be changed:
+                            <ul>
+                                <li><b>showAlert</b> - animation for showing alert</li>
+                                <li><b>hideAlert</b> - animation for hiding alert</li>
+                            </ul>
                         </p>
+                        <br>
                         <ul>
                             <li>
                                 <b>showAlert(title, message, divClass="alertDiv", animation={"name":"showAlert","duration":"0.5s"}, closeAnimation={"name":"hideAlert","duration":"0.5s"})</b>

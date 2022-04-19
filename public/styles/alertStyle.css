@@ -58,7 +58,7 @@
     transition-duration: 0.4s;
 }
 
-.cancelButton:hover {
+.alertCancelButton:hover {
     background-color: var(--secondary-light-color);
     transition: all;
     transition-duration: 0.4s;
