@@ -1,4 +1,6 @@
-import { nowTime } from "https://kubaboi.github.io/CheeseFramework/public/time.js";
+<script type="module">
+    import { nowTime } from "https://kubaboi.github.io/CheeseFramework/public/time.js";
+</script>
 
 debug = true;
 function sendPost(url, jsonRequest, output, callback) {
