@@ -1,4 +1,9 @@
-export function createElement(type, parent=null, innerHTML="", attributes=[]) {
+/**
+* @deprecated Since version 1.0. Will be deleted in version 3.0. Use elementManager.mjs instead.
+*/
+console.warn("WARNING! elementManager.js is deprecated. Use elementManager.mjs instead");
+
+function createElement(type, parent=null, innerHTML="", attributes=[]) {
     var element = document.createElement(type);
     element.innerHTML = innerHTML;
 
@@ -13,7 +18,7 @@ export function createElement(type, parent=null, innerHTML="", attributes=[]) {
     return element;
 }
 
-export function getValueOf(id) {
+function getValueOf(id) {
     var element = document.getElementById(id);
     var type = element.getAttribute("type");
 
