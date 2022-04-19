@@ -1,4 +1,4 @@
-import { nowTime } from "https://kubaboi.github.io/CheeseFramework/public/time.mjs";
+import { nowTime } from "https://kubaboi.github.io/CheeseFramework/public/scripts/time.mjs";
 
 debug = true;
 function sendPost(url, jsonRequest, output, callback) {
