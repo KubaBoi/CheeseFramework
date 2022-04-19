@@ -1,4 +1,4 @@
-export function nowTime() {
+function nowTime() {
     var now = new Date();
     var date = new Date(now.getTime());
 
