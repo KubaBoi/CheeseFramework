@@ -1,3 +1,5 @@
+import { nowTime } from "https://kubaboi.github.io/CheeseFramework/public/time.js";
+
 debug = true;
 function sendPost(url, jsonRequest, output, callback) {
     var xmlHttp = new XMLHttpRequest(); 
