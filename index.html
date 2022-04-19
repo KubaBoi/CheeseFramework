@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="public/styles/style.css">
     <link rel="stylesheet" href="public/styles/prism.css">
     <link rel="stylesheet" href="public/styles/logColors.css">
-    <link rel="icon" href="documentation/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <title>Cheese Documentation </title>
 </head>
 <body>
@@ -1075,7 +1075,7 @@ from cheese.Logger import Logger
                     <pre><b>silence</b> 
     - if True, nothing will be printed nor saved into log file if Settings.allowDebug is False
     - if False, log will be printed and saved even if Settings.allowDebug is False
-    - if method is fail, it will be saved anytime, print behaves like other methods</pre><br>
+    - if method is fail(), log will be saved anytime, print behaves like other methods</pre><br>
                     <br>
                     <ul>
                         <li><b>info(message, allowHeader=True, silence=True)</b><br><br>info log</li><br>
@@ -1083,7 +1083,7 @@ from cheese.Logger import Logger
                         <li><b>okCyan(message, allowHeader=True, silence=True)</b><br><br>okCyan log</li><br>
                         <li><b>okGreen(message, allowHeader=True, silence=True)</b><br><br>okGreen log</li><br>
                         <li><b>warning(message, allowHeader=True, silence=True)</b><br><br>warning log</li><br>
-                        <li><b>fail(message, e, allowHeader=True, silence=True)</b><br><br>fail log <pre><b>e</b> - error message</pre></li><br>
+                        <li><b>fail(message, e, allowHeader=True, silence=True)</b><br><br>fail log <pre><b>e</b> - error message (Exception as e)</pre></li><br>
                         <li><b>bold(message, allowHeader=True, silence=True)</b><br><br>bold log</li><br>
                         <li><b>underline(message, allowHeader=True, silence=True)</b><br><br>underline log</li><br>
                     </ul>
@@ -1159,7 +1159,8 @@ from cheese.ResourceManager import ResMan
                         </p>
                         <ul>
                             <li>
-                                <b>autocomplete(inp, arr)</b>
+                                <b>autocomplete(inp, arr)</b><br>
+                                <p>Method generates html elements for autocomplete dialog.</p>
                                 <ul>
                                     <li><b>inp</b> - input html element</li>
                                     <li><b>arr</b> - array with data for autocompletion</li>
