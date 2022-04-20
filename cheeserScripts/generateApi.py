@@ -16,13 +16,12 @@ class ApiGenerator:
         Settings.loadSettings()
 
         Settings.allowDebug = False
-        Settings.allowDB = True
         Logger.initLogger()
 
-        #if (os.path.exists(f"{ResMan.web()}/api.html")):
-        #    accept = input("api.html already exists. Do you want to continue? Old file will be rewritten. [y/n]")
-        #    if (accept != "y"):
-        #        return
+        if (os.path.exists(f"{ResMan.web()}/api.html")):
+            accept = input("api.html already exists. Do you want to continue? Old file will be rewritten. [y/n]: ")
+            if (accept != "y"):
+                return
 
         print("[0] - fully automatic lite")
         print("         - api will be generated for every table and there will be only /create, /get, /getAll, /update and /delete")
@@ -57,25 +56,31 @@ class ApiGenerator:
 
     @staticmethod
     def create():
-        database = Database()
-        database.connect()
-
-        content = ApiGenerator.createHeader() 
-
-        tables = database.query("SELECT tablename FROM pg_catalog.pg_tables where schemaname='public';")
-
         ApiGenerator.tableOfContents = ApiGenerator.createContents()
-
+        content = ApiGenerator.createHeader() 
         apiContent = "\t<ol class=\"num\">\n"
         index = 1
-        for table in tables:
-            columns = database.query(f"SELECT column_name, data_type from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = N'{table[0]}';")
-            for column in columns:
-                if (column[0] == "id"):
-                    columns.remove(column)
-                    columns = [column] + columns
-            cont, index = ApiGenerator.createEndpoint(index, table, columns)
-            apiContent += cont
+        print(Settings.allowDB)
+
+        if (not Settings.allowDB):
+            print(10*"==")
+            print("DATABASE IS NOT ALLOWED IN YOUR PROJECT")
+            print("This is not a problem... just reminder... go on if you know what are you doing :)")
+            print(10*"==")
+        else:
+            database = Database()
+            database.connect()
+
+            tables = database.query("SELECT tablename FROM pg_catalog.pg_tables where schemaname='public';")
+
+            for table in tables:
+                columns = database.query(f"SELECT column_name, data_type from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = N'{table[0]}';")
+                for column in columns:
+                    if (column[0] == "id"):
+                        columns.remove(column)
+                        columns = [column] + columns
+                cont, index = ApiGenerator.createEndpoint(index, table, columns)
+                apiContent += cont
 
         if (ApiGenerator.mode == 4):
             while True:
