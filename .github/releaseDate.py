@@ -19,6 +19,6 @@ readmeFile = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "READ
 
 with open(readmeFile, "w") as f:
     f.write(
-        f"# Cheese Framework\n\n###Release v({releaseDate})\n\n" +
-        "##Documentation\n\nhttps://kubaboi.github.io/CheeseFramework/"
+        f"# Cheese Framework\n\n### Release v({releaseDate})\n\n" +
+        "## Documentation\n\nhttps://kubaboi.github.io/CheeseFramework/"
     )
