@@ -14,3 +14,11 @@ data["release"] = releaseDate
 
 with open(prepFile, "w") as f:
     f.write(json.dumps(data))
+
+readmeFile = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "README.md"))
+
+with open(readmeFile, "w") as f:
+    f.write(
+        f"# Cheese Framework\n\n###Release v({releaseDate})\n\n" +
+        "##Documentation\n\nhttps://kubaboi.github.io/CheeseFramework/"
+    )
