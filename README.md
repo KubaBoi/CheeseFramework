@@ -1,8 +1,8 @@
 # Cheese Framework
 
-![Release Build](https://github.com/KubaBoi/CheeseFramework/blob/main/.github/workflows/realeaseDate.yml)
+[![Release Build](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml/badge.svg)](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml)
 
-### Release v(22.04.21.15.45)
+### Release v(22.04.21.15.46)
 
 ## Documentation
 
