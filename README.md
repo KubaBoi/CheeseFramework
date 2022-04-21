@@ -1,6 +1,6 @@
 # Cheese Framework
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/KubaBoi/CheeseFramework/actions)
+### Release v(22.04.21.15.23)
 
 ## Documentation
 
