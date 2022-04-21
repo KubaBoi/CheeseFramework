@@ -1427,6 +1427,17 @@ function makeElement() {
                                     <li><b>ifOk</b> - function done after confirmation</li>
                                 </ul>
                             </li>
+                            <figure>
+                                <figcaption>Usage:</figcaption>
+                                <pre><code class="language-javascript">
+function func(v) {
+    console.log(v);
+}
+
+showConfirm("Really?", 
+    "Do you really want to print hello??????!!!!",
+    function() {func("Hello :)");});
+                            </code></pre></figure>
                         </ul>
                     </li>
 
