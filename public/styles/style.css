@@ -91,3 +91,16 @@ pre {
 figcaption {
     font-weight: bold;
 }
+
+li {
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.methodName {
+    color: rgb(214, 214, 133);
+}
+
+.bracket {
+    color: #df6b6b;
+}
