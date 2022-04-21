@@ -20,7 +20,7 @@ readmeFile = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "READ
 with open(readmeFile, "w") as f:
     f.write(
         f"# Cheese Framework\n\n" +
-        f"[![Release Build](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml/badge.svg?event=check_run)](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml)\n\n" +
-        f"### Release v({releaseDate}) \n\n" +
+        f"[![Release Build](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml/badge.svg?event=push)](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml)\n\n" +
+        f"### Release v({releaseDate})\n\n" +
         "## Documentation\n\nhttps://kubaboi.github.io/CheeseFramework/"
     )
