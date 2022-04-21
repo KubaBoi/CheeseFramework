@@ -1,6 +1,8 @@
 # Cheese Framework
 
-### Release v(22.04.21.15.23)
+![Release Build](https://github.com/KubaBoi/CheeseFramework/blob/main/.github/workflows/realeaseDate.yml/badge.svg)
+
+### Release v({releaseDate})
 
 ## Documentation
 
