@@ -1,3 +1,5 @@
 function stringShorter(str, maxChars) {
-    return str.slice(0, maxChars) + "...";
+    if (str.length > maxChars) 
+        return str.slice(0, maxChars) + "...";
+    return str;
 }
