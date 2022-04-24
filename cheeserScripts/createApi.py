@@ -214,7 +214,7 @@ class ApiControllerCreator:
 
         if (role == None): return ""
         content = f"\t\tif (auth[\"role\"] > {role}):\n"
-        content += f"\t\t\tError.sendCustomError(server, \"{errorUnauthorized['ERROR']}\", 400)\n"
+        content += f"\t\t\tError.sendCustomError(server, \"{errorUnauthorized['ERROR']}\", 401)\n"
         content += "\t\t\treturn\n\n"
         return content
 
