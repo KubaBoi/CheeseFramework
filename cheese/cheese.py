@@ -38,8 +38,8 @@ class Cheese:
         Error.init()
 
         # connect to database
-        Logger.warning("Initializing database connection...", silence=False)
         if (Settings.allowDB):
+            Logger.warning("Initializing database connection...", silence=False)
             try:
                 db = Database()
                 db.connect()
@@ -47,6 +47,8 @@ class Cheese:
                 Logger.okBlue(f"CONNECTED TO {Settings.dbHost}:{Settings.dbPort} {Settings.dbName}", silence=False)
             except Exception as e:
                 Logger.fail(f"CONNECTION TO {Settings.dbHost}:{Settings.dbPort} {Settings.dbName} CANNOT BE DONE:{Logger.WARNING}\n{str(e)}", silence=False)
+        else:
+            Logger.warning("Database connection is turned off", silence=False)
 
         #initialization of repositories
         CheeseRepository.initRepositories()
