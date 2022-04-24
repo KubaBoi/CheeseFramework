@@ -25,7 +25,6 @@ function clickTest(type, func) {
 }
 
 function singleClickDone(wanted, func) {
-    console.log("SINGLE");
     if (wanted) func();
 
     testingDoubleClick = false;
@@ -33,6 +32,5 @@ function singleClickDone(wanted, func) {
 }
 
 function doubleClickDone(func) {
-    console.log("DOUBLE");
     func();
 }
