@@ -38,6 +38,10 @@
     position: absolute;
     right: 5px;
     bottom: 5px;
+    border-width: 0px;
+    padding: 1em;
+    margin: 5px;
+    border-radius: 5px;
     background-color: var(--main-color);
     transition: all;
     transition-duration: 0.4s;
@@ -62,4 +66,42 @@
     background-color: var(--secondary-light-color);
     transition: all;
     transition-duration: 0.4s;
+}
+
+.divOkAlert {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 400px;
+    height: 100px;
+    z-index: 200;
+    background-color: var(--ok-color);
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--ok-light-color);
+}
+
+.divWrongAlert {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 400px;
+    height: 100px;
+    z-index: 200;
+    background-color: var(--wrong-color);
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--wrong-light-color);
+}
+
+@keyframes okShowAlert {
+    0% { left: -500px; }
+    100% { left: 20px; }
+}
+
+@keyframes okHideAlert {
+    0% { left: 20px; }
+    100% { left: -500px; }
 }

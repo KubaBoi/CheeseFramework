@@ -1,4 +1,32 @@
 
+function showOkAlert(title, message, alertTime=0) {
+    if (alertTime == 0) {
+        showAlert(title, message, "divOkAlert",
+                {"name": "okShowAlert", "duration": "0.5s"},
+                {"name": "okHideAlert", "duration": "0.5s"}
+            );
+    } else {
+        showTimerAlert(title, message, alertTime, "divOkAlert",
+                {"name": "okShowAlert", "duration": "0.5s"},
+                {"name": "okHideAlert", "duration": "0.5s"}
+            );
+    }
+}
+
+function showWrongAlert(title, message, alertTime=0) {
+    if (alertTime == 0) {
+        showAlert(title, message, "divWrongAlert",
+                {"name": "okShowAlert", "duration": "0.5s"},
+                {"name": "okHideAlert", "duration": "0.5s"}
+            );
+    } else {
+        showTimerAlert(title, message, alertTime, "divWrongAlert",
+                {"name": "okShowAlert", "duration": "0.5s"},
+                {"name": "okHideAlert", "duration": "0.5s"}
+            );
+    }
+}
+
 function showTimerAlert(title, message, time, divClass="alertDiv", 
     animation={"name":"showAlert","duration":"0.5s"},
     closeAnimation={"name":"hideAlert","duration":"0.5s"}) {
