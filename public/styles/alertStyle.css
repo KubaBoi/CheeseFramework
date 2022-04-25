@@ -43,6 +43,7 @@
     margin: 5px;
     border-radius: 5px;
     background-color: var(--main-color);
+    color: var(--main-text-color);
     transition: all;
     transition-duration: 0.4s;
 }
@@ -58,6 +59,7 @@
     right: 60px;
     bottom: 5px;
     background-color: var(--main-color);
+    color: var(--main-text-color);
     transition: all;
     transition-duration: 0.4s;
 }
