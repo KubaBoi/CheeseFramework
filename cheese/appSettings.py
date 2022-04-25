@@ -37,7 +37,7 @@ class Settings:
         Settings.allowCORS = Settings.settings["allowCORS"]
         Settings.allowDB = Settings.settings["allowDB"]
 
-        Settings.activeLicense = None
+        Settings.activeLicense = "None"
 
         with open(f"{ResMan.root()}/adminSettings.json", "r") as f:
             Settings.adminSettings = json.loads(f.read())
