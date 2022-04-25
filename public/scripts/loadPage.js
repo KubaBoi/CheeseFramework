@@ -34,5 +34,9 @@ async function getHtml(name, path, parentId, attributeClass="") {
             {"name": "class", "value": attributeClass} 
         ]);
         div.innerHTML = response;
+        return div;
+    }
+    else {
+        return null;
     }
 }
