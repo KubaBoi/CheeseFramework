@@ -8,6 +8,7 @@ import time
 from http.cookies import SimpleCookie
 
 from cheese.resourceManager import ResMan
+from cheese.appSettings import Settings
 from cheese.Logger import Logger
 
 """
@@ -124,7 +125,7 @@ class CheeseController:
                 CheeseController.sendResponse(server, (f.read(), 404))
             return
 
-        if (file.endswith(".html")):
+        if (file.endswith(".html") and not CheeseController.checkLicense()):
             with open(f"{file}", "r", encoding="utf-8") as f:
                 data = f.read()
                 if (data.find("</body>") != -1):
@@ -144,3 +145,10 @@ class CheeseController:
         server.end_headers()
 
         server.wfile.write(response[0])
+
+    # checks license
+    @staticmethod
+    def checkLicense():
+        if (Settings.activeLicense == "me" or Settings.activeLicense == "full access"):
+            return True
+        return False
