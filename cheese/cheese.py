@@ -101,7 +101,7 @@ class Cheese:
     def loadLicence():
         try:
             r = requests.get(f"http://frogie.cz:6969/licence/authLic?code={Settings.licenseCode}")
-            Settings.activeLicense = json.loads(r.text)["LICENSE"]
+            Settings.activeLicense = json.loads(r.text)["LICENCE"]
         except Exception as e:
             Logger.warning("Unable to contact licensing server", silence=False)
 
