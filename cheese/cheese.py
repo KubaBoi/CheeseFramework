@@ -100,7 +100,7 @@ class Cheese:
     @staticmethod
     def loadLicence():
         try:
-            r = requests.get(f"http://frogie.cz:6969/license/authLic?code={Settings.licenseCode}")
+            r = requests.get(f"http://frogie.cz:6969/licence/authLic?code={Settings.licenseCode}")
             Settings.activeLicense = json.loads(r.text)["LICENSE"]
         except Exception as e:
             Logger.warning("Unable to contact licensing server", silence=False)
