@@ -22,6 +22,7 @@ class Settings:
         Settings.settings = Settings.loadJson()
         Settings.name = Settings.settings["name"]
         Settings.version = Settings.settings["version"]
+        Settings.licenseCode = Settings.settings["licenseCode"]
         Settings.host = Settings.settings["host"]
         Settings.port = Settings.settings["port"]
         Settings.dbDriver = Settings.settings["dbDriver"]
@@ -35,6 +36,8 @@ class Settings:
         Settings.allowMultiThreading = Settings.settings["allowMultiThreading"]
         Settings.allowCORS = Settings.settings["allowCORS"]
         Settings.allowDB = Settings.settings["allowDB"]
+
+        Settings.activeLicense = None
 
         with open(f"{ResMan.root()}/adminSettings.json", "r") as f:
             Settings.adminSettings = json.loads(f.read())
