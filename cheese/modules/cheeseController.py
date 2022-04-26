@@ -102,6 +102,7 @@ class CheeseController:
         newCookieName = ""
         index = 0
         while True:
+            if (index >= len(cookieRaw)): break
 
             if (cookieRaw[index] == " "):
                 index += 1 
@@ -120,7 +121,6 @@ class CheeseController:
                 if (index >= len(cookieRaw)): break
             
             index += 1
-            if (index >= len(cookieRaw)): break
             newCookieName = ""
         
         return cookies
