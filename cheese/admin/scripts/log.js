@@ -1,5 +1,13 @@
 debug = false;
 
+setTitle();
+async function setTitle() {
+    response = await callEndpoint("GET", "/admin/getSettings");
+    if (!response.ERROR) {
+        document.title = "Cheese logs - " + response.name;
+    }
+}
+
 function getActiveLog() {
     url = "/admin/getActiveLog";
     
