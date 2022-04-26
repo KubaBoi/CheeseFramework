@@ -3,7 +3,6 @@
 
 from urllib.parse import unquote
 import os
-import html
 import json
 import time
 from http.cookies import SimpleCookie
@@ -66,7 +65,7 @@ class CheeseController:
             for arg in argsArray:
                 spl = arg.split("=")
                 if (decode):
-                    arguments[spl[0]] = html.unescape(spl[1])
+                    arguments[spl[0]] = unquote(spl[1])
                 else:
                     arguments[spl[0]] = spl[1]
         return arguments
