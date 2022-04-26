@@ -47,3 +47,8 @@ class Settings:
         with open(f"{ResMan.root()}/appSettings.json", "r") as f:
             ret = json.loads(f.read())
         return ret
+
+    @staticmethod
+    def saveJson(jsonConf):
+        with open(f"{ResMan.root()}/appSettings.json", "w") as f:
+            f.write(json.dumps(jsonConf))

@@ -153,7 +153,19 @@ class AdminManager:
 
     @staticmethod
     def __changeConfig(server):
-        pass
+        args = CheeseController.getCookies(server)
+        try:
+            config = json.loads(args["config"])
+            Settings.saveJson(config)
+        except Exception as e:
+            Logger.fail("ERROR while saving configuration", e)
+            Error.sendCustomError(server, "Error while saving configuration", 500)
+            return
+
+        Logger.warning("Configuration was updated.", allowHeader=False, silence=False)
+        Logger.warning("Restart to apply changes.", allowHeader=False, silence=False)
+        response = CheeseController.createResponse({"STATUS": "ok"}, 200)
+        CheeseController.sendResponse(server, response)
         
     @staticmethod
     def __update(server):
