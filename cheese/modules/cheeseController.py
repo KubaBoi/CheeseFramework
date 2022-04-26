@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from urllib.parse import unquote
 import os
+import html
 import json
 import time
 from http.cookies import SimpleCookie
@@ -57,14 +57,17 @@ class CheeseController:
 
     # return arguments from rest request url
     @staticmethod
-    def getArgs(url):
+    def getArgs(url, decode=True):
         arguments = {}
         argsArray = url.split("?")
         if (len(argsArray) > 1):
             argsArray = argsArray[1].split("&")
             for arg in argsArray:
                 spl = arg.split("=")
-                arguments[spl[0]] = spl[1]
+                if (decode):
+                    arguments[spl[0]] = html.unescape(spl[1])
+                else:
+                    arguments[spl[0]] = spl[1]
         return arguments
 
     # return bytes from post body
