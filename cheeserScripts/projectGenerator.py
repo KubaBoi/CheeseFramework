@@ -68,6 +68,7 @@ class ProjectGenerator:
         self.generateFile("mainTemplate.py", [f"{ResMan.src()}/{self.pname}.py", f"{ResMan.src()}/{self.pname}.pyw"])
         self.generateFile("appSettings.json", [f"{ResMan.root()}/appSettings.json"])
         self.generateFile("adminSettings.json", [f"{ResMan.root()}/adminSettings.json"])
+        self.generateFile("authExceptions.json", [f"{ResMan.root()}/authExceptions.json"])
         self.generateFile("index.html", [f"{ResMan.web()}/index.html"])
         self.generateFile("api.html", [f"{ResMan.web()}/api.html"])
         self.generateFile("error404.html", [f"{ResMan.error()}/error404.html"])

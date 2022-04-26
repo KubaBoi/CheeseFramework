@@ -77,7 +77,7 @@ class ControllerBuilder:
         self.gets += "\t\t\t\t\tCheeseController.serveFile(self, self.path)\n"
 
         if (self.isAuthorizationEnabled):
-            self.gets = ("\t\t\tauth = Authorization.authorize(self, path, \"GET\")\n" 
+            self.gets = ("\t\t\tauth = Authorization.authorize(self, self.path, \"GET\")\n" 
                 + "\t\t\tif (auth == -1): \n\t\t\t\tCheeseController.sendResponse(self, Error.BadToken)\n\t\t\t\treturn\n\n" + self.gets)
         else:
             self.gets = "\t\t\tauth = None\n\n" + self.gets
