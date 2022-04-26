@@ -51,7 +51,7 @@ class Cheese:
                 db.close()
                 Logger.okBlue(f"CONNECTED TO {Settings.dbHost}:{Settings.dbPort} {Settings.dbName}", silence=False)
             except Exception as e:
-                Logger.fail(f"CONNECTION TO {Settings.dbHost}:{Settings.dbPort} {Settings.dbName} CANNOT BE DONE:{Logger.WARNING}\n{str(e)}", silence=False)
+                Logger.fail(f"CONNECTION TO {Settings.dbHost}:{Settings.dbPort} {Settings.dbName} CANNOT BE DONE", e, silence=False)
         else:
             Logger.warning("Database connection is turned off", silence=False)
 

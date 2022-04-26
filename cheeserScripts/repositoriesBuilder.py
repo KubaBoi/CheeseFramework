@@ -161,6 +161,7 @@ class RepositoriesBuilder:
         content += "\t\t\tdb.done()\n"
         content += "\t\texcept Exception as e:\n"
         content += "\t\t\tLogger.fail(\"An error occurred while query request\", str(e))\n\n"
+        content += "\t\t\traise SystemError(\"An error occurred while query request\", e)\n\n"
         content += "\t\tif (response == None): return response\n"
         
         name = repo["name"] + "Impl"
