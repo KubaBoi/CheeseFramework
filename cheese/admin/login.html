@@ -11,10 +11,10 @@
         loginFunction();
         function loginFunction() {
             var user = prompt("Login as admin:", "");
-            var pass = prompt("Password:", "")
+            var pass = prompt("Password:", "");
             
-            setCookie("adminName", user, 0.01);
-            setCookie("adminPass", pass, 0.01);
+            setCookie("adminName", user, 1);
+            setCookie("adminPass", pass, 1);
 
             window.location = redirect;
         }

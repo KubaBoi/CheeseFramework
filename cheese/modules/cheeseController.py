@@ -98,21 +98,31 @@ class CheeseController:
             if (header[0] == "Cookie"):
                 cookieRaw = ":".join(header[1:])
 
-        cookieRaw = list(cookieRaw)
-        for i in range(len(cookieRaw)):
-            if (cookieRaw[i] == "="):
-                while (cookieRaw[i] != ";"):
-                    if (cookieRaw[i] == " "): cookieRaw[i] = "_" 
-                    i += 1
-                    if (i >= len(cookieRaw)): break
-        
-        cookieRaw = "".join(cookieRaw)
-        cookie = SimpleCookie()
-        cookie.load(cookieRaw)
-        
         cookies = {}
-        for key, morsel in cookie.items():
-            cookies[key] = morsel.value
+        newCookieName = ""
+        index = 0
+        while True:
+
+            if (cookieRaw[index] == " "):
+                index += 1 
+                continue
+            
+            while (cookieRaw[index] != "="):
+                newCookieName += cookieRaw[index]
+                index += 1
+
+            cookies[newCookieName] = ""  
+            index += 1              
+
+            while (cookieRaw[index] != ";"):
+                cookies[newCookieName] += cookieRaw[index]
+                index += 1
+                if (index >= len(cookieRaw)): break
+            
+            index += 1
+            if (index >= len(cookieRaw)): break
+            newCookieName = ""
+        
         return cookies
 
     # send file
