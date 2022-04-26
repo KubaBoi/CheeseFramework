@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from platform import platform
 from urllib.parse import unquote
 import os
 import json
@@ -59,6 +60,10 @@ class CheeseController:
     @staticmethod
     def getArgs(url, decode=True):
         arguments = {}
+
+        if (os.name != "nt"):
+            url = url.replace("\\", "/")
+
         argsArray = url.split("?")
         if (len(argsArray) > 1):
             argsArray = argsArray[1].split("&")
