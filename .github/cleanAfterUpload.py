@@ -1,4 +1,11 @@
-name: Build
+import os
+import json
+
+workFlowPath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), "workflows", "build.yml"))
+
+with open(workFlowPath, "w") as f:
+    f.write(
+"""name: Build
 
 on:
   push:
@@ -32,7 +39,7 @@ jobs:
         run: python -m build
 
       - name: Upload to Pypi
-        run: python -m twine upload --repository testpypi dist/* -u KubaBoi -p 3XTXmokfA
+        run: python -m twine upload --repository testpypi dist/* -u {} -p {}
 
       - name: commit files
         run: |
@@ -46,4 +53,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main 
-        
+        """
+    )
+
+
+
