@@ -12,8 +12,8 @@ with open(props, "r") as f:
 
 os.remove(props)
 
-userName = props["name"]
-password = props["pass"]
+userName = data["name"]
+password = data["pass"]
 
 with open("~/.pypirc", "r") as f:
     data = f.read()
