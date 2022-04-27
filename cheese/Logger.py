@@ -1,3 +1,5 @@
+#cheese
+
 import inspect
 from logging import handlers
 import os

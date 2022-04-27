@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#cheese
 
 from sqlite3 import connect
 import time

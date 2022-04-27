@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#cheese
 
 from platform import platform
 from urllib.parse import unquote

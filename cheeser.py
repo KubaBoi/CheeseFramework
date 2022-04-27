@@ -1,14 +1,16 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#cheese
 
 import sys, getopt
 import os
 
-from cheeserScripts.projectGenerator import ProjectGenerator
-from cheeserScripts.projectBuilder import ProjectBuilder
-from cheeserScripts.createByDb import CreateByDB
-from cheeserScripts.createApi import ApiControllerCreator as api
-from cheeserScripts.generateApi import ApiGenerator as apiG
+from cheese.variables import Variables
+Updater.checkUpdate(Variables.release)
+
+from cheeserScripts.builders.projectGenerator import ProjectGenerator
+from cheeserScripts.builders.projectBuilder import ProjectBuilder
+from cheeserScripts.api.createByDb import CreateByDB
+from cheeserScripts.api.createApi import ApiControllerCreator as api
+from cheeserScripts.api.generateApi import ApiGenerator as apiG
 from cheeserScripts.checkVersion import Updater
 from cheese.resourceManager import ResMan
 
@@ -18,8 +20,6 @@ __version__ = "1.0.0"
 __maintainer__ = "Jakub Anderle"
 __email__ = "jakubanderle@outlook.cz"
 __status__ = "Development"
-
-Updater.checkUpdate()
 
 try:
     opts, args = getopt.getopt(sys.argv[1:], "hb:d:c:a:", ["build=", "database=", "controller=", "api="])

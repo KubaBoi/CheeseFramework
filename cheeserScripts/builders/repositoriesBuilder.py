@@ -1,3 +1,5 @@
+#cheese
+
 from cheese.resourceManager import ResMan
 
 class RepositoriesBuilder:

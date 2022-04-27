@@ -1,3 +1,4 @@
+#cheese
 
 from cheese.resourceManager import ResMan
 
