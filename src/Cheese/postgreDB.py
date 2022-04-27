@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
+#cheese
 import psycopg2
 
 from Cheese.appSettings import Settings

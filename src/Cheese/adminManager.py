@@ -1,3 +1,4 @@
+#cheese
 
 import os
 import json
@@ -6,6 +7,7 @@ import sys
 import subprocess
 
 from Cheese.cheeseController import CheeseController
+from Cheese.variables import Variables
 from Cheese.Logger import Logger
 from Cheese.resourceManager import ResMan
 from Cheese.appSettings import Settings
@@ -178,8 +180,5 @@ class AdminManager:
 
     @staticmethod
     def __getRelease(server):
-        with open(os.path.join(ResMan.cheese(), "cheeseproperties.json"), "r") as f:
-            release = json.loads(f.read())["release"]
-
-        response = CheeseController.createResponse({"RELEASE": release}, 200)
+        response = CheeseController.createResponse({"RELEASE": Variables.release}, 200)
         CheeseController.sendResponse(server, response)

@@ -1,7 +1,7 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#cheese
 
 import os
+import shutil
 
 from Cheese.resourceManager import ResMan
 from Cheese.controllerBuilder import ControllerBuilder

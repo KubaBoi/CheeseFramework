@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#cheese
 
 import sys
 import os
@@ -7,6 +6,7 @@ import requests
 from pathlib import Path
 
 from Cheese.resourceManager import ResMan
+from Cheese.variables import Variables
 from Cheese.appSettings import Settings
 from Cheese.cheeseServer import *
 from Cheese.database import Database
@@ -89,10 +89,8 @@ class Cheese:
     def printInit():
         with open(f"{ResMan.cheese()}/initString.txt", "r") as f:
             print(f.read())
-        with open(f"{ResMan.cheese()}/cheeseproperties.json", "r") as f:
-            properties = json.loads(f.read())
-            print(f"Cheese Framework            (v{properties['release']})")
-            print(properties['documentation'])
+            print(f"Cheese Framework            (v{Variables.release})")
+            print(Variables.documentation)
             print("License: " + Settings.activeLicense)
             print("")
 

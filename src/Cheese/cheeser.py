@@ -1,8 +1,10 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#cheese
 
 import sys, getopt
 import os
+
+from Cheese.variables import Variables
+Updater.checkUpdate(Variables.release)
 
 from Cheese.projectGenerator import ProjectGenerator
 from Cheese.projectBuilder import ProjectBuilder
@@ -18,14 +20,6 @@ __version__ = "1.0.0"
 __maintainer__ = "Jakub Anderle"
 __email__ = "jakubanderle@outlook.cz"
 __status__ = "Development"
-
-class Cheeser:
-
-    @staticmethod
-    def generate(path):
-        print("generating")
-
-#Updater.checkUpdate()
 
 try:
     opts, args = getopt.getopt(sys.argv[1:], "hb:d:c:a:", ["build=", "database=", "controller=", "api="])

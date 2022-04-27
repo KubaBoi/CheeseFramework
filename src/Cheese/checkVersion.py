@@ -1,4 +1,5 @@
-import os
+#cheese
+
 import json
 import requests
 import subprocess
@@ -17,7 +18,7 @@ class Updater:
         print("")
 
     @staticmethod
-    def checkUpdate():
+    def checkUpdate(release):
         Updater.starter()
 
         print("Checking latest Cheese release...")
@@ -25,8 +26,8 @@ class Updater:
         aversion = requests.get("https://kubaboi.github.io/CheeseFramework/public/version.html").text
         props = Updater.getRelease()
 
-        if (props['release'] != aversion):
-            print(f"You have got release {props['release']} but the latest Cheese is {aversion}")
+        if (release != aversion):
+            print(f"You have got release {release} but the latest Cheese is {aversion}")
             accept = input("Would you like to update? [y/n] ")
             if (accept.startswith("y")):
                 Updater.update()
@@ -35,12 +36,7 @@ class Updater:
     @staticmethod
     def update():
         subprocess.run("git pull", shell=True)
-        version = Updater.getRelease()["release"]
         print("")
-        print(f"Cheese was updated on release {version} :)")
+        print(f"Cheese was updated on lastest release :)")
         print("")
 
-    @staticmethod
-    def getRelease():
-        with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), "..", "cheese", "cheeseproperties.json")), "r") as f:
-            return json.loads(f.read())
