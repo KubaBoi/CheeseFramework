@@ -1,6 +1,6 @@
 from Cheese.variables import Variables
 
-print("""
+print(f"""
                         ,/((#&/                                                 
                .*//(*,..........*//*                                            
             *%*......................,%/                                        
