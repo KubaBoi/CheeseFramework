@@ -1,0 +1,27 @@
+Metadata-Version: 2.1
+Name: CheeseFramework-KubaBoi
+Version: 0.0.11
+Summary: Framework for creating web applications
+Home-page: https://github.com/KubaBoi/CheeseFramework/
+Author: Jakub Anderle
+Author-email: jakubanderle@outlook.cz
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/KubaBoi/CheeseFramework/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Cheese Framework
+
+[![Release Build](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml/badge.svg?branch=main)](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml)
+
+### Release v(22.04.26.19.39)
+
+ ## Documentation
+
+https://kubaboi.github.io/CheeseFramework/
+
