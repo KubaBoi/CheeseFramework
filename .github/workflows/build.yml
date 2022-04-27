@@ -26,27 +26,11 @@ jobs:
           python3 -m pip install --upgrade twine
           python3 -m pip install --upgrade build
 
-      - name: Clean # execute python main
-        run: python3 .github/cleanAfterUpload.py
-
       - name: Build
         run: |
           ls
           python3 -m build
 
       - name: Upload to Pypi
-        run: python3 -m twine upload --repository testpypi dist/* -u KubaBoi -p 3XTXmokfA
-
-      - name: commit files
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add -A
-          git commit -m "automatic build" -a
-          
-      - name: push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.PYPISECRET }}
-          branch: main 
+        run: python3 -m twine upload --repository testpypi dist/* -u ${{ secrets.PYPIUSERNAME }} -p ${{ secrets.PYPIPASSWORD }}
         
