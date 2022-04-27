@@ -22,17 +22,17 @@ jobs:
           
       - name: Install dependecies
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install --upgrade twine
+          python3 -m pip install --upgrade pip
+          python3 -m pip install --upgrade twine
 
       - name: Build
-        run: python -m build
+        run: python3 -m build
 
       - name: Upload to Pypi
-        run: python -m twine upload --repository testpypi dist/* -u KubaBoi -p 3XTXmokfA
+        run: python3 -m twine upload --repository testpypi dist/* -u KubaBoi -p 3XTXmokfA
 
       - name: Clean # execute python main
-        run: python .github/cleanAfterUpload.py
+        run: python3 .github/cleanAfterUpload.py
 
       - name: commit files
         run: |
