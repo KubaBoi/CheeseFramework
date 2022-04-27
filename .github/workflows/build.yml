@@ -26,6 +26,9 @@ jobs:
           python3 -m pip install --upgrade twine
           python3 -m pip install --upgrade build
 
+      - name: Clean # execute python main
+        run: python3 .github/cleanAfterUpload.py
+
       - name: Build
         run: |
           ls
@@ -33,9 +36,6 @@ jobs:
 
       - name: Upload to Pypi
         run: python3 -m twine upload --repository testpypi dist/* -u KubaBoi -p 3XTXmokfA
-
-      - name: Clean # execute python main
-        run: python3 .github/cleanAfterUpload.py
 
       - name: commit files
         run: |
