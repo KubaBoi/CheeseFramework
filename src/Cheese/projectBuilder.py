@@ -12,8 +12,6 @@ Builds Cheese Application
 """
 
 class ProjectBuilder:
-    def __init__(self, pname):
-        self.pname = pname
 
     def build(self):
         print("=====BUILDING=====")

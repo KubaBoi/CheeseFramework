@@ -87,12 +87,8 @@ class Cheese:
     # init print
     @staticmethod
     def printInit():
-        with open(f"{ResMan.cheese()}/initString.txt", "r") as f:
-            print(f.read())
-            print(f"Cheese Framework            (v{Variables.release})")
-            print(Variables.documentation)
-            print("License: " + Settings.activeLicense)
-            print("")
+        print("License: " + Settings.activeLicense)
+        print("")
 
     # loads licence
     @staticmethod

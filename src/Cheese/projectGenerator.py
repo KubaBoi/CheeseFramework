@@ -11,8 +11,9 @@ Generates structure of Cheese Application
 """
 
 class ProjectGenerator:
-    def __init__(self, pname):
-        self.pname = pname
+    def __init__(self, path):
+        self.projectPath = path
+        self.pname = ResMan.getFileName(path)
         self.debug = False
 
     def generate(self):
