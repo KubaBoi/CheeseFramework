@@ -25,14 +25,14 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install --upgrade twine
 
-      - name: execute py script # execute python main
-        run: python .github/setCredentials.py
-
       - name: Build
         run: python -m build
 
       - name: Upload to Pypi
         run: python -m twine upload --repository testpypi dist/* -u KubaBoi -p 3XTXmokfA
+
+      - name: Clean # execute python main
+        run: python .github/cleanAfterUpload.py
 
       - name: commit files
         run: |
