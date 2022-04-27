@@ -1,7 +1,7 @@
 import os
 import json
 
-props = os.path.abspath(os.path.join(os.path.dirname( __file__ ), "..", "uploadProperites.json"))
+props = os.path.abspath(os.path.join(os.path.dirname( __file__ ), "..", "cr.json"))
 
 if (not os.path.exists(props)):
     print("Not building - missing credentials")
