@@ -4,6 +4,10 @@
 
 ### Release v(22.04.27.23.17)
 
+## Instalation
+
+https://test.pypi.org/project/CheeseFramework-KubaBoi/
+
 ## Documentation
 
 https://kubaboi.github.io/CheeseFramework/
