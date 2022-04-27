@@ -15,10 +15,10 @@ os.remove(props)
 userName = data["name"]
 password = data["pass"]
 
-with open("~/.pypirc", "r") as f:
+with open("/.pypirc", "r") as f:
     data = f.read()
 
-with open("~/.pypirc", "a") as f:
+with open("/.pypirc", "a") as f:
     f.write(f"username = {userName}")
     f.write(f"password = {password}")
 
