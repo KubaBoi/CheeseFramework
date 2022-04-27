@@ -4,11 +4,11 @@
 import sys, getopt
 import os
 
-from cheeserScripts.projectGenerator import ProjectGenerator
-from cheeserScripts.projectBuilder import ProjectBuilder
-from cheeserScripts.createByDb import CreateByDB
-from cheeserScripts.createApi import ApiControllerCreator as api
-from cheeserScripts.generateApi import ApiGenerator as apiG
+from cheeserScripts.cheeseGenerators.projectGenerator import ProjectGenerator
+from cheeserScripts.cheeseGenerators.projectBuilder import ProjectBuilder
+from cheeserScripts.appGenerators.createByDb import CreateByDB
+from cheeserScripts.appGenerators.createApi import ApiControllerCreator as api
+from cheeserScripts.appGenerators.generateApi import ApiGenerator as apiG
 from cheeserScripts.checkVersion import Updater
 from cheese.resourceManager import ResMan
 

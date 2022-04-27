@@ -4,7 +4,7 @@ import json
 from bs4 import BeautifulSoup
 from cheese.resourceManager import ResMan
 
-from cheeserScripts.createByDb import CreateByDB
+from cheeserScripts.appGenerators.createByDb import CreateByDB
 
 class ApiControllerCreator:
 

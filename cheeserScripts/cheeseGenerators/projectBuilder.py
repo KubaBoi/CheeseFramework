@@ -2,11 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import os
-import shutil
 
 from cheese.resourceManager import ResMan
-from cheeserScripts.controllerBuilder import ControllerBuilder
-from cheeserScripts.repositoriesBuilder import RepositoriesBuilder
+from cheeserScripts.cheeseGenerators.controllerBuilder import ControllerBuilder
+from cheeserScripts.cheeseGenerators.repositoriesBuilder import RepositoriesBuilder
 
 """
 Builds Cheese Application
