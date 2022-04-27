@@ -70,15 +70,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: checkout repo development
-        uses: actions/checkout@v2 # checkout the repository content to github runner
-        with:
-            ref: development
-      
       - name: checkout repo main
         uses: actions/checkout@v2 # checkout the repository content to github runner
         with:
             ref: main
+
+      - name: checkout repo development
+        uses: actions/checkout@v2 # checkout the repository content to github runner
+        with:
+            ref: development
 
       - name: setup python
         uses: actions/setup-python@v2
