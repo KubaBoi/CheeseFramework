@@ -4,16 +4,14 @@ import os
 import shutil
 
 from cheese.resourceManager import ResMan
-from cheeserScripts.controllerBuilder import ControllerBuilder
-from cheeserScripts.repositoriesBuilder import RepositoriesBuilder
+from cheeserScripts.builders.controllerBuilder import ControllerBuilder
+from cheeserScripts.builders.repositoriesBuilder import RepositoriesBuilder
 
 """
 Builds Cheese Application
 """
 
 class ProjectBuilder:
-    def __init__(self, pname):
-        self.pname = pname
 
     def build(self):
         print("=====BUILDING=====")

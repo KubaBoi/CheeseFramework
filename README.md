@@ -2,8 +2,6 @@
 
 [![Release Build](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml/badge.svg?branch=main)](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml)
 
-Hodně cool JumboPizza
-
 ### Release v(22.04.28.00.57)
 
 ## Instalation

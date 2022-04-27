@@ -7,8 +7,8 @@ from cheese.resourceManager import ResMan
 from cheese.Logger import Logger
 from cheese.appSettings import Settings
 
-from cheeserScripts.createByDb import CreateByDB
-from cheeserScripts.createApi import ApiControllerCreator as ac
+from cheeserScripts.api.createByDb import CreateByDB
+from cheeserScripts.api.createApi import ApiControllerCreator as ac
 
 class ApiGenerator:
 
