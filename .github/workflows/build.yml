@@ -26,7 +26,9 @@ jobs:
           python3 -m pip install --upgrade twine
 
       - name: Build
-        run: python3 -m build
+        run: |
+        ls
+        python3 -m build
 
       - name: Upload to Pypi
         run: python3 -m twine upload --repository testpypi dist/* -u KubaBoi -p 3XTXmokfA
