@@ -69,8 +69,11 @@ for root, dirs, files in os.walk(frameworkDir):
                 with open(newFile, "w") as f:
                     f.write(data)
 
-repo = git.Repo(repoDir)
-repo.index.add(["*"])
-repo.index.commit("automatic build for pip")
-origin = repo.remote('origin')
-origin.push()
+try:
+    repo = git.Repo(repoDir)
+    repo.index.add(["*"])
+    repo.index.commit("automatic build for pip")
+    origin = repo.remote('origin')
+    origin.push()
+except Exception as e:
+    print(repr(e))
