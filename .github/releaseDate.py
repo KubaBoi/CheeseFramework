@@ -17,10 +17,11 @@ with open(prepFile, "w") as f:
 
 readmeFile = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "README.md"))
 
+with open(readmeFile, "r") as f:
+    data = f.read()
+
+releaseIndex = data.find("### Release ")
+releaseLine = data[releaseIndex:releaseIndex+len("### Release v(xx.xx.xx.xx.xx)")]
+
 with open(readmeFile, "w") as f:
-    f.write(
-        f"# Cheese Framework\n\n" +
-        f"[![Release Build](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml/badge.svg?branch=main)](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml)\n\n" +
-        f"### Release v({releaseDate})\n\n " +
-        "## Documentation\n\nhttps://kubaboi.github.io/CheeseFramework/"
-    )
+    f.write(data.replace(releaseLine, f"### Release v({releaseDate})"))

@@ -4,6 +4,6 @@
 
 ### Release v(22.04.27.22.51)
 
- ## Documentation
+## Documentation
 
 https://kubaboi.github.io/CheeseFramework/
