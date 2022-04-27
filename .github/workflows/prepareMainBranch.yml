@@ -3,7 +3,7 @@ name: Pip prepare
 on:
   push:
     branches:
-      - development
+      - webServices
 
 jobs:
   pip-prepare:
