@@ -27,8 +27,8 @@ jobs:
 
       - name: Build
         run: |
-        ls
-        python3 -m build
+          ls
+          python3 -m build
 
       - name: Upload to Pypi
         run: python3 -m twine upload --repository testpypi dist/* -u KubaBoi -p 3XTXmokfA
