@@ -1,10 +1,12 @@
+#cheese
+
 from importlib.resources import contents
 import os
 import json
 from bs4 import BeautifulSoup
-from cheese.resourceManager import ResMan
+from Cheese.resourceManager import ResMan
 
-from cheeserScripts.appGenerators.createByDb import CreateByDB
+from Cheese.createByDb import CreateByDB
 
 class ApiControllerCreator:
 
@@ -43,8 +45,8 @@ class ApiControllerCreator:
 
         content = "#!/usr/bin/env python\n"
         content += "# -*- coding: utf-8 -*-\n\n"
-        content += "from cheese.ErrorCodes import Error\n"
-        content += "from cheese.modules.cheeseController import CheeseController as cc\n\n"
+        content += "from Cheese.ErrorCodes import Error\n"
+        content += "from Cheese.cheeseController import CheeseController as cc\n\n"
         content += f"from python.repositories.{lowerName}Repository import {name}Repository\n\n"
         content += f"from python.models.{lowerName} import {name}\n\n"
         content += f"#@controller {span.text}\n"

@@ -1,3 +1,4 @@
+#cheese
 
 import os
 
@@ -42,7 +43,7 @@ class CreateByDB:
 
         content = "#!/usr/bin/env python\n"
         content += "# -*- coding: utf-8 -*-\n\n"
-        content += "from cheese.modules.cheeseModel import CheeseModel\n\n"
+        content += "from Cheese.cheeseModel import CheeseModel\n\n"
         content += "#@model\n"
         content += f"class {modelName}(CheeseModel):\n"
         content += "\tdef __init__(self, "
@@ -91,7 +92,7 @@ class CreateByDB:
         
         content = "#!/usr/bin/env python\n"
         content += "# -*- coding: utf-8 -*-\n\n"
-        content += "from cheese.modules.cheeseRepository import CheeseRepository\n\n"
+        content += "from Cheese.cheeseRepository import CheeseRepository\n\n"
         content += f"#@repository {name}\n"
         content += f"#@dbscheme ("
         for i, column in enumerate(columns):
