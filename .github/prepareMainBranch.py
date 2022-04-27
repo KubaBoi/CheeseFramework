@@ -30,9 +30,8 @@ if (not os.path.exists(os.path.join(repoDir, "CheeseFramework"))):
 repoDir = os.path.join(repoDir, "CheeseFramework")
 
 readmeFile = os.path.abspath(os.path.join(repoDir, "README.md"))
-readmeOrigFile = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "README.md"))
 
-with open(readmeOrigFile, "r") as f:
+with open(readmeFile, "r") as f:
     data = f.read()
 
 releaseIndex = data.find("### Release ")
