@@ -61,6 +61,9 @@ for root, dirs, files in os.walk(repoDir):
                 for imp in imps:
                     data = replaceImports(data, imp)
 
+                if (file == "variables.py"):
+                    data.replace("RELEASE", releaseDate)
+
                 newFile = os.path.join(frameworkDir, "src", "Cheese", file)
                 if (os.path.exists(newFile)):
                     os.remove(newFile)
