@@ -23,7 +23,7 @@ class ProjectGenerator:
         shutil.rmtree(os.path.join(path, ".git"))
 
         if (not generateFiles):
-            src = os.join(path, "src")
+            src = os.path.join(path, "src")
 
             os.remove(os.path.join(src, "controllers", "HelloWorldController.py"))
             os.remove(os.path.join(src, "models", "Hello.py"))
