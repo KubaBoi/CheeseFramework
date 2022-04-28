@@ -1,6 +1,6 @@
 from Cheese.cheeseModel import CheeseModel
 
-#@model
+#@model;
 class Hello(CheeseModel):
 
     def __init__(self, id=None, hello_value=None):

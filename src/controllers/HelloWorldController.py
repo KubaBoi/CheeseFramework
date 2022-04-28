@@ -3,10 +3,10 @@
 
 from Cheese.cheeseController import CheeseController as cc
 
-#@controller /hello
+#@controller /hello;
 class HelloWorldController(cc):
 
-    #@get /world
+    #@get /world;
     @staticmethod
     def helloWorld(server, path, auth):
         response = cc.createResponse({"HELLO WORLD": "Cheese is working :) hurrayyy"}, 200)
