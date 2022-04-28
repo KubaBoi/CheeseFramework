@@ -54,6 +54,12 @@ class CheeseHandler(BaseHTTPRequestHandler):
                 while (len(error.args) > 1):
                     error = error.args[-1]
                 Error.sendCustomError(self, error.args[0], 500)
+            elif (type(e) is SyntaxError):
+                Logger.fail("SyntaxError occurred", e)
+                error = e
+                while (len(error.args) > 1):
+                    error = error.args[-1]
+                Error.sendCustomError(self, error.args[0], 500)
             else:
                 Logger.fail("An error unknown occurred", e)
                 Error.sendCustomError(self, "Internal server error :(", 500)

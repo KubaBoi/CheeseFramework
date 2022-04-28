@@ -25,8 +25,12 @@ class Finder:
         return (data[index+len(name):endIndex].strip(), endIndex)
 
     @staticmethod
-    def getAnnotation(data, name, file, fr=0, raiseError=True):
-        index = data.find(name, fr)
+    def getAnnotation(data, name, file, fr=0, raiseError=True, maxS=0):
+        if (maxS != 0):
+            index = data.find(name, fr, fr+maxS)
+        else:
+            index = data.find(name, fr)
+            
         if (index == -1 and raiseError): raise SyntaxError(f"Missing {name} annotation in {file}")
         elif (index == -1): return False
 
