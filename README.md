@@ -1,8 +1,5 @@
-<img style="float: right;" width=150 height=150 src="https://kubaboi.github.io/CheeseFramework/documentation/documentation300x300.png">
 
-<link rel="stylesheet" href="https://kubaboi.github.io/CheeseFramework/public/styles/style.css">
-
-# Cheese Framework
+# Cheese Framework <img style="float: right;" width=150 height=150 src="https://kubaboi.github.io/CheeseFramework/documentation/documentation300x300.png">
 
 [![Release Build](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml/badge.svg?branch=main)](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml)
 
@@ -22,5 +19,6 @@ Cheese Framework is open source library for creating web applications with datab
     Cheese Framework is using basic http python server. So DO NOT RUN outside firewall. If you are creating an application for bigger audience or you care about security use any other framework like Django and server for production like Apache or Tomcat.
     Stay safe :heart:
 </div>
+
 Also I am using Tomcat like some kind of gate which listens at 80 public port and resending requests to Cheese Applications running under firewall and listen at closed to public ports.
 
