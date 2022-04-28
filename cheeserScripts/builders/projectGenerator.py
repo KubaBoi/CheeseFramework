@@ -1,7 +1,6 @@
 #cheese
 
 import os
-from re import S
 import git
 import shutil
 
