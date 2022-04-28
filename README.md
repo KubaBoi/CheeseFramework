@@ -1,6 +1,6 @@
 <img style="float: right;" width=150 height=150 src="https://kubaboi.github.io/CheeseFramework/documentation/documentation300x300.png">
 
-<link rel="stylesheet" href="public/styles/style.css">
+<link rel="stylesheet" href="https://kubaboi.github.io/CheeseFramework/public/styles/style.css">
 
 # Cheese Framework
 
@@ -19,6 +19,6 @@ Cheese Framework is open source library for creating web applications with datab
 ### :bangbang: IMPORTANT :bangbang:
 
 <div class="needBuild">
-Cheese Framework is using basic http python server. So DO NOT RUN outside firewall. If you are creating an application for bigger audience or you care about security use any other framework like Django and server for production like Apache or Tomcat.
-Stay safe :heart:
+    Cheese Framework is using basic http python server. So DO NOT RUN outside firewall. If you are creating an application for bigger audience or you care about security use any other framework like Django and server for production like Apache or Tomcat.
+    Stay safe :heart:
 </div>
