@@ -29,12 +29,12 @@ class CheeseRepository:
         variables = CheeseRepository.getVariables(method["SQL"])
         preparedSql = method["SQL"]
         acceptsModel = method["ACCEPTS_MODEL"]
-        model = None
+        modelName = None
         if (acceptsModel):
-            model = Metadata.getModel(repository)
+            modelName = repository["MODEL"]
 
         for key, value in kwargs.items():
-            arg = CheeseRepository.getTypeOf(value, variables, key, model)
+            arg = CheeseRepository.getTypeOf(value, variables, key, modelName, repository["SCHEME"])
             preparedSql = preparedSql.replace(f":{key}", arg)
 
         if (method["TYPE"] == "query"):
@@ -121,7 +121,7 @@ class CheeseRepository:
 
     # convert arguments
     @staticmethod
-    def getTypeOf(arg, variables=None, key=None, model=None):
+    def getTypeOf(arg, variables=None, key=None, modelName=None, scheme=None):
         if (type(arg) is str):
             if (len(arg) == 0): return ""
             elif (arg[-1] != "\'" 
@@ -138,12 +138,20 @@ class CheeseRepository:
             return "(" + ",".join(CheeseRepository.getTypeOf(arg)) + ")"
         elif (type(arg) is datetime):
             return "'" + datetime.strftime(arg, "%d-%m-%Y %H:%M:%S") + "'"
-        elif (arg.__class__.__name__ == model):
+        elif (arg.__class__.__name__ == modelName):
             for var in variables:
                 spl = var.split(".")
                 if (spl[0] == key):
-                    return CheeseRepository.getTypeOf(getattr(arg, spl[1]))
-
+                    if (len(spl) >= 2):
+                        return CheeseRepository.getTypeOf(getattr(arg, spl[1]))
+                    else:
+                        schemeArr = scheme.replace(")", "").replace("(", "").split(",")
+                        newScheme = "("
+                        for attr in schemeArr:
+                            attr = attr.strip()
+                            newScheme += CheeseRepository.getTypeOf(getattr(arg, attr)) + ","
+                        newScheme = newScheme[:-1] + ")"
+                        return newScheme
         else:
             return str(arg)
 
