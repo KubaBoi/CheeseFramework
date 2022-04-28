@@ -49,14 +49,13 @@ for root, dirs, files in os.walk(repoDir):
     if (root.find(".github") == -1):
         continue
 
-    print(root)
     for file in files:
         if (file.endswith(".py")):
             with open(os.path.join(root, file), "r") as f:
                 data = f.read()
 
             if (data.startswith("#cheese")):
-                print(file)
+                print("Found: " + file)
 
                 for imp in imps:
                     data = replaceImports(data, imp)
