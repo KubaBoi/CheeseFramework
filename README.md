@@ -16,10 +16,8 @@ Cheese Framework is open source library for creating web applications with datab
 
 ### :bangbang: IMPORTANT :bangbang:
 
-<div class="needBuild">
-    Cheese Framework is using basic http python server. So DO NOT RUN outside firewall. If you are creating an application for bigger audience or you care about security use any other framework like Django and server for production like Apache or Tomcat.
-    Stay safe :heart:
-</div>
+Cheese Framework is using basic http python server. So DO NOT RUN outside firewall. If you are creating an application for bigger audience or you care about security use any other framework like Django and server for production like Apache or Tomcat.
+Stay safe :heart:
 
 Also I am using Tomcat like some kind of gate which listens at 80 public port and resending requests to Cheese Applications running under firewall and listen at closed to public ports.
 
