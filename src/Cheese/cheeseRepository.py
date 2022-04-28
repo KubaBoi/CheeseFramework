@@ -28,9 +28,9 @@ class CheeseRepository:
         variables = CheeseRepository.getVariables(method["SQL"])
         preparedSql = method["SQL"]
         acceptsModel = method["ACCEPTS_MODEL"]
-        modelName = None
+        model = None
         if (acceptsModel):
-            modelName = Metadata.getModel(repository)
+            model = Metadata.getModel(repository)
 
         for key, value in kwargs.items():
             arg = CheeseRepository.getTypeOf(value, variables, key, model)
@@ -47,7 +47,7 @@ class CheeseRepository:
             db = Database()
             response = db.query(preparedSql)
             db.done()
-        except:
+        except Exception as e:
             Logger.fail("An error occurred while query request", str(e))
             raise SystemError("An error occurred while query request", e)
 
