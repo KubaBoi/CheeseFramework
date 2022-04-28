@@ -32,7 +32,7 @@ class PostgreDB:
         Logger.okCyan(Logger.WARNING + "QUERY: " + Logger.ENDC + Logger.OKCYAN + sql)
         try:
             self.cursor.execute(sql)
-        except:
+        except Exception as e:
             self.rollback()
             raise SystemError("Error while query select", e)
         ret = self.cursor.fetchall()
@@ -44,7 +44,7 @@ class PostgreDB:
             Logger.okBlue(Logger.WARNING + "COMMIT: " + Logger.ENDC + Logger.OKBLUE + sql)
             try:
                 self.cursor.execute(sql)
-            except:
+            except Exception as e:
                 self.rollback()
                 raise SystemError("Error while commit query", e)
         else:
