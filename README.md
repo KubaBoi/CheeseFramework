@@ -180,6 +180,188 @@ Controllers are classes that handle requested endpoints. I recommend to create o
 
 #### 6.1.1 Create controller
 
+As I said, controllers are classes. So create class that inherits from CheeseController.
+To let cheeser know that this class is really controller you have to anotate it with ```#@controller``` annotation. ```#@controller``` annotation follows part of endpoint like this:
+
+```python
+#@controller /apiController
+class apiController(CheeseController):
+```
+
+#### 6.1.2 Methods of controller
+
+There is sctrict scheme how should method in controller looks so it can handle endpoint.
+Method have to be static, so add ```@staticmethod``` annotation above method definition.
+Method have to be anotated. Annotation for endpoints contains HTTP method (right now only ```GET``` and ```POST```) and endpoint.
+Method have to have 3 arguments: server, path, auth.
+
+```python
+#@post /apiEndpoint
+@staticmethod
+def getFiles(server, path, auth):
+
+```
+
+#### 6.1.3 Method arguments
+
+So what are those 3 arguments? Argument number one server is instance of Cheese server handeling this request. You can get some info about connection like client's IP etc... Argument path is just string of request. 
+
+For example:
+Some one wants to see cats so he search for ```http://hostname:port/wanna/see/pussy```. And in this case path will be ```"/wanna/see/pussy"```
+Last argument auth is object created in ```authorization.py``` if it is enabled. More about this later.
+
+#### 6.1.4 Example controller
+
+Now you know almost everything you need to know to create your own controller. There are some functions that was not described yet. Those will be of course later.
+Controller will handle two endpoints:
+
+```/calculator/sum```
+
+```/calculator/sub```
+
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from cheese.modules.cheeseController import CheeseController
+
+#@controller /calculator
+class CalculatorController(CheeseController):
+
+    """
+    sum two numbers in request body and return result
+    body looks for example like this:
+    {
+    "NUM1": 1,
+    "NUM2": 5
+    }
+    so result will looks like this:
+    {
+    "RESPONSE": 6
+    }
+    """
+    #@post /sum
+    @staticmethod
+    def sum(server, path, auth):
+
+        #reads arguments from body of request 
+        args = CheeseController.readArgs(server)
+                
+        #arguments
+        num1 = int(args["NUM1"])
+        num2 = int(args["NUM2"])
+
+        result = num1 + num2
+
+        response = CheeseController.createResponse({"RESPONSE": result}, 200)
+        CheeseController.sendResponse(server, response)
+
+    """
+    substract two numbers in request path and return result
+
+    path looks for example like this:
+    localhost:8000/calculator/sub?num1=5&num2=3
+
+    so result will looks like this:
+    {
+    "RESPONSE": 2
+    }
+    """
+    #@get /sub
+    @staticmethod
+    def sub(server, path, auth):
+    
+        #reads arguments from endpoint path 
+        args = CheeseController.getArgs(server)
+        
+        #arguments
+        num1 = int(args["num1"])
+        num2 = int(args["num2"])
+        
+        result = num1 - num2
+        
+        response = CheeseController.createResponse({"RESPONSE": result}, 200)
+        CheeseController.sendResponse(server, response)
+```
+
+### 6.2 Models
+
+Models are classes for storing data from database. Again, one folder for them.
+One instance of model is one row of database table. 
+
+Model needs only one annotation above class definition ```#@model``` and has to inherit from ```CheeseModel```.
+Arguments in initializer (constructor) should be indentic as scheme of table.
+
+Model for table users with columns ```"id"```, ```"name"```, ```"age"```
+
+```python
+from cheese.modules.cheeseModel import CheeseModel
+
+#@model
+class User(CheeseModel):
+
+    def __init__(self, id=None, name=None, age=None):
+        self.id = id
+        self.name = name
+        self.age = age
+```
+
+It is very useful but not necessary create a method ```toJson()``` which returns dictionary with data of model.
+
+```python
+def toJson(self):
+    response = {
+        "ID": self.id,
+        "NAME": self.name,
+        "AGE": self.age,
+    }
+    return response
+```
+
+### 6.3 Repositories
+
+Repository is like access into one table of database. There are methods that communicate with database.
+
+#### 6.3.1 Create repository
+
+Repositories are last but most complex part of Cheese Framework. They are again classes but there need to be more annotations. Also repository have to inherits from ```CheeseRepository```
+
+First annotation is ```#@repository```, so cheeser knows this is repository, followed by name of table.
+
+Second annotation is ```#@dbscheme``` followed by name of table's columns in brackets where first should be Primary Key.
+
+### :bangbang: IMPORTANT :bangbang:
+
+Column names need to be in same order as in model initializer and need to have same names!!
+
+Last annotation is ```#@dbmodel``` followed by name of model for the table.
+
+```python
+from cheese.modules.cheeseRepository import CheeseRepository
+
+#@repository users
+#@dbscheme (id, user_name, age)
+#@dbmodel User
+class PasswordRepository(CheeseRepository):
+```
+
+#### 6.3.2 Methods of repository
+
+Method scheme is again very strict. They need to be static and every method needs to have this line in it's body:
+
+```python
+return CheeseRepository.query(arg1, arg2,...)
+```
+
+```arg1``` and ```arg2``` are method's arguments.
+
+There are two types of SQL query annotations query and commit.
+
+- ```#@query```
+    - 
+    This annotation says that we want to get data from database. It is followed by SQL query. This query can be more than one line but have to be in quotation marks and the query must ends with semicolon.
+
+
 
 
 
