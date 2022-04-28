@@ -67,9 +67,9 @@ class Cheeser:
     def createApi(path):
         print("Sorry this is still WIP")
         return
-        
+
         apiG.generateApi()
 
-path = "C:\\Users\\Jakub Anderle\\Desktop\\programy\\App"
-ResMan.setPath(path)
-Cheeser.build()
+#path = "C:\\Users\\Jakub Anderle\\Desktop\\programy\\App"
+#ResMan.setPath(path)
+#Cheeser.build()
