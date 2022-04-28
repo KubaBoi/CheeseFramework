@@ -63,9 +63,6 @@ class CheeseBurger:
         else:
             Logger.warning("Database connection is turned off", silence=False)
 
-        #initialization of repositories
-        CheeseRepository.initRepositories()
-
         # initialization of server
         CheeseBurger.initServer()
 
