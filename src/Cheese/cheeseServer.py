@@ -45,8 +45,7 @@ class CheeseHandler(BaseHTTPRequestHandler):
                     else:
                         cc.serveFile(self, self.path)
             else:
-                contr = __import__(controller[0]["FILE"])
-                getattr(contr, controller[1]["METHOD"])(self, self.path, None)
+                controller(self, self.path, None)
 
         except Exception as e:
             if (type(e) is SystemError):
@@ -67,8 +66,7 @@ class CheeseHandler(BaseHTTPRequestHandler):
             if (not controller):
                 Error.sendCustomError(self, "Endpoint not found :(", 404)
             else:
-                contr = __import__(controller[0]["FILE"])
-                getattr(contr, controller[1]["METHOD"])(self, self.path, None)
+                controller(self, self.path, None)
 
         except Exception as e:
             if (type(e) is SystemError):
