@@ -34,9 +34,8 @@ class SQLServerDB:
         try:
             self.cursor.execute(sql)
         except Exception as e:
-            Logger.fail(str(e))
             self.rollback()
-            return None
+            raise SystemError("Error while query select", e)
         ret = self.cursor.fetchall()
         return ret
 
@@ -47,8 +46,8 @@ class SQLServerDB:
             try:
                 self.cursor.execute(sql)
             except Exception as e:
-                Logger.fail(str(e))
                 self.rollback()
+                raise SystemError("Error while commit query", e)
         else:
             Logger.fail("Commiting is not allowed")
 
