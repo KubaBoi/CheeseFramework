@@ -48,37 +48,42 @@ class ResMan:
     # all source codes of project
     @staticmethod
     def src():
-        return os.path.join(f"{ResMan.root()}", "src")
+        return os.path.join(ResMan.root(), "src")
 
     # other resources of project
     @staticmethod
     def resources():
-        return os.path.join(f"{ResMan.root()}", "resources")
+        return os.path.join(ResMan.root(), "resources")
 
     # logs
     @staticmethod
     def logs():
-        return os.path.join(f"{ResMan.root()}", "logs")
+        return os.path.join(ResMan.root(), "logs")
 
     # tests
     @staticmethod
     def tests():
-        return os.path.join(f"{ResMan.src()}", "tests")
+        return os.path.join(ResMan.src(), "tests")
 
     # dir from which CheeseFramework is able to serve files (index.html) 
     @staticmethod
     def web():
-        return os.path.join(f"{ResMan.root()}", "web")
+        return os.path.join(ResMan.root(), "web")
 
     # dir for error sites
     @staticmethod
     def error():
-        return os.path.join(f"{ResMan.web()}", "errors")
+        return os.path.join(ResMan.web(), "errors")
 
     # metadata
     @staticmethod
     def metadata():
-        return os.path.join(f"{ResMan.src()}", ".metadata")
+        return os.path.join(ResMan.src(), ".metadata")
+
+    # admin
+    @staticmethod
+    def admin():
+        return os.path.join(ResMan.root(), ".admin")
 
     # # convert bytes
     @staticmethod
