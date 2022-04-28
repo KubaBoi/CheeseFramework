@@ -5,6 +5,7 @@ import inspect
 
 from Cheese.metadata import Metadata
 from Cheese.resourceManager import ResMan
+from Cheese.Logger import Logger
 from Cheese.database import Database
 
 #IMPORTS
