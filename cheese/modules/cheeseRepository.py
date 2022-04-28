@@ -71,7 +71,7 @@ class CheeseRepository:
     def commitType(preparedSql, method, repository):
         try:
             db = Database()
-            response = db.commit(preparedSql)
+            db.commit(preparedSql)
             db.done()
         except Exception as e:
             Logger.fail("An error occurred while commit request", str(e))
