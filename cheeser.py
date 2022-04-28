@@ -43,10 +43,8 @@ class Cheeser:
 
 
     @staticmethod
-    def generate(path):
-        ResMan.setPath(path)
-        generator = ProjectGenerator(path)
-        generator.generate()
+    def generate(path, generateFiles=True):
+        ProjectGenerator.generate(path, generateFiles)
 
     @staticmethod
     def build():
