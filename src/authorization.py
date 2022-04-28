@@ -2,7 +2,6 @@
 from Cheese.cheeseController import CheeseController as cc
 from Cheese.appSettings import Settings
 
-#@authorization disabled;
 class Authorization:
 
     @staticmethod
