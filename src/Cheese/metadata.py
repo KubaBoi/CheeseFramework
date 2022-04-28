@@ -51,14 +51,14 @@ class Metadata:
         for method in repository["METHODS"]:
             if (method["METHOD"] == methodName):
                 return method
-        return SyntaxError(f"Method {methodName} in {repository['FILE']} was not found")
+        raise SyntaxError(f"Method {methodName} in {repository['FILE']} was not found")
 
     @staticmethod
     def getModel(repository):
         for model in Metadata.models:
             if (model["CLASS"] == repository["MODEL"]):
                 return model
-        return SyntaxError(f"Model {repository['MODEL']} for {repository['FILE']} was not found")
+        raise SyntaxError(f"Model {repository['MODEL']} for {repository['FILE']} was not found")
         
     @staticmethod
     def getModelObject(model):
