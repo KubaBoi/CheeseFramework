@@ -27,6 +27,15 @@ class Metadata:
             if (endpoint["MAIN_ENDPOINT"] == endpoints[0]):
                 for method in endpoint["METHODS"]:
                     if (method["ENDPOINT"] == endpoints[1] and method["TYPE"] == httpMethod):
-                        return endpoint, method
+                        return Metadata.getMethod(endpoint, method)
         return False
+
+    @staticmethod
+    def getMethod(endpoint, method):
+        path = endpoint["FILE"].split("/")
+        a = __import__(path[0])
+        for i in range(1, len(path)):
+            a = getattr(a, path[i])
+        
+        return getattr(a, method["METHOD"])
 

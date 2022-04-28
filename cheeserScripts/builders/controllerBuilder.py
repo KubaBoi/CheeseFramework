@@ -38,9 +38,12 @@ class ControllerBuilder:
             methods.extend(self.findMethods(data, contr))
             methods.extend(self.findMethods(data, contr, "post"))
 
+            file = ResMan.getRelativePathFrom(contr, ResMan.src()).replace(".py", "")
+            file = file.replace("\\", "/")[1:]
+
             self.contJson["CONTROLLERS"].append(
                 {
-                    "FILE": ResMan.getFileName(contr).replace(".py", ""),
+                    "FILE": file,
                     "MAIN_ENDPOINT": mainEndpoint,
                     "METHODS": methods
                 }
