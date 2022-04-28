@@ -69,7 +69,3 @@ class Cheeser:
         return
 
         apiG.generateApi()
-
-path = "C:\\Users\\Jakub Anderle\\Desktop\\programy\\App"
-ResMan.setPath(path)
-Cheeser.build()
