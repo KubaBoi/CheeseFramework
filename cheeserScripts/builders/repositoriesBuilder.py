@@ -149,7 +149,7 @@ class RepositoriesBuilder:
                 {
                     "SQL": f"insert into {name} {scheme} values :obj;",
                     "RETURN": "",
-                    "METHOD": "findNewId",
+                    "METHOD": "save",
                     "TYPE": "commit",
                     "ACCEPTS_MODEL": True
                 }
@@ -158,7 +158,7 @@ class RepositoriesBuilder:
                 {
                     "SQL": f"update {name} set {scheme} = :obj where id=obj.id;",
                     "RETURN": "",
-                    "METHOD": "findNewId",
+                    "METHOD": "update",
                     "TYPE": "commit",
                     "ACCEPTS_MODEL": True
                 }
@@ -167,7 +167,7 @@ class RepositoriesBuilder:
                 {
                     "SQL": f"delete from {name} where id=model.id;",
                     "RETURN": "",
-                    "METHOD": "findNewId",
+                    "METHOD": "delete",
                     "TYPE": "commit",
                     "ACCEPTS_MODEL": True
                 }
