@@ -32,9 +32,9 @@ class RepositoriesBuilder:
         self.preCommits()
 
         for model in self.repoJson["MODELS"]:
-            path = model["PATH"].replace(ResMan.getFileName(model["PATH"]), "")[:-1]
+            path = model["FILE"].replace(ResMan.getFileName(model["FILE"]), "")[:-1]
             with open(os.path.join(ResMan.src(), path, "__init__.py"), "a") as f:
-                f.write(f"from {model['PATH'].replace('/', '.')} import {model['CLASS']}")
+                f.write(f"from {model['FILE'].replace('/', '.')} import {model['CLASS']}")
 
         with open(os.path.join(ResMan.metadata(), "repMetadata.json"), "w") as f:
             f.write(json.dumps(self.repoJson))
