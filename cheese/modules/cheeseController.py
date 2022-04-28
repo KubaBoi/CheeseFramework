@@ -1,6 +1,5 @@
 #cheese
 
-from platform import platform
 from urllib.parse import unquote
 import os
 import json

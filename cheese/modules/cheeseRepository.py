@@ -5,6 +5,7 @@ import inspect
 
 from cheese.metadata import Metadata
 from cheese.resourceManager import ResMan
+from cheese.Logger import Logger
 from cheese.databaseControll.database import Database
 
 #IMPORTS
