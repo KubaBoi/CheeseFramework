@@ -13,7 +13,7 @@ Generates structure of Cheese Application
 class ProjectGenerator:
 
     @staticmethod
-    def generate(path, generateFiles=True):
+    def generate(path, generateFiles):
         name = ResMan.getFileName(path)
 
         repo = git.Repo.clone_from("https://github.com/KubaBoi/CheeseFramework.git", path)
