@@ -1,7 +1,5 @@
 <img align="right" width=150 height=150 src="https://kubaboi.github.io/CheeseFramework/documentation/documentation300x300.png">
 
-<link rel="stylesheet" href="https://kubaboi.github.io/CheeseFramework/public/styles/style.css">
-
 # Cheese Framework
 
 [![Release Build](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml/badge.svg?branch=main)](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml)
@@ -22,4 +20,13 @@ Cheese Framework is using basic http python server. So DO NOT RUN outside firewa
 Stay safe :heart:
 
 Also I am using Tomcat like some kind of gate which listens at 80 public port and resending requests to Cheese Applications running under firewall and listen at closed to public ports.
+
+## Instalation
+
+### Downloads
+
+First of all you need to install <a href="https://pypi.org/project/CheeseFramework/">CheeseFramework from pypi.org</a>
+```
+pip install CheeseFramework
+```
 
