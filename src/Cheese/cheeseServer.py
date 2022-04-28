@@ -5,12 +5,12 @@ import json
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from socketserver import ThreadingMixIn
 
+from Cheese.metadata import Metadata
 from Cheese.appSettings import Settings
-from Cheese.cheeseController import CheeseController
+from Cheese.cheeseController import CheeseController as cc
 from Cheese.adminManager import AdminManager
 from Cheese.Logger import Logger
 from Cheese.ErrorCodes import Error
-from python.authorization import Authorization
 
 #CONTROLLERS
 
@@ -33,10 +33,20 @@ class CheeseHandler(BaseHTTPRequestHandler):
             return
         self.__log()
         if (self.path == "/alive"):
-            CheeseController.sendResponse(self, CheeseController.createResponse({"RESPONSE": "Yes"}, 200))
+            cc.sendResponse(self, cc.createResponse({"RESPONSE": "Yes"}, 200))
             return
         try:
-#GET        
+            endpoints = cc.getEndpoints(self.path)
+            controller = Metadata.findMethod(endpoints, "get")
+            if (not controller):
+                if (self.path.endswith(".css")):
+                    cc.serveFile(self, self.path, "text/css")
+                else:
+                    cc.serveFile(self, self.path)
+            else:
+                contr = __import__(controller[0]["FILE"])
+                getattr(contr, controller[1]["METHOD"])(self, self.path, None)
+
         except Exception as e:
             if (type(e) is SystemError):
                 Logger.fail("SystemError occurred", e)
@@ -51,7 +61,14 @@ class CheeseHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         self.__log()
         try:
-#POST
+            endpoints = cc.getEndpoints(self.path)
+            controller = Metadata.findMethod(endpoints, "post")
+            if (not controller):
+                Error.sendCustomError(self, "Endpoint not found :(", 404)
+            else:
+                contr = __import__(controller[0]["FILE"])
+                getattr(contr, controller[1]["METHOD"])(self, self.path, None)
+
         except Exception as e:
             if (type(e) is SystemError):
                 Logger.fail("SystemError occurred", e)

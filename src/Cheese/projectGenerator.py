@@ -3,6 +3,7 @@
 import os
 import git
 import shutil
+import stat
 
 from Cheese.resourceManager import ResMan
 
@@ -20,11 +21,16 @@ class ProjectGenerator:
 
         repo.git.checkout("template")  
 
+        for root, dirs, files in os.walk(os.path.join(path, ".git")):  
+            for dir in dirs:
+                os.chmod(os.path.join(root, dir), stat.S_IRWXU)
+            for file in files:
+                os.chmod(os.path.join(root, file), stat.S_IRWXU)
         shutil.rmtree(os.path.join(path, ".git"))
 
-        if (not generateFiles):
-            src = os.path.join(path, "src")
+        src = os.path.join(path, "src")
 
+        if (not generateFiles):
             os.remove(os.path.join(src, "controllers", "HelloWorldController.py"))
             os.remove(os.path.join(src, "models", "Hello.py"))
             os.remove(os.path.join(src, "repositories", "helloRepository.py"))
