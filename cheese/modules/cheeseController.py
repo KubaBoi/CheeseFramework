@@ -55,6 +55,12 @@ class CheeseController:
     def getPath(url):
         return url.split("?")[0]
 
+    # return array of endpoints
+    @staticmethod
+    def getEndpoints(url):
+        url = CheeseController.getPath(url).replace("/", " ").split()
+        return url.split(" ")
+
     # return arguments from rest request url
     @staticmethod
     def getArgs(url, decode=True):
