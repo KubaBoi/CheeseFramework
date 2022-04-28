@@ -37,7 +37,7 @@ class CheeseRepository:
             preparedSql = preparedSql.replace(f":{key}", arg)
 
         if (method["TYPE"] == "query"):
-            CheeseRepository.queryType(preparedSql, method, repository)
+            return CheeseRepository.queryType(preparedSql, method, repository)
 
 
         
@@ -54,7 +54,7 @@ class CheeseRepository:
         if (method["RETURN"] == "raw"):
             return response
         elif (method["RETURN"] == "num"):
-            return int(response)
+            return int(response[0][0])
         elif (method["RETURN"] == "one"):
             return CheeseRepository.toModel(repository, response[0])
         elif (method["RETURN"] == "array"):
