@@ -61,7 +61,7 @@ class Logger:
 
     @staticmethod
     def initLogger():
-        if (not os.path.exists(f"{ResMan.logs()}")):
+        if (not os.path.exists(ResMan.logs())):
             os.mkdir(ResMan.logs())
 
         Logger.__addLoggingLevel("HTML_FILE", 11)
