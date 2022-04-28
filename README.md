@@ -170,25 +170,47 @@ Contains app configuration.
 
 WIP
 
-## 6 Python code
+## 6 Annotations
+
+Annotations are necessary for Cheese. Cheese recognize annotation that starts ```#@``` and it needs to end with ```;```. Yes it is just python comment and what? 
+```
+"If it is stupid but it works, it isn't stupid"
+                                            Same Smart Guy - 1456
+```
+
+There is a list of all annotations:
+
+- ```#@controller```
+- ```#@model```
+- ```#@repository```
+- ```#@post```
+- ```#@get```
+- ```#@query```
+- ```#@commit```
+- ```#@return```
+- ```#@allowsModel```
+- ```#@dbscheme```
+- ```#@dbmodel```
+
+## 7 Python code
 
 This will be about how to write ```controllers```, ```models``` and ```repositories```
 
-### 6.1 API Controllers
+### 7.1 API Controllers
 
 Controllers are classes that handle requested endpoints. I recommend to create one folder just for your controllers but it is not necessary (or you the generated one ofc).
 
-#### 6.1.1 Create controller
+#### 7.1.1 Create controller
 
 As I said, controllers are classes. So create class that inherits from CheeseController.
 To let cheeser know that this class is really controller you have to anotate it with ```#@controller``` annotation. ```#@controller``` annotation follows part of endpoint like this:
 
 ```python
-#@controller /apiController
+#@controller /apiController;
 class apiController(CheeseController):
 ```
 
-#### 6.1.2 Methods of controller
+#### 7.1.2 Methods of controller
 
 There is sctrict scheme how should method in controller looks so it can handle endpoint.
 Method have to be static, so add ```@staticmethod``` annotation above method definition.
@@ -196,13 +218,13 @@ Method have to be anotated. Annotation for endpoints contains HTTP method (right
 Method have to have 3 arguments: server, path, auth.
 
 ```python
-#@post /apiEndpoint
+#@post /apiEndpoint;
 @staticmethod
 def getFiles(server, path, auth):
 
 ```
 
-#### 6.1.3 Method arguments
+#### 7.1.3 Method arguments
 
 So what are those 3 arguments? Argument number one server is instance of Cheese server handeling this request. You can get some info about connection like client's IP etc... Argument path is just string of request. 
 
@@ -210,7 +232,7 @@ For example:
 Some one wants to see cats so he search for ```http://hostname:port/wanna/see/pussy```. And in this case path will be ```"/wanna/see/pussy"```
 Last argument auth is object created in ```authorization.py``` if it is enabled. More about this later.
 
-#### 6.1.4 Example controller
+#### 7.1.4 Example controller
 
 Now you know almost everything you need to know to create your own controller. There are some functions that was not described yet. Those will be of course later.
 Controller will handle two endpoints:
@@ -225,7 +247,7 @@ Controller will handle two endpoints:
 
 from cheese.modules.cheeseController import CheeseController
 
-#@controller /calculator
+#@controller /calculator;
 class CalculatorController(CheeseController):
 
     """
@@ -240,7 +262,7 @@ class CalculatorController(CheeseController):
     "RESPONSE": 6
     }
     """
-    #@post /sum
+    #@post /sum;
     @staticmethod
     def sum(server, path, auth):
 
@@ -267,7 +289,7 @@ class CalculatorController(CheeseController):
     "RESPONSE": 2
     }
     """
-    #@get /sub
+    #@get /sub;
     @staticmethod
     def sub(server, path, auth):
     
@@ -284,7 +306,7 @@ class CalculatorController(CheeseController):
         CheeseController.sendResponse(server, response)
 ```
 
-### 6.2 Models
+### 7.2 Models
 
 Models are classes for storing data from database. Again, one folder for them.
 One instance of model is one row of database table. 
@@ -297,7 +319,7 @@ Model for table users with columns ```"id"```, ```"name"```, ```"age"```
 ```python
 from cheese.modules.cheeseModel import CheeseModel
 
-#@model
+#@model;
 class User(CheeseModel):
 
     def __init__(self, id=None, name=None, age=None):
@@ -318,11 +340,11 @@ def toJson(self):
     return response
 ```
 
-### 6.3 Repositories
+### 7.3 Repositories
 
 Repository is like access into one table of database. There are methods that communicate with database.
 
-#### 6.3.1 Create repository
+#### 7.3.1 Create repository
 
 Repositories are last but most complex part of Cheese Framework. They are again classes but there need to be more annotations. Also repository have to inherits from ```CheeseRepository```
 
@@ -339,13 +361,13 @@ Last annotation is ```#@dbmodel``` followed by name of model for the table.
 ```python
 from cheese.modules.cheeseRepository import CheeseRepository
 
-#@repository users
-#@dbscheme (id, user_name, age)
-#@dbmodel User
+#@repository users;
+#@dbscheme (id, user_name, age);
+#@dbmodel User;
 class PasswordRepository(CheeseRepository):
 ```
 
-#### 6.3.2 Methods of repository
+#### 7.3.2 Methods of repository
 
 Method scheme is again very strict. They need to be static and every method needs to have this line in it's body:
 
@@ -360,6 +382,98 @@ There are two types of SQL query annotations query and commit.
 - ```#@query```
     - 
     This annotation says that we want to get data from database. It is followed by SQL query. This query can be more than one line but have to be in quotation marks and the query must ends with semicolon.
+
+    More line query:
+    ```python
+    #@query "select * from users
+    #        where age > 20;";
+    ```
+
+    With ```#@query``` annotation is related annotation ```#@return```. It determines type of return. if annotation ```#@return``` is missing it is default.
+
+    - DEFAULT - Returns raw data what get from database. Mostly it is tuple of tuples.
+    ```python
+    #@return raw
+    ```
+
+    - Returns array of models.
+    ```python
+    #@return array
+    ```
+
+    - Returns only one model. If there is more results returns first.
+    ```python
+    #@return one
+    ```
+
+    - Returns logical value.
+    ```python
+    #@return bool
+    ```
+
+    ```#@return bool``` example:
+    
+    ```python
+    #@query "select case when exists
+    #       (select * from tokens t where t.token = :token)
+    #       then cast(0 as bit)
+    #       else cast(1 as bit) end;"
+    #@return bool
+    ```
+
+    - Returns numeric value.
+    ```python
+    #@return num
+    ```
+
+    ```#@return num``` example:
+    
+    ```python
+    #@query "select count(*) from users;"
+    #@return num
+    ```
+- ```#@commit```
+    -
+    This annotation is for writing data into database.
+
+    ```python
+    #@commit "update files set id=:id where file_name=:file_name;"
+    ```
+
+    You will need it only when you want to change Primary Key of some row because there are three prebuilded methods that you should add into your repository. Those methods does not have any annotation and accepts only models. The update and delete method search rows by Primary Key so if you want to update row's Primary Key you need to write your own SQL query.
+
+#### 7.3.3 Passing arguments to SQL query
+
+Arguments can be insert into SQL query if you name them same as 
+
+#### 7.3.4 Prebuilded methods
+
+There are some prebuilded methods for saving, updating, removing and find new id. You can see their settings in ```/.metadata/repMetadata.json``` after build.
+
+```python
+#SQL = select max(id)
+@staticmethod
+def findNewId():
+    return CheeseRepository.query()+1
+
+#SQL = insert
+@staticmethod
+def save(obj):
+    return CheeseRepository.query(obj=obj)
+
+#SQL = update
+@staticmethod
+def update(obj):
+    return CheeseRepository.query(obj=obj)
+
+#SQL = delete
+@staticmethod
+def delete(obj):
+    return CheeseRepository.query(obj=obj)
+```
+
+
+
 
 
 
