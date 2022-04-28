@@ -1,4 +1,5 @@
 *.log
+/.metadata/
 logs/*.log
 logs/*.html
 
