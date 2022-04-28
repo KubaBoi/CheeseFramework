@@ -40,7 +40,10 @@ class CheeseHandler(BaseHTTPRequestHandler):
                 if (self.path.endswith(".css")):
                     cc.serveFile(self, self.path, "text/css")
                 else:
-                    cc.serveFile(self, self.path)
+                    if (self.path == "/"):
+                        cc.serveFile(self, "index.html")
+                    else:
+                        cc.serveFile(self, self.path)
             else:
                 contr = __import__(controller[0]["FILE"])
                 getattr(contr, controller[1]["METHOD"])(self, self.path, None)
