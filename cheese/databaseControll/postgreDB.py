@@ -34,7 +34,7 @@ class PostgreDB:
             self.cursor.execute(sql)
         except:
             self.rollback()
-            return None
+            raise SystemError("Error while query select", e)
         ret = self.cursor.fetchall()
         return ret
 
@@ -46,6 +46,7 @@ class PostgreDB:
                 self.cursor.execute(sql)
             except:
                 self.rollback()
+                raise SystemError("Error while commit query", e)
         else:
             Logger.fail("Commiting is not allowed")
 

@@ -116,7 +116,7 @@ class RepositoriesBuilder:
 
             queryMethods.append(
                 {
-                    "SQL": query,
+                    "SQL": query.replace("\"", ""),
                     "RETURN": retqm,
                     "METHOD": metn,
                     "TYPE": type,
