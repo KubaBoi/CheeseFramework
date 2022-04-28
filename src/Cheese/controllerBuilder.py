@@ -24,6 +24,16 @@ class ControllerBuilder:
 
         self.doControllersJson()
 
+        for root, dirs, files in os.walk(ResMan.src()):
+            for file in files:
+                if (file == "__init__.py"):
+                    os.remove(os.path.join(root, file))
+
+        for contr in self.contJson["CONTROLLERS"]:
+            path = contr["FILE"].replace(ResMan.getFileName(contr["FILE"]), "")[:-1]
+            with open(os.path.join(ResMan.src(), path, "__init__.py"), "a") as f:
+                f.write(f"from {contr['FILE'].replace('/', '.')} import {contr['CLASS']}")
+
         with open(os.path.join(ResMan.metadata(), "contMetadata.json"), "w") as f:
             f.write(json.dumps(self.contJson))
 
@@ -33,6 +43,7 @@ class ControllerBuilder:
                 data = f.read()
 
             mainEndpoint = Finder.getAnnotation(data, "#@controller", contr)[0].replace("/", "")
+            className = Finder.getName(data, "class", contr)[0]
 
             methods = []
             methods.extend(self.findMethods(data, contr))
@@ -44,6 +55,7 @@ class ControllerBuilder:
             self.contJson["CONTROLLERS"].append(
                 {
                     "FILE": file,
+                    "CLASS": className,
                     "MAIN_ENDPOINT": mainEndpoint,
                     "METHODS": methods
                 }
