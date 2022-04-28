@@ -78,7 +78,7 @@ class ResMan:
     # metadata
     @staticmethod
     def metadata():
-        return os.path.join(ResMan.src(), ".metadata")
+        return os.path.join(ResMan.root(), ".metadata")
 
     # admin
     @staticmethod

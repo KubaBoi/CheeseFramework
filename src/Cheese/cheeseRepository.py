@@ -39,6 +39,8 @@ class CheeseRepository:
 
         if (method["TYPE"] == "query"):
             return CheeseRepository.queryType(preparedSql, method, repository)
+        elif (method["TYPE"] == "commit"):
+            return CheeseRepository.commitType(preparedSql, method, repository)
 
 
         
@@ -64,6 +66,18 @@ class CheeseRepository:
             for item in response:
                 array.append(CheeseRepository.toModel(repository, item))
             return array
+
+    @staticmethod
+    def commitType(preparedSql, method, repository):
+        try:
+            db = Database()
+            response = db.commit(preparedSql)
+            db.done()
+        except Exception as e:
+            Logger.fail("An error occurred while commit request", str(e))
+            raise SystemError("An error occurred while commit request", e)
+
+        return True
 
 
     @staticmethod
