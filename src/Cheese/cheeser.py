@@ -22,9 +22,10 @@ class Cheeser:
 
     @staticmethod
     def help():
-        print("Cheeser.generate(<path>)")
+        print("Cheeser.generate(<path>, generateFiles=True)")
         print("    - generates empty project for Cheese Application")
         print("    - path needs to be full from root")
+        print("    - generateFiles - if True - generate templates for controllers, models and repositories")
         
         print("Cheeser.database()")
         print("    - generates models and repositories from tables of database")
