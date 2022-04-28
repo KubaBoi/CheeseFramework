@@ -13,4 +13,6 @@ https://github.com/KubaBoi/CheeseFramework/tree/development
 ## Introduction
 
 Cheese Framework is open source library for creating web applications with database connection (like Spring in Java). It can save a lot of time because developer does not have to making http server or creating whole database reader. Cheese is using pydobc library for database access so it is able to connect to most of modern database engines.
+:smile:
 
+### :bangbang: IMPORTANT :bangbang:
