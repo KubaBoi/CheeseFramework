@@ -8,6 +8,10 @@ class Updater:
 
     @staticmethod
     def checkUpdate(release):
+        if (release == "RELEASE"):
+            print("Development release")
+            return
+        
         print("Checking latest Cheese release...")
         print("")
         aversion = requests.get("https://kubaboi.github.io/CheeseFramework/public/version.html").text
