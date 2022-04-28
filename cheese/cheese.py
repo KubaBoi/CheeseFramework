@@ -5,7 +5,9 @@ import os
 import requests
 from pathlib import Path
 
+
 from Cheese.cheeser import Cheeser
+from cheese.metadata import Metadata
 from cheese.resourceManager import ResMan
 from cheese.appSettings import Settings
 from cheese.server.cheeseServer import *
@@ -29,6 +31,9 @@ class CheeseBurger:
         # application build
         Cheeser.build()
 
+        # loads metadata
+        Metadata.loadMedatada()
+
         # loads application settings
         Settings.loadSettings()
 
@@ -40,7 +45,6 @@ class CheeseBurger:
 
         # check licence
         CheeseBurger.loadLicence()
-        CheeseBurger.printInit()
 
         # log new line
         Logger.info(10*"=" + f"Start in file {ResMan.path}" + 10*"=" + "\n", False, False)
@@ -87,18 +91,14 @@ class CheeseBurger:
         Logger.info(f"Server Stops - {Settings.host}:{Settings.port}", silence=False)
         sys.exit()
 
-    # init print
-    @staticmethod
-    def printInit():
-        print("License: " + Settings.activeLicense)
-        print("")
-
     # loads licence
     @staticmethod
     def loadLicence():
         try:
             r = requests.get(f"http://frogie.cz:6969/licence/authLic?code={Settings.licenseCode}")
             Settings.activeLicense = json.loads(r.text)["LICENCE"]
+            print("License: " + Settings.activeLicense)
+            print("")
         except Exception as e:
             Logger.warning("Unable to contact licensing server", silence=False)
 
