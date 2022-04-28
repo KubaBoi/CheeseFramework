@@ -32,7 +32,7 @@ class ControllerBuilder:
             with open(contr, "r") as f:
                 data = f.read()
 
-            mainEndpoint = Finder.getAnnotation(data, "#@controller", contr)[0]
+            mainEndpoint = Finder.getAnnotation(data, "#@controller", contr)[0].replace("/", "")
 
             methods = []
             methods.extend(self.findMethods(data, contr))
@@ -53,7 +53,7 @@ class ControllerBuilder:
             qr = Finder.getAnnotation(data, "#@"+type, contr, fr, False)
             if (not qr):
                 break
-            endpoint = qr[0]
+            endpoint = qr[0].replace("/", "")
             fr = qr[1]
 
             met = Finder.getName(data, "def", contr, fr)
