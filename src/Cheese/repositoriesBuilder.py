@@ -31,6 +31,11 @@ class RepositoriesBuilder:
         self.preQueries()
         self.preCommits()
 
+        for model in self.contJson["MODELS"]:
+            path = model["PATH"].replace(ResMan.getFileName(model["PATH"]), "")[:-1]
+            with open(os.path.join(ResMan.src(), path, "__init__.py"), "a") as f:
+                f.write(f"from {model['PATH'].replace('/', '.')} import {model['CLASS']}")
+
         with open(os.path.join(ResMan.metadata(), "repMetadata.json"), "w") as f:
             f.write(json.dumps(self.repoJson))
 
@@ -66,10 +71,13 @@ class RepositoriesBuilder:
 
             className = Finder.getName(data, "class", model)[0]
 
+            file = ResMan.getRelativePathFrom(model, ResMan.src()).replace(".py", "")
+            file = file.replace("\\", "/")[1:]
+
             self.repoJson["MODELS"].append(
                 {
-                    "FILE": ResMan.getFileName(model).replace(".py", ""),
-                    "CLASS": className
+                    "FILE": file,
+                    "CLASS": className,
                 }
             )
 
@@ -86,6 +94,7 @@ class RepositoriesBuilder:
             fr = qr[1]
 
             if (type == "query"):
+                acceptsModel = False
                 retq = Finder.getAnnotation(data, "#@return", repo, fr, False)
                 if (not retq):
                     retqm = "raw"
@@ -94,6 +103,10 @@ class RepositoriesBuilder:
                     fr = retq[1]
             else:
                 retqm = ""
+                if (not Finder.getAnnotation(data, "#@acceptsModel", fr, False, 20)):
+                    acceptsModel = False
+                else:
+                    acceptsModel = True
 
             met = Finder.getName(data, "def", repo, fr)
             if (not met):
@@ -106,7 +119,8 @@ class RepositoriesBuilder:
                     "SQL": query,
                     "RETURN": retqm,
                     "METHOD": metn,
-                    "TYPE": type
+                    "TYPE": type,
+                    "ACCEPTS_MODEL": acceptsModel
                 }
             )
         return queryMethods
@@ -121,7 +135,8 @@ class RepositoriesBuilder:
                     "SQL": f"\"select max(id) from {repo['NAME']};\"",
                     "RETURN": "num",
                     "METHOD": "findNewId",
-                    "TYPE": "query"
+                    "TYPE": "query",
+                    "ACCEPTS_MODEL": False
                 }
             )
 
@@ -135,7 +150,8 @@ class RepositoriesBuilder:
                     "SQL": f"\"insert into {name} {scheme} values :obj;\"",
                     "RETURN": "",
                     "METHOD": "findNewId",
-                    "TYPE": "query"
+                    "TYPE": "query",
+                    "ACCEPTS_MODEL": True
                 }
             )
             repo["METHODS"].append(
@@ -143,7 +159,8 @@ class RepositoriesBuilder:
                     "SQL": f"\"update {name} set {scheme} = :obj where id=obj.id;\"",
                     "RETURN": "",
                     "METHOD": "findNewId",
-                    "TYPE": "query"
+                    "TYPE": "query",
+                    "ACCEPTS_MODEL": True
                 }
             )
             repo["METHODS"].append(
@@ -151,6 +168,7 @@ class RepositoriesBuilder:
                     "SQL": f"\"delete from {name} where id=model.id;\"",
                     "RETURN": "",
                     "METHOD": "findNewId",
-                    "TYPE": "query"
+                    "TYPE": "query",
+                    "ACCEPTS_MODEL": True
                 }
             )
