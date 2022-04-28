@@ -132,7 +132,7 @@ class RepositoriesBuilder:
         for repo in self.repoJson["REPOSITORIES"]:
             repo["METHODS"].append(
                 {
-                    "SQL": f"\"select max(id) from {repo['NAME']};\"",
+                    "SQL": f"select max(id) from {repo['NAME']};",
                     "RETURN": "num",
                     "METHOD": "findNewId",
                     "TYPE": "query",
@@ -147,7 +147,7 @@ class RepositoriesBuilder:
             scheme = repo["SCHEME"]
             repo["METHODS"].append(
                 {
-                    "SQL": f"\"insert into {name} {scheme} values :obj;\"",
+                    "SQL": f"insert into {name} {scheme} values :obj;",
                     "RETURN": "",
                     "METHOD": "findNewId",
                     "TYPE": "query",
@@ -156,7 +156,7 @@ class RepositoriesBuilder:
             )
             repo["METHODS"].append(
                 {
-                    "SQL": f"\"update {name} set {scheme} = :obj where id=obj.id;\"",
+                    "SQL": f"update {name} set {scheme} = :obj where id=obj.id;",
                     "RETURN": "",
                     "METHOD": "findNewId",
                     "TYPE": "query",
@@ -165,7 +165,7 @@ class RepositoriesBuilder:
             )
             repo["METHODS"].append(
                 {
-                    "SQL": f"\"delete from {name} where id=model.id;\"",
+                    "SQL": f"delete from {name} where id=model.id;",
                     "RETURN": "",
                     "METHOD": "findNewId",
                     "TYPE": "query",
