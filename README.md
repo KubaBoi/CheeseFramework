@@ -9,6 +9,7 @@
 ## TODO
 
 - [ ] metadata load setting (RAM/dynamic)
+- [ ] repair admin access
 - [ ] repair CORS not allowed
 - [ ] do authorization
 - [ ] do Cheese tools
