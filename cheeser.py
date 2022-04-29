@@ -1,15 +1,13 @@
 #cheese
 
-from cheese.variables import Variables
 from cheeserScripts.checkVersion import Updater
-Updater.checkUpdate(Variables.release)
+Updater.checkUpdate()
 
 from cheeserScripts.builders.projectGenerator import ProjectGenerator
 from cheeserScripts.builders.projectBuilder import ProjectBuilder
 from cheeserScripts.api.createByDb import CreateByDB
 from cheeserScripts.api.createApi import ApiControllerCreator as api
 from cheeserScripts.api.generateApi import ApiGenerator as apiG
-from cheese.resourceManager import ResMan
 
 
 __author__ = "Jakub Anderle"
