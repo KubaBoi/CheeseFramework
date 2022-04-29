@@ -33,7 +33,8 @@ class RepositoriesBuilder:
 
         for model in self.repoJson["MODELS"]:
             path = model["FILE"].replace(ResMan.getFileName(model["FILE"]), "")[:-1]
-            with open(os.path.join(ResMan.src(), path, "__init__.py"), "a") as f:
+            
+            with open(os.path.join(ResMan.root(), path, "__init__.py"), "a") as f:
                 f.write(f"from {model['FILE'].replace('/', '.')} import {model['CLASS']}")
 
         with open(os.path.join(ResMan.metadata(), "repMetadata.json"), "w") as f:

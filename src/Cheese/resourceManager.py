@@ -30,15 +30,19 @@ class ResMan:
 
     # joins two path together
     @staticmethod
-    def joinPath(path1, path2):
-        path1 = ResMan.removeSlash(path1, False)
-        path2 = ResMan.removeSlash(path2)
-        return os.path.join(path1, path2)
+    def joinPath(*args):
+        if (len(args) < 1): return args[0]
 
-    # joins array together
-    @staticmethod
-    def joinArray(array):
-        return os.path.join(*array)
+        paths = []
+        paths.append(ResMan.removeSlash(args[0]))
+
+        for path in paths[1:-1]:
+            p = ResMan.removeSlash(path)
+            p = ResMan.removeSlash(p, False)
+            paths.append(p)
+
+        paths.append(ResMan.removeSlash(paths[-1]))
+        return os.path.join(*paths)
 
     # root dir of project
     @staticmethod
