@@ -65,7 +65,7 @@ class CheeseBurger:
             # initialization of server
             CheeseBurger.initServer()
         except Exception as e:
-            print(f"\n{20*'='}\n{repr(e)}\n{format_exc(e)}\n{10*'='}")
+            print(f"\n{20*'='}\n{repr(e)}\n{format_exc()}\n{10*'='}")
 
     # initialization application server
     @staticmethod
