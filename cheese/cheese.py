@@ -1,10 +1,9 @@
 #cheese
 
 import sys
-import os
 import requests
 from pathlib import Path
-
+from traceback import format_exc
 
 from Cheese.cheeser import Cheeser
 from cheese.metadata import Metadata
@@ -25,45 +24,48 @@ class CheeseBurger:
 
     @staticmethod
     def init(file):
-        # initialization of root directory
-        ResMan.setPath(Path(file).parent)
+        try:
+            # initialization of root directory
+            ResMan.setPath(Path(file).parent)
 
-        # loads application settings
-        Settings.loadSettings()
+            # loads application settings
+            Settings.loadSettings()
 
-        #init logger
-        Logger.initLogger()
+            #init logger
+            Logger.initLogger()
 
-        # check licence
-        CheeseBurger.loadLicence()
+            # check licence
+            CheeseBurger.loadLicence()
 
-        # application build
-        Cheeser.build()
+            # application build
+            Cheeser.build()
 
-        # loads metadata
-        Metadata.loadMedatada()
+            # loads metadata
+            Metadata.loadMedatada()
 
-        # init errors
-        Error.init()
+            # init errors
+            Error.init()
 
-        # log new line
-        Logger.info(10*"=" + f"Start in file {ResMan.path}" + 10*"=" + "\n", False, False)
+            # log new line
+            Logger.info(10*"=" + f"Start in file {ResMan.path}" + 10*"=" + "\n", False, False)
 
-        # connect to database
-        if (Settings.allowDB):
-            Logger.warning("Initializing database connection...", silence=False)
-            try:
-                db = Database()
-                db.connect()
-                db.close()
-                Logger.okBlue(f"CONNECTED TO {Settings.dbHost}:{Settings.dbPort} {Settings.dbName}", silence=False)
-            except Exception as e:
-                Logger.fail(f"CONNECTION TO {Settings.dbHost}:{Settings.dbPort} {Settings.dbName} CANNOT BE DONE", e, silence=False)
-        else:
-            Logger.warning("Database connection is turned off", silence=False)
+            # connect to database
+            if (Settings.allowDB):
+                Logger.warning("Initializing database connection...", silence=False)
+                try:
+                    db = Database()
+                    db.connect()
+                    db.close()
+                    Logger.okBlue(f"CONNECTED TO {Settings.dbHost}:{Settings.dbPort} {Settings.dbName}", silence=False)
+                except Exception as e:
+                    Logger.fail(f"CONNECTION TO {Settings.dbHost}:{Settings.dbPort} {Settings.dbName} CANNOT BE DONE", e, silence=False)
+            else:
+                Logger.warning("Database connection is turned off", silence=False)
 
-        # initialization of server
-        CheeseBurger.initServer()
+            # initialization of server
+            CheeseBurger.initServer()
+        except Exception as e:
+            print(f"\n{20*'='}\n{repr(e)}\n{format_exc(e)}\n{10*'='}")
 
     # initialization application server
     @staticmethod
