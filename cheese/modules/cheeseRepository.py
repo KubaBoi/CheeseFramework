@@ -21,9 +21,12 @@ Database query of Cheese Application
 class CheeseRepository:
 
     @staticmethod
-    def query(**kwargs):
-        userRepository = CheeseRepository.findUserRepository()
-        repository = Metadata.getRepository(userRepository)
+    def query(userRepository="", **kwargs):
+        if (userRepository == ""):
+            userRepository = CheeseRepository.findUserRepository()
+            repository = Metadata.getRepository(userRepository)
+        else:
+            repository = Metadata.getRepositoryFromClass(userRepository)
 
         methodName = CheeseRepository.findUserMethod()
         method = Metadata.getMethod(repository, methodName)
@@ -43,21 +46,21 @@ class CheeseRepository:
 
     # PREBUILDED METHODS
 
-    @staticmethod
-    def findNewId():
-        return CheeseRepository.query()
+    @classmethod
+    def findNewId(cls):
+        return CheeseRepository.query(cls.__name__)
 
-    @staticmethod
-    def save(obj):
-        return CheeseRepository.query(obj=obj)
+    @classmethod
+    def save(cls, obj):
+        return CheeseRepository.query(cls.__name__, obj=obj)
 
-    @staticmethod
-    def update(obj):
-        return CheeseRepository.query(obj=obj)
+    @classmethod
+    def update(cls, obj):
+        return CheeseRepository.query(cls.__name__, obj=obj)
 
-    @staticmethod
-    def delete(obj):
-        return CheeseRepository.query(obj=obj)
+    @classmethod
+    def delete(cls, obj):
+        return CheeseRepository.query(cls.__name__, obj=obj)
 
         
     @staticmethod
@@ -117,7 +120,7 @@ class CheeseRepository:
     def findUserRepository():
         curframe = inspect.currentframe()
         calframe = inspect.getouterframes(curframe, 2)
-        userRepository = ResMan.getFileName(calframe[2][1]).replace(".py", "")
+        userRepository = ResMan.getFileName(calframe[2].filename).replace(".py", "")
         return userRepository
 
     # finds name of method from user-made repository

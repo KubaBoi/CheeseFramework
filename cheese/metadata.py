@@ -47,6 +47,14 @@ class Metadata:
         raise SyntaxError(f"Repository {userRepository} was not found")
 
     @staticmethod
+    def getRepositoryFromClass(userRepository):
+        for repo in Metadata.repos:
+            if (repo["CLASS"] == userRepository):
+                return repo
+        raise SyntaxError(f"Repository {userRepository} was not found")
+
+
+    @staticmethod
     def getMethod(repository, methodName):
         for method in repository["METHODS"]:
             if (method["METHOD"] == methodName):
