@@ -14,6 +14,7 @@
 - [ ] repair CORS not allowed
 - [ ] do authorization
 - [ ] do Cheese tools
+- [ ] remove deprecated ```#@acceptsModel``` annotation
 
 
 ## Source code
@@ -190,7 +191,7 @@ There is a list of all annotations:
 - ```#@query```
 - ```#@commit```
 - ```#@return```
-- ```#@allowsModel```
+- ```#@acceptsModel``` - deprecated
 - ```#@dbscheme```
 - ```#@dbmodel```
 
@@ -466,7 +467,6 @@ For model ```Hello``` with attributes ```id=0```, ```name="first hello"```, ```g
 
 ```python
 #@commit "insert into table values :someModel;";
-#@acceptsModel;
 @staticmethod
 def save(model):
     return CheeseRepository.query(someModel=model)
