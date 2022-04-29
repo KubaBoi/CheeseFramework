@@ -48,7 +48,7 @@ class CheeseRepository:
 
     @classmethod
     def findNewId(cls):
-        return CheeseRepository.query(cls.__name__)
+        return CheeseRepository.query(cls.__name__)+1
 
     @classmethod
     def save(cls, obj):
@@ -70,7 +70,10 @@ class CheeseRepository:
             response = db.query(preparedSql)
             db.done()
         except Exception as e:
-            errorMessage = f"An error occurred while {method['CLASS']} in repository {repository['CLASS']}, SQL: \"{preparedSql}\""
+            errorMessage = (
+                f"An error occurred while database method {method['METHOD']}" +
+                f" in repository {repository['CLASS']}, SQL: \"{preparedSql}\""
+            )
             Logger.fail(errorMessage, e)
             raise SystemError(errorMessage, e)
 
@@ -94,7 +97,10 @@ class CheeseRepository:
             db.commit(preparedSql)
             db.done()
         except Exception as e:
-            errorMessage = f"An error occurred while {method['CLASS']} in repository {repository['CLASS']}, SQL: \"{preparedSql}\""
+            errorMessage = (
+                f"An error occurred while database method {method['METHOD']}" +
+                f" in repository {repository['CLASS']}, SQL: \"{preparedSql}\""
+            )
             Logger.fail(errorMessage, e)
             raise SystemError(errorMessage, e)
 
