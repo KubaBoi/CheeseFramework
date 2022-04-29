@@ -372,7 +372,7 @@ class PasswordRepository(CheeseRepository):
 Method scheme is again very strict. They need to be static and every method needs to have this line in it's body:
 
 ```python
-return CheeseRepository.query(arg1, arg2,...)
+return CheeseRepository.query(argName1=arg1, argName2=arg2,...)
 ```
 
 ```arg1``` and ```arg2``` are method's arguments.
@@ -444,7 +444,53 @@ There are two types of SQL query annotations query and commit.
 
 #### 7.3.3 Passing arguments to SQL query
 
-Arguments can be insert into SQL query if you name them same as 
+Arguments can be insert into SQL query if you marks them with ```:``` and in ```return CheeseRepository.query()``` name them same as in SQL query.
+
+Example:
+
+```python
+#@query "select * from table where id=:someId and name=:someName;";
+#@return one
+@staticmethod
+def findByIdAndName(id, name):
+    return CheeseRepository.query(someId=id, someName=name)
+```
+
+##### 7.3.3.3.4 Passing model
+
+If you want to pass an model it is possible.
+
+For model ```Hello``` with attributes ```id=0```, ```name="first hello"```, ```greet="hello boi"``` (this is prebuilded method save):
+
+```python
+#@commit "insert into table values :someModel;";
+#@acceptsModel
+@staticmethod
+def save(model):
+    return CheeseRepository.query(someModel=model)
+```
+
+So the finall query which will be send to database looks like this:
+
+```sql
+insert into table values (0, 'first hello', 'hello boi');
+```
+
+And if you want to pass only some attribute of model do this:
+
+```python
+#@query "select * from table where name=:someModel.name or greet=:someModel.greet;";
+#@return array
+@staticmethod
+def findBy(model):
+    return CheeseRepository.query(someModel=model)
+```
+
+Finall query will looks like this:
+
+```sql
+select (id, name, greet) from table where name='first hello' or greet='hello boi';
+```
 
 #### 7.3.4 Prebuilded methods
 
