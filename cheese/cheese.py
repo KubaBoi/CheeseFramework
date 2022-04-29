@@ -39,7 +39,8 @@ class CheeseBurger:
             CheeseBurger.loadLicence()
 
             # application build
-            Cheeser.build()
+            if (Settings.allowDebug):
+                Cheeser.build()
 
             # loads metadata
             Metadata.loadMedatada()
