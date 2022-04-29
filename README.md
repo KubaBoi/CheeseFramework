@@ -452,7 +452,7 @@ Example:
 
 ```python
 #@query "select * from table where id=:someId and name=:someName;";
-#@return one
+#@return one;
 @staticmethod
 def findByIdAndName(id, name):
     return CheeseRepository.query(someId=id, someName=name)
@@ -466,7 +466,7 @@ For model ```Hello``` with attributes ```id=0```, ```name="first hello"```, ```g
 
 ```python
 #@commit "insert into table values :someModel;";
-#@acceptsModel
+#@acceptsModel;
 @staticmethod
 def save(model):
     return CheeseRepository.query(someModel=model)
@@ -482,7 +482,7 @@ And if you want to pass only some attribute of model do this:
 
 ```python
 #@query "select * from table where name=:someModel.name or greet=:someModel.greet;";
-#@return array
+#@return array;
 @staticmethod
 def findBy(model):
     return CheeseRepository.query(someModel=model)
