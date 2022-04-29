@@ -8,7 +8,9 @@
 
 ## TODO
 
+- [ ] :bangbang: TESTS :bangbang:
 - [ ] metadata load setting (RAM/dynamic)
+- [ ] repair admin access
 - [ ] repair CORS not allowed
 - [ ] do authorization
 - [ ] do Cheese tools
@@ -27,7 +29,7 @@ Cheese Framework is open source library for creating web applications with datab
 Cheese Framework is using basic http python server. So DO NOT RUN outside firewall. If you are creating an application for bigger audience or you care about security use any other framework like Django and server for production like Apache or Tomcat.
 Stay safe :heart:
 
-Also I am using Tomcat like some kind of gate which listens at 80 public port and resending requests to Cheese Applications running under firewall and listen at closed to public ports.
+I am using Tomcat like some kind of gate which listens at 80 public port and resending requests to Cheese Applications running under firewall and listen at closed to public ports.
 
 ## 1.1 Instalation
 
@@ -393,22 +395,22 @@ There are two types of SQL query annotations query and commit.
 
     - DEFAULT - Returns raw data what get from database. Mostly it is tuple of tuples.
     ```python
-    #@return raw
+    #@return raw;
     ```
 
     - Returns array of models.
     ```python
-    #@return array
+    #@return array;
     ```
 
     - Returns only one model. If there is more results returns first.
     ```python
-    #@return one
+    #@return one;
     ```
 
     - Returns logical value.
     ```python
-    #@return bool
+    #@return bool;
     ```
 
     ```#@return bool``` example:
@@ -417,27 +419,27 @@ There are two types of SQL query annotations query and commit.
     #@query "select case when exists
     #       (select * from tokens t where t.token = :token)
     #       then cast(0 as bit)
-    #       else cast(1 as bit) end;"
-    #@return bool
+    #       else cast(1 as bit) end;";
+    #@return bool;
     ```
 
     - Returns numeric value.
     ```python
-    #@return num
+    #@return num;
     ```
 
     ```#@return num``` example:
     
     ```python
-    #@query "select count(*) from users;"
-    #@return num
+    #@query "select count(*) from users;";
+    #@return num;
     ```
 - ```#@commit```
     -
     This annotation is for writing data into database.
 
     ```python
-    #@commit "update files set id=:id where file_name=:file_name;"
+    #@commit "update files set id=:id where file_name=:file_name;";
     ```
 
     You will need it only when you want to change Primary Key of some row because there are three prebuilded methods that you should add into your repository. Those methods does not have any annotation and accepts only models. The update and delete method search rows by Primary Key so if you want to update row's Primary Key you need to write your own SQL query.
