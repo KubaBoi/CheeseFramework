@@ -43,6 +43,24 @@ class CheeseRepository:
             return CheeseRepository.commitType(preparedSql, method, repository)
 
 
+    # PREBUILDED METHODS
+
+    @staticmethod
+    def findNewId():
+        return CheeseRepository.query()
+
+    @staticmethod
+    def save(obj):
+        return CheeseRepository.query(obj=obj)
+
+    @staticmethod
+    def update(obj):
+        return CheeseRepository.query(obj=obj)
+
+    @staticmethod
+    def delete(obj):
+        return CheeseRepository.query(obj=obj)
+
         
     @staticmethod
     def queryType(preparedSql, method, repository):
@@ -51,8 +69,9 @@ class CheeseRepository:
             response = db.query(preparedSql)
             db.done()
         except Exception as e:
-            Logger.fail("An error occurred while query request", str(e))
-            raise SystemError("An error occurred while query request", e)
+            errorMessage = f"An error occurred while {method['CLASS']} in repository {repository['CLASS']}, SQL: \"{preparedSql}\""
+            Logger.fail(errorMessage, e)
+            raise SystemError(errorMessage, e)
 
         if (method["RETURN"] == "raw"):
             return response
@@ -74,8 +93,9 @@ class CheeseRepository:
             db.commit(preparedSql)
             db.done()
         except Exception as e:
-            Logger.fail("An error occurred while commit request", str(e))
-            raise SystemError("An error occurred while commit request", e)
+            errorMessage = f"An error occurred while {method['CLASS']} in repository {repository['CLASS']}, SQL: \"{preparedSql}\""
+            Logger.fail(errorMessage, e)
+            raise SystemError(errorMessage, e)
 
         return True
 
