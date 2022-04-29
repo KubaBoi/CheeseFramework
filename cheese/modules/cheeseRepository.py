@@ -30,7 +30,6 @@ class CheeseRepository:
 
         variables = CheeseRepository.getVariables(method["SQL"])
         preparedSql = method["SQL"]
-        acceptsModel = method["ACCEPTS_MODEL"]
 
         for key, value in kwargs.items():
             arg = CheeseRepository.getTypeOf(value, variables, key, repository["SCHEME"])
