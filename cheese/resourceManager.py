@@ -31,17 +31,18 @@ class ResMan:
     # joins two path together
     @staticmethod
     def joinPath(*args):
-        if (len(args) < 1): return args[0]
+        if (len(args) < 1): return ""
+        if (len(args) == 1): return args[0]
 
         paths = []
         paths.append(ResMan.removeSlash(args[0]))
 
-        for path in paths[1:-1]:
+        for path in args[1:-1]:
             p = ResMan.removeSlash(path)
             p = ResMan.removeSlash(p, False)
             paths.append(p)
 
-        paths.append(ResMan.removeSlash(paths[-1]))
+        paths.append(ResMan.removeSlash(args[-1]))
         return os.path.join(*paths)
 
     # root dir of project
