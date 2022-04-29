@@ -7,6 +7,7 @@ import shutil
 import ctypes
 
 from Cheese.resourceManager import ResMan
+from Cheese.Logger import Logger
 from Cheese.controllerBuilder import ControllerBuilder
 from Cheese.repositoriesBuilder import RepositoriesBuilder
 
@@ -59,22 +60,20 @@ class ProjectBuilder:
                 if (method["TYPE"] == "query"): queries += 1
                 elif (method["TYPE"] == "commit"): commits += 1
 
-        print("Build successfull:")
-        print(f"Controllers: {len(contrs)}")
-        print("GET methods: {gets}")
-        print("POST methods: {posts}")
-        print("")
-        print(f"Repositories: {len(repos)}")
-        print(f"query methods: {queries}")
-        print(f"commit methods: {commits}")
-        print("")
-        print(f"Models: {len(mods)}")
+        Logger.okGreen("Build successfull:", False, False)
+        Logger.info(f"Controllers: {len(contrs)}", False, False)
+        Logger.info("GET methods: {gets}", False, False)
+        Logger.info("POST methods: {posts}", False, False)
+        Logger.info("", False, False)
+        Logger.info(f"Repositories: {len(repos)}", False, False)
+        Logger.info(f"query methods: {queries}", False, False)
+        Logger.info(f"commit methods: {commits}", False, False)
+        Logger.info("", False, False)
+        Logger.info(f"Models: {len(mods)}", False, False)
         
-        if (len(mods) == len(repos)):
-            print("")
-            print("====WARNING=====")
-            print("Theres is different count of models and repositories")
-            print("Didn't you forget to annotate anything?")
-        print("")
+        if (len(mods) != len(repos)):
+            Logger.warning("====WARNING=====", False, False)
+            Logger.warning("Theres is different count of models and repositories", False, False)
+            Logger.warning("Didn't you forget to annotate anything?", False, False)
 
 
