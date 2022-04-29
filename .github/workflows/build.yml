@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: ${{ github.event.commits[0].message }} == 'automatic build for pip'
     steps:
 
       - name: checkout repo content
