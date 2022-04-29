@@ -6,6 +6,7 @@ from pathlib import Path
 from traceback import format_exc
 
 from Cheese.cheeser import Cheeser
+from Cheese.variables import Variables
 from Cheese.metadata import Metadata
 from Cheese.resourceManager import ResMan
 from Cheese.appSettings import Settings
@@ -66,6 +67,10 @@ class CheeseBurger:
             CheeseBurger.initServer()
         except Exception as e:
             print(f"\n{20*'='}\n{repr(e)}\n{format_exc()}\n{10*'='}")
+            print("")
+            print("Uuups... something went wrong while implementing Cheese")
+            print("Check if there are all necessary files in your project")
+            print(Variables.documentation)
 
     # initialization application server
     @staticmethod
