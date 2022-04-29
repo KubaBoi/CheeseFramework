@@ -8,7 +8,6 @@ class Updater:
 
     @staticmethod
     def checkUpdate():     
-        print("")
         vers = version("CheeseFramework")
         try:
             r = requests.get("https://pypi.org/pypi/CheeseFramework/json").text
@@ -18,10 +17,11 @@ class Updater:
             return
 
         if (vers != aversion):
+            print(30*"=")
             print(f"You have got version {vers} but the latest Cheese is {aversion}")
             print("Update Cheese with command:")
             print("")
             print(f"pip install CheeseFramework=={aversion}")
-            print("")
+            print(30*"=")
 
 
