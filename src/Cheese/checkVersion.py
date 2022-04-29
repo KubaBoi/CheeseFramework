@@ -22,6 +22,8 @@ class Updater:
             print("Update Cheese with command:")
             print("")
             print(f"pip install CheeseFramework=={aversion}")
+            print("")
             print(30*"=")
+            print("")
 
 
