@@ -1,15 +1,13 @@
 #cheese
 
-from Cheese.variables import Variables
 from Cheese.checkVersion import Updater
-Updater.checkUpdate(Variables.release)
+Updater.checkUpdate()
 
 from Cheese.projectGenerator import ProjectGenerator
 from Cheese.projectBuilder import ProjectBuilder
 from Cheese.createByDb import CreateByDB
 from Cheese.createApi import ApiControllerCreator as api
 from Cheese.generateApi import ApiGenerator as apiG
-from Cheese.resourceManager import ResMan
 
 
 __author__ = "Jakub Anderle"
