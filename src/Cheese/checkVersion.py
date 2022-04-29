@@ -2,22 +2,24 @@
 
 import json
 import requests
+from importlib.metadata import version
 import subprocess
 
 class Updater:
 
     @staticmethod
-    def checkUpdate(release):
-        if (release == "RELEASE"):
-            print("Development release")
-            return
-        
+    def checkUpdate():        
         print("Checking latest Cheese release...")
         print("")
-        aversion = requests.get("https://kubaboi.github.io/CheeseFramework/public/version.html").text
+        vers = version("CheeseFramework")
+        try:
+            r = requests.get("https://pypi.org/pypi/CheeseFramework/json").text
+            aversion = json.loads(r)["info"]["version"]
+        except:
+            print("Cannot check latest Cheese version")
 
-        if (release != aversion):
-            print(f"You have got release {release} but the latest Cheese is {aversion}")
+        if (vers != aversion):
+            print(f"You have got version {vers} but the latest Cheese is {aversion}")
             accept = input("Would you like to update? [y/n] ")
             if (accept.startswith("y")):
                 Updater.update()
