@@ -4,6 +4,7 @@ import os
 import json
 
 from cheese.resourceManager import ResMan
+from cheese.Logger import Logger
 
 class Metadata:
     
@@ -22,9 +23,9 @@ class Metadata:
                 Metadata.repos = data["REPOSITORIES"]
                 Metadata.models = data["MODELS"]
         except Exception as e:
-            print("ERROR while loading metadata")
-            print("Didn't you forgot to build application?")
-            print("Build will be triggered when application is in debug mode")
+            Logger.fail("Error while loading metadata", e, False, False)
+            Logger.warning("Didn't you forgot to build application?", e, False, False)
+            Logger.warning("Build will be triggered when application is in debug mode", e, False, False)
             raise SystemError("Error while loading metadata", e)
 
     @staticmethod
