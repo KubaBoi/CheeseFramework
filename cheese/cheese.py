@@ -28,6 +28,12 @@ class CheeseBurger:
         # initialization of root directory
         ResMan.setPath(Path(file).parent)
 
+        # loads application settings
+        Settings.loadSettings()
+
+        #init logger
+        Logger.initLogger()
+
         # check licence
         CheeseBurger.loadLicence()
 
@@ -36,12 +42,6 @@ class CheeseBurger:
 
         # loads metadata
         Metadata.loadMedatada()
-
-        # loads application settings
-        Settings.loadSettings()
-
-        #init logger
-        Logger.initLogger()
 
         # init errors
         Error.init()
