@@ -71,6 +71,7 @@ class CheeseBurger:
             print("Uuups... something went wrong while implementing Cheese")
             print("Check if there are all necessary files in your project")
             print(Variables.documentation)
+            print(20*"=")
 
     # initialization application server
     @staticmethod
