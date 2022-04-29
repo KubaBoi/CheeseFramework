@@ -2,4 +2,4 @@
 
 class Variables:
     release = "RELEASE"
-    documentation = "https://kubaboi.github.io/CheeseFramework"
+    documentation = "https://github.com/KubaBoi/CheeseFramework"
