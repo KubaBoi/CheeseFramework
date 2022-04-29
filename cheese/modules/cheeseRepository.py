@@ -4,6 +4,8 @@ from datetime import datetime
 import inspect
 
 from cheese.metadata import Metadata
+from cheese.modules.cheeseModel import CheeseModel
+
 from cheese.resourceManager import ResMan
 from cheese.Logger import Logger
 from cheese.databaseControll.database import Database
@@ -29,12 +31,9 @@ class CheeseRepository:
         variables = CheeseRepository.getVariables(method["SQL"])
         preparedSql = method["SQL"]
         acceptsModel = method["ACCEPTS_MODEL"]
-        modelName = None
-        if (acceptsModel):
-            modelName = repository["MODEL"]
 
         for key, value in kwargs.items():
-            arg = CheeseRepository.getTypeOf(value, variables, key, modelName, repository["SCHEME"])
+            arg = CheeseRepository.getTypeOf(value, variables, key, repository["SCHEME"])
             preparedSql = preparedSql.replace(f":{key}", arg)
 
         if (method["TYPE"] == "query"):
@@ -155,7 +154,7 @@ class CheeseRepository:
 
     # convert arguments
     @staticmethod
-    def getTypeOf(arg, variables=None, key=None, modelName=None, scheme=None):
+    def getTypeOf(arg, variables=None, key=None, scheme=None):
         if (type(arg) is str):
             if (len(arg) == 0): return ""
             elif (arg[-1] != "\'" 
@@ -172,7 +171,7 @@ class CheeseRepository:
             return "(" + ",".join(CheeseRepository.getTypeOf(arg)) + ")"
         elif (type(arg) is datetime):
             return "'" + datetime.strftime(arg, "%d-%m-%Y %H:%M:%S") + "'"
-        elif (arg.__class__.__name__ == modelName):
+        elif (isinstance(arg, CheeseModel)):
             for var in variables:
                 spl = var.split(".")
                 if (spl[0] == key):
