@@ -13,13 +13,19 @@ class Metadata:
 
     @staticmethod
     def loadMedatada():
-        with open(os.path.join(ResMan.metadata(), "contMetadata.json"), "r") as f:
-            Metadata.contr = json.loads(f.read())["CONTROLLERS"]
+        try:
+            with open(os.path.join(ResMan.metadata(), "contMetadata.json"), "r") as f:
+                Metadata.contr = json.loads(f.read())["CONTROLLERS"]
 
-        with open(os.path.join(ResMan.metadata(), "repMetadata.json"), "r") as f:
-            data = json.loads(f.read())
-            Metadata.repos = data["REPOSITORIES"]
-            Metadata.models = data["MODELS"]
+            with open(os.path.join(ResMan.metadata(), "repMetadata.json"), "r") as f:
+                data = json.loads(f.read())
+                Metadata.repos = data["REPOSITORIES"]
+                Metadata.models = data["MODELS"]
+        except Exception as e:
+            print("ERROR while loading metadata")
+            print("Didn't you forgot to build application?")
+            print("Build will be triggered when application is in debug mode")
+            raise SystemError("Error while loading metadata", e)
 
     @staticmethod
     def findMethod(endpoints, httpMethod):
