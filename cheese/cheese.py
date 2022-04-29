@@ -12,7 +12,6 @@ from cheese.resourceManager import ResMan
 from cheese.appSettings import Settings
 from cheese.server.cheeseServer import *
 from cheese.databaseControll.database import Database
-from cheese.modules.cheeseRepository import CheeseRepository
 from cheese.ErrorCodes import Error
 from cheese.Logger import Logger
 
@@ -27,7 +26,10 @@ class CheeseBurger:
     @staticmethod
     def init(file):
         # initialization of root directory
-        ResMan.setPath(Path(file).parent.parent)
+        ResMan.setPath(Path(file).parent)
+
+        # check licence
+        CheeseBurger.loadLicence()
 
         # application build
         Cheeser.build()
@@ -43,9 +45,6 @@ class CheeseBurger:
 
         # init errors
         Error.init()
-
-        # check licence
-        CheeseBurger.loadLicence()
 
         # log new line
         Logger.info(10*"=" + f"Start in file {ResMan.path}" + 10*"=" + "\n", False, False)
