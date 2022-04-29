@@ -31,7 +31,8 @@ class ControllerBuilder:
 
         for contr in self.contJson["CONTROLLERS"]:
             path = contr["FILE"].replace(ResMan.getFileName(contr["FILE"]), "")[:-1]
-            with open(os.path.join(ResMan.src(), path, "__init__.py"), "a") as f:
+            
+            with open(os.path.join(ResMan.root(), path, "__init__.py"), "a") as f:
                 f.write(f"from {contr['FILE'].replace('/', '.')} import {contr['CLASS']}")
 
         with open(os.path.join(ResMan.metadata(), "contMetadata.json"), "w") as f:
