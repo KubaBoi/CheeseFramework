@@ -71,7 +71,7 @@ class RepositoriesBuilder:
 
             className = Finder.getName(data, "class", model)[0]
 
-            file = ResMan.getRelativePathFrom(model, ResMan.src()).replace(".py", "")
+            file = ResMan.getRelativePathFrom(model, ResMan.root()).replace(".py", "")
             file = file.replace("\\", "/")[1:]
 
             self.repoJson["MODELS"].append(
