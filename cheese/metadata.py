@@ -86,4 +86,12 @@ class Metadata:
     @staticmethod
     def getModel(repository):
         return repository["DBMODEL"]
+
+    @staticmethod
+    def getScheme(repository):
+        schs = repository["DBSCHEME"].replace("(", "").replace(")", "").split(",")
+        retScheme = []
+        for s in schs:
+            retScheme.append(s.strip()) 
+        return retScheme    
         
