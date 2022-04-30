@@ -16,7 +16,7 @@ for line in dataLines:
 vers = oldLine.split("=")[1].strip().split(".")
 
 message = " ".join(sys.argv[1:])
-
+print(message)
 if (message == "test build"):
     v = int(vers[2]) + 1
     vers[2] = str(v)
