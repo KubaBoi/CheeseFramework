@@ -21,15 +21,12 @@ class ProjectBuilder:
 
     def build(self):
         try:
-            for root, dirs, files in os.walk(ResMan.src()):
+            for root, dirs, files in os.walk(ResMan.root()):
                 for file in files:
                     if (file == "__init__.py"):
                         os.remove(os.path.join(root, file))
 
             self.dictJson = {"CONTROLLERS": {}, "REPOSITORIES": {}, "MODELS": {}}
-            
-            FILE_ATTRIBUTE_HIDDEN = 0x02
-            ctypes.windll.kernel32.SetFileAttributesW(ResMan.metadata(), FILE_ATTRIBUTE_HIDDEN)
 
             #build controllers
             contBuilder = ControllerBuilder(self)
@@ -99,8 +96,13 @@ class ProjectBuilder:
                 module = modules[moduleKey]
                 path = module["FILE"].replace(ResMan.getFileName(module["FILE"]), "")[:-1]
                 
+                splited = path.split("/")
+                for i, pth in enumerate(splited):
+                    with open(os.path.join(*splited[:i], pth, "__init__.py"), "a") as f:
+                        f.write(f"from {'.'.join(splited)} import *\n")
+
                 with open(os.path.join(ResMan.root(), path, "__init__.py"), "a") as f:
-                    f.write(f"from {module['FILE'].replace('/', '.')} import {key}")
+                    f.write(f"from {module['FILE'].replace('/', '.')} import {moduleKey}\n")
 
         with open(os.path.join(ResMan.metadata()), "w") as f:
             f.write(json.dumps(self.dictJson))
