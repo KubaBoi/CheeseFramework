@@ -10,7 +10,7 @@ def replaceImports(data, imp):
 
 args = sys.argv
 if (len(args) == 1):
-    sys.exit(2)
+    sys.exit("NO COMMIT")
 
 message = " ".join(args[1:])
 
@@ -85,4 +85,4 @@ if (message == "build"):
 elif (message == "test build"):
     sys.exit(commitMessage)
 else:
-    sys.exit(2)
+    sys.exit("NO COMMIT")
