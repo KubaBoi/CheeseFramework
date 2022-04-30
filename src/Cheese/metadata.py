@@ -9,7 +9,6 @@ from Cheese.Logger import Logger
 class Metadata:
     
     repos = None
-    models = None
     contr = None
 
     getEndpoints = {}
@@ -22,7 +21,6 @@ class Metadata:
                 data = json.loads(f.read())
 
             Metadata.repos = data["REPOSITORIES"]
-            Metadata.models = data["MODELS"]
             Metadata.contr = data["CONTROLLERS"]
 
             Metadata.prepareEndpoints()
