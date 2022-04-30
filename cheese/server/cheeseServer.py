@@ -49,16 +49,16 @@ class CheeseHandler(BaseHTTPRequestHandler):
 
         except Exception as e:
             if (type(e) is SystemError):
-                Logger.fail("SystemError occurred", e)
                 error = e
                 while (len(error.args) > 1):
                     error = error.args[-1]
+                Logger.fail(f"SystemError occurred {error.args[0]}", e)
                 Error.sendCustomError(self, error.args[0], 500)
             elif (type(e) is SyntaxError):
-                Logger.fail("SyntaxError occurred", e)
                 error = e
                 while (len(error.args) > 1):
                     error = error.args[-1]
+                Logger.fail(f"SyntaxError occurred {error.args[0]}", e)
                 Error.sendCustomError(self, error.args[0], 500)
             else:
                 Logger.fail("An error unknown occurred", e)
