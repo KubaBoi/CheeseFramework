@@ -106,6 +106,9 @@ class Finder:
 
         return retAnns
 
+    def hasAnnotation(self, structure, annotation):
+        return annotation in structure["ANNOTATIONS"]
+
     # helpful methods
 
     def startsWith(self, string, starterSet):
