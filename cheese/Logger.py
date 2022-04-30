@@ -67,9 +67,6 @@ class Logger:
             os.mkdir(ResMan.logs())
         Logger.initilized = True
 
-        Logger.__addLoggingLevel("HTML_FILE", 11)
-        Logger.__addLoggingLevel("FILE", 10)
-
         htmlFormatter = logging.Formatter(fmt="<tr><td>%(asctime)s</td><td>%(message)s</td></tr>", datefmt="%Y-%m-%d %H:%M:%S")
 
         date = datetime.now()
@@ -87,6 +84,8 @@ class Logger:
 
     @staticmethod
     def set():
+        Logger.__addLoggingLevel("HTML_FILE", 11)
+        Logger.__addLoggingLevel("FILE", 10)
         Logger.__addLoggingLevel("CONSOLE", 9)
 
         logFormatter = logging.Formatter(fmt="%(asctime)s - %(message)s", datefmt="%H:%M:%S")
