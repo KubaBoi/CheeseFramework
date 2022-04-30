@@ -43,7 +43,7 @@ jobs:
         run: python3 -m twine upload dist/* -u ${{ secrets.PYPIUSERNAME }} -p ${{ secrets.PYPIPASSWORD }}
 
       - name: commit files
-        if: steps.buildPrepare.outputs.exit_code != 1
+        if: steps.buildPrepare.outputs.exit_code != 2
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
