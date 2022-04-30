@@ -152,6 +152,8 @@ class CheeseRepository:
             elif (newVar != None):
                 variables.append(newVar)
                 newVar = None
+        if (newVar != None):
+            variables.append(newVar)
         return variables
 
 
