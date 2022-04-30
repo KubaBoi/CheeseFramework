@@ -30,7 +30,10 @@ class CheeseRepository:
 
         model = CheeseModel(modelName, scheme)
         for sch in scheme:
-            setattr(model, sch, "")
+            if (sch == "id"):
+                setattr(model, sch, cls.findNewId())
+            else:
+                setattr(model, sch, "")
         return model
 
     @classmethod
