@@ -1,6 +1,7 @@
 #cheese
 
 from Cheese.cheeseController import CheeseController
+from Cheese.Logger import Logger
 
 class Error:
     
@@ -18,3 +19,22 @@ class Error:
         response = CheeseController.createResponse({"ERROR": comment}, code)
         CheeseController.sendResponse(server, response)
 
+    @staticmethod
+    def handleError(server, error):
+        if (type(error) is SystemError):
+            errorMessage = f"\n{Logger.WARNING}{error.args[0]}{Logger.FAIL}"
+            while (len(error.args) > 1):
+                error = error.args[1]
+                errorMessage += "\n" + 20*"==" + "\n"
+                errorMessage += "\n" + f"{Logger.WARNING}{error.args[0]}{Logger.FAIL}"
+                
+            Logger.fail(f"SystemError occurred: {errorMessage}", False)
+            Error.sendCustomError(server, error.args[0], 500)
+        elif (type(error) is SyntaxError):
+            while (len(error.args) > 1):
+                error = error.args[-1]
+            Logger.fail(f"SyntaxError occurred {error.args[0]}")
+            Error.sendCustomError(server, error.args[0], 500)
+        else:
+            Logger.fail(f"An error unknown occurred {error.args[0]}")
+            Error.sendCustomError(server, "Internal server error :(", 500)
