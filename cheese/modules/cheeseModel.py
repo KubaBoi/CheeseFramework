@@ -15,9 +15,14 @@ class CheeseModel:
     def toModel(self, jsn):
         if (type(jsn).__name__ == "dict"):
             for attr in self.scheme:
-                setattr(self, attr, jsn[attr])
+                if (attr in jsn.keys()):
+                    setattr(self, attr, jsn[attr])
         elif (type(jsn).__name__ == "list" or
             type(jsn).__name__ == "tuple"):
 
             for attr, value in zip(self.scheme, jsn):
                 setattr(self, attr, value)
+
+    def setAttrs(self, **attrs):
+        print(attrs)
+        return self.toModel(attrs)
