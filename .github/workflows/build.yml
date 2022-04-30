@@ -28,7 +28,6 @@ jobs:
 
       - name: Prepare build
         id: buildPrepare
-        if: github.event.commits[0].message == 'test build' || github.event.commits[0].message == 'build'
         run: python .github/prepareMainBranch.py github.event.commits[0].message
 
       - name: Build
