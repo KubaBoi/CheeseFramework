@@ -147,10 +147,10 @@ class Logger:
             logging.html_file(message)
 
     @staticmethod
-    def fail(message, e, allowHeader=True, silence=True):
+    def fail(message, allowHeader=True, silence=True):
         if (allowHeader): header = Logger.__getMethod()
         else: header = ""
-        message = f"{message}\n{20*'='}\n{repr(e)}\n{format_exc()}\n{10*'='}"
+        message = f"\n{format_exc()}\n{20*'=='}\n{message}\n{10*'='}"
         logging.file(header + message)
         message = Logger.__failPrint(message, header)
         logging.html_file(message)
