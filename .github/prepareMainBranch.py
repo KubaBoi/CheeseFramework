@@ -8,6 +8,12 @@ from datetime import datetime, timedelta, timezone
 def replaceImports(data, imp):
     return data.replace("from " + imp, "from Cheese.")
 
+args = sys.argv
+if (len(args) == 1):
+    sys.exit(1)
+
+message = " ".join(args[1:])
+
 imps = [
     "cheese.admin.",
     "cheese.databaseControll.",
@@ -58,7 +64,7 @@ for root, dirs, files in os.walk(repoDir):
 
 commitMessage = f"Test build - {releaseDate}"
 
-if (len(sys.argv) > 1):
+if (message == "build"):
     commitMessage = f"Build - {releaseDate}"
     readmeFile = os.path.abspath(os.path.join(frameworkDir, "README.md"))
 
@@ -76,5 +82,7 @@ if (len(sys.argv) > 1):
         f.write(data.replace(oldLine, f"### Release datestamp {releaseDate}"))
     sys.exit(commitMessage)
     
-else:
+elif (message == "test build"):
     sys.exit(commitMessage)
+else:
+    sys.exit(1)

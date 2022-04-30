@@ -26,15 +26,10 @@ jobs:
           python3 -m pip install --upgrade twine
           python3 -m pip install --upgrade build
 
-      - name: Prepare test build
+      - name: Prepare build
         id: buildPrepare
-        if: github.event.commits[0].message == 'test build'
-        run: python .github/prepareMainBranch.py
-
-      - name: Prepare test build
-        id: buildPrepare
-        if: github.event.commits[0].message == 'build'
-        run: python .github/prepareMainBranch.py yes
+        if: github.event.commits[0].message == 'test build' || github.event.commits[0].message == 'build'
+        run: python .github/prepareMainBranch.py github.event.commits[0].message
 
       - name: Build
         run: python3 -m build
@@ -48,6 +43,7 @@ jobs:
         run: python3 -m twine upload dist/* -u ${{ secrets.PYPIUSERNAME }} -p ${{ secrets.PYPIPASSWORD }}
 
       - name: commit files
+        if: steps.buildPrepare.outputs.exit_code != 1
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
