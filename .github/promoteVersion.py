@@ -15,7 +15,7 @@ for line in dataLines:
 
 vers = oldLine.split("=")[1].strip().split(".")
 
-message = " ".join(sys.argv[1:])
+message = ".join(sys.argv[1:])
 
 if (message == "test build"):
     v = int(vers[2]) + 1
@@ -29,4 +29,4 @@ elif (message == "build"):
         print("Promoting version: " + ".".join(vers))
 
 with open(setupPath, "w") as f:
-    f.write(data.replace(oldLine, ".".join(vers)))
+    f.write(data.replace(oldLine, "version = " + ".".join(vers)))
