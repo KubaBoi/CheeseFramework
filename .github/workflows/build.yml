@@ -28,12 +28,12 @@ jobs:
           python3 -m pip install --upgrade GitPython
 
       - name: Promote version
-        run: python3 .github/promoteVersion.py github.event.commits[0].message
+        run: python3 .github/promoteVersion.py ${{ github.event.commits[0].message }}
 
       - name: Prepare build
         id: buildPrepare
         run: |
-          output=$(python3 .github/prepareMainBranch.py github.event.commits[0].message)
+          output=$(python3 .github/prepareMainBranch.py ${{ github.event.commits[0].message }})
           echo "::set-output name=commitMessage::$output"
 
       - name: Build

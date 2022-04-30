@@ -15,7 +15,7 @@ def getVersion():
 
     for line in data:
         if (line.startswith("version")):
-            return line.split("=")[1].strip().split(".")
+            return line.split("=")[1].strip()
             
 
 message = " ".join(sys.argv[1:])
@@ -40,10 +40,10 @@ repo = git.Repo.clone_from("https://github.com/KubaBoi/CheeseFramework.git", rep
 repo.git.checkout("development")  
 now = datetime.now(timezone.utc) + timedelta(hours=2)
 releaseDate = now.strftime("%y.%m.%d.%H.%M")
-commitMessage = f"Test build - {releaseDate}\nv({getVersion()})"
+commitMessage = f"Test build - {releaseDate} v({getVersion()})"
 
 if (message == "build"):
-    commitMessage = f"Build - {releaseDate}\nv({getVersion()})"
+    commitMessage = f"Build - {releaseDate} v({getVersion()})"
     readmeFile = os.path.abspath(os.path.join(frameworkDir, "README.md"))
 
     with open(readmeFile, "r") as f:
