@@ -18,14 +18,16 @@ class Finder:
         "#@repository",
         "#@dbscheme",
         "#@dbmodel",
-        "#@model"
+        "#@model",
+        "#@testclass"
     ]
     methodAnnotations = [
         "#@post",
         "#@get",
         "#@query",
         "#@commit",
-        "#@return"
+        "#@return",
+        "#@test"
     ]
 
     def loadFile(self, file):
