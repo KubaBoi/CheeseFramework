@@ -34,6 +34,25 @@ repo = git.Repo.clone_from("https://github.com/KubaBoi/CheeseFramework.git", rep
 repo.git.checkout("development")  
 now = datetime.now(timezone.utc) + timedelta(hours=2)
 releaseDate = now.strftime("%y.%m.%d.%H.%M")
+commitMessage = f"Test build - {releaseDate}"
+
+if (message == "build"):
+    commitMessage = f"Build - {releaseDate}"
+    readmeFile = os.path.abspath(os.path.join(frameworkDir, "README.md"))
+
+    with open(readmeFile, "r") as f:
+        data = f.read()
+        dataLines = data.split("\n")
+
+    oldLine = ""
+    for line in dataLines:
+        if (line.startswith("### Release")):
+            oldLine = line
+            break
+
+    with open(readmeFile, "w") as f:
+        f.write(data.replace(oldLine, f"### Release datestamp {releaseDate}"))
+print(commitMessage)
 
 for root, dirs, files in os.walk(os.path.join(frameworkDir, "src", "Cheese")):
     for file in files:
@@ -61,23 +80,3 @@ for root, dirs, files in os.walk(repoDir):
 
                 with open(newFile, "w") as f:
                     f.write(data)
-
-commitMessage = f"Test build - {releaseDate}"
-
-if (message == "build"):
-    commitMessage = f"Build - {releaseDate}"
-    readmeFile = os.path.abspath(os.path.join(frameworkDir, "README.md"))
-
-    with open(readmeFile, "r") as f:
-        data = f.read()
-        dataLines = data.split("\n")
-
-    oldLine = ""
-    for line in dataLines:
-        if (line.startswith("### Release")):
-            oldLine = line
-            break
-
-    with open(readmeFile, "w") as f:
-        f.write(data.replace(oldLine, f"### Release datestamp {releaseDate}"))
-print(commitMessage)
