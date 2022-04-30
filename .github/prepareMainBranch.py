@@ -52,12 +52,12 @@ if (message == "build"):
 
     oldLine = ""
     for line in dataLines:
-        if (line.startswith("### Release")):
+        if (line.startswith("### Version")):
             oldLine = line
             break
 
     with open(readmeFile, "w") as f:
-        f.write(data.replace(oldLine, f"### Release datestamp {releaseDate}         \nv({getVersion()})"))
+        f.write(data.replace(oldLine, f"### Version v({getVersion()}) - {releaseDate}"))
 print(commitMessage)
 
 for root, dirs, files in os.walk(os.path.join(frameworkDir, "src", "Cheese")):
