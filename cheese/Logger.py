@@ -27,6 +27,7 @@ class FileFilter(logging.Filter):
 
 class HtmlFilter(logging.Filter):
     def filter(self, rec):
+        if (not Logger.initialized): return False
         if (rec.levelno == logging.HTML_FILE):
             rec.msg = rec.msg.replace(Logger.HEADER, "<label class='header'>")
             rec.msg = rec.msg.replace(Logger.OKBLUE, "<label class='okBlue'>")
@@ -58,11 +59,16 @@ class Logger:
 
     handlers = []
 
+    initialized = False
+
     @staticmethod
     def initLogger():
         if (not os.path.exists(ResMan.logs())):
             os.mkdir(ResMan.logs())
+        Logger.initilized = True
 
+    @staticmethod
+    def set():
         Logger.__addLoggingLevel("HTML_FILE", 11)
         Logger.__addLoggingLevel("FILE", 10)
         Logger.__addLoggingLevel("CONSOLE", 9)
@@ -323,3 +329,5 @@ class Logger:
     @staticmethod
     def __underlinePrint(message, header):
         return header + Logger.UNDERLINE + message + Logger.ENDC
+
+Logger.set()
