@@ -178,7 +178,7 @@ WIP
 Annotations are necessary for Cheese. Cheese recognize annotation that starts ```#@``` and it needs to end with ```;```. Yes it is just python comment and what? 
 ```
 "If it is stupid but it works, it isn't stupid"
-                                            Same Smart Guy - 1456
+                                            Some Smart Guy - 1456
 ```
 
 There is a list of all annotations:
