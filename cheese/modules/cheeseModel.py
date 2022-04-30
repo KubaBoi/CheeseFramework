@@ -24,5 +24,4 @@ class CheeseModel:
                 setattr(self, attr, value)
 
     def setAttrs(self, **attrs):
-        print(attrs)
         return self.toModel(attrs)
