@@ -16,6 +16,8 @@ Builds Cheese Application
 
 class ProjectBuilder:
 
+    dontNeedInit = ["REPOSITORIES"]
+
     def build(self):
         try:
             for root, dirs, files in os.walk(ResMan.root()):
@@ -79,6 +81,8 @@ class ProjectBuilder:
     def saveMetadata(self):
         keys = self.dictJson.keys()
         for key in keys:
+            if (key in self.dontNeedInit): continue
+            
             modules = self.dictJson[key]
             for moduleKey in modules.keys():
                 module = modules[moduleKey]
