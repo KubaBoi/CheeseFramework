@@ -49,19 +49,23 @@ class CheeseHandler(BaseHTTPRequestHandler):
 
         except Exception as e:
             if (type(e) is SystemError):
-                Logger.fail("SystemError occurred", e)
                 error = e
+                errorMessage = f"\n{Logger.WARNING}{error.args[0]}{Logger.FAIL}"
                 while (len(error.args) > 1):
-                    error = error.args[-1]
+                    error = error.args[1]
+                    errorMessage += "\n" + 20*"==" + "\n"
+                    errorMessage += "\n" + f"{Logger.WARNING}{error.args[0]}{Logger.FAIL}"
+                    
+                Logger.fail(f"SystemError occurred: {errorMessage}", False)
                 Error.sendCustomError(self, error.args[0], 500)
             elif (type(e) is SyntaxError):
-                Logger.fail("SyntaxError occurred", e)
                 error = e
                 while (len(error.args) > 1):
                     error = error.args[-1]
+                Logger.fail(f"SyntaxError occurred {error.args[0]}")
                 Error.sendCustomError(self, error.args[0], 500)
             else:
-                Logger.fail("An error unknown occurred", e)
+                Logger.fail(f"An error unknown occurred {e.args[0]}")
                 Error.sendCustomError(self, "Internal server error :(", 500)
 
     def do_POST(self):
@@ -76,13 +80,13 @@ class CheeseHandler(BaseHTTPRequestHandler):
 
         except Exception as e:
             if (type(e) is SystemError):
-                Logger.fail("SystemError occurred", e)
+                Logger.fail("SystemError occurred")
                 error = e
                 while (len(error.args) > 1):
                     error = error.args[-1]
                 Error.sendCustomError(self, error.args[0], 500)
             else:
-                Logger.fail("An error unknown occurred", e)
+                Logger.fail("An error unknown occurred")
                 Error.sendCustomError(self, "Internal server error :(", 500)
 
     def end_headers(self):

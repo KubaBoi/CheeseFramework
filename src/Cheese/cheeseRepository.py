@@ -30,7 +30,10 @@ class CheeseRepository:
 
         model = CheeseModel(modelName, scheme)
         for sch in scheme:
-            setattr(model, sch, "")
+            if (sch == "id"):
+                setattr(model, sch, cls.findNewId())
+            else:
+                setattr(model, sch, "")
         return model
 
     @classmethod
@@ -152,6 +155,8 @@ class CheeseRepository:
             elif (newVar != None):
                 variables.append(newVar)
                 newVar = None
+        if (newVar != None):
+            variables.append(newVar)
         return variables
 
 
