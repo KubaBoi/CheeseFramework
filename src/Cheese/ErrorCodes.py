@@ -30,7 +30,7 @@ class Error:
 
     @staticmethod
     def handleError(server, error):
-        Logger.fail(f"An unknown error occurred {error.args[0]}")
+        Error.logErrorMessage(error)
         Error.sendCustomError(server, 500, f"Internal server error :(", DESCRIPTION=error.args[0])
 
     @staticmethod
