@@ -27,10 +27,12 @@ jobs:
           python3 -m pip install --upgrade build
 
       - name: Prepare test build
+        id: buildPrepare
         if: github.event.commits[0].message == 'test build'
         run: python .github/prepareMainBranch.py
 
       - name: Prepare test build
+        id: buildPrepare
         if: github.event.commits[0].message == 'build'
         run: python .github/prepareMainBranch.py yes
 
@@ -44,4 +46,17 @@ jobs:
       - name: Upload to Pypi
         if: github.event.commits[0].message == 'build'
         run: python3 -m twine upload dist/* -u ${{ secrets.PYPIUSERNAME }} -p ${{ secrets.PYPIPASSWORD }}
+
+      - name: commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "steps.buildPrepare.outcome" -a
+          
+      - name: push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main  
         
