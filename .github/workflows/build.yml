@@ -42,7 +42,7 @@ jobs:
 
       - name: Upload to Test Pypi
         if: github.event.commits[0].message == 'test build'
-        run: python3 -m twine upload --repository testpypi dist/* -u ${{ secrets.PYPIUSERNAME }} -p ${{ secrets.PYPIPASSWORD }}
+        run: python3 -m twine upload --repository testpypi dist/* -u ${{ secrets.PYPIUSERNAME }} -p ${{ secrets.PYPIPASSWORD }} --verbose
 
       - name: Upload to Pypi
         if: github.event.commits[0].message == 'build'
