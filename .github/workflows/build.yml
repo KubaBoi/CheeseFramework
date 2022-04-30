@@ -28,7 +28,7 @@ jobs:
           python3 -m pip install --upgrade GitPython
 
       - name: Promote version
-        run: python3 .github/updateVersion.py github.event.commits[0].message1
+        run: python3 .github/promoteVersion.py github.event.commits[0].message1
 
       - name: Prepare build
         id: buildPrepare

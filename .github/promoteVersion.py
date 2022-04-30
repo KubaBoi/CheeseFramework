@@ -27,4 +27,4 @@ elif (message == "build"):
         vers[2] = "0"
 
 with open(setupPath, "w") as f:
-    f.write(data.replace(oldLine, ".".join(*vers)))
+    f.write(data.replace(oldLine, ".".join(vers)))
