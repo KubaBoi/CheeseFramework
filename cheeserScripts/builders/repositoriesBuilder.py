@@ -1,18 +1,18 @@
 #cheese
 
 import os
-import json
 
-from cheese.resourceManager import ResMan
-from cheeserScripts.builders.finder import Finder
+from Cheese.resourceManager import ResMan
+from Cheese.finder import Finder
 
 class RepositoriesBuilder:
-    def __init__(self):
-        self.repoJson = {"REPOSITORIES": [], "MODELS": []}
+
+    def __init__(self, parent):
+        self.parent = parent
 
     def build(self):
-        self.repositories = []
-        self.models = []
+        repositories = []
+        models = []
 
         for root, dirs, files in os.walk(ResMan.src()):
             for file in files:
@@ -21,111 +21,17 @@ class RepositoriesBuilder:
                 path = os.path.join(root, file)
 
                 if (Finder.isSomething(path, "repository")): 
-                    self.repositories.append(path)
+                    repositories.append(path)
                 elif (Finder.isSomething(path, "model")):
-                    self.models.append(path)
+                    models.append(path)
 
-        self.doRepositoriesJson()
-        self.doModelsJson()
+        self.parent.doJson(repositories, "REPOSITORIES", 
+            ["REPOSITORY", "DBSCHEME", "DBMODEL"],
+            [("QUERY", [("RETURN", "raw")]), ("COMMIT", [])])
+        self.parent.doJson(models, "MODELS", [], [])
 
-        self.preQueries()
-        self.preCommits()
-
-        for model in self.repoJson["MODELS"]:
-            path = model["FILE"].replace(ResMan.getFileName(model["FILE"]), "")[:-1]
-            
-            with open(os.path.join(ResMan.root(), path, "__init__.py"), "a") as f:
-                f.write(f"from {model['FILE'].replace('/', '.')} import {model['CLASS']}")
-
-        with open(os.path.join(ResMan.metadata(), "repMetadata.json"), "w") as f:
-            f.write(json.dumps(self.repoJson))
-
-    def doRepositoriesJson(self):
-        for repo in self.repositories:
-            with open(repo, "r") as f:
-                data = f.read()
-
-            repoName = Finder.getAnnotation(data, "#@repository", repo)[0]
-            dbScheme = Finder.getAnnotation(data, "#@dbscheme", repo)[0]
-            model = Finder.getAnnotation(data, "#@dbmodel", repo)[0]
-            className = Finder.getName(data, "class", repo)[0]
-
-            methods = []
-            methods.extend(self.findRepoMethods(data, repo))
-            methods.extend(self.findRepoMethods(data, repo, "commit"))
-
-            self.repoJson["REPOSITORIES"].append(
-                {
-                    "FILE": ResMan.getFileName(repo).replace(".py", ""),
-                    "CLASS": className,
-                    "NAME": repoName,
-                    "SCHEME": dbScheme,
-                    "MODEL": model,
-                    "METHODS": methods
-                }
-            )
-
-    def doModelsJson(self):
-        for model in self.models:
-            with open(model, "r") as f:
-                data = f.read()
-
-            className = Finder.getName(data, "class", model)[0]
-
-            file = ResMan.getRelativePathFrom(model, ResMan.root()).replace(".py", "")
-            file = file.replace("\\", "/")[1:]
-
-            self.repoJson["MODELS"].append(
-                {
-                    "FILE": file,
-                    "CLASS": className,
-                }
-            )
-
-
-
-    def findRepoMethods(self, data, repo, type="query"):
-        fr = 0
-        queryMethods = []
-        while True:
-            qr = Finder.getAnnotation(data, "#@"+type, repo, fr, False)
-            if (not qr):
-                break
-            query = qr[0]
-            fr = qr[1]
-
-            if (type == "query"):
-                acceptsModel = False
-                retq = Finder.getAnnotation(data, "#@return", repo, fr, False)
-                if (not retq):
-                    retqm = "raw"
-                else:
-                    retqm = retq[0]
-                    fr = retq[1]
-            else:
-                retqm = ""
-                if (not Finder.getAnnotation(data, "#@acceptsModel", fr, False, 20)):
-                    acceptsModel = False
-                else:
-                    acceptsModel = True
-
-            met = Finder.getName(data, "def", repo, fr)
-            if (not met):
-                raise SyntaxError(f"Cannot find method for query {query} in {repo}")
-            metn = met[0]
-            fr = met[1]
-
-            queryMethods.append(
-                {
-                    "SQL": query.replace("\"", ""),
-                    "RETURN": retqm,
-                    "METHOD": metn,
-                    "TYPE": type,
-                    "ACCEPTS_MODEL": acceptsModel
-                }
-            )
-        return queryMethods
-
+        #self.preQueries()
+        #self.preCommits()
     
 
     # prefabricated query methods
