@@ -8,11 +8,17 @@ from datetime import datetime, timedelta, timezone
 def replaceImports(data, imp):
     return data.replace("from " + imp, "from Cheese.")
 
-args = sys.argv
-if (len(args) == 1):
-    sys.exit("NO COMMIT")
+def getVersion():
+    setupPath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), "..", "setup.cfg"))
+    with open(setupPath, "r") as f:
+        data = f.readlines()
 
-message = " ".join(args[1:])
+    for line in data:
+        if (line.startswith("version")):
+            return line.split("=")[1].strip().split(".")
+            
+
+message = " ".join(sys.argv[1:])
 
 imps = [
     "cheese.admin.",
@@ -34,10 +40,10 @@ repo = git.Repo.clone_from("https://github.com/KubaBoi/CheeseFramework.git", rep
 repo.git.checkout("development")  
 now = datetime.now(timezone.utc) + timedelta(hours=2)
 releaseDate = now.strftime("%y.%m.%d.%H.%M")
-commitMessage = f"Test build - {releaseDate}"
+commitMessage = f"Test build - {releaseDate}\nv({getVersion()})"
 
 if (message == "build"):
-    commitMessage = f"Build - {releaseDate}"
+    commitMessage = f"Build - {releaseDate}\nv({getVersion()})"
     readmeFile = os.path.abspath(os.path.join(frameworkDir, "README.md"))
 
     with open(readmeFile, "r") as f:
@@ -51,7 +57,7 @@ if (message == "build"):
             break
 
     with open(readmeFile, "w") as f:
-        f.write(data.replace(oldLine, f"### Release datestamp {releaseDate}"))
+        f.write(data.replace(oldLine, f"### Release datestamp {releaseDate}         \nv({getVersion()})"))
 print(commitMessage)
 
 for root, dirs, files in os.walk(os.path.join(frameworkDir, "src", "Cheese")):
