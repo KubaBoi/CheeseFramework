@@ -67,35 +67,37 @@ class Logger:
             os.mkdir(ResMan.logs())
         Logger.initilized = True
 
-    @staticmethod
-    def set():
         Logger.__addLoggingLevel("HTML_FILE", 11)
         Logger.__addLoggingLevel("FILE", 10)
-        Logger.__addLoggingLevel("CONSOLE", 9)
 
-        logFormatter = logging.Formatter(fmt="%(asctime)s - %(message)s", datefmt="%H:%M:%S")
         htmlFormatter = logging.Formatter(fmt="<tr><td>%(asctime)s</td><td>%(message)s</td></tr>", datefmt="%Y-%m-%d %H:%M:%S")
-        rootLogger = logging.getLogger()
 
         date = datetime.now()
         #fileHandler = logging.FileHandler(ResMan.joinPath(ResMan.logs(), f"log{date.strftime('%Y-%m-%d-%H-%M-%S')}.log"), mode="w")
         #fileHandler.setFormatter(logFormatter)
         #fileHandler.addFilter(FileFilter())
-        #rootLogger.addHandler(fileHandler)
+        #Logger.rootLogger.addHandler(fileHandler)
         #Logger.handlers.append(fileHandler)
 
         htmlHandler = logging.FileHandler(ResMan.joinPath(ResMan.logs(), f"log{date.strftime('%Y-%m-%d-%H-%M-%S')}.html"), mode="a")
         htmlHandler.setFormatter(htmlFormatter)
         htmlHandler.addFilter(HtmlFilter())
-        rootLogger.addHandler(htmlHandler)
+        Logger.rootLogger.addHandler(htmlHandler)
         Logger.handlers.append(htmlHandler)
+
+    @staticmethod
+    def set():
+        Logger.__addLoggingLevel("CONSOLE", 9)
+
+        logFormatter = logging.Formatter(fmt="%(asctime)s - %(message)s", datefmt="%H:%M:%S")
+        Logger.rootLogger = logging.getLogger()
 
         consoleHandler = logging.StreamHandler()
         consoleHandler.setFormatter(logFormatter)
         consoleHandler.addFilter(ConsoleFilter())
-        rootLogger.addHandler(consoleHandler)
+        Logger.rootLogger.addHandler(consoleHandler)
 
-        rootLogger.setLevel(logging.CONSOLE)
+        Logger.rootLogger.setLevel(logging.CONSOLE)
 
     @staticmethod
     def close():
