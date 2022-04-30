@@ -35,12 +35,10 @@ class CheeseBurger:
             #init logger
             Logger.initLogger()
 
-            # check licence
-            CheeseBurger.loadLicence()
-
             # application build
             if (Settings.allowDebug):
-                Cheeser.build()
+                if (not Cheeser.build()):
+                    sys.exit()
 
             # loads metadata
             Metadata.loadMedatada()
@@ -49,7 +47,11 @@ class CheeseBurger:
             Error.init()
 
             # log new line
-            Logger.info(10*"=" + f"Start in file {ResMan.path}" + 10*"=" + "\n", False, False)
+            print()
+            Logger.info(10*"=" + f"Start in file {ResMan.path}" + 10*"=", False, False)
+            
+            # check licence
+            CheeseBurger.loadLicence()
 
             # connect to database
             if (Settings.allowDB):
@@ -102,8 +104,17 @@ class CheeseBurger:
     def loadLicence():
         try:
             r = requests.get(f"http://frogie.cz:6969/licence/authLic?code={Settings.licenseCode}")
+            if (r.status_code == 401): 
+                Logger.info("License: none")
+                Settings.activeLicense = ""
+                return
+
             Settings.activeLicense = json.loads(r.text)["LICENCE"]
-            print("License: " + Settings.activeLicense)
+            if (Settings.activeLicense == "full access" or Settings.activeLicense == "me"):
+                Logger.okGreen("License: " + Settings.activeLicense, False, False)
+            elif (Settings.activeLicense == "free access"):
+                Logger.warning("License: " + Settings.activeLicense, False, False)
+
             print("")
         except Exception as e:
             Logger.warning("Unable to contact licensing server", silence=False)
