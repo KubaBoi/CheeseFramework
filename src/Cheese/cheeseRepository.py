@@ -108,20 +108,13 @@ class CheeseRepository:
 
         return True
 
-
-    @classmethod
+    @staticmethod
     def toModel(repository, data):
-        scheme = repository["SCHEME"].replace(")", "").replace("(", "")
-        columns = scheme.split(",")
-
-        modelJson = Metadata.getModel(repository)
-        model = CheeseRepository.model(modelJson)()
-
-        for i, column in enumerate(columns):
-            column = column.strip()
-            setattr(model, column, data[i])
+        modelName = Metadata.getModel(repository)
+        scheme = Metadata.getScheme(repository)
+        model = CheeseModel(modelName, scheme)
+        model.toModel(data)
         return model
-
 
     # finds name of user-made repository
     @staticmethod
