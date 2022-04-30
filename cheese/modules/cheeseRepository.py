@@ -78,22 +78,14 @@ class CheeseRepository:
         if (query):
             return CheeseRepository.queryType(preparedSql, method, repository)
         else:
-            return CheeseRepository.commitType(preparedSql, method, repository)
+            return CheeseRepository.commitType(preparedSql)
 
         
     @staticmethod
     def queryType(preparedSql, method, repository):
-        try:
-            db = Database()
-            response = db.query(preparedSql)
-            db.done()
-        except Exception as e:
-            errorMessage = (
-                f"An error occurred while database method {Logger.OKGREEN}{method['QUERY']}{Logger.FAIL}" +
-                f" in repository {Logger.WARNING}{repository['FILE']}{Logger.FAIL}"
-            )
-            Logger.fail(errorMessage, e)
-            raise SystemError(errorMessage, e)
+        db = Database()
+        response = db.query(preparedSql)
+        db.done()
 
         if (method["RETURN"] == "raw"):
             return response
@@ -109,29 +101,21 @@ class CheeseRepository:
             return array
 
     @staticmethod
-    def commitType(preparedSql, method, repository):
-        try:
-            db = Database()
-            db.commit(preparedSql)
-            db.done()
-        except Exception as e:
-            errorMessage = (
-                f"An error occurred while database method {Logger.OKGREEN}{method['COMMIT']}{Logger.FAIL}" +
-                f" in repository {Logger.WARNING}{repository['FILE']}{Logger.FAIL}"
-            )
-            Logger.fail(errorMessage, e)
-            raise SystemError(errorMessage, e)
+    def commitType(preparedSql):
+        db = Database()
+        db.commit(preparedSql)
+        db.done()
 
         return True
 
 
-    @staticmethod
+    @classmethod
     def toModel(repository, data):
         scheme = repository["SCHEME"].replace(")", "").replace("(", "")
         columns = scheme.split(",")
 
         modelJson = Metadata.getModel(repository)
-        model = Metadata.getModelObject(modelJson)()
+        model = CheeseRepository.model(modelJson)()
 
         for i, column in enumerate(columns):
             column = column.strip()
