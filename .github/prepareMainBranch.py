@@ -1,7 +1,7 @@
 
 import os
+import sys
 import git
-import shutil
 
 from datetime import datetime, timedelta, timezone
 
@@ -19,26 +19,32 @@ imps = [
     "cheeserScripts."
 ]
 
-repoDir = os.path.abspath(os.path.join(os.path.dirname( __file__ ), "CheeseFramework"))
+repoDir = os.path.abspath(os.path.join(os.path.dirname( __file__ ), "..", "sourceCode"))
 frameworkDir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
-now = datetime.now(timezone.utc) + timedelta(hours=2)
-releaseDate = now.strftime("%y.%m.%d.%H.%M")
 
 repo = git.Repo.clone_from("https://github.com/KubaBoi/CheeseFramework.git", repoDir)
 
 repo.git.checkout("development")  
 
-readmeFile = os.path.abspath(os.path.join(frameworkDir, "README.md"))
+if (len(sys.argv) > 1):
+    readmeFile = os.path.abspath(os.path.join(frameworkDir, "README.md"))
 
-with open(readmeFile, "r") as f:
-    data = f.read()
+    with open(readmeFile, "r") as f:
+        data = f.read()
+        dataLines = data.split("\n")
 
-releaseIndex = data.find("### Release ")
-releaseLine = data[releaseIndex:releaseIndex+len("### Release v(xx.xx.xx.xx.xx)")]
+    now = datetime.now(timezone.utc) + timedelta(hours=2)
+    releaseDate = now.strftime("%y.%m.%d.%H.%M")
 
-with open(readmeFile, "w") as f:
-    f.write(data.replace(releaseLine, f"### Release v({releaseDate})"))
+    oldLine = ""
+    for line in dataLines:
+        if (line.startswith("### Release")):
+            oldLine = line
+            break
+
+    with open(readmeFile, "w") as f:
+        f.write(data.replace(oldLine, f"### Release datestamp {releaseDate}"))
 
 for root, dirs, files in os.walk(os.path.join(frameworkDir, "src", "Cheese")):
     for file in files:
@@ -46,9 +52,6 @@ for root, dirs, files in os.walk(os.path.join(frameworkDir, "src", "Cheese")):
         os.remove(os.path.join(root, file))
 
 for root, dirs, files in os.walk(repoDir):
-    if (root.find(".github") == -1):
-        continue
-
     for file in files:
         if (file.endswith(".py")):
             with open(os.path.join(root, file), "r") as f:
@@ -69,5 +72,3 @@ for root, dirs, files in os.walk(repoDir):
 
                 with open(newFile, "w") as f:
                     f.write(data)
-
-shutil.rmtree(repoDir)

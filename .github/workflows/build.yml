@@ -26,6 +26,14 @@ jobs:
           python3 -m pip install --upgrade twine
           python3 -m pip install --upgrade build
 
+      - name: Prepare test build
+        if: github.event.commits[0].message == 'test build'
+        run: python .github/prepareMainBranch.py
+
+      - name: Prepare test build
+        if: github.event.commits[0].message == 'build'
+        run: python .github/prepareMainBranch.py yes
+
       - name: Build
         run: python3 -m build
 
