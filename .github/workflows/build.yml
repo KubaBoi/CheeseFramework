@@ -29,10 +29,14 @@ jobs:
 
       - name: Prepare build
         id: buildPrepare
-        run: python .github/prepareMainBranch.py github.event.commits[0].message
+        run: |
+          output=$(python3 .github/prepareMainBranch.py github.event.commits[0].message1)
+          echo "::set-output name=commitMessage::$output"
 
       - name: Build
-        run: python3 -m build
+        run: |
+          python3 -m build
+          echo "${{ steps.buildPrepare.outputs.commitMessage }}"
 
       - name: Upload to Test Pypi
         if: github.event.commits[0].message == 'test build'
@@ -43,15 +47,15 @@ jobs:
         run: python3 -m twine upload dist/* -u ${{ secrets.PYPIUSERNAME }} -p ${{ secrets.PYPIPASSWORD }}
 
       - name: commit files
-        if: steps.buildPrepare.outcome != 'NO COMMIT'
+        if: github.event.commits[0].message == 'test build' || github.event.commits[0].message == 'build'
         run: |
-          echo "steps.buildPrepare.outcome"
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
-          git commit -m "steps.buildPrepare.outcome" -a
+          git commit -m "${{ steps.buildPrepare.outputs.commitMessage }}" -a
           
       - name: push changes
+        if: github.event.commits[0].message == 'test build' || github.event.commits[0].message == 'build'
         uses: ad-m/github-push-action@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
