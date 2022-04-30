@@ -7,8 +7,8 @@ import logging
 from traceback import format_exc
 from datetime import datetime
 
-from cheese.resourceManager import ResMan
-from cheese.appSettings import Settings
+from Cheese.resourceManager import ResMan
+from Cheese.appSettings import Settings
 
 class FileFilter(logging.Filter):
     def filter(self, rec):
