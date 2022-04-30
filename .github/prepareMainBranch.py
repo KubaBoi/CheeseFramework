@@ -80,9 +80,4 @@ if (message == "build"):
 
     with open(readmeFile, "w") as f:
         f.write(data.replace(oldLine, f"### Release datestamp {releaseDate}"))
-    sys.exit(commitMessage)
-    
-elif (message == "test build"):
-    sys.exit(commitMessage)
-else:
-    sys.exit("NO COMMIT")
+print(commitMessage)
