@@ -34,8 +34,8 @@ class CheeseHandler(BaseHTTPRequestHandler):
             cc.sendResponse(self, cc.createResponse({"RESPONSE": "Yes"}, 200))
             return
         try:
-            endpoints = cc.getEndpoints(self.path)
-            controller = Metadata.findMethod(endpoints, "get")
+            endpoint = cc.getPath(self.path)
+            controller = Metadata.findMethod(endpoint, "GET")
             if (not controller):
                 if (self.path.endswith(".css")):
                     cc.serveFile(self, self.path, "text/css")
@@ -67,8 +67,8 @@ class CheeseHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         self.__log()
         try:
-            endpoints = cc.getEndpoints(self.path)
-            controller = Metadata.findMethod(endpoints, "post")
+            endpoints = cc.getPath(self.path)
+            controller = Metadata.findMethod(endpoints, "POST")
             if (not controller):
                 Error.sendCustomError(self, "Endpoint not found :(", 404)
             else:

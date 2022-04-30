@@ -1,10 +1,7 @@
 #cheese
 
-from distutils.command.build import build
 import os
 import json
-import shutil
-import ctypes
 
 from Cheese.resourceManager import ResMan
 from Cheese.Logger import Logger
@@ -26,7 +23,7 @@ class ProjectBuilder:
                     if (file == "__init__.py"):
                         os.remove(os.path.join(root, file))
 
-            self.dictJson = {"CONTROLLERS": {}, "REPOSITORIES": {}, "MODELS": {}}
+            self.dictJson = {"CONTROLLERS": {}, "REPOSITORIES": {}}
 
             #build controllers
             contBuilder = ControllerBuilder(self)
@@ -72,20 +69,11 @@ class ProjectBuilder:
         {Logger.OKBLUE}GET methods: {gets}
         {Logger.OKBLUE}POST methods: {posts}
 
-    {Logger.OKCYAN}Models: {len(data["MODELS"].keys())}
     {Logger.OKCYAN}Repositories: {len(data["REPOSITORIES"].keys())}
         {Logger.OKBLUE}query methods: {queries}
         {Logger.OKBLUE}commit methods: {commits}
             """,
         False, False)
-        
-        if (len(data["REPOSITORIES"].keys()) != len(data["MODELS"].keys())):
-            Logger.warning("""
-====WARNING=====
-    Theres is different count of models and repositories
-    Didn't you forget to annotate anything?
-            """,
-            False, False)
 
 
     def saveMetadata(self):

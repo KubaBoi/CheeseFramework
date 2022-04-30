@@ -20,31 +20,18 @@ Database query of Cheese Application
 
 class CheeseRepository:
 
-    @staticmethod
-    def query(userRepository="", **kwargs):
-        if (userRepository == ""):
-            userRepository = CheeseRepository.findUserRepository()
-            repository = Metadata.getRepository(userRepository)
-        else:
-            repository = Metadata.getRepositoryFromClass(userRepository)
+    # CLASS METHODS
 
-        methodName = CheeseRepository.findUserMethod()
-        method = Metadata.getMethod(repository, methodName)
+    @classmethod
+    def model(cls):
+        repository = Metadata.getRepositoryFromClass(cls.__name__) 
+        modelName = Metadata.getModel(repository)
+        scheme = Metadata.getScheme(repository)
 
-        variables = CheeseRepository.getVariables(method["SQL"])
-        preparedSql = method["SQL"]
-
-        for key, value in kwargs.items():
-            arg = CheeseRepository.getTypeOf(value, variables, key, repository["SCHEME"])
-            preparedSql = preparedSql.replace(f":{key}", arg)
-
-        if (method["TYPE"] == "query"):
-            return CheeseRepository.queryType(preparedSql, method, repository)
-        elif (method["TYPE"] == "commit"):
-            return CheeseRepository.commitType(preparedSql, method, repository)
-
-
-    # PREBUILDED METHODS
+        model = CheeseModel(modelName, scheme)
+        for sch in scheme:
+            setattr(model, sch, "")
+        return model
 
     @classmethod
     def findNewId(cls):
@@ -62,6 +49,37 @@ class CheeseRepository:
     def delete(cls, obj):
         return CheeseRepository.query(cls.__name__, obj=obj)
 
+    # STATIS METHODS
+
+    @staticmethod
+    def query(userRepository="", **kwargs):
+        if (userRepository == ""):
+            userRepository = CheeseRepository.findUserRepository()
+            repository = Metadata.getRepository(userRepository)
+        else:
+            repository = Metadata.getRepositoryFromClass(userRepository)
+
+        methodName = CheeseRepository.findUserMethod()
+        method = Metadata.getMethod(repository, methodName)
+
+        query = False
+        if ("QUERY" in method):
+            preparedSql = method["QUERY"]
+            query = True
+        else:
+            preparedSql = method["COMMIT"]
+
+        variables = CheeseRepository.getVariables(preparedSql)
+
+        for key, value in kwargs.items():
+            arg = CheeseRepository.getTypeOf(value, variables, key, repository["DBSCHEME"])
+            preparedSql = preparedSql.replace(f":{key}", arg)
+
+        if (query):
+            return CheeseRepository.queryType(preparedSql, method, repository)
+        else:
+            return CheeseRepository.commitType(preparedSql, method, repository)
+
         
     @staticmethod
     def queryType(preparedSql, method, repository):
@@ -71,8 +89,8 @@ class CheeseRepository:
             db.done()
         except Exception as e:
             errorMessage = (
-                f"An error occurred while database method {method['METHOD']}" +
-                f" in repository {repository['CLASS']}, SQL: \"{preparedSql}\""
+                f"An error occurred while database method {Logger.OKGREEN}{method['QUERY']}{Logger.FAIL}" +
+                f" in repository {Logger.WARNING}{repository['FILE']}{Logger.FAIL}"
             )
             Logger.fail(errorMessage, e)
             raise SystemError(errorMessage, e)
@@ -98,8 +116,8 @@ class CheeseRepository:
             db.done()
         except Exception as e:
             errorMessage = (
-                f"An error occurred while database method {method['METHOD']}" +
-                f" in repository {repository['CLASS']}, SQL: \"{preparedSql}\""
+                f"An error occurred while database method {Logger.OKGREEN}{method['COMMIT']}{Logger.FAIL}" +
+                f" in repository {Logger.WARNING}{repository['FILE']}{Logger.FAIL}"
             )
             Logger.fail(errorMessage, e)
             raise SystemError(errorMessage, e)
