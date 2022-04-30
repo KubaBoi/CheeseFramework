@@ -67,7 +67,6 @@ class Database:
                 raise SystemError("Cannot establish connection with database", e)
             try:
                 self.cursor.execute(sql)
-                print(self.cursor.fetchall())
                 return True
             except Exception as e:
                 self.rollback()
