@@ -129,7 +129,7 @@ class ProjectBuilder:
                 methodsJson, lastClassIndex = self.doMethods(cls, methods, lastClassIndex, *methodAnnotations)
 
                 clsName = cls["NAME"]
-                if (cls.endswith(":")):
+                if (clsName.endswith(":")):
                     clsName = clsName[:-1]
 
                 self.dictJson[dictName][clsName] = {
