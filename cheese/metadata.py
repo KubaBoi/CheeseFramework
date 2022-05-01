@@ -22,6 +22,7 @@ class Metadata:
 
             Metadata.repos = data["REPOSITORIES"]
             Metadata.contr = data["CONTROLLERS"]
+            Metadata.tests = data["TESTS"]
 
             Metadata.prepareEndpoints()
         except Exception as e:

@@ -11,7 +11,7 @@ class ControllerBuilder:
     def build(parent):
         controllers = []
 
-        for root, dirs, files in os.walk(ResMan.src()):
+        for root, dirs, files in os.walk(ResMan.root()):
             for file in files:
                 if (not file.endswith(".py")): continue
 
