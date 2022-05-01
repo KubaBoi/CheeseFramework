@@ -143,7 +143,6 @@ class ProjectBuilder:
                     self.dictJson[dictName][clsName][ann] = annotations[ann.lower()]
 
                 for ann in annotations.keys():
-                    print(ann)
                     if (ann.upper() not in mainAnnotations):
                         self.dictJson[dictName][clsName][ann.upper()] = annotations[ann]
 
