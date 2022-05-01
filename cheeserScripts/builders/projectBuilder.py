@@ -122,7 +122,9 @@ class ProjectBuilder:
                     self.finder.raiseError(cls["INDEX"], f"There is missing {self.finder.wOkG(validation)} annotations")
 
                 file = ResMan.getRelativePathFrom(code, ResMan.root()).replace(".py", "")
-                file = file.replace("\\", "/")[1:]
+                file = file.replace("\\", "/")
+                if (file.startswith("/")):
+                    file = file[1:]
 
                 methodsJson, lastClassIndex = self.doMethods(cls, methods, lastClassIndex, *methodAnnotations)
 
