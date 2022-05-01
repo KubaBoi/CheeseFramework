@@ -41,5 +41,5 @@ class Error:
             error = error.args[1]
             errorMessage += "\n" + 20*"==" + "\n"
             errorMessage += "\n" + f"{Logger.WARNING}{error.args[0]}{Logger.FAIL}"
-        Logger.fail(f"{type(error).__name__} occurred: {errorMessage}")
+        Logger.fail(f"{type(error).__name__} occurred: {errorMessage}", False)
         return error
