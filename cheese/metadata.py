@@ -35,7 +35,7 @@ class Metadata:
         path = file.split("/")
         parent = __import__(path[0])
         for i in range(1, len(path)):
-            parent = getattr(a, path[i])
+            parent = getattr(parent, path[i])
         
         return getattr(parent, methodName)
 
