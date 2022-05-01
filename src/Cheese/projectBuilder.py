@@ -23,11 +23,6 @@ class ProjectBuilder:
 
     def build(self):
         try:
-            for root, dirs, files in os.walk(ResMan.root()):
-                for file in files:
-                    if (file == "__init__.py"):
-                        os.remove(os.path.join(root, file))
-
             self.dictJson = {"CONTROLLERS": {}, "REPOSITORIES": {}}
 
             #build controllers
@@ -82,6 +77,11 @@ class ProjectBuilder:
 
 
     def saveMetadata(self):
+        for root, dirs, files in os.walk(ResMan.root()):
+                for file in files:
+                    if (file == "__init__.py"):
+                        os.remove(os.path.join(root, file))
+
         keys = self.dictJson.keys()
         for key in keys:
             if (key in self.dontNeedInit): continue
