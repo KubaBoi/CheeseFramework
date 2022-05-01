@@ -18,6 +18,9 @@ class ProjectBuilder:
 
     dontNeedInit = ["REPOSITORIES"]
 
+    def __init__(self):
+        self.dictJson = {}
+
     def build(self):
         try:
             for root, dirs, files in os.walk(ResMan.root()):
