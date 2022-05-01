@@ -10,6 +10,6 @@ main file of Cheese Application
 """
 
 if __name__ == "__main__":
-    CheeseBurger.init(__file__)
+    CheeseBurger.init()
 
     CheeseBurger.serveForever()
