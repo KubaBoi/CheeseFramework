@@ -39,13 +39,15 @@ class CheeseBurger:
 
             # application build
             if (Settings.allowDebug):
-                CheeseTests.testAll()
                 builder = ProjectBuilder()
                 if (not builder.build()):
                     sys.exit()
 
             # loads metadata
             Metadata.loadMedatada()
+
+            if (Settings.allowDebug):
+                CheeseTests.testAll()
 
             # init errors
             Error.init()
