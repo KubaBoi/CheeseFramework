@@ -6,6 +6,7 @@ class Finder:
 
     @staticmethod
     def isSomething(file, type):
+        if (not file.endswith(".py")): return False
         with open(file, "r") as f:
             data = f.read()
         
