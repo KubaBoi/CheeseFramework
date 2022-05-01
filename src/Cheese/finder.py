@@ -19,7 +19,8 @@ class Finder:
         "#@dbscheme",
         "#@dbmodel",
         "#@model",
-        "#@testclass"
+        "#@testclass",
+        "#@ignore"
     ]
     methodAnnotations = [
         "#@post",
@@ -27,7 +28,8 @@ class Finder:
         "#@query",
         "#@commit",
         "#@return",
-        "#@test"
+        "#@test",
+        "#@ignore"
     ]
 
     def loadFile(self, file):
