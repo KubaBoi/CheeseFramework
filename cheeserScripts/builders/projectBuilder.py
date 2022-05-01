@@ -142,6 +142,11 @@ class ProjectBuilder:
                 for ann in mainAnnotations:
                     self.dictJson[dictName][clsName][ann] = annotations[ann.lower()]
 
+                for ann in annotations.keys():
+                    print(ann)
+                    if (ann.upper() not in mainAnnotations):
+                        self.dictJson[dictName][clsName][ann.upper()] = annotations[ann]
+
     def doMethods(self, cls, methods, lastClassIndex, *methodAnnotations):
         methodsJson = {}
 

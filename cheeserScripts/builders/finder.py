@@ -121,8 +121,12 @@ class Finder:
 
     def getAnnotationType(self, annotation, notSing=False):
         if (notSing):
-            return annotation.split(" ")[0].replace("#@", "")
-        return annotation.split(" ")[0]
+            annot = annotation.split(" ")[0].replace("#@", "")
+        else:
+            annot = annotation.split(" ")[0]
+
+        if (annot.endswith(";")): annot = annot[:-1]
+        return annot
 
     def getMultiline(self, index, line):
         if (line.startswith("#")):
