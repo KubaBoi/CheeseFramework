@@ -5,11 +5,11 @@ import os
 from Cheese.resourceManager import ResMan
 from Cheese.finder import Finder
 
-class ControllerBuilder:
-
+class TestsBuilder:
+    
     @staticmethod
     def build(parent):
-        controllers = []
+        tests = []
 
         for root, dirs, files in os.walk(ResMan.src()):
             for file in files:
@@ -17,11 +17,8 @@ class ControllerBuilder:
 
                 path = os.path.join(root, file)
 
-                if (Finder.isSomething(path, "controller")): 
-                    controllers.append(path)
+                if (Finder.isSomething(path, "testclass")): 
+                    tests.append(path)
 
-        parent.doJson(controllers, "CONTROLLERS", 
-            ["CONTROLLER"],
-            [("POST", [("POST",)]), ("GET", [("GET",)])]
-        )
+        parent.doJson(tests, "TESTS", ["TESTCLASS"], [("TEST", [])])
 
