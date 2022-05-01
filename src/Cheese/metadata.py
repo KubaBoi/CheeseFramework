@@ -31,13 +31,14 @@ class Metadata:
             raise SystemError("Error while loading metadata", e)
 
     @staticmethod
-    def getObjMethod(methodName, className, file):
+    def getObjMethod(methodName, file, className=""):
         path = file.split("/")
         parent = __import__(path[0])
         for i in range(1, len(path)):
             parent = getattr(parent, path[i])
-        
-        parent = getattr(parent, className)
+
+        if (className != ""):
+            parent = getattr(parent, className)
         return getattr(parent, methodName)
 
     @staticmethod
@@ -51,7 +52,7 @@ class Metadata:
                 for endpointKey in method.keys():
                     eKey = mainEndpoint + method[endpointKey]
 
-                    methodObj = Metadata.getObjMethod(methodKey, key, controller["FILE"])
+                    methodObj = Metadata.getObjMethod(methodKey, controller["FILE"])
 
                     if (endpointKey == "GET"):
                         Metadata.getEndpoints[eKey] = methodObj
@@ -68,11 +69,10 @@ class Metadata:
 
     @staticmethod
     def getRepository(userRepository):
-        for repo in Metadata.repos.keys():
-            repos = Metadata.repos[repo]
-            for repoKey in repos.keys():
-                if (repos[repoKey]["FILE"] == userRepository):
-                    return repo
+        for repoKey in Metadata.repos.keys():
+            repo = Metadata.repos[repoKey]
+            if (ResMan.getFileName(repo["FILE"]) == userRepository):
+                return repo
         raise SyntaxError(f"Repository {userRepository} was not found")
 
     @staticmethod
