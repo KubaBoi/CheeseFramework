@@ -94,6 +94,7 @@ class ProjectBuilder:
                 splited = path.split("/")
                 for i, pth in enumerate(splited):
                     with open(os.path.join(*splited[:i], pth, "__init__.py"), "a") as f:
+                        if (len(splited) == 1 and splited[0] == ""): continue
                         f.write(f"from {'.'.join(splited)} import *\n")
 
                 with open(os.path.join(ResMan.root(), path, "__init__.py"), "a") as f:
