@@ -31,12 +31,13 @@ class Metadata:
             raise SystemError("Error while loading metadata", e)
 
     @staticmethod
-    def getObjMethod(methodName, file):
+    def getObjMethod(methodName, className, file):
         path = file.split("/")
         parent = __import__(path[0])
         for i in range(1, len(path)):
             parent = getattr(parent, path[i])
         
+        parent = getattr(parent, className)
         return getattr(parent, methodName)
 
     @staticmethod
@@ -50,7 +51,7 @@ class Metadata:
                 for endpointKey in method.keys():
                     eKey = mainEndpoint + method[endpointKey]
 
-                    methodObj = Metadata.getObjMethod(methodKey, controller["FILE"])
+                    methodObj = Metadata.getObjMethod(methodKey,endpointKey, controller["FILE"])
 
                     if (endpointKey == "GET"):
                         Metadata.getEndpoints[eKey] = methodObj
