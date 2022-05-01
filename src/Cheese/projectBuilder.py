@@ -128,13 +128,17 @@ class ProjectBuilder:
 
                 methodsJson, lastClassIndex = self.doMethods(cls, methods, lastClassIndex, *methodAnnotations)
 
-                self.dictJson[dictName][cls["NAME"]] = {
+                clsName = cls["NAME"]
+                if (cls.endswith(":")):
+                    clsName = clsName[:-1]
+
+                self.dictJson[dictName][clsName] = {
                     "FILE": file,
                     "METHODS": methodsJson
                 }
 
                 for ann in mainAnnotations:
-                    self.dictJson[dictName][cls["NAME"]][ann] = annotations[ann.lower()]
+                    self.dictJson[dictName][clsName][ann] = annotations[ann.lower()]
 
     def doMethods(self, cls, methods, lastClassIndex, *methodAnnotations):
         methodsJson = {}
