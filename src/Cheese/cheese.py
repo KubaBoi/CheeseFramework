@@ -1,8 +1,8 @@
 #cheese
 
+import os
 import sys
 import requests
-from pathlib import Path
 from traceback import format_exc
 
 from Cheese.projectBuilder import ProjectBuilder
@@ -24,10 +24,10 @@ initialize Cheese Application
 class CheeseBurger:
 
     @staticmethod
-    def init(file):
+    def init():
         try:
             # initialization of root directory
-            ResMan.setPath(Path(file).parent)
+            ResMan.setPath(os.getcwd())
 
             # loads application settings
             Settings.loadSettings()
