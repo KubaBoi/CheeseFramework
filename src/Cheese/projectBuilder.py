@@ -76,12 +76,13 @@ class ProjectBuilder:
         False, False)
 
 
-    def saveMetadata(self):
+    def cleanInit(self):
         for root, dirs, files in os.walk(ResMan.root()):
-                for file in files:
-                    if (file == "__init__.py"):
-                        os.remove(os.path.join(root, file))
+            for file in files:
+                if (file == "__init__.py"):
+                    os.remove(os.path.join(root, file))
 
+    def saveMetadata(self):
         keys = self.dictJson.keys()
         for key in keys:
             if (key in self.dontNeedInit): continue
