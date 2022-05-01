@@ -31,7 +31,8 @@ class Error:
     @staticmethod
     def handleError(server, error):
         Error.logErrorMessage(error)
-        Error.sendCustomError(server, 500, f"Internal server error :(", DESCRIPTION=error.args[0])
+        if (server != None):
+            Error.sendCustomError(server, 500, f"Internal server error :(", DESCRIPTION=error.args[0])
 
     @staticmethod
     def logErrorMessage(error):
