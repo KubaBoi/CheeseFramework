@@ -7,10 +7,8 @@ from Cheese.finder import Finder
 
 class RepositoriesBuilder:
 
-    def __init__(self, parent):
-        self.parent = parent
-
-    def build(self):
+    @staticmethod
+    def build(parent):
         repositories = []
 
         for root, dirs, files in os.walk(ResMan.src()):
@@ -22,18 +20,19 @@ class RepositoriesBuilder:
                 if (Finder.isSomething(path, "repository")): 
                     repositories.append(path)
 
-        self.parent.doJson(repositories, "REPOSITORIES", 
+        parent.doJson(repositories, "REPOSITORIES", 
             ["REPOSITORY", "DBSCHEME", "DBMODEL"],
             [("QUERY", [("RETURN", "raw")]), ("COMMIT", [])])
 
-        self.preQueries()
-        self.preCommits()
+        RepositoriesBuilder.preQueries(parent)
+        RepositoriesBuilder.preCommits(parent)
     
 
     # prefabricated query methods
-    def preQueries(self):
-        for repoKey in self.parent.dictJson["REPOSITORIES"].keys():
-            repo = self.parent.dictJson["REPOSITORIES"][repoKey]
+    @staticmethod
+    def preQueries(parent):
+        for repoKey in parent.dictJson["REPOSITORIES"].keys():
+            repo = parent.dictJson["REPOSITORIES"][repoKey]
 
             repo["METHODS"]["findNewId"] = {
                     "QUERY": f"select max(id) from {repo['REPOSITORY']};",
@@ -41,9 +40,10 @@ class RepositoriesBuilder:
                 }
 
     # prefabricated commit methods 
-    def preCommits(self):
-        for repoKey in self.parent.dictJson["REPOSITORIES"].keys():
-            repo = self.parent.dictJson["REPOSITORIES"][repoKey]
+    @staticmethod
+    def preCommits(parent):
+        for repoKey in parent.dictJson["REPOSITORIES"].keys():
+            repo = parent.dictJson["REPOSITORIES"][repoKey]
             scheme = repo["DBSCHEME"]
             name = repo["REPOSITORY"]
 
