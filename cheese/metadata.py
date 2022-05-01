@@ -25,7 +25,7 @@ class Metadata:
 
             Metadata.prepareEndpoints()
         except Exception as e:
-            Logger.fail("Error while loading metadata", e, False, False)
+            Logger.fail("Error while loading metadata", False, False)
             Logger.warning("Didn't you forgot to build application?", False, False)
             Logger.warning("Build will be triggered when application is in debug mode", False, False)
             raise SystemError("Error while loading metadata", e)
@@ -52,7 +52,7 @@ class Metadata:
                 for endpointKey in method.keys():
                     eKey = mainEndpoint + method[endpointKey]
 
-                    methodObj = Metadata.getObjMethod(methodKey, controller["FILE"])
+                    methodObj = Metadata.getObjMethod(methodKey, controller["FILE"], key)
 
                     if (endpointKey == "GET"):
                         Metadata.getEndpoints[eKey] = methodObj
