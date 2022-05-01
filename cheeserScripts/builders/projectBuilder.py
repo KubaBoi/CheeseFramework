@@ -83,6 +83,7 @@ class ProjectBuilder:
                     os.remove(os.path.join(root, file))
 
     def saveMetadata(self):
+        self.cleanInit()
         keys = self.dictJson.keys()
         for key in keys:
             if (key in self.dontNeedInit): continue
