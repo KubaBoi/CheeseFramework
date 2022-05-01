@@ -9,5 +9,4 @@ class HelloWorldController(cc):
     #@get /world;
     @staticmethod
     def helloWorld(server, path, auth):
-        response = cc.createResponse({"HELLO WORLD": "Cheese is working :) hurrayyy"}, 200)
-        cc.sendResponse(server, response)
+        return cc.createResponse({"HELLO WORLD": "Cheese is working :) hurrayyy"}, 200)
