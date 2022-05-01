@@ -39,13 +39,17 @@ class CheeseHandler(BaseHTTPRequestHandler):
             if (not controller):
                 if (self.path.endswith(".css")):
                     cc.serveFile(self, self.path, "text/css")
+                    return
                 else:
                     if (self.path == "/"):
                         cc.serveFile(self, "index.html")
+                        return
                     else:
                         cc.serveFile(self, self.path)
+                        return
             else:
-                controller(self, self.path, None)
+                response = controller(self, self.path, None)
+                cc.sendResponse(self, response)
 
         except Exception as e:
             Error.handleError(self, e)
@@ -58,7 +62,8 @@ class CheeseHandler(BaseHTTPRequestHandler):
             if (not controller):
                 Error.sendCustomError(self, "Endpoint not found :(", 404)
             else:
-                controller(self, self.path, None)
+                response = controller(self, self.path, None)
+                cc.sendResponse(self, response)
 
         except Exception as e:
             Error.handleError(self, e)
