@@ -6,13 +6,11 @@ import inspect
 import time
 
 from Cheese.resourceManager import ResMan
-from Cheese.finder import Finder
-from Cheese.projectBuilder import ProjectBuilder
 from Cheese.Logger import Logger
-from Cheese.appSettings import Settings
 from Cheese.metadata import Metadata
 from Cheese.ErrorCodes import Error
 from Cheese.testError import TestError
+from Cheese.cheeseRepository import CheeseRepository
 
 class CheeseTests:
 
@@ -23,6 +21,9 @@ class CheeseTests:
         CheeseTests.testFailCount = 0
         CheeseTests.testOkCount = 0
         CheeseTests.testIgnoredCount = 0
+
+        CheeseTests.mocks = {}
+        CheeseRepository.startTesting(CheeseTests)
 
         for testKey in Metadata.tests.keys():
             test = Metadata.tests[testKey]
@@ -63,6 +64,7 @@ total: {CheeseTests.testTotalCount}
 
         if (result == Logger.FAIL):
             sys.exit(1)
+        CheeseRepository.stopTesting()
 
     @staticmethod
     def oneTest(method, methodKey):
@@ -120,6 +122,10 @@ But it was: {Logger.FAIL}{str(e.value)}{Logger.ENDC}{Logger.BOLD}
         if (ns >= 1):
             return str((int(ns*1000)/1000)) + " ns"
         return "0 s"
+
+    @staticmethod
+    def setMock(mock):
+        CheeseTests.mocks[mock.repoName] = mock
 
 # running test for one file
 """
