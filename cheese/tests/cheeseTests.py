@@ -2,7 +2,6 @@
 
 import os
 import sys
-import inspect
 import time
 
 from Cheese.resourceManager import ResMan
@@ -11,6 +10,7 @@ from Cheese.metadata import Metadata
 from Cheese.ErrorCodes import Error
 from Cheese.testError import TestError
 from Cheese.cheeseRepository import CheeseRepository
+from Cheese.mockManager import MockManager
 
 class CheeseTests:
 
@@ -23,7 +23,7 @@ class CheeseTests:
         CheeseTests.testIgnoredCount = 0
 
         CheeseTests.mocks = {}
-        CheeseRepository.startTesting(CheeseTests)
+        CheeseRepository.startTesting(MockManager)
 
         for testKey in Metadata.tests.keys():
             test = Metadata.tests[testKey]
@@ -122,10 +122,6 @@ But it was: {Logger.FAIL}{str(e.value)}{Logger.ENDC}{Logger.BOLD}
         if (ns >= 1):
             return str((int(ns*1000)/1000)) + " ns"
         return "0 s"
-
-    @staticmethod
-    def setMock(mock):
-        CheeseTests.mocks[mock.repoName] = mock
 
 # running test for one file
 """

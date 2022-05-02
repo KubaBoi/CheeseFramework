@@ -56,8 +56,8 @@ class CheeseRepository:
     # STATIC METHODS
 
     @staticmethod
-    def startTesting(testManager):
-        CheeseRepository.testManager = testManager
+    def startTesting(mockManager):
+        CheeseRepository.mockManager = mockManager
         CheeseRepository.testing = True
 
     @staticmethod
@@ -75,7 +75,7 @@ class CheeseRepository:
         methodName = CheeseRepository.findUserMethod()
 
         if (CheeseRepository.testing):
-            return CheeseRepository.testManager.returnMock(userRepository, methodName)
+            return CheeseRepository.mockManager.returnMock(userRepository, methodName, kwargs)
 
         method = Metadata.getMethod(repository, methodName)
 
