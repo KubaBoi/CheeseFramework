@@ -44,7 +44,7 @@ class CheeseBurger:
                     sys.exit()
 
             # loads metadata
-            Metadata.loadMedatada()
+            Metadata.loadMetadata()
 
             if (Settings.allowDebug):
                 CheeseTests.testAll()

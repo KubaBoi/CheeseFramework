@@ -24,7 +24,7 @@ class CheeseTests:
                 file = os.path.join(root, fileName)
                 if (Finder.isSomething(file, "testclass")):
                     fileNames.append(file)
-        CheeseTests.testFiles(fileNames)
+        #CheeseTests.testFiles(fileNames)
 
     @staticmethod
     def testFiles(fileNames):
