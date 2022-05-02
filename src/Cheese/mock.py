@@ -6,15 +6,36 @@ class Mock:
 
     def __init__(self, repositoryName):
         self.whenReturns = {}
+        self.catch = {}
         self.repoName = repositoryName
         MockManager.setMock(self)
 
     def whenReturn(self, methodName, response, **kwargs):
+        """
+        methodName - name of method which will be mocked
+        response - response which mocked return will return
+        kwargs - dict of arguments singalizing that this is THE case 
+        """
         if (methodName not in self.whenReturns.keys()):
             self.whenReturns[methodName] = []
         self.whenReturns[methodName].append(
             {
                 "RESPONSE": response,
+                "KWARGS": kwargs
+            }
+        )
+
+    def catchArgs(self, obj, argName, methodName, **kwargs):
+        """
+        obj - object which will be filled with return (pointer)
+        methodName - name of method which will be cached
+        """
+        if (methodName not in self.catch.keys()):
+            self.catch[methodName] = []
+        self.catch[methodName].append(
+            {
+                "OBJECT": obj,
+                "ARG_NAME": argName,
                 "KWARGS": kwargs
             }
         )
