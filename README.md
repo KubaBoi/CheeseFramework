@@ -75,9 +75,8 @@ I am using Tomcat like some kind of gate which listens at 80 public port and res
 ### 1.1.1 Downloads
 
 First of all you need to install <a href="https://pypi.org/project/CheeseFramework/">CheeseFramework from pypi.org</a>
-```
-pip install CheeseFramework
-```
+
+```pip install CheeseFramework```
 
 And you will need some more pypi packages:
 - ```pip install pyodbc``` <a href="https://pypi.org/project/pyodbc/">Documentation</a>
