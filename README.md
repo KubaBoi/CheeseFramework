@@ -21,6 +21,40 @@
 
 https://github.com/KubaBoi/CheeseFramework/tree/development
 
+## Contents
+
+ - [Introduction](#1-introduction)
+    -  [Installation](#11-instalation)
+        - [Downloads](#111-downloads)
+        - [Creating new project](#112-creating-new-project)
+        - [Run Cheese application](#113-run-cheese-application)
+ - [Cheese Tools](#2-cheese-tools)
+ - [Build](#3-build)
+ - [Project structure](#4-project-structure)
+    - [/.admin](#41-admin)
+    - [/resources](#42-resources)
+    - [/src](#43-src)
+    - [/web](#44-web)
+    - [/*.json files](#45-json-files)
+ - [Configuration](#5-configuration)
+    - [adminSettings.json](#51-adminsettingsjson)
+    - [appSettings.json](#52-appsettingsjson)
+    - [authExceptions.json](#53-authexceptionsjson)
+ - [Annotations](#6-annotations)
+ - [Python code](#7-python-code)
+    - [API Controllers](#71-api-controllers)
+        - [Create controller](#711-create-controller)
+        - [Methods of controller](#712-methods-of-controller)
+        - [Method arguments](#713-method-arguments)
+        - [Example controller](#714-example-controller)
+    - [Repositories](#72-repositories)
+        - [Create repository](#721-create-repository)
+        - [Methods of repository](#722-methods-of-repository)
+        - [Passing arguments to SQL query](#723-passing-arguments-to-sql-query)
+            - [Passing model](#7231-passing-model)
+        - [Prebuilded methods](#724-prebuilded-methods)
+
+
 ## 1 Introduction
 
 Cheese Framework is open source library for creating web applications with database connection (like Spring in Java). It can save a lot of time because developer does not have to making http server or creating whole database reader. Cheese is using pydobc library for database access so it is able to connect to most of modern database engines.
@@ -309,45 +343,11 @@ class CalculatorController(CheeseController):
         CheeseController.sendResponse(server, response)
 ```
 
-### 7.2 Models
-
-Models are classes for storing data from database. Again, one folder for them.
-One instance of model is one row of database table. 
-
-Model needs only one annotation above class definition ```#@model``` and has to inherit from ```CheeseModel```.
-Arguments in initializer (constructor) should be indentic as scheme of table.
-
-Model for table users with columns ```"id"```, ```"name"```, ```"age"```
-
-```python
-from cheese.modules.cheeseModel import CheeseModel
-
-#@model;
-class User(CheeseModel):
-
-    def __init__(self, id=None, name=None, age=None):
-        self.id = id
-        self.name = name
-        self.age = age
-```
-
-It is very useful but not necessary create a method ```toJson()``` which returns dictionary with data of model.
-
-```python
-def toJson(self):
-    response = {
-        "ID": self.id,
-        "NAME": self.name,
-        "AGE": self.age,
-    }
-    return response
-```
-
-### 7.3 Repositories
+### 7.2 Repositories
 
 Repository is like access into one table of database. There are methods that communicate with database.
 
-#### 7.3.1 Create repository
+#### 7.2.1 Create repository
 
 Repositories are last but most complex part of Cheese Framework. They are again classes but there need to be more annotations. Also repository have to inherits from ```CheeseRepository```
 
@@ -370,7 +370,7 @@ from cheese.modules.cheeseRepository import CheeseRepository
 class PasswordRepository(CheeseRepository):
 ```
 
-#### 7.3.2 Methods of repository
+#### 7.2.2 Methods of repository
 
 Method scheme is again very strict. They need to be static and every method needs to have this line in it's body:
 
@@ -445,7 +445,7 @@ There are two types of SQL query annotations query and commit.
 
     You will need it only when you want to change Primary Key of some row because there are three prebuilded methods that you should add into your repository. Those methods does not have any annotation and accepts only models. The update and delete method search rows by Primary Key so if you want to update row's Primary Key you need to write your own SQL query.
 
-#### 7.3.3 Passing arguments to SQL query
+#### 7.2.3 Passing arguments to SQL query
 
 Arguments can be insert into SQL query if you marks them with ```:``` and in ```return CheeseRepository.query()``` name them same as in SQL query.
 
@@ -459,7 +459,7 @@ def findByIdAndName(id, name):
     return CheeseRepository.query(someId=id, someName=name)
 ```
 
-##### 7.3.3.3.4 Passing model
+##### 7.2.3.1 Passing model
 
 If you want to pass an model it is possible.
 
@@ -494,7 +494,7 @@ Finall query will looks like this:
 select (id, name, greet) from table where name='first hello' or greet='hello boi';
 ```
 
-#### 7.3.4 Prebuilded methods
+#### 7.2.4 Prebuilded methods
 
 There are some prebuilded methods for saving, updating, removing and find new id. You can see their settings in ```/.metadata/repMetadata.json``` after build.
 
