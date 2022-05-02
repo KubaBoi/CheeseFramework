@@ -2,6 +2,7 @@
 
 from Cheese.Logger import Logger
 from Cheese.testError import MockError
+from Cheese.mock import Pointer
 
 class MockManager:
 
@@ -22,20 +23,41 @@ class MockManager:
 
                 for ret in method:
                     if (kwargs == ret["KWARGS"]):
-                        return ret["RESPONSE"]
+                        return MockManager.prepareResponse(ret["RESPONSE"])
 
             if (methodName in mock.catch.keys()): # try to find catch
                 method = mock.catch[methodName]
-                for key in method["KWARGS"].keys(): # runs through all condition arguments
-                    if (key not in kwargs.keys()):
-                        raise MockError(repositoryName, methodName, key)
+                
+                for catch in method:
+                    for key in catch["KWARGS"].keys(): # runs through all condition arguments
+                        if (key not in kwargs.keys()):
+                            raise MockError(repositoryName, methodName, key)
 
-                    if (kwargs[key] != method["KWARGS"][key]): # if any of conditions is not acomplished
-                        return None
+                        if (kwargs[key] != catch["KWARGS"][key]): # if any of conditions is not acomplished
+                            continue
 
-                if (method["ARG_NAME"] not in kwargs): # if cached argument is not in kwargs of real method
-                    raise MockError(repositoryName, methodName, method["ARG_NAME"])
+                    if (catch["ARG_NAME"] not in kwargs): # if cached argument is not in kwargs of real method
+                        raise MockError(repositoryName, methodName, catch["ARG_NAME"])
 
-                method["OBJECT"] = kwargs[method["ARG_NAME"]]              
+                    pointer = catch["POINTER"]
+                    pointer.setValue(kwargs[catch["ARG_NAME"]])
         
         return None
+
+    def prepareResponse(response):
+        newResponse = response
+        if (type(response) == list): #list
+            newResponse = []
+            for res in response:
+                newResponse.append(MockManager.prepareResponse(res))
+        elif (type(response) == tuple): # tuple
+            for i, res in enumerate(response):
+                newResponse[i] = MockManager.prepareResponse(res)
+        elif (type(response) == dict): # dictionary
+            for key in response.keys():
+                newResponse[key] = MockManager.prepareResponse(response[key])
+        elif (type(response) == Pointer):
+            newResponse = MockManager.prepareResponse(response.getValue())
+
+        return newResponse
+            

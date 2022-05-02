@@ -1,6 +1,7 @@
 #cheese
 
 from Cheese.mockManager import MockManager
+from Cheese.testError import PointerError
 
 class Mock:
 
@@ -25,20 +26,31 @@ class Mock:
             }
         )
 
-    def catchArgs(self, obj, argName, methodName, **kwargs):
+    def catchArgs(self, pointer, argName, methodName, **kwargs):
         """
-        obj - object which will be filled with return (pointer)
+        pointer - id of object which will be filled with return 
         methodName - name of method which will be cached
         """
         if (methodName not in self.catch.keys()):
             self.catch[methodName] = []
         self.catch[methodName].append(
             {
-                "OBJECT": obj,
+                "POINTER": pointer,
                 "ARG_NAME": argName,
                 "KWARGS": kwargs
             }
         )
+
+class Pointer:
+
+    def __init__(self):
+        self.value = None
+
+    def getValue(self):
+        return self.value
+
+    def setValue(self, value):
+        self.value = value
 
 class ServerMock:
 
