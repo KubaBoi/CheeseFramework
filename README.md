@@ -535,7 +535,7 @@ Cheese, because of database connection (and because it is fun creating it), has 
 
 There is list of classes which your test class file should contains. Everything will be clear in the end of [Testing](#8-testing) when you check examples.
 
-#### UnitTest
+## ```UnitTest```
 
 ```python
 from Cheese.test import UnitTest
@@ -563,7 +563,7 @@ UnitTest.assertFalse(value, comment)
 
 If ```value``` is not equal ```False``` the ```TestError``` will be raised and test fails.
  
-#### Pointer
+## ```Pointer```
 
 ```python
 from Cheese.pointer import Pointer
@@ -585,7 +585,7 @@ Pointer.setValue(value)
 
 Sets value to which ```Pointer``` points. (You won't need it)
 
-#### Mock
+## ```Mock```
 
 ```python
 from Cheese.mock import Mock
