@@ -2,7 +2,7 @@
 
 from Cheese.Logger import Logger
 from Cheese.testError import MockError
-from Cheese.mock import Pointer
+from Cheese.pointer import Pointer
 
 class MockManager:
 
