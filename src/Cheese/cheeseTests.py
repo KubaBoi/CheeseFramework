@@ -144,10 +144,11 @@ total: {testTotalCount}
         return "0 s"
 
 # running test for one file
+"""
 curframe = inspect.currentframe()
 calframe = inspect.getouterframes(curframe)[6]
 fileName = ResMan.getFileName(calframe.filename)
 if (fileName != "cheese.py"):
     Settings.allowDebug = True
     ResMan.setPath(calframe.filename.replace(fileName, ""))
-    CheeseTests.testFiles([calframe.filename])
+    CheeseTests.testFiles([calframe.filename])"""
