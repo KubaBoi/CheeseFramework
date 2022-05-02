@@ -27,7 +27,7 @@ class Metadata:
 
             Metadata.createInits(data)
             Metadata.prepareMethods(Metadata.contr, "CONTROLLER")
-            Metadata.prepareMethods(Metadata.tests, "TEST")
+            Metadata.prepareMethods(Metadata.tests, "TESTCLASS")
             Metadata.cleanInits()
         except Exception as e:
             Logger.fail("Error while loading metadata", False, False)
