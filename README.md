@@ -8,13 +8,13 @@
 
 ## TODO
 
-- [ ] :bangbang: TESTS :bangbang:
+- [x] :bangbang: TESTS :bangbang:
 - [ ] metadata load setting (RAM/dynamic)
 - [ ] repair admin access
 - [ ] repair CORS not allowed
 - [ ] do authorization
 - [ ] do Cheese tools
-- [ ] remove deprecated ```#@acceptsModel``` annotation
+- [x] remove deprecated ```#@acceptsModel``` annotation
 
 
 ## Source code
