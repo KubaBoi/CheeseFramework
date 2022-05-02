@@ -43,7 +43,7 @@ class Metadata:
 
     @staticmethod
     def createInits(data):
-        Metadata.cleanInit()
+        Metadata.cleanInits()
         keys = data.keys()
         for key in keys:
             
