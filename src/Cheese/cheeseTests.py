@@ -27,7 +27,7 @@ class CheeseTests:
         for testKey in Metadata.tests.keys():
             test = Metadata.tests[testKey]
             
-            testFile = os.path.join(ResMan.root(), test["FILE"])
+            testFile = os.path.join(ResMan.root(), test["FILE"] + ".py")
             testHeader = f"""
 Running {CheeseTests.getTestSign(test['TESTCLASS'], testKey)} 
 from file {Logger.WARNING}{Logger.UNDERLINE}{testFile}{Logger.ENDC}{Logger.BOLD}
