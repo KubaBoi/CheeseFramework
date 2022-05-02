@@ -31,6 +31,7 @@ class Metadata:
             Logger.fail("Error while loading metadata", False, False)
             Logger.warning("Didn't you forgot to build application?", False, False)
             Logger.warning("Build will be triggered when application is in debug mode", False, False)
+            Metadata.cleanInits()
             raise SystemError("Error while loading metadata", e)
 
     @staticmethod
