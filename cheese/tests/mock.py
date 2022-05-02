@@ -10,7 +10,8 @@ class Mock:
         MockManager.setMock(self)
 
     def whenReturn(self, methodName, response, **kwargs):
-        self.whenReturns[methodName] = []
+        if (methodName not in self.whenReturns.keys()):
+            self.whenReturns[methodName] = []
         self.whenReturns[methodName].append(
             {
                 "RESPONSE": response,
