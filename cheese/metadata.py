@@ -53,7 +53,10 @@ class Metadata:
                 for endpointKey in method.keys():
                     eKey = mainEndpoint + method[endpointKey]
 
-                    methodObj = Metadata.getObjMethod(methodKey, controller["FILE"], key)
+                    try:
+                        methodObj = Metadata.getObjMethod(methodKey, controller["FILE"])
+                    except:
+                        methodObj = Metadata.getObjMethod(methodKey, controller["FILE"], key)
 
                     if (endpointKey == "GET"):
                         Metadata.getEndpoints[eKey] = methodObj
