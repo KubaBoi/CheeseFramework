@@ -225,9 +225,11 @@ There is a list of all annotations:
 - ```#@query```
 - ```#@commit```
 - ```#@return```
-- ```#@acceptsModel``` - deprecated
 - ```#@dbscheme```
 - ```#@dbmodel```
+- ```#@testclass```
+- ```#@test```
+- ```#@ignore```
 
 ## 7 Python code
 
