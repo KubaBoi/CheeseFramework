@@ -73,7 +73,7 @@ class ProjectBuilder:
 
     {Logger.OKCYAN}Repositories: {len(data["REPOSITORIES"].keys())}
         {Logger.OKBLUE}query methods: {queries}
-        {Logger.OKBLUE}commit methods: {commits}
+        {Logger.OKBLUE}commit methods: {commits}{Logger.ENDC}
             """,
         False, False)
 
