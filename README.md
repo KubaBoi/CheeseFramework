@@ -55,7 +55,6 @@ https://github.com/KubaBoi/CheeseFramework/tree/development
         - [Prebuilded methods](#724-prebuilded-methods)
  - [Testing](#8-testing)
     - [Cheese test modules](#81-cheese-test-modules)
-        - [Test utilities](#811-test-utilities)
     - [Creating test file](#82-creating-test-file)
     - [Test method](#83-test-method)
     - [Test examples](#84-test-examples)
@@ -533,8 +532,6 @@ Testing is very important part of programming. It will tell you if you fucked so
 Cheese, because of database connection (and because it is fun creating it), has it's own test system.
 
 ### 8.1 Cheese test modules
-
-#### 8.1.1 Test utilities
 
 There is list of classes which your test class file should contains. Everything will be clear in the end of [Testing](#8-testing) when you check examples.
 
