@@ -26,10 +26,11 @@ class CheeseTests:
 
         for testKey in Metadata.tests.keys():
             test = Metadata.tests[testKey]
-
+            
+            testFile = os.path.join(ResMan.root(), test["FILE"])
             testHeader = f"""
 Running {CheeseTests.getTestSign(test['TESTCLASS'], testKey)} 
-from file {Logger.WARNING}{Logger.UNDERLINE}{test['FILE']}{Logger.ENDC}{Logger.BOLD}
+from file {Logger.WARNING}{Logger.UNDERLINE}{testFile}{Logger.ENDC}{Logger.BOLD}
 ================================="""
             if ("IGNORE" in test.keys()):
                 testHeader += f"\n{Logger.WARNING}IGNORING\n========"
