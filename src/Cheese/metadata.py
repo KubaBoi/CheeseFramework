@@ -78,14 +78,15 @@ class Metadata:
     def prepareMethods(dict, name):
         for key in dict.keys():
             structure = dict[key]
-            mainEndpoint = ""
-            if (name in structure.keys()):
-                mainEndpoint = structure[name]
+            mainEndpoint = structure[name]
 
             for methodKey in structure["METHODS"].keys():
                 method = structure["METHODS"][methodKey]
                 for endpointKey in method.keys():
-                    eKey = mainEndpoint + method[endpointKey]
+                    if (name == "TESTCLASS"):
+                        eKey = mainEndpoint + "&" + method[endpointKey]
+                    else:
+                        eKey = mainEndpoint + method[endpointKey]
 
                     try:
                         methodObj = Metadata.getObjMethod(methodKey, structure["FILE"])
