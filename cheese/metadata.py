@@ -15,7 +15,7 @@ class Metadata:
     postEndpoints = {}
 
     @staticmethod
-    def loadMedatada():
+    def loadMetadata():
         try:
             with open(ResMan.metadata(), "r") as f:
                 data = json.loads(f.read())
