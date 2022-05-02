@@ -2,6 +2,8 @@
 
 class MockManager:
 
+    mocks = {}
+
     @staticmethod
     def setMock(mock):
         MockManager.mocks[mock.repoName] = mock
