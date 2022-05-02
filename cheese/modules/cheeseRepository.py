@@ -75,8 +75,7 @@ class CheeseRepository:
         methodName = CheeseRepository.findUserMethod()
 
         if (CheeseRepository.testing):
-            print(CheeseRepository.testManager.mocks)
-            return "Testing"
+            return CheeseRepository.testManager.returnMock(userRepository, methodName)
 
         method = Metadata.getMethod(repository, methodName)
 
