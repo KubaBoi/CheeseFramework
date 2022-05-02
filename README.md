@@ -53,7 +53,12 @@ https://github.com/KubaBoi/CheeseFramework/tree/development
         - [Passing arguments to SQL query](#723-passing-arguments-to-sql-query)
             - [Passing model](#7231-passing-model)
         - [Prebuilded methods](#724-prebuilded-methods)
-
+ - [Testing](#8-testing)
+    - [Cheese test modules](#81-cheese-test-modules)
+        - [Test utilities](#811-test-utilities)
+    - [Creating test file](#82-creating-test-file)
+    - [Test method](#83-test-method)
+    - [Test examples](#84-test-examples)
 
 ## 1 Introduction
 
@@ -522,8 +527,257 @@ def delete(obj):
     return CheeseRepository.query(obj=obj)
 ```
 
+## 8 Testing
 
+Testing is very important part of programming. It will tell you if you fucked something up.
+Cheese, because of database connection (and because it is fun creating it), has it's own test system.
 
+### 8.1 Cheese test modules
+
+#### 8.1.1 Test utilities
+
+There is list of classes which your test class file should contains. Everything will be clear in the end of [Testing](#8-testing) when you check examples.
+
+#### UnitTest
+
+```python
+from Cheese.test import UnitTest
+```
+
+```UnitTest``` is class with methods that will throw (raise) ```TestError```  exception which signalize to Cheese test engine that this test fails because of the result is not as expected. Those methods are ```static``` .
+
+Methods of ```UnitTest``` :
+
+```python
+UnitTest.assertEqual(value, template, comment)
+```
+
+If ```value``` is not same as ```template``` the ```TestError``` will be raised and test fails. Also ```comment``` will be print with fail message.
+
+```python
+UnitTest.assertTrue(value, comment)
+```
+
+If ```value``` is not equal ```True``` the ```TestError``` will be raised and test fails.
+
+```python
+UnitTest.assertFalse(value, comment)
+```
+
+If ```value``` is not equal ```False``` the ```TestError``` will be raised and test fails.
+ 
+#### Pointer
+
+```python
+from Cheese.pointer import Pointer
+```
+
+Usage of ```Pointer``` is approximately similar as in C/C++. But because python does not have this amazing feature I had to make my own. ```Pointer``` is just some pointer (:D) to any variable you need. I will show you that in some examples at the end of [Testing](#8-testing) module.
+
+Methods of ```Pointer``` :
+
+```python
+Pointer.getValue()
+```
+
+Return value to which ```Pointer``` points.
+
+```python
+Pointer.setValue(value)
+```
+
+Sets value to which ```Pointer``` points. (You won't need it)
+
+#### Mock
+
+```python
+from Cheese.mock import Mock
+```
+
+```Mock``` is class that you can use if you need to test some method which is using some of your repository. You can substitute ```return``` of any method with your own values and for any argument input.
+
+Methods of ```Mock``` :
+
+```python
+mock = Mock(nameOfRepository)
+```
+
+This is constructor (initializer) of ```Mock``` class. Every ```Mock``` is non-static class which mocks one repository.
+
+```python
+mock.whenReturn(nameOfMethod, value, **kwargs)
+```
+
+When there is called ```nameOfRepository.nameOfMethod()``` during test and arguments are same as ```**kwargs``` (dictionary of arguments), then ```value``` is returned.
+
+```python
+mock.catchArgs(pointer, nameOfArgument, nameOfMethod, **kwargs)
+```
+
+When there is called ```nameOfRepository.nameOfMethod()``` during test and arguments are same as ```**kwargs```, then ```pointer.value``` will be ```**kwargs[nameOfArgument]``` . 
+
+As I said... everything will be clear at the end of paragraph in examples.
+
+### 8.2 Creating test file
+
+Like everything else tests need to be annotated with Cheese annotations. One test file should contains only one test class (it can be more but... it is probably not best practise). This test class needs to be annotated with ```#@testclass``` annotation. This annotation can contains some description of test class:
+
+```python
+#@testclass this is testing something;
+class helloTest:
+```
+
+If you add ```#@ignore;``` annotation then whole file will be ignored during testing:
+
+```python
+#@testclass this is testing something;
+#@ignore;
+class helloTest:
+```
+
+### 8.3 Test method
+
+Test methods need ```#@test``` annotation and also it can contain a description:
+
+```python
+#@test I am a testing method;
+@staticmethod
+def helloWorldTest():
+```
+
+Ignored test method:
+
+```python
+#@test I am a testing method;
+#@ignore;
+@staticmethod
+def helloWorldTest():
+```
+
+### 8.4 Test examples
+
+For method:
+
+```python
+#@controller /hello;
+class HelloWorldController(CheeseController):
+
+    #@get /world;
+    @staticmethod
+    def helloWorld(server, path, auth):
+        return "hello"
+```
+
+Could be test like this:
+
+```python
+#@test hello world method;
+@staticmethod
+def helloWorldTest():
+    controller = HelloWorldController()
+
+    resp = controller.helloWorld(None, None, None)
+
+    value = resp[0].decode()
+    httpCode = resp[1]
+
+    UnitTest.assertEqual(value, "hello", "Response was not 'hello'")
+    UnitTest.assertEqual(httpCode, 200, "Status code was not 200")
+```
+
+For method:
+
+```python
+#@controller /hello;
+class HelloWorldController(CheeseController):
+
+    #@get /world;
+    @staticmethod
+    def helloWorld(server, path, auth):
+        hello = HelloRepository.model()
+
+        hello.setAttrs(hello_value="Hello boi")
+
+        return CheeseController.createResponse(hello.toJson(), 200)
+```
+
+Could be test like this:
+
+```python
+#@test hello world method;
+@staticmethod
+def helloWorldTest():
+    controller = HelloWorldController()
+
+    mock = Mock("HelloRepository") # mocking HelloRepository
+    mock.whenReturn("findNewId", 0) # because model() method is using findNewId()
+
+    resp = controller.helloWorld(None, None, None)
+
+    value = json.loads(resp[0])
+    httpCode = resp[1]
+
+    # expected response should looks like this
+    templateResponse = {
+        "hello_value": "Hello boi",
+        "id": 1 # because findNewId() adds 1 every time
+    }
+
+    UnitTest.assertEqual(value, templateResponse, "Response was not as expected")
+    UnitTest.assertEqual(httpCode, 200, "Status code was not 200")
+```
+
+For method:
+
+```python
+#@controller /hello;
+class HelloWorldController(CheeseController):
+
+    #@get /world;
+    @staticmethod
+    def helloWorld(server, path, auth):
+        hello = hr.model()
+
+        hello.setAttrs(hello_value="Hello my friend")
+        hr.save(hello)
+
+        allHellos = hr.findAll()
+        
+        return cc.createResponse(cc.modulesToJsonArray(allHellos), 200)
+
+```
+
+Coudl be test like this:
+
+```python
+#@test hello world method;
+@staticmethod
+def helloWorldTest():
+    controller = HelloWorldController()
+    mock = Mock("HelloRepository")
+
+    pointer = Pointer()
+
+    mock.whenReturn("findNewId", 0) # in method model() as in previous example
+    """
+    if method save() will be called then pointer.value will be set to value of argument "obj"
+    """
+    mock.catchArgs(pointer, "obj", "save") 
+    """
+    if findAll() will be called then array 
+    ([pointer], that one item will be value of pointer) 
+    will be returned
+    """
+    mock.whenReturn("findAll", [pointer])
+
+    resp = controller.helloWorld(None, None, None)
+
+    value = json.loads(resp[0])
+    httpCode = resp[1]
+
+    UnitTest.assertEqual(value, [{"hello_value": "Hello my friend", "id": 1}], "Response was not as expected")
+    UnitTest.assertEqual(httpCode, 200, "Status code was not 200")
+```
 
 
 
