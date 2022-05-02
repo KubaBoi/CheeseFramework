@@ -24,12 +24,41 @@ class Metadata:
             Metadata.contr = data["CONTROLLERS"]
             Metadata.tests = data["TESTS"]
 
+            Metadata.createInits(data)
             Metadata.prepareEndpoints()
+            Metadata.cleanInits()
         except Exception as e:
             Logger.fail("Error while loading metadata", False, False)
             Logger.warning("Didn't you forgot to build application?", False, False)
             Logger.warning("Build will be triggered when application is in debug mode", False, False)
             raise SystemError("Error while loading metadata", e)
+
+    @staticmethod
+    def cleanInits():
+        for root, dirs, files in os.walk(ResMan.root()):
+            for file in files:
+                if (file == "__init__.py"):
+                    os.remove(os.path.join(root, file))
+
+    @staticmethod
+    def createInits(data):
+        Metadata.cleanInit()
+        keys = data.keys()
+        for key in keys:
+            
+            modules = data[key]
+            for moduleKey in modules.keys():
+                module = modules[moduleKey]
+                path = module["FILE"].replace(ResMan.getFileName(module["FILE"]), "")[:-1]
+                
+                splited = path.split("/")
+                for i, pth in enumerate(splited):
+                    with open(os.path.join(*splited[:i], pth, "__init__.py"), "a") as f:
+                        if (len(splited) == 1 and splited[0] == ""): continue
+                        f.write(f"from {'.'.join(splited)} import *\n")
+
+                with open(os.path.join(ResMan.root(), path, "__init__.py"), "a") as f:
+                    f.write(f"from {module['FILE'].replace('/', '.')} import {moduleKey}\n")
 
     @staticmethod
     def getObjMethod(methodName, file, className=""):

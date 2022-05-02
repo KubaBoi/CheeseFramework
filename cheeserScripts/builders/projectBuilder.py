@@ -77,33 +77,7 @@ class ProjectBuilder:
             """,
         False, False)
 
-
-    def cleanInit(self):
-        for root, dirs, files in os.walk(ResMan.root()):
-            for file in files:
-                if (file == "__init__.py"):
-                    os.remove(os.path.join(root, file))
-
     def saveMetadata(self):
-        self.cleanInit()
-        keys = self.dictJson.keys()
-        for key in keys:
-            if (key in self.dontNeedInit): continue
-            
-            modules = self.dictJson[key]
-            for moduleKey in modules.keys():
-                module = modules[moduleKey]
-                path = module["FILE"].replace(ResMan.getFileName(module["FILE"]), "")[:-1]
-                
-                splited = path.split("/")
-                for i, pth in enumerate(splited):
-                    with open(os.path.join(*splited[:i], pth, "__init__.py"), "a") as f:
-                        if (len(splited) == 1 and splited[0] == ""): continue
-                        f.write(f"from {'.'.join(splited)} import *\n")
-
-                with open(os.path.join(ResMan.root(), path, "__init__.py"), "a") as f:
-                    f.write(f"from {module['FILE'].replace('/', '.')} import {moduleKey}\n")
-
         with open(os.path.join(ResMan.metadata()), "w") as f:
             f.write(json.dumps(self.dictJson))
 
