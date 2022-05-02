@@ -8,7 +8,7 @@ from Cheese.resourceManager import ResMan
 from Cheese.Logger import Logger
 from Cheese.metadata import Metadata
 from Cheese.ErrorCodes import Error
-from Cheese.testError import TestError
+from Cheese.testError import *
 from Cheese.cheeseRepository import CheeseRepository
 from Cheese.mockManager import MockManager
 

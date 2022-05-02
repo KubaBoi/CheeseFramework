@@ -1,7 +1,6 @@
 #cheese
 
 from Cheese.mockManager import MockManager
-from Cheese.testError import PointerError
 
 class Mock:
 
@@ -40,17 +39,6 @@ class Mock:
                 "KWARGS": kwargs
             }
         )
-
-class Pointer:
-
-    def __init__(self):
-        self.value = None
-
-    def getValue(self):
-        return self.value
-
-    def setValue(self, value):
-        self.value = value
 
 class ServerMock:
 

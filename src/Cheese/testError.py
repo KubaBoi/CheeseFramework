@@ -13,8 +13,3 @@ class MockError(Exception):
         self.repositoryName = repositoryName
         self.methodName = methodName
         self.argName = argName
-
-class PointerError(Exception):
-
-    def __init__(self, pointer):
-        self.pointer = pointer
