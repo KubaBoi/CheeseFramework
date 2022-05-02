@@ -1,8 +1,6 @@
 #cheese
 
-from Cheese.Logger import Logger
 from Cheese.testError import MockError
-from Cheese.pointer import Pointer
 
 class MockManager:
 
@@ -56,7 +54,7 @@ class MockManager:
         elif (type(response) == dict): # dictionary
             for key in response.keys():
                 newResponse[key] = MockManager.prepareResponse(response[key])
-        elif (type(response) == Pointer):
+        elif (response.__class__.__name__ == "Pointer"):
             newResponse = MockManager.prepareResponse(response.getValue())
 
         return newResponse
