@@ -5,7 +5,6 @@ import inspect
 
 from Cheese.metadata import Metadata
 from Cheese.cheeseModel import CheeseModel
-
 from Cheese.resourceManager import ResMan
 from Cheese.Logger import Logger
 from Cheese.database import Database
@@ -19,6 +18,8 @@ Database query of Cheese Application
 """
 
 class CheeseRepository:
+
+    testing = False
 
     # CLASS METHODS
 
@@ -52,7 +53,16 @@ class CheeseRepository:
     def delete(cls, obj):
         return CheeseRepository.query(cls.__name__, obj=obj)
 
-    # STATIS METHODS
+    # STATIC METHODS
+
+    @staticmethod
+    def startTesting(testManager):
+        CheeseRepository.testManager = testManager
+        CheeseRepository.testing = True
+
+    @staticmethod
+    def stopTesting():
+        CheeseRepository.testing = False
 
     @staticmethod
     def query(userRepository="", **kwargs):
@@ -63,6 +73,11 @@ class CheeseRepository:
             repository = Metadata.getRepositoryFromClass(userRepository)
 
         methodName = CheeseRepository.findUserMethod()
+
+        if (CheeseRepository.testing):
+            print(CheeseRepository.testManager.mocks)
+            return "Testing"
+
         method = Metadata.getMethod(repository, methodName)
 
         query = False

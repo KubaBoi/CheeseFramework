@@ -1,12 +1,13 @@
+#cheese
+
+from Cheese.cheeseTests import CheeseTests
 
 class Mock:
 
-    def __init__(self, cls, **kwargs):
-        self.cls = cls
+    def __init__(self, repositoryName):
         self.whenReturns = {}
-
-        for key in kwargs.keys():
-            setattr(self, key, kwargs[key])
+        self.repoName = repositoryName
+        CheeseTests.setMock(self)
 
     def whenReturn(self, methodName, response, **kwargs):
         self.whenReturns[methodName] = []
