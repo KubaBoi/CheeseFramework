@@ -10,11 +10,10 @@ class Metadata:
     
     repos = None
     contr = None
+    tests = None
 
     getEndpoints = {}
     postEndpoints = {}
-    testEndpoints = {}
-
     @staticmethod
     def loadMetadata():
         try:
@@ -26,8 +25,8 @@ class Metadata:
             Metadata.tests = data["TESTS"]
 
             Metadata.createInits(data)
-            Metadata.prepareMethods(Metadata.contr, "CONTROLLER")
-            Metadata.prepareMethods(Metadata.tests, "TESTCLASS")
+            Metadata.prepareControllers()
+            Metadata.prepareTests()
             Metadata.cleanInits()
         except Exception as e:
             Logger.fail("Error while loading metadata", False, False)
@@ -75,18 +74,15 @@ class Metadata:
         return getattr(parent, methodName)
 
     @staticmethod
-    def prepareMethods(dict, name):
-        for key in dict.keys():
-            structure = dict[key]
-            mainEndpoint = structure[name]
+    def prepareControllers():
+        for key in Metadata.contr.keys():
+            structure = Metadata.contr[key]
+            mainEndpoint = structure["CONTROLLER"]
 
             for methodKey in structure["METHODS"].keys():
                 method = structure["METHODS"][methodKey]
                 for endpointKey in method.keys():
-                    if (name == "TESTCLASS"):
-                        eKey = mainEndpoint + "&" + method[endpointKey]
-                    else:
-                        eKey = mainEndpoint + method[endpointKey]
+                    eKey = mainEndpoint + method[endpointKey]
 
                     try:
                         methodObj = Metadata.getObjMethod(methodKey, structure["FILE"])
@@ -97,8 +93,20 @@ class Metadata:
                         Metadata.getEndpoints[eKey] = methodObj
                     elif (endpointKey == "POST"):
                         Metadata.postEndpoints[eKey] = methodObj
-                    elif (endpointKey == "TEST"):
-                        Metadata.testEndpoints[eKey] = methodObj
+
+    @staticmethod
+    def prepareTests():
+        for key in Metadata.tests.keys():
+            structure = Metadata.tests[key]
+
+            for methodKey in structure["METHODS"].keys():
+                method = structure["METHODS"][methodKey]
+                try:
+                    methodObj = Metadata.getObjMethod(methodKey, structure["FILE"])
+                except:
+                    methodObj = Metadata.getObjMethod(methodKey, structure["FILE"], key)
+
+                method["OBJECT"] = methodObj
 
     @staticmethod
     def findMethod(endpoint, httpMethod):
