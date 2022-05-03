@@ -1,0 +1,21 @@
+<html>
+	<head><title>Markdown Viewer</title>
+		<link rel="stylesheet" type="text/css" href="https://kubaboi.github.io/CheeseFramework/api/md-viewer.css" />
+		<script type="text/javascript" src="https://kubaboi.github.io/CheeseFramework/api/mdConverted.js"></script>
+		<script type="text/javascript" src="https://kubaboi.github.io/CheeseFramework/api/mdConverted.js"></script>
+	</head>
+
+	<body>
+		<div id="header">
+			<div id="controls">
+				<input type="file" id="file" />
+				<label for="reload-delay-ms">Reload Delay:</label><input type="text" name="reload-delay-ms" id="reload-delay-ms" value="1000" />
+				<a href="#" title="Pause refreshing" id="pause-button" onclick="onClickPause()">||</a>
+				<a href="#" title="Resume refreshing" id="resume-button" onclick="onClickResume()">></a>
+			</div>
+			<div id="file-header"><strong>Loaded File: </strong><span id="file-name"></span></div>
+		</div>
+		<div id="output">
+		</div>
+	</body>
+</html>
