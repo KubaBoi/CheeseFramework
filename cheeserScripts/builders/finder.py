@@ -95,7 +95,11 @@ class Finder:
             newAnn = line
             while (not newAnn.endswith(";")):
                 i += 1
-                if (self.startsWith(self.dataLines[i], annotationSet)):
+                if (i < len(self.dataLines)):
+                    if (self.startsWith(self.dataLines[i], annotationSet) or 
+                        self.startsWith(self.dataLines[i], "def")):
+                        self.raiseError(i+1, f"Missing end of annotation {self.wOkG(self.getAnnotationType(newAnn))}")
+                else:
                     self.raiseError(i+1, f"Missing end of annotation {self.wOkG(self.getAnnotationType(newAnn))}")
                 newAnn += self.getMultiline(i+1, line)
 
