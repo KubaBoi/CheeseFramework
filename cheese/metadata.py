@@ -148,4 +148,8 @@ class Metadata:
         for s in schs:
             retScheme.append(s.strip()) 
         return retScheme    
+
+    @staticmethod
+    def getRawScheme(repository):
+        return repository["DBSCHEME"]
         

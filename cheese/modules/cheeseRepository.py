@@ -92,6 +92,8 @@ class CheeseRepository:
             arg = CheeseRepository.getTypeOf(value, variables, key, repository["DBSCHEME"])
             preparedSql = preparedSql.replace(f":{key}", arg)
 
+        preparedSql = preparedSql.replace("*", Metadata.getRawScheme(repository))
+
         if (query):
             return CheeseRepository.queryType(preparedSql, method, repository)
         else:
