@@ -92,6 +92,8 @@ class CheeseRepository:
             arg = CheeseRepository.getTypeOf(value, variables, key, repository["DBSCHEME"])
             preparedSql = preparedSql.replace(f":{key}", arg)
 
+        preparedSql = preparedSql.replace("*", Metadata.getRawScheme(repository))
+
         if (query):
             return CheeseRepository.queryType(preparedSql, method, repository)
         else:
@@ -109,6 +111,8 @@ class CheeseRepository:
         elif (method["RETURN"] == "num"):
             if (response[0][0] == None): return 0
             return int(response[0][0])
+        elif (method["RETURN"] == "bool"):
+            return bool(response[0][0])
         elif (method["RETURN"] == "one"):
             return CheeseRepository.toModel(repository, response[0])
         elif (method["RETURN"] == "array"):
