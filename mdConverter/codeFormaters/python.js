@@ -111,15 +111,14 @@ function multiLine(end, className, index, lines, firstCanBe=true) {
         var line = lines[i];
         multiLineAnnotation += line + "<br>";
         if (line.trim().endsWith(end)) {
-            if (firstCanBe && i == index) {
-                index = i;
-                break;
+            if (!firstCanBe && i == index) {
+                continue;
             }
-            if (!firstCanBe && i != index) {
+            else {
                 index = i;
                 break;
             }
         }
     }
-    return [index+1, multiLineAnnotation + "</span>"];
+    return [index, multiLineAnnotation + "</span>"];
 } 
