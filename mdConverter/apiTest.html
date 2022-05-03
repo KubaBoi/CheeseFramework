@@ -1,0 +1,27 @@
+<html>
+	<head><title>Markdown Viewer</title>
+    	<link rel="stylesheet" href="./mdStyle.css">
+		<link rel="stylesheet" href="./codeStyles/python.css">
+	</head>
+
+	<body>
+		<div id="md" class="main">
+		</div>
+
+		<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>
+		<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
+		<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/elementManager.js"></script>
+
+		<script src="./convertMd.js"></script>
+		<script src="./getMd.js"></script>
+		<script src="./emojis.js"></script>
+		<script src="./documentFormater.js"></script>
+		<script src="./codeFormater.js"></script>
+		<script src="./codeFormaters/python.js"></script>
+
+		<script>
+			getMd("https://raw.githubusercontent.com/KubaBoi/CheeseFramework/main/README.md");
+			//getMd("http://localhost:8003/README.md");
+		</script>
+	</body>
+</html>

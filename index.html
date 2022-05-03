@@ -1,31 +1,27 @@
-<html lang="cs">
+<html>
+	<head><title>Cheese Documentation</title>
+    	<link rel="stylesheet" href="./mdConverter/mdStyle.css">
+		<link rel="stylesheet" href="./mdConverter/codeStyles/python.css">
+	</head>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<body>
+		<div id="md" class="main">
+		</div>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="public/styles/style.css">
-    <link rel="stylesheet" href="public/styles/prism.css">
-    <link rel="stylesheet" href="public/styles/logColors.css">
-    <link rel="stylesheet" href="/ms-viewer.css" />
-    <link rel="icon" href="documentation/documentation.png" type="image/x-icon">
-    <title>Cheese Documentation </title>
-</head>
+		<script src="./public/scripts/communication.js"></script>
+		<script src="./public/scripts/time.js"></script>
+		<script src="./public/scripts/elementManager.js"></script>
 
-<body>
-    <script src="public/scripts/prism.js"></script>
-    <script src="public/scripts/communication.js"></script>
-    <script src="public/scripts/time.js"></script>
-    <script src="api/mdConverter.js"></script>
-    <script src="api/getMd.js"></script>
-    <script>
-        getMd("https://raw.githubusercontent.com/KubaBoi/CheeseFramework/main/README.md");
-    </script>
+		<script src="./mdConverter/convertMd.js"></script>
+		<script src="./mdConverter/getMd.js"></script>
+		<script src="./mdConverter/emojis.js"></script>
+		<script src="./mdConverter/documentFormater.js"></script>
+		<script src="./mdConverter/codeFormater.js"></script>
+		<script src="./mdConverter/codeFormaters/python.js"></script>
 
-    <h1>Cheese Framework Documentation</h1>
-
-    <div id="output">
-    </div>
+		<script>
+			getMd("https://raw.githubusercontent.com/KubaBoi/CheeseFramework/main/README.md");
+		</script>
 
 
     <div class="needBuild">

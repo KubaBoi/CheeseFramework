@@ -1,0 +1,50 @@
+
+body {
+    background-color: rgb(13, 17, 23);
+    color: rgb(201, 209, 217);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.main {
+    margin: auto;
+    width: 50%;
+    border-color: rgb(48, 54, 61);
+    border-width: 1px;
+    border-style: solid;
+    padding: 50px;
+}
+
+.oneLineCode {
+    position: relative;
+    background-color: rgb(53, 58, 65);
+    border-radius: 5px;
+    padding: 5px;
+    white-space: nowrap;
+}
+
+.emojiImg {
+    width: 1em;
+    height: 1em;
+}
+
+a {
+    color: rgb(56, 165, 255);
+}
+
+.biggerLines {
+    margin-left: 30px;
+    line-height: 2em;
+}
+
+p {
+    margin-left: 30px;
+}
+
+figure {
+    position: relative;
+    font-family: Consolas;
+    background-color: rgb(22, 27, 34);
+    border-radius: 5px;
+    padding: 20px;
+    overflow-x: auto;
+}
