@@ -93,15 +93,18 @@ class Finder:
             if (not self.startsWith(line, annotationSet)): continue
             
             newAnn = line
+            indexL = i
             while (not newAnn.endswith(";")):
-                i += 1
-                if (i < len(self.dataLines)):
-                    if (self.startsWith(self.dataLines[i], annotationSet) or 
-                        self.startsWith(self.dataLines[i], "def")):
-                        self.raiseError(i+1, f"Missing end of annotation {self.wOkG(self.getAnnotationType(newAnn))}")
+                indexL += 1
+                if (indexL < len(self.dataLines)):
+                    line = self.dataLines[indexL]
+
+                    if (self.startsWith(line, annotationSet) or 
+                        self.startsWith(line, "def")):
+                        self.raiseError(indexL+1, f"Missing end of annotation {self.wOkG(self.getAnnotationType(newAnn))}")
                 else:
-                    self.raiseError(i+1, f"Missing end of annotation {self.wOkG(self.getAnnotationType(newAnn))}")
-                newAnn += self.getMultiline(i+1, line)
+                    self.raiseError(indexL+1, f"Missing end of annotation {self.wOkG(self.getAnnotationType(newAnn))}")
+                newAnn += self.getMultiline(indexL+1, line)
 
             annots.append(newAnn)
 
