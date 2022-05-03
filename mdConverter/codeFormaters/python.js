@@ -41,8 +41,8 @@ function formatPython(str) {
             newStr += resp[1];
         }
         else {
-            commIndex = line.indexOf("#");
-            if (commIndex != -1) {
+            commIndex = line.trim().indexOf("#");
+            if (commIndex != -1 && commIndex != 0) {
                 newStr += line.substring(0, commIndex) + "<label class='python_comment'>" + line.substring(commIndex, line.length) + "</label><br>"
             } 
             else {
@@ -121,5 +121,5 @@ function multiLine(end, className, index, lines, firstCanBe=true) {
             }
         }
     }
-    return [index, multiLineAnnotation + "</span>"];
+    return [index+1, multiLineAnnotation + "</span>"];
 } 
