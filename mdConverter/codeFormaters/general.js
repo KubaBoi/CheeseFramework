@@ -1,25 +1,25 @@
 
 var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-function strings(str) {
+function strings(str, stringChar='"') {
     doingString = "";
     doingInt = false;
     newStr = "";
     for (let i = 0; i < str.length; i++) {
         chr = str[i];
-        if (chr == "\"" && str[i+1] == "\"" && str[i+2] == "\"") {
+        if (chr == stringChar && str[i+1] == stringChar && str[i+2] == stringChar) {
             i += 2;
             newStr += '"""';
             continue;
         }
 
-        if (chr == "\"" && str[i+1] != "\"") {
+        if (chr == stringChar && str[i+1] != stringChar) {
             if (doingString == "" && !doingInt) {
-                newStr += "<span class='string'>\"";
+                newStr += "<span class='string'>" + stringChar;
                 doingString = chr;
             }
             else {
-                newStr += "\"</span>";
+                newStr += stringChar + "</span>";
                 doingString = "";
             }
         }

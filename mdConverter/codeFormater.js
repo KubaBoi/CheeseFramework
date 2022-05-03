@@ -11,6 +11,9 @@ function formatCode() {
         else if (clsList.contains("language-json")) {
             codes[i].innerHTML = formatJson(codes[i].innerHTML);
         }
+        else if (clsList.contains("language-sql")) {
+            codes[i].innerHTML = formatSql(codes[i].innerHTML);
+        }
     }
     return "";
 }
