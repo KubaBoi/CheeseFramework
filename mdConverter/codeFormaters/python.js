@@ -1,5 +1,5 @@
 
-var keywords = [
+var python_keywords = [
     "def ",
     "class ",
     "import ",
@@ -7,10 +7,6 @@ var keywords = [
     "in ",
     "return "
 ]
-
-var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
-
 
 function formatPython(str) {
     var newStr = "";
@@ -51,45 +47,13 @@ function formatPython(str) {
         }
     }
 
-    doingString = "";
-    doingInt = false;
-    ultraNewStr = "";
-    for (let i = 0; i < newStr.length; i++) {
-        chr = newStr[i];
-        if (chr == "\"" && newStr[i+1] == "\"" && newStr[i+2] == "\"") {
-            i += 2;
-            ultraNewStr += '"""';
-            continue;
-        }
+    newStr = strings(newStr);
 
-        if (chr == "\"" && newStr[i+1] != "\"") {
-            if (doingString == "" && !doingInt) {
-                ultraNewStr += "<span class='python_string'>\"";
-                doingString = chr;
-            }
-            else {
-                ultraNewStr += "\"</span>";
-                doingString = "";
-            }
-        }
-        else if (numbers.includes(chr) && doingString == "" && !doingInt) {
-            ultraNewStr += "<span class='python_numbers'>" + chr;
-            doingInt = true;
-        }
-        else {
-            if (doingInt && !numbers.includes(chr)) {
-                ultraNewStr += "</span>";
-                doingInt = false;
-            }
-            ultraNewStr += chr;
-        }
+    for (let i = 0; i < python_keywords.length; i++) {
+        newStr = newStr.replace(python_keywords[i], `<label class='keywords'>${python_keywords[i]}</label>`);
     }
 
-    for (let i = 0; i < keywords.length; i++) {
-        ultraNewStr = ultraNewStr.replace(keywords[i], `<label class='python_keywords'>${keywords[i]}</label>`);
-    }
-
-    return ultraNewStr;
+    return newStr;
 }
 
 function replaceName(structureName, className, line) {

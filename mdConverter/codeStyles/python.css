@@ -1,19 +1,6 @@
 .python_operators {
     color: rgb(121, 192, 255);
 }
-
-.python_keywords {
-    color: rgb(255, 166, 64);
-}
-
-.python_numbers {
-    color: rgb(121, 192, 255);
-}
-
-.python_string {
-    color: rgb(121, 192, 255);
-}
-
 .python_comment {
     color: rgb(47, 150, 47);
 }

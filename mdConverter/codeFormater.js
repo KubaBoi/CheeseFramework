@@ -8,6 +8,9 @@ function formatCode() {
         if (clsList.contains("language-python")) {
             codes[i].innerHTML = formatPython(codes[i].innerHTML);
         }
+        else if (clsList.contains("language-json")) {
+            codes[i].innerHTML = formatJson(codes[i].innerHTML);
+        }
     }
     return "";
 }
