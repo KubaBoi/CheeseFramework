@@ -127,7 +127,7 @@ WIP ::
 
 ## 3 Build
 
-Build is proccess which generates .metadata for your application. Build runs at start of application (it is pretty fast). Also build creates ```__init__.py``` files inside every directory of /src/. No need to care about those files, they will be rewriten every build according to actual source code. 
+Build is proccess which generates .metadata for your application. Build runs at start of application (it is pretty fast) if is is in debug mode. Also build creates ```__init__.py``` files inside every directory of /src/. No need to care about those files, they will be overwriten every build according to actual source code. 
 
 Building performs Cheeser.build() automatically.
 
@@ -221,7 +221,6 @@ Annotations are necessary for Cheese. Cheese recognize annotation that starts ``
 There is a list of all annotations:
 
 - ```#@controller```
-- ```#@model```
 - ```#@repository```
 - ```#@post```
 - ```#@get```
@@ -236,15 +235,16 @@ There is a list of all annotations:
 
 ## 7 Python code
 
-This will be about how to write ```controllers```, ```models``` and ```repositories```
+This will be about how to write ```controllers``` and ```repositories``` .
 
 ### 7.1 API Controllers
 
-Controllers are classes that handle requested endpoints. I recommend to create one folder just for your controllers but it is not necessary (or you the generated one ofc).
+Controllers are classes that handle requested endpoints. I recommend to create one folder just for your controllers but it is not necessary (or use the generated one ofc).
 
 #### 7.1.1 Create controller
 
 As I said, controllers are classes. So create class that inherits from CheeseController.
+
 To let cheeser know that this class is really controller you have to anotate it with ```#@controller``` annotation. ```#@controller``` annotation follows part of endpoint like this:
 
 ```python
@@ -263,16 +263,15 @@ Method have to have 3 arguments: server, path, auth.
 #@post /apiEndpoint;
 @staticmethod
 def getFiles(server, path, auth):
-
 ```
 
 #### 7.1.3 Method arguments
 
-So what are those 3 arguments? Argument number one server is instance of Cheese server handeling this request. You can get some info about connection like client's IP etc... Argument path is just string of request. 
+Those arguments are passed by server handler. ```server``` is instance of server handler ( ```BaseHTTPRequestHandler``` ). 
 
-For example:
-Some one wants to see cats so he search for ```http://hostname:port/wanna/see/pussy```. And in this case path will be ```"/wanna/see/pussy"```
-Last argument auth is object created in ```authorization.py``` if it is enabled. More about this later.
+```path``` is string variable and it contains ```url``` without host and port. So for url ```http://localhost:8000/hello/world?name=helloboi``` the ```path``` will looks like this ```/hello/world?name=helloboi``` .
+
+```auth``` is some object defined by you during Authentication.
 
 #### 7.1.4 Example controller
 
@@ -317,8 +316,7 @@ class CalculatorController(CheeseController):
 
         result = num1 + num2
 
-        response = CheeseController.createResponse({"RESPONSE": result}, 200)
-        CheeseController.sendResponse(server, response)
+        return CheeseController.createResponse({"RESPONSE": result}, 200)
 
     """
     substract two numbers in request path and return result
@@ -344,8 +342,7 @@ class CalculatorController(CheeseController):
         
         result = num1 - num2
         
-        response = CheeseController.createResponse({"RESPONSE": result}, 200)
-        CheeseController.sendResponse(server, response)
+        return CheeseController.createResponse({"RESPONSE": result}, 200)
 ```
 
 ### 7.2 Repositories
@@ -364,7 +361,7 @@ Second annotation is ```#@dbscheme``` followed by name of table's columns in bra
 
 Column names need to be in same order as in model initializer and need to have same names!!
 
-Last annotation is ```#@dbmodel``` followed by name of model for the table.
+Last annotation is ```#@dbmodel``` followed by name of model for the table. It is just name for your better identification of model. But it is neccessary to be there.
 
 ```python
 from cheese.modules.cheeseRepository import CheeseRepository
@@ -389,7 +386,7 @@ There are two types of SQL query annotations query and commit.
 
 - ```#@query```
     - 
-    This annotation says that we want to get data from database. It is followed by SQL query. This query can be more than one line but have to be in quotation marks and the query must ends with semicolon.
+    This annotation says that we want to get data from database. It is followed by SQL query. This query can be more than one line but have to be in quotation marks and the query can ends with semicolon.
 
     More line query:
     ```python
@@ -530,9 +527,11 @@ def delete(obj):
 Testing is very important part of programming. It will tell you if you fucked something up.
 Cheese, because of database connection (and because it is fun creating it), has it's own test system.
 
+Tests are run during start of application after [Build](#3-build) when application is in debug mode.
+
 ### 8.1 Cheese test modules
 
-There is list of classes which your test class file should contains. Everything will be clear in the end of [Testing](#8-testing) when you check examples.
+There is list of classes which your test class file should contains. Everything will be clear in the end of [Testing](#8-testing) when you check [Test examples](#84-test-examples).
 
 ## ```UnitTest```
 
@@ -568,7 +567,7 @@ If ```value``` is not equal ```False``` the ```TestError``` will be raised and t
 from Cheese.pointer import Pointer
 ```
 
-Usage of ```Pointer``` is approximately similar as in C/C++. But because python does not have this amazing feature I had to make my own. ```Pointer``` is just some pointer (:D) to any variable you need. I will show you that in some examples at the end of [Testing](#8-testing) module.
+Usage of ```Pointer``` is approximately similar as in C/C++. But because python does not have this amazing feature I had to make my own. ```Pointer``` is just some pointer (:D) to any variable you need. I will show you that in some [Test examples](#84-test-examples) at the end of [Testing](#8-testing) module.
 
 Methods of ```Pointer``` :
 
@@ -743,7 +742,7 @@ class HelloWorldController(CheeseController):
 
 ```
 
-Coudl be test like this:
+Could be test like this:
 
 ```python
 #@test hello world method;
@@ -771,7 +770,13 @@ def helloWorldTest():
     value = json.loads(resp[0])
     httpCode = resp[1]
 
-    UnitTest.assertEqual(value, [{"hello_value": "Hello my friend", "id": 1}], "Response was not as expected")
+    # expected response should looks like this
+    templateResponse = {
+        "hello_value": "Hello boi",
+        "id": 1 # because findNewId() adds 1 every time
+    }
+
+    UnitTest.assertEqual(value, [templateResponse], "Response was not as expected")
     UnitTest.assertEqual(httpCode, 200, "Status code was not 200")
 ```
 
