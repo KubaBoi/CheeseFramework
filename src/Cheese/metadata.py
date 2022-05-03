@@ -151,5 +151,5 @@ class Metadata:
 
     @staticmethod
     def getRawScheme(repository):
-        return repository["DBSCHEME"]
+        return repository["DBSCHEME"].replace("(", "").replace(")", "")
         
