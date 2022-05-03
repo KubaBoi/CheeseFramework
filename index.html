@@ -14,32 +14,19 @@
 <body>
     <script src="public/scripts/prism.js"></script>
     <script src="public/scripts/communication.js"></script>
+    <script src="public/scripts/time.js"></script>
+    <script src="api/mdConverter.js"></script>
+    <script src="api/getMd.js"></script>
+    <script>
+        getMd("https://raw.githubusercontent.com/KubaBoi/CheeseFramework/main/README.md");
+    </script>
 
     <h1>Cheese Framework Documentation</h1>
 
-    <label id="update"></label><br><br>
-    <label id="release"></label><br><br>
-    <script>
-        debug = false;
-        getDocRelease();
-        getRelease();
+    <div id="output">
+    </div>
 
-        async function getDocRelease() {
-            var response = await callEndpoint("GET", "https://kubaboi.github.io/CheeseFramework/public/docVersion.html");
-            if (!response.ERROR) {
-                var label = document.getElementById("update");
-                label.innerHTML = "Documentation release: " + response;
-            }
-        }
 
-        async function getRelease() {
-            var response = await callEndpoint("GET", "https://kubaboi.github.io/CheeseFramework/public/version.html");
-            if (!response.ERROR) {
-                var label = document.getElementById("release");
-                label.innerHTML = "Cheese Framework (v" + response + ")";
-            }
-        }
-    </script>
     <img src="documentation/documentation300x300.png" width="150" height="150"
         style="position: absolute; right: 5px; top: 0;">
 
