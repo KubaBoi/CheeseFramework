@@ -524,8 +524,7 @@ def delete(obj):
 
 ## 8 Testing
 
-Testing is very important part of programming. It will tell you if you fucked something up.
-Cheese, because of database connection (and because it is fun creating it), has it's own test system.
+Testing is very important part of programming. It will tell you if you fucked something up. Cheese, because of database connection (and because it is fun creating it), has it's own test system.
 
 Tests are run during start of application after [Build](#3-build) when application is in debug mode.
 
