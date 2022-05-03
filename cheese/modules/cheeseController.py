@@ -4,7 +4,6 @@ from urllib.parse import unquote
 import os
 import json
 import time
-from http.cookies import SimpleCookie
 
 from cheese.resourceManager import ResMan
 from cheese.appSettings import Settings

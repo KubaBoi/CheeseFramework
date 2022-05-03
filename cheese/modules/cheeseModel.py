@@ -9,7 +9,7 @@ class CheeseModel:
     def toJson(self):
         jsn = {}
         for attr in self.scheme:
-            jsn[attr] = getattr(self, attr)
+            jsn[attr.upper()] = getattr(self, attr)
         return jsn
 
     def toModel(self, jsn):
@@ -17,6 +17,8 @@ class CheeseModel:
             for attr in self.scheme:
                 if (attr in jsn.keys()):
                     setattr(self, attr, jsn[attr])
+                if (attr.upper() in jsn.keys()):
+                    setattr(self, attr, jsn[attr.upper()])
         elif (type(jsn).__name__ == "list" or
             type(jsn).__name__ == "tuple"):
 
