@@ -9,11 +9,11 @@
 ## TODO
 
 - [x] :bangbang: TESTS :bangbang:
+- [ ] do authorization - 1.3.0
+- [ ] repair admin access - 1.4.0
+- [ ] do Cheese tools - 1.5.0
 - [ ] metadata load setting (RAM/dynamic)
-- [ ] repair admin access
 - [ ] repair CORS not allowed
-- [ ] do authorization
-- [ ] do Cheese tools
 - [x] remove deprecated ```#@acceptsModel``` annotation
 
 
