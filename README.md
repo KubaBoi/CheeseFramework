@@ -23,7 +23,7 @@ https://github.com/KubaBoi/CheeseFramework/tree/development
 
 ## Documentation
 
-It is same as this BUT it is formated by my own algorithm into html. So contents is fixed on the left side of screen and it is overall clearer. (In my opinion... check it out :wink: it was a really hard work. 
+It is same as this BUT it is formated by my own algorithm into html. So contents is fixed on the left side of screen and it is overall clearer. (In my opinion...) Check it out :wink: it was a really hard work. All source codes are in branch ```webServices``` in directory ./mdConverter. I would be honored if it will help you. :relieved:
 
 https://kubaboi.github.io/CheeseFramework/
 
