@@ -1,7 +1,6 @@
 
 var mdUrl = "";
 async function getMd(url) {
-    console.log(url);
     mdUrl = url;
     var response = await callEndpoint("GET", url);
     convert(response);

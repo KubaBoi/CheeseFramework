@@ -40,6 +40,15 @@ a {
     line-height: 2em;
 }
 
+.biggerLinesUl {
+    margin-left: 30px;
+}
+
+.biggerLinesUl li {
+    margin-top: 5px;
+    line-height: 2em;
+}
+
 p {
     margin-left: 30px;
 }

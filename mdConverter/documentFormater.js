@@ -88,3 +88,27 @@ function formatEmoji(str) {
 
     return newStr;
 }
+
+function formatCheckBox(str) {
+    str = str.replaceAll("[x]", '<input type="checkbox" onclick="return false;" checked/>');
+    str = str.replaceAll("[ ]", '<input type="checkbox" onclick="return false;"/>');
+    return str;
+}
+
+function formatOneLineCode(str, index=0) {
+    newStr = "";
+
+    startIndex = str.indexOf("```", index);
+    if (startIndex == -1) {
+        return [false, str.substring(index, str.length)];
+    }
+    endIndex = str.indexOf("```", startIndex+1);
+    newStr += str.substring(index, startIndex-1) + " ";
+    var element = createElement("span", null, str.substring(startIndex+3, endIndex), [
+        {"name": "class", "value": "oneLineCode"}
+    ]);
+
+    newStr += element.outerHTML + " " + formatOneLineCode(str, endIndex + 3)[1];
+
+    return [true, newStr];
+}

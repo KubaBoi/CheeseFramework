@@ -1,5 +1,5 @@
 
-debug = true;
+debug = false;
 
 var starters = [
     ["```", code],
@@ -20,7 +20,7 @@ var codeType = "";
 var contentsItems = [];
 var isContents = false;
 
-var ulsString = "";
+var ulsItems = [];
 var isUls = false;
 
 var activeP = null;
@@ -57,10 +57,23 @@ function convert(str) {
         if (item.nodeName != "FIGURE") {
             item.innerHTML = formatEmoji(item.innerHTML);
             item.innerHTML = urlify(item.innerHTML);
+            item.innerHTML = formatCheckBox(item.innerHTML);
+            formatedOutput = formatOneLineCode(item.innerHTML);
+            if (formatedOutput[0]) {
+                console.log(item.nodeName);
+                if (item.nodeName == "UL") {
+                    item.classList.add("biggerLinesUl");
+                }
+                else {
+                    item.classList.add("biggerLines");
+                }
+                item.innerHTML = formatedOutput[1];
+            }
         }
     }
 
     formatCode();
+
     var lastStart = 0;
     createElement("p", contentsDiv, "Contents");
     var activeUl = createElement("ol", contentsDiv);
@@ -122,18 +135,52 @@ function header() {
     }
     else {
         var headerTitle = activeLine.replace(headers, "").trim();
-        var h = createElement("h" + String(headers.length), mdDiv, "", [
+        createElement("h" + String(headers.length), mdDiv, headerTitle, [
             {"name": "id", "value": headerTitle.replaceAll(".", "").replaceAll(" ", "-").toLowerCase()}
         ]); 
-        var formatedText = oneLineCode(h, 0, headerTitle);
-        if (!formatedText) {
-            h.innerHTML = headerTitle;
-        }
     }
 }
 
 function uls() {
-    console.log("UL: ", + activeLine);
+    if (!isUls) {
+        ulsItems = [];
+        ulsItems.push(activeLine);
+        isUls = true;
+        return;
+    }
+
+    if (!activeLine.trim().startsWith("-")) {
+        if (activeLine.trim() == "") {
+            return;
+        }
+        isUls = false;
+
+        var lastStart = 0;
+        var activeUl = createElement("ul", mdDiv);
+        for (let i = 0; i < ulsItems.length; i++) {
+            var item = ulsItems[i];
+            if (item.trim() == "") continue;
+            
+            var startIndex = item.indexOf("-");
+            if (startIndex == 1) startIndex = 0;
+
+            var li = createElement("li", null, item.replace("-", "").trim())//badge(item.replace("-", "").trim());
+            if (lastStart < startIndex) {
+                activeUl = createElement("ul", activeUl);
+            }
+            else if (lastStart > startIndex) {
+                for (let o = 0; o < (lastStart - startIndex)/4; o++) {
+                    activeUl = activeUl.parentNode;
+                }
+            }
+
+            activeUl.appendChild(li);
+            lastStart = startIndex;
+        }
+        return;
+    }
+
+    ulsItems.push(activeLine);
 }
 
 function contents() {
@@ -147,13 +194,8 @@ function contents() {
 }
 
 function label() {
-    activeP = createElement("p", mdDiv);
-    formatedText = oneLineCode(activeP);
-    if (!formatedText) {
-        activeP.innerHTML = activeLine;
-    } else {
-        activeP.classList.add("biggerLines");
-    }
+    createElement("p", mdDiv, activeLine);
+
 }
 
 function raw() {
@@ -209,26 +251,6 @@ function isMultiLine(index) {
         return true;
     }
     return false;
-}
-
-function oneLineCode(element, index=0, text="") {
-    if (text == "") {
-        text = activeLine;
-    }
-    startIndex = text.indexOf("```", index);
-    if (startIndex == -1) {
-        element.innerHTML += text.substring(index, text.length);
-        return false;
-    }
-    endIndex = text.indexOf("```", startIndex+1);
-    element.innerHTML += text.substring(index, startIndex-1) + " ";
-    createElement("span", element, text.substring(startIndex+3, endIndex), [
-        {"name": "class", "value": "oneLineCode"}
-    ]);
-
-    oneLineCode(element, endIndex + 3, text);
-
-    return true;
 }
 
 function addMultiLineCode() {
