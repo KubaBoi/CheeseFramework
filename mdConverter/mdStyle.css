@@ -29,8 +29,8 @@ body {
 }
 
 .emojiImg {
-    width: 1em;
-    height: 1em;
+    width: 1.5em;
+    height: 1.5em;
 }
 
 a {
@@ -80,8 +80,4 @@ figure {
 .contents li { display: block }
 .contents li:before {
     font-weight: bold;
-}
-
-button {
-    position: fixed;
 }
