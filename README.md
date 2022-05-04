@@ -8,7 +8,7 @@
 
 ## TODO
 
-- [x] :bangbang: TESTS :bangbang:
+- [x] :bangbang: TESTS :bangbang: - 1.2.0
 - [ ] do authorization - 1.3.0
 - [ ] repair admin access - 1.4.0
 - [ ] do Cheese tools - 1.5.0
