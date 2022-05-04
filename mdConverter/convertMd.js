@@ -24,12 +24,13 @@ var ulsItems = [];
 var isUls = false;
 
 var activeP = null;
+var mainIndex = 0;
 
 function convert(str) {
     var lines = str.split("\n");
 
-    for (let i = 0; i < lines.length; i++) {
-        activeLine = lines[i];
+    while (mainIndex < lines.length) {
+        activeLine = lines[mainIndex];
         if (!isCode && !isContents && !isUls) {
             starter = findStarter();
             if (starter != false) {
@@ -47,6 +48,7 @@ function convert(str) {
         else if (isUls) {
             uls();
         }
+        mainIndex++;
     }
 
     var childs = mdDiv.childNodes;
@@ -153,6 +155,7 @@ function uls() {
             return;
         }
         isUls = false;
+        mainIndex--;
 
         var lastStart = 0;
         var activeUl = createElement("ul", mdDiv);

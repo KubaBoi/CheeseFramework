@@ -29,6 +29,12 @@ function searchHttp(str, reg, index=0) {
             return searchHttp(str, reg, startIndex+reg.length);
         }
     }
+    if (startIndex > 1) {
+        srcIndex = str.indexOf("`", startIndex-1, startIndex);
+        if (srcIndex != -1) {
+            return searchHttp(str, reg, startIndex+reg.length);
+        }
+    }
 
     endIndex = str.indexOf(" ", startIndex);
     if (endIndex == -1) {
