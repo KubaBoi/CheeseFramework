@@ -4,22 +4,28 @@
 
 [![Release Build](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml/badge.svg?branch=main)](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml)
 
-### Version v(1.2.0) - 22.05.02.21.26
+### Version v(1.2.10) - 22.05.04.10.29
 
 ## TODO
 
-- [x] :bangbang: TESTS :bangbang:
+- [x] :bangbang: TESTS :bangbang: - 1.2.0
+- [ ] do authorization - 1.3.0
+- [ ] repair admin access - 1.4.0
+- [ ] do Cheese tools - 1.5.0
 - [ ] metadata load setting (RAM/dynamic)
-- [ ] repair admin access
 - [ ] repair CORS not allowed
-- [ ] do authorization
-- [ ] do Cheese tools
 - [x] remove deprecated ```#@acceptsModel``` annotation
 
 
 ## Source code
 
 https://github.com/KubaBoi/CheeseFramework/tree/development
+
+## Documentation
+
+It is same as this BUT it is formated by my own algorithm into html. So contents is fixed on the left side of screen and it is overall clearer. (In my opinion...) Check it out :wink: it was a really hard work. All source codes are in branch ```webServices``` in directory ./mdConverter. I would be honored if it would help you. :relieved:
+
+https://kubaboi.github.io/CheeseFramework/
 
 ## Contents
 

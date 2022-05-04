@@ -19,8 +19,8 @@ class CheeseModel:
                     setattr(self, attr, jsn[attr])
                 if (attr.upper() in jsn.keys()):
                     setattr(self, attr, jsn[attr.upper()])
-        elif (type(jsn).__name__ == "list" or
-            type(jsn).__name__ == "tuple"):
+        else: #(type(jsn) == list or
+            #type(jsn) == tuple):
 
             for attr, value in zip(self.scheme, jsn):
                 setattr(self, attr, value)

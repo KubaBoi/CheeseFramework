@@ -113,8 +113,11 @@ class Metadata:
         if (httpMethod.upper() == "GET"):
             if (endpoint in Metadata.getEndpoints):
                 return Metadata.getEndpoints[endpoint]
+        elif (httpMethod.upper() == "POST"):
+            if (endpoint in Metadata.postEndpoints):
+                return Metadata.postEndpoints[endpoint]
 
-        return False 
+        return False
 
     @staticmethod
     def getRepository(userRepository):
