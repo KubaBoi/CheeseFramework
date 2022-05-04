@@ -28,7 +28,7 @@ function formatSql(str) {
     str = strings(str, "'");
 
     for (let i = 0; i < sql_keywords.length; i++) {
-        str = str.replace(sql_keywords[i], `<label class='keywords'>${sql_keywords[i]}</label>`);
+        str = str.replaceAll(sql_keywords[i], `<label class='keywords'>${sql_keywords[i]}</label>`);
     }
 
     return str;

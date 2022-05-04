@@ -11,10 +11,17 @@ var starters = [
 
 var activeLine = "";
 var mdDiv = document.getElementById("md");
+var contentsDiv = document.getElementById("contents");
 
 var multiLineCode = "";
 var isCode = false;
 var codeType = "";
+
+var contentsItems = [];
+var isContents = false;
+
+var ulsString = "";
+var isUls = false;
 
 var activeP = null;
 
@@ -23,15 +30,22 @@ function convert(str) {
 
     for (let i = 0; i < lines.length; i++) {
         activeLine = lines[i];
-        if (!isCode) {
+        if (!isCode && !isContents && !isUls) {
             starter = findStarter();
             if (starter != false) {
                 starter();
             } else {
                 label();
             }
-        } else {
+        } 
+        else if (isCode) {
             code();
+        }
+        else if (isContents) {
+            contents();
+        }
+        else if (isUls) {
+            uls();
         }
     }
 
@@ -47,6 +61,28 @@ function convert(str) {
     }
 
     formatCode();
+    var lastStart = 0;
+    createElement("p", contentsDiv, "Contents");
+    var activeUl = createElement("ol", contentsDiv);
+    for (let i = 0; i < contentsItems.length; i++) {
+        var item = contentsItems[i];
+        if (item.trim() == "") continue;
+        
+        var startIndex = item.indexOf("-");
+        if (startIndex == 1) startIndex = 0;
+
+        var li = badge(item.replace("-", "").trim());
+        if (lastStart < startIndex) {
+            activeUl = createElement("ol", activeUl);
+        }
+        else if (lastStart > startIndex) {
+            for (let o = 0; o < (lastStart - startIndex)/4; o++) {
+                activeUl = activeUl.parentNode;
+            }
+        }
+        activeUl.appendChild(li);
+        lastStart = startIndex;
+    }
 }
 
 function findStarter() {
@@ -81,15 +117,33 @@ function code() {
 
 function header() {
     headers = activeLine.split(" ")[0];
-    h = createElement("h" + String(headers.length), mdDiv); 
-    formatedText = oneLineCode(h, 0, activeLine.replace(headers, ""));
-    if (!formatedText) {
-        h.innerHTML = activeLine.replace(headers, "");
+    if (activeLine.replace(headers, "").trim() == "Contents") {
+        isContents = true;
+    }
+    else {
+        var headerTitle = activeLine.replace(headers, "").trim();
+        var h = createElement("h" + String(headers.length), mdDiv, "", [
+            {"name": "id", "value": headerTitle.replaceAll(".", "").replaceAll(" ", "-").toLowerCase()}
+        ]); 
+        var formatedText = oneLineCode(h, 0, headerTitle);
+        if (!formatedText) {
+            h.innerHTML = headerTitle;
+        }
     }
 }
 
 function uls() {
-    //console.log("UL: ", + activeLine);
+    console.log("UL: ", + activeLine);
+}
+
+function contents() {
+    if (activeLine.startsWith("##")) {
+        isContents = false;
+        header();
+    }
+    else {
+        contentsItems.push(activeLine);
+    }
 }
 
 function label() {
@@ -106,16 +160,42 @@ function raw() {
     mdDiv.innerHTML += activeLine;
 }
 
-function badge() {
-    parts = activeLine.split("]");
-    badgeUrl = parts[1].replace("(", "").replace(")", "");
-    hrefUrl = parts[2].replace("(", "").replace(")", "");
-    a = createElement("a", mdDiv, "", [
-        {"name": "href", "value": hrefUrl}
-    ]);
-    createElement("img", a, "", [
-        {"name": "src", "value": badgeUrl}
-    ])
+function badge(str="") {
+    if (str == "") {
+        str = activeLine;
+    }
+
+    if (str[1] == "!") {
+        var parts = str.split("]");
+        var badgeUrl = parts[1].replace("(", "").replace(")", "");
+        var hrefUrl = parts[2].replace("(", "").replace(")", "");
+        var a = createElement("a", mdDiv, "", [
+            {"name": "href", "value": hrefUrl},
+            {"name": "target", "value": "_blank"}
+        ]);
+        createElement("img", a, "", [
+            {"name": "src", "value": badgeUrl}
+        ])
+    }
+    else if (str[1] == " " || str[1] == "x") {
+        return str;
+    }
+    else {
+        var parts = str.split("]");
+        var title = parts[0].replace("[", "");
+        var href = parts[1].replace("(", "").replace(")", "");
+        var numberS = href.split("-")[0];
+        var number = "";
+        for (let i = 0; i < numberS.length; i++) {
+            if (numberS[i] == "#") continue;
+            number += numberS[i] + ".";
+        }
+        var li = createElement("li", null, number);
+        createElement("a", li, title, [
+            {"name": "href", "value": href}
+        ]);
+        return li;
+    }
 }
 
 

@@ -1,6 +1,7 @@
 
 var mdUrl = "";
 async function getMd(url) {
+    console.log(url);
     mdUrl = url;
     var response = await callEndpoint("GET", url);
     convert(response);
@@ -21,7 +22,7 @@ async function source() {
             var lines = response.split("\n");
 
             for (var i = 0; i < lines.length; i++) {
-                code.innerHTML += line + "<br>";
+                code.innerHTML += lines[i] + "<br>";
             }
         }
     }
@@ -29,3 +30,9 @@ async function source() {
         sourceDiv.remove();
     }
 }
+
+document.addEventListener('keydown', (event) => {
+    if (event.key == "p") {
+        source();
+    }
+}, false);

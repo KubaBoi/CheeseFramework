@@ -50,7 +50,7 @@ function formatPython(str) {
     newStr = strings(newStr);
 
     for (let i = 0; i < python_keywords.length; i++) {
-        newStr = newStr.replace(python_keywords[i], `<label class='keywords'>${python_keywords[i]}</label>`);
+        newStr = newStr.replaceAll(python_keywords[i], `<label class='keywords'>${python_keywords[i]}</label>`);
     }
 
     return newStr;

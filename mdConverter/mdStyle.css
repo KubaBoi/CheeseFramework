@@ -52,3 +52,25 @@ figure {
     padding: 20px;
     overflow-x: auto;
 }
+
+.contents {
+    margin-left: 0;
+    top: 50px;
+    position: fixed;
+    width: 20%;
+}
+
+.contents p {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.contents li { display: block }
+.contents li:before {
+    font-weight: bold;
+}
+
+button {
+    position: fixed;
+}
