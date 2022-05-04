@@ -60,7 +60,6 @@ function convert(str) {
             item.innerHTML = formatCheckBox(item.innerHTML);
             formatedOutput = formatOneLineCode(item.innerHTML);
             if (formatedOutput[0]) {
-                console.log(item.nodeName);
                 if (item.nodeName == "UL") {
                     item.classList.add("biggerLinesUl");
                 }
