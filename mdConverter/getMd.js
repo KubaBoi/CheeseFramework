@@ -7,8 +7,10 @@ async function getMd(url) {
 }
 
 async function source() {
+    var contentsDiv = document.getElementById("contents");
     var sourceDiv = document.getElementById("source");
     if (sourceDiv == null) {
+        contentsDiv.style.visibility = "hidden";
         var d = document.getElementById("d");
         var sourceDiv = createElement("div", d, "", [
             {"name": "id", "value": "source"},
@@ -27,6 +29,7 @@ async function source() {
     }
     else {
         sourceDiv.remove();
+        contentsDiv.style.visibility = "visible";
     }
 }
 
