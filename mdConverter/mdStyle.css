@@ -5,6 +5,10 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.d {
+    display: flex;
+}
+
 .main {
     margin: auto;
     width: 50%;

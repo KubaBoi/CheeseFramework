@@ -35,7 +35,8 @@ function searchHttp(str, reg, index=0) {
         endIndex = str.length;
     }
     url = str.substring(startIndex, endIndex);
-    ahref = "<a href=\"" + url + "\">" + url + "</a>";
+    console.log(url);
+    ahref = "<a target='_blank' href='" + url + "'>" + url + "</a>";
     newStr = str.substring(0, startIndex) + ahref + str.substring(endIndex, str.length);
     return searchHttp(newStr, reg, startIndex + ahref.length);
 }

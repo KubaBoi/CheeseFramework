@@ -1,5 +1,5 @@
 
-debug = false;
+debug = true;
 
 var starters = [
     ["```", code],
