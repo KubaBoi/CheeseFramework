@@ -19,8 +19,9 @@ async function source() {
 
         var response = await callEndpoint("GET", mdUrl);
         if (response.ERROR == null) {
-            var code = createElement("textarea", sourceDiv [
-                {"name": "id", "value": "sourceInputText"}
+            var code = createElement("textarea", sourceDiv, [
+                {"name": "id", "value": "sourceInput"},
+                {"name": "class", "values": "sourceInput"}
             ]);
             var lines = response.split("\n");
 
