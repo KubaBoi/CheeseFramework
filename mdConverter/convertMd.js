@@ -29,6 +29,9 @@ var mainIndex = 0;
 function convert(str) {
     var lines = str.split("\n");
 
+    clearTable(mdDiv);
+    clearTable(contentsDiv);
+
     while (mainIndex < lines.length) {
         activeLine = lines[mainIndex];
         if (!isCode && !isContents && !isUls) {
