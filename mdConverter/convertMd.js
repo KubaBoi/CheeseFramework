@@ -32,6 +32,19 @@ function convert(str) {
     clearTable(mdDiv);
     clearTable(contentsDiv);
 
+    multiLineCode = "";
+    isCode = false;
+    codeType = "";
+
+    contentsItems = [];
+    isContents = false;
+
+    ulsItems = [];
+    isUls = false;
+
+    activeP = null;
+    mainIndex = 0;
+
     while (mainIndex < lines.length) {
         activeLine = lines[mainIndex];
         if (!isCode && !isContents && !isUls) {
