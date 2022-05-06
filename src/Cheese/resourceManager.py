@@ -42,7 +42,7 @@ class ResMan:
             p = ResMan.removeSlash(p, False)
             paths.append(p)
 
-        paths.append(ResMan.removeSlash(args[-1]))
+        paths.append(ResMan.removeSlash(args[-1], False))
         return os.path.join(*paths)
 
     # root dir of project
