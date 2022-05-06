@@ -75,7 +75,7 @@ class Logger:
         #fileHandler.addFilter(FileFilter())
         #Logger.rootLogger.addHandler(fileHandler)
         #Logger.handlers.append(fileHandler)
-
+        
         htmlHandler = logging.FileHandler(ResMan.joinPath(ResMan.logs(), f"log{date.strftime('%Y-%m-%d-%H-%M-%S')}.html"), mode="a")
         htmlHandler.setFormatter(htmlFormatter)
         htmlHandler.addFilter(HtmlFilter())
