@@ -35,7 +35,7 @@ class ResMan:
         if (len(args) == 1): return args[0]
 
         paths = []
-        paths.append(ResMan.removeSlash(args[0]))
+        paths.append(ResMan.removeSlash(args[0], False))
 
         for path in args[1:-1]:
             p = ResMan.removeSlash(path)
