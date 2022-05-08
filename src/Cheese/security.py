@@ -11,6 +11,7 @@ class Security:
         if (not SecuritySettings.authentication["enabled"]):
             return True
 
+        role = None
         if (server.headers.get("Authorization") != None):
             auth = str(server.headers.get("Authorization"))
             
@@ -22,7 +23,7 @@ class Security:
                         role = Security.findRole(dict, type["roleId"])
                     break
 
-        print(role)
+        
 
 
         server.do_AUTHHEAD()

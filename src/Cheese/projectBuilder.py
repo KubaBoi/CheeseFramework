@@ -8,6 +8,7 @@ from Cheese.Logger import Logger
 from Cheese.controllerBuilder import ControllerBuilder
 from Cheese.repositoriesBuilder import RepositoriesBuilder
 from Cheese.testsBuilder import TestsBuilder
+from Cheese.securityBuilder import SecurityBuilder
 from Cheese.finder import Finder
 from Cheese.cheeseController import CheeseController as cc
 
@@ -24,7 +25,12 @@ class ProjectBuilder:
 
     def build(self):
         try:
-            self.dictJson = {"CONTROLLERS": {}, "REPOSITORIES": {}, "TESTS": {}}
+            self.dictJson = {
+                "CONTROLLERS": {}, 
+                "REPOSITORIES": {}, 
+                "TESTS": {},
+                "SECRETS": {}
+            }
 
             #build controllers
             ControllerBuilder.build(self)
@@ -34,6 +40,9 @@ class ProjectBuilder:
 
             #build tests
             TestsBuilder.build(self)
+
+            #build security rules
+            SecurityBuilder.build(self)
 
             self.saveMetadata()
 
