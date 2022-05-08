@@ -166,11 +166,11 @@ class Metadata:
         return repository["DBSCHEME"].replace("(", "").replace(")", "")
 
     @staticmethod
-    def code64(data):
-        bts = base64.b64encode(data.encode("ascii"))
-        return bts.decode("ascii")
+    def code64(data, coding="utf-8"):
+        bts = base64.b64encode(data.encode(coding))
+        return bts.decode(coding)
 
     @staticmethod
-    def decode64(bts):
-        return base64.b64decode(bts).decode("ascii")
+    def decode64(bts, coding="utf-8"):
+        return base64.b64decode(bts).decode(coding)
             

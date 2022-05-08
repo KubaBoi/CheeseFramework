@@ -84,7 +84,7 @@ class CheeseHandler(BaseHTTPRequestHandler):
             if (not controller):
                 Error.sendCustomError(self, "Endpoint not found :(", 404)
             else:
-                response = controller(self, self.path, None)
+                response = controller(self, self.path, auth)
                 cc.sendResponse(self, response)
 
         except Exception as e:
