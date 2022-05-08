@@ -78,7 +78,7 @@ for root, dirs, files in os.walk(repoDir):
                     data = replaceImports(data, imp)
 
                 if (file == "variables.py"):
-                    data = data.replace("RELEASE", releaseDate)
+                    data = data.replace("RELEASE", getVersion())
 
                 newFile = os.path.join(frameworkDir, "src", "Cheese", file)
                 if (os.path.exists(newFile)):
