@@ -38,6 +38,7 @@ class HtmlFilter(logging.Filter):
             rec.msg = rec.msg.replace(Logger.ENDC, "</label>")
             rec.msg = rec.msg.replace(Logger.BOLD, "<label class='bold'>")
             rec.msg = rec.msg.replace(Logger.UNDERLINE, "<label class='underLine'>")
+            rec.msg = rec.msg.replace("\n", "<br>")
             return True
         return False
 
@@ -65,7 +66,7 @@ class Logger:
     def initLogger():
         if (not os.path.exists(ResMan.logs())):
             os.mkdir(ResMan.logs())
-        Logger.initilized = True
+        Logger.initialized = True
 
         htmlFormatter = logging.Formatter(fmt="<tr><td>%(asctime)s</td><td>%(message)s</td></tr>", datefmt="%Y-%m-%d %H:%M:%S")
 
@@ -197,7 +198,7 @@ class Logger:
     @staticmethod
     def listLogs():
         for root, dirs, files in os.walk(ResMan.logs()):
-            with open(f"{ResMan.cheese()}/admin/allLogs.html", "r") as temp:
+            with open(ResMan.joinPath(ResMan.admin(), "allLogs.html"), "r") as temp:
                 data = temp.read()
             
             table = "<tr><th>Log name</th><th>Redirect</th><th>Status</th><th>Last logged</th><th>Size</th>"
@@ -214,14 +215,14 @@ class Logger:
                     table += f"<td><button onclick=\"location='/admin/logs/{name}'\">Show log</button></td>"
                     status = f"<td class='fail'>CLOSED</td>"
                 
-                with open(f"{ResMan.logs()}/{name}", "r") as log:
+                with open(ResMan.joinPath(ResMan.logs(), name), "r") as log:
                     logs = log.readlines()
                     if (len(logs) > 0): 
                         for i in range(1, len(logs)):
                             if (logs[-i].startswith("<tr>")):
                                 lastLogged = logs[-i].split("</td>")[0].replace("<tr><td>", "")
                     else:
-                        dt = datetime.fromtimestamp(os.stat(f"{ResMan.logs()}/{name}").st_mtime)
+                        dt = datetime.fromtimestamp(os.stat(ResMan.joinPath(ResMan.logs(), name)).st_mtime)
                         lastLogged = dt.strftime("%Y-%m-%d %H:%M:%S")
                         if (i == 1):
                             status = f"<td class='okGreen'>ACTIVE/EMPTY</td>"
@@ -230,7 +231,7 @@ class Logger:
 
                 table += status
                 table += f"<td>{lastLogged}</td>"
-                table += f"<td>{ResMan.convertBytes(os.path.getsize(ResMan.logs() + '/' + name))}</td>"
+                table += f"<td>{ResMan.convertBytes(os.path.getsize(ResMan.joinPath(ResMan.logs(), name)))}</td>"
                 if (i != 1):
                     table += f"<td><button onclick=\"deleteFile('{name}')\">Remove log</button></td></tr>"
 
@@ -251,7 +252,7 @@ class Logger:
             with open(f"{ResMan.error()}/error404.html", "rb") as f:
                 return (f.read(), 404)
 
-        with open(f"{ResMan.cheese()}/admin/activeLog.html", "r") as temp:
+        with open(ResMan.joinPath(ResMan.admin(), "activeLog.html"), "r") as temp:
             logName = ResMan.getFileName(log).replace(".html", "")
             for root, dirs, files in os.walk(ResMan.logs()):
                 if (sorted(files)[-1] == logName + ".html"):
