@@ -160,8 +160,16 @@ class Finder:
     def raiseError(self, index, comment):
         raise SyntaxError(f"{comment} in {self.wWar(self.file)} at line {self.wOkG(index)}")
 
+    def raiseDictError(self, name, file):
+        raise SyntaxError(f"Missing '{self.wOkG(name)}' name in {self.wWar(file)}")
+
+    def validateKey(self, key, dict, file):
+        if (key not in dict.keys()):
+            self.raiseDictError(key, file)
+
     def wWar(self, string):
         return f"{Logger.WARNING}{string}{Logger.FAIL}"
 
     def wOkG(self, string):
         return f"{Logger.OKGREEN}{string}{Logger.FAIL}"
+    
