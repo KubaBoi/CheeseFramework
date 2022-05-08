@@ -14,6 +14,7 @@ from Cheese.cheeseServer import *
 from Cheese.database import Database
 from Cheese.ErrorCodes import Error
 from Cheese.Logger import Logger
+from Cheese.adminManager import AdminManager
 
 from Cheese.cheeseTests import CheeseTests
 
@@ -72,6 +73,9 @@ class CheeseBurger:
                     Logger.fail(f"CONNECTION TO {Settings.dbHost}:{Settings.dbPort} {Settings.dbName} CANNOT BE DONE", e, silence=False)
             else:
                 Logger.warning("Database connection is turned off", silence=False)
+
+            # initialization of admin users
+            AdminManager.setAuth()
 
             # initialization of server
             CheeseBurger.initServer()
