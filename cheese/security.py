@@ -1,3 +1,4 @@
+#cheese
 
 from Cheese.appSettings import SecuritySettings
 from Cheese.cheeseController import CheeseController as cc
