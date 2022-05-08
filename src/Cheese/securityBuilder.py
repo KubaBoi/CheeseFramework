@@ -21,9 +21,10 @@ class SecurityBuilder:
         with open(secPath, "r") as f:
             data = json.loads(f.read())
 
-        Finder.validateKey("authentication", data, secPath)
-        Finder.validateKey("roles", data, secPath)
-        Finder.validateKey("access", data, secPath)
+        finder = Finder()
+        finder.validateKey("authentication", data, secPath)
+        finder.validateKey("roles", data, secPath)
+        finder.validateKey("access", data, secPath)
         
         security = {}
         security["AUTHENTICATION"] = data["authentication"]
@@ -33,13 +34,16 @@ class SecurityBuilder:
 
         for key in data["access"].keys():
             if (key.endswith("*")):
+                keyFor = key.replace("*", "")
                 for contKey in controllers.keys():
-                    if (key.replace("*", "").startwith(contKey["CONTROLLER"])):
+                    contr = controllers[contKey]
+                    mainEndpoint = contr["CONTROLLER"]
+                    if (keyFor.startswith(mainEndpoint)):
                         # this is it
-                        methodKeys = controllers[contKey]["METHODS"].keys()
+                        methodKeys = contr["METHODS"].keys()
                         for methodKey in methodKeys:
                             if (methodKey not in data["access"].keys()):
-                                access[contKey + methodKey] = data["access"][key]
+                                access[keyFor + methodKey] = data["access"][key]
             else:
                 access[key] = data["access"][key]
 

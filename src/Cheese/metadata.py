@@ -2,6 +2,7 @@
 
 import os
 import json
+import base64
 
 from Cheese.resourceManager import ResMan
 from Cheese.Logger import Logger
@@ -18,11 +19,16 @@ class Metadata:
     def loadMetadata():
         try:
             with open(ResMan.metadata(), "r") as f:
-                data = json.loads(f.read())
+                data = json.loads(Metadata.decode64(f.read()))
 
             Metadata.repos = data["REPOSITORIES"]
             Metadata.contr = data["CONTROLLERS"]
             Metadata.tests = data["TESTS"]
+
+            Metadata.admin = data["SECRETS"]["ADMIN"]
+            Metadata.authentication = data["SECRETS"]["SECURITY"]["AUTHENTICATION"]
+            Metadata.roles = data["SECRETS"]["SECURITY"]["ROLES"]
+            Metadata.access = data["SECRETS"]["SECURITY"]["ACCESS"]
 
             Metadata.createInits(data)
             Metadata.prepareControllers()
@@ -51,6 +57,9 @@ class Metadata:
             modules = data[key]
             for moduleKey in modules.keys():
                 module = modules[moduleKey]
+
+                if ("FILE" not in module.keys()): continue
+
                 path = module["FILE"].replace(ResMan.getFileName(module["FILE"]), "")[:-1]
                 
                 splited = path.split("/")
@@ -155,4 +164,13 @@ class Metadata:
     @staticmethod
     def getRawScheme(repository):
         return repository["DBSCHEME"].replace("(", "").replace(")", "")
-        
+
+    @staticmethod
+    def code64(data):
+        bts = base64.b64encode(data.encode("ascii"))
+        return bts.decode("ascii")
+
+    @staticmethod
+    def decode64(bts):
+        return base64.b64decode(bts).decode("ascii")
+            

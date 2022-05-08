@@ -1,5 +1,5 @@
 #cheese
 
 class Variables:
-    release = "1.2.26"
+    release = "1.2.27"
     documentation = "https://kubaboi.github.io/CheeseFramework/"
