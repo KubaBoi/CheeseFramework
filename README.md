@@ -10,10 +10,11 @@
 
 - [x] :bangbang: TESTS :bangbang: - 1.2.0
 - [ ] do authorization - 1.3.0
-- [x] repair admin access - 1.4.0
-- [ ] do Cheese tools - 1.5.0
+- [ ] repair doc - 1.3.5
+- [ ] do Cheese tools - 1.4.0
 - [ ] metadata load setting (RAM/dynamic)
 - [ ] repair CORS not allowed
+- [x] repair admin access
 - [x] remove deprecated ```#@acceptsModel``` annotation
 
 
