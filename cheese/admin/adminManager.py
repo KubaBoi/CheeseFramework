@@ -73,7 +73,7 @@ class AdminManager:
 
     @staticmethod
     def __sendFile(server, file):
-        file = ResMan.joinPath(ResMan.admin(), ResMan.getFileName(file))
+        file = ResMan.joinPath(ResMan.admin(), *file.split("/")[2:])
         if (not os.path.exists(file)):
             with open(f"{ResMan.error()}/error404.html", "rb") as f:
                 CheeseController.sendResponse(server, (f.read(), 404))
