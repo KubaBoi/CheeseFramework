@@ -44,7 +44,7 @@ class CheeseHandler(BaseHTTPRequestHandler):
         try:
             auth = Security.authenticate(self, self.path)
 
-            if (not auth):
+            if (auth == False):
                 response = cc.createResponse({"ERROR": "Unauthorized access"}, 401)
                 cc.sendResponse(self, response)
                 return
@@ -74,7 +74,7 @@ class CheeseHandler(BaseHTTPRequestHandler):
         try:
             auth = Security.authenticate(self, self.path)
 
-            if (not auth):
+            if (auth == False):
                 response = cc.createResponse({"ERROR": "Unauthorized access"}, 401)
                 cc.sendResponse(self, response)
                 return
