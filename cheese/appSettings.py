@@ -42,7 +42,7 @@ class Settings:
         with open(os.path.join(ResMan.root(), "adminSettings.json"), "r") as f:
             Settings.adminSettings = json.loads(f.read())
 
-        Security.loadSecurity()
+        SecuritySettings.loadSecurity()
 
     @staticmethod
     def loadJson():
