@@ -44,6 +44,11 @@ class CheeseHandler(BaseHTTPRequestHandler):
         try:
             auth = Security.authenticate(self, self.path)
 
+            if (not auth):
+                response = cc.createResponse({"ERROR": "Unauthorized access"}, 401)
+                cc.sendResponse(self, response)
+                return
+
             endpoint = cc.getPath(self.path)
             controller = Metadata.findMethod(endpoint, "GET")
             if (not controller):
@@ -58,7 +63,7 @@ class CheeseHandler(BaseHTTPRequestHandler):
                         cc.serveFile(self, self.path)
                         return
             else:
-                response = controller(self, self.path, None)
+                response = controller(self, self.path, auth)
                 cc.sendResponse(self, response)
 
         except Exception as e:
@@ -68,6 +73,11 @@ class CheeseHandler(BaseHTTPRequestHandler):
         self.__log()
         try:
             auth = Security.authenticate(self, self.path)
+
+            if (not auth):
+                response = cc.createResponse({"ERROR": "Unauthorized access"}, 401)
+                cc.sendResponse(self, response)
+                return
 
             endpoints = cc.getPath(self.path)
             controller = Metadata.findMethod(endpoints, "POST")
