@@ -42,8 +42,7 @@ class Settings:
         with open(os.path.join(ResMan.root(), "adminSettings.json"), "r") as f:
             Settings.adminSettings = json.loads(f.read())
 
-        #with open(os.path.join(ResMan.root(), "security.json"), "r") as f:
-        #    Settings.authExcepts = json.loads(f.read())["authExceptions"]
+        Security.loadSecurity()
 
     @staticmethod
     def loadJson():
@@ -55,3 +54,15 @@ class Settings:
     def saveJson(jsonConf):
         with open(os.path.join(ResMan.root(), "appSettings.json"), "w") as f:
             f.write(json.dumps(jsonConf))
+
+class SecuritySettings:
+
+    @staticmethod
+    def loadSecurity():
+        with open(os.path.join(ResMan.root(), "securitySettings.json"), "r") as f:
+            SecuritySettings.settings = json.loads(f.read())
+
+        SecuritySettings.authentication = SecuritySettings.settings["authentication"]
+        SecuritySettings.roles = SecuritySettings.settings["roles"]
+        SecuritySettings.access = SecuritySettings.settings["access"]
+        
