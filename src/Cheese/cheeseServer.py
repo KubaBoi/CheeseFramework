@@ -26,6 +26,13 @@ class CheeseServer(HTTPServer):
     """Handle requests in one thread."""
 
 class CheeseHandler(BaseHTTPRequestHandler):
+    def do_AUTHHEAD(self):
+        self.send_response(401)
+        self.send_header(
+            'WWW-Authenticate', 'Basic realm="Demo Realm"')
+        self.send_header('Content-type', 'application/json')
+        self.end_headers()
+
     def do_GET(self):
         if (self.path.startswith("/admin")):
             AdminManager.controller(self)
@@ -36,6 +43,11 @@ class CheeseHandler(BaseHTTPRequestHandler):
             return
         try:
             auth = Security.authenticate(self, self.path)
+
+            if (auth == False):
+                response = cc.createResponse({"ERROR": "Unauthorized access"}, 401)
+                cc.sendResponse(self, response)
+                return
 
             endpoint = cc.getPath(self.path)
             controller = Metadata.findMethod(endpoint, "GET")
@@ -51,7 +63,7 @@ class CheeseHandler(BaseHTTPRequestHandler):
                         cc.serveFile(self, self.path)
                         return
             else:
-                response = controller(self, self.path, None)
+                response = controller(self, self.path, auth)
                 cc.sendResponse(self, response)
 
         except Exception as e:
@@ -62,12 +74,17 @@ class CheeseHandler(BaseHTTPRequestHandler):
         try:
             auth = Security.authenticate(self, self.path)
 
+            if (auth == False):
+                response = cc.createResponse({"ERROR": "Unauthorized access"}, 401)
+                cc.sendResponse(self, response)
+                return
+
             endpoints = cc.getPath(self.path)
             controller = Metadata.findMethod(endpoints, "POST")
             if (not controller):
                 Error.sendCustomError(self, "Endpoint not found :(", 404)
             else:
-                response = controller(self, self.path, None)
+                response = controller(self, self.path, auth)
                 cc.sendResponse(self, response)
 
         except Exception as e:

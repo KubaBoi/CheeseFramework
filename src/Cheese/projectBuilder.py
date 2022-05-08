@@ -5,9 +5,11 @@ import json
 
 from Cheese.resourceManager import ResMan
 from Cheese.Logger import Logger
+from Cheese.metadata import Metadata
 from Cheese.controllerBuilder import ControllerBuilder
 from Cheese.repositoriesBuilder import RepositoriesBuilder
 from Cheese.testsBuilder import TestsBuilder
+from Cheese.securityBuilder import SecurityBuilder
 from Cheese.finder import Finder
 from Cheese.cheeseController import CheeseController as cc
 
@@ -24,7 +26,12 @@ class ProjectBuilder:
 
     def build(self):
         try:
-            self.dictJson = {"CONTROLLERS": {}, "REPOSITORIES": {}, "TESTS": {}}
+            self.dictJson = {
+                "CONTROLLERS": {}, 
+                "REPOSITORIES": {}, 
+                "TESTS": {},
+                "SECRETS": {}
+            }
 
             #build controllers
             ControllerBuilder.build(self)
@@ -34,6 +41,9 @@ class ProjectBuilder:
 
             #build tests
             TestsBuilder.build(self)
+
+            #build security rules
+            SecurityBuilder.build(self)
 
             self.saveMetadata()
 
@@ -47,13 +57,14 @@ class ProjectBuilder:
             
     def count(self):
         with open(os.path.join(ResMan.metadata()), "r") as f:
-            data = json.loads(f.read())
+            data = json.loads(Metadata.decode64(f.read()))
 
         gets = 0
         posts = 0
         queries = 0
         commits = 0
         for key in data.keys():
+            if (key == "SECRETS"): continue
             for pKey in data[key].keys():
                 cont = data[key][pKey]
                 for methodKey in cont["METHODS"].keys():
@@ -79,7 +90,7 @@ class ProjectBuilder:
 
     def saveMetadata(self):
         with open(os.path.join(ResMan.metadata()), "w") as f:
-            f.write(json.dumps(self.dictJson))
+            f.write(Metadata.code64(json.dumps(self.dictJson)))
 
 
     def doJson(self, srcCodes, dictName, mainAnnotations, methodAnnotations):

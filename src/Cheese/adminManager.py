@@ -5,6 +5,7 @@ import json
 import time
 import sys
 import subprocess
+import base64
 
 from Cheese.cheeseController import CheeseController
 from Cheese.variables import Variables
@@ -18,7 +19,6 @@ class AdminManager:
     @staticmethod
     def controller(server):
         if (not AdminManager.authorizeAsAdmin(server)):
-            AdminManager.__sendFile(server, "/admin/login.html")
             return
 
         if (server.path == "/admin"):
@@ -58,14 +58,22 @@ class AdminManager:
         
 
     @staticmethod
+    def setAuth():
+        with open(ResMan.joinPath(ResMan.root(), "adminSettings.json"), "r") as f:
+            data = json.loads(f.read())
+
+        AdminManager.users = []
+        for user in data["adminUsers"]:
+            AdminManager.users.append(base64.b64encode(
+                bytes('%s:%s' % (user["name"], user["password"]), 'utf-8')).decode('ascii'))
+
+    @staticmethod
     def authorizeAsAdmin(server):
-        cookies = CheeseController.getCookies(server)
-        if (not CheeseController.validateJson(["adminName", "adminPass"], cookies)):
-            return False
-        for user in Settings.adminSettings["adminUsers"]:
-            if (user["name"] == cookies["adminName"] and
-                user["password"] == cookies["adminPass"]):
-                return True
+        if (server.headers.get("Authorization") != None):
+            for user in AdminManager.users:
+                if (server.headers.get("Authorization") == "Basic " + str(user)):
+                    return True
+        server.do_AUTHHEAD()
         return False
 
 
