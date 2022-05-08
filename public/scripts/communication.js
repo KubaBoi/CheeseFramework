@@ -1,5 +1,6 @@
 
-debug = true;
+var debug = true;
+var authorization = "";
 function sendPost(url, jsonRequest, output, callback) {
     var xmlHttp = new XMLHttpRequest(); 
     
@@ -14,6 +15,7 @@ function sendPost(url, jsonRequest, output, callback) {
     };
     xmlHttp.open("POST", url);
     xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlHttp.setRequestHeader("Authorization", "Basic " + window.btoa(authorization));
     xmlHttp.send(jsonRequest);
 }
 
@@ -36,6 +38,7 @@ function sendGet(url, output, callback) {
     }
     xmlHttp.open("GET", url); 
     xmlHttp.setRequestHeader("Content-Type", "text/plain;charset=UTF-8;");
+    xmlHttp.setRequestHeader("Authorization", "Basic " + window.btoa(authorization));
     xmlHttp.send();
 }
 
