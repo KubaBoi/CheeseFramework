@@ -1,47 +1,52 @@
 #cheese
 
-from Cheese.appSettings import SecuritySettings
 from Cheese.cheeseController import CheeseController as cc
 from Cheese.database import Database
+from Cheese.metadata import Metadata
 
 class Security:
 
     @staticmethod
     def authenticate(server, path):
-        if (not SecuritySettings.authentication["enabled"]):
+        if (not Metadata.authentication["enabled"]):
             return True
 
         role = None
         if (server.headers.get("Authorization") != None):
             auth = str(server.headers.get("Authorization"))
             
-            for type in SecuritySettings.authentication["types"]:
+            for type in Metadata.authentication["types"]:
                 dict = Security.fitPatern(auth, type["patern"])
                 if (dict != None):
                     valid = Security.validate(dict, type["validation"])
                     if (valid):
                         role = Security.findRole(dict, type["roleId"])
                     break
-
         
+        pth = cc.getPath(path)
+        if (pth in Metadata.access.keys()):
+            if (role == None):
+                return False
+            
+            acc = Metadata.access[pth]
+            if (role["value"] > acc["minRoleId"]):
+                return False            
 
-
-        server.do_AUTHHEAD()
-        return False
+        return role
 
     @staticmethod
     def findRole(dict, roleIdSql):
         for key in dict.keys():
-            validation = roleIdSql.replace(f"${key}$", f"'{dict[key]}'")
+            roleIdSql = roleIdSql.replace(f"${key}$", f"'{dict[key]}'")
 
         db = Database()
         response = db.query(roleIdSql)
         db.done()
         roleId = str(response[0][0])
 
-        if (roleId not in SecuritySettings.roles):
+        if (roleId not in Metadata.roles):
             return None
-        return SecuritySettings.roles[roleId]
+        return Metadata.roles[roleId]
 
     @staticmethod
     def validate(dict, validation):
