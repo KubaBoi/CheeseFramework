@@ -38,6 +38,7 @@ class HtmlFilter(logging.Filter):
             rec.msg = rec.msg.replace(Logger.ENDC, "</label>")
             rec.msg = rec.msg.replace(Logger.BOLD, "<label class='bold'>")
             rec.msg = rec.msg.replace(Logger.UNDERLINE, "<label class='underLine'>")
+            rec.msg = rec.msg.replace("\n", "<br>")
             return True
         return False
 
