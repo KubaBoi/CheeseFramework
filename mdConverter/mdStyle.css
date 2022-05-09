@@ -69,6 +69,8 @@ figure {
     top: 50px;
     position: fixed;
     width: 20%;
+    overflow-y: auto;
+    height: 90%;
 }
 
 .contents p {
@@ -77,11 +79,26 @@ figure {
     font-size: 20px;
 }
 
-.contents ul {
-    overflow-y: auto;
-}
-
 .contents li { display: block }
 .contents li:before {
     font-weight: bold;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #555;
 }
