@@ -69,13 +69,16 @@ figure {
     top: 50px;
     position: fixed;
     width: 20%;
-    overflow-y: auto;
 }
 
 .contents p {
     text-align: center;
     font-weight: bolder;
     font-size: 20px;
+}
+
+.contents ul {
+    overflow-y: auto;
 }
 
 .contents li { display: block }
