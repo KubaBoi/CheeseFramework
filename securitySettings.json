@@ -1,21 +1,10 @@
 {
-    "authExceptions": [
-        {
-            "method": "GET",
-            "path": "*.html"
-        },
-        {
-            "method": "GET",
-            "path": "*.css"
-        },
-        {
-            "method": "GET",
-            "path": "*.js"
-        },
-        {
-            "method": "GET",
-            "path": "*.png"
-        }
-    ]
+    "authentication": {
+        "enabled": false,
+        "types": []
+    },
 
+    "roles": {},
+
+    "access": {}
 }
