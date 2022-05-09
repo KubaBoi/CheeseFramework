@@ -243,7 +243,7 @@ function badge(str="") {
     else {
         var parts = str.split("]");
         var title = parts[0].replace("[", "");
-        var href = parts[1].replace("(", "").replace(")", "");
+        var href = parts[1].replace("(", "").replace(")", "").toLowerCase();
         var numberS = href.split("-")[0];
         var number = "";
         for (let i = 0; i < numberS.length; i++) {
