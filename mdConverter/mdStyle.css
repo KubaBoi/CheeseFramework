@@ -26,7 +26,16 @@ code {
     font-size: 85%;
     background-color: rgb(53, 58, 65);
     border-radius: 6px;
-    white-space: nowrap;
+    white-space:normal;
+}
+
+pre {
+    position: relative;
+    font-family: Consolas;
+    background-color: rgb(22, 27, 34);
+    border-radius: 5px;
+    padding: 20px;
+    overflow-x: auto;
 }
 
 .emojiImg {
@@ -57,15 +66,6 @@ p {
     margin-bottom: 16px;
 }
 
-figure {
-    position: relative;
-    font-family: Consolas;
-    background-color: rgb(22, 27, 34);
-    border-radius: 5px;
-    padding: 20px;
-    overflow-x: auto;
-}
-
 .contents {
     margin-left: 0;
     top: 50px;
@@ -86,10 +86,9 @@ li {
     position: relative;
     margin-bottom: 0.3em;
 }
-li:before {
-    list-style-type: circle;
+/*li:before {
     font-weight: bold;
-}
+}*/
 
 
 /*scroll*/

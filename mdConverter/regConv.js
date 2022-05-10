@@ -20,8 +20,11 @@ function convert(str) {
     str = replace(str, /\!\[(?<title>.*)\]\((?<src>.*)\)/g, "<img src=$src$ title=$title$>");
     
     // one line codes -> ```code```
+    // no space
+    str = replace(str, /\`{3}(?<code>[\w+]+)\`{3}/g, "<code>$code$</code>");
+    // with space
     str = replace(str, /\`{3}(?<code>.+)\`{3}/g, "<code>$code$</code>");
-    
+
     /** emojis -> :emoji:
      * list in emojis.js (https://github.com/KubaBoi/CheeseFramework/blob/webServices/mdConverter/emojis.js)
      * credit https://github.com/privatenumber/gh-emojis
@@ -46,12 +49,12 @@ function convert(str) {
     for (let i = 0; i < lines.length; i++) {
         var line = lines[i];
         if (line.match(/^(\<)/) == null) {
-            str += `<p>${line}</p>`
+            str += `${line}<br>`
         }
         else {
             if (line.match(/\<pre.*/) != null) {
                 while (line.match(/\<\/pre\>/) == null) {
-                    str += line;
+                    str += line + "\n";
                     line = lines[++i];
                 }
             }
@@ -78,10 +81,6 @@ var preFuncs = {
         return emojiImg("x");
     }
 }
-
-var tx = "Python source code directory. Cheese will be searching there for ```controllers``` and ```repositories``` during building your application. You do not have to follow any structure. If .py file is in /src, it WILL be found by Cheeser.build().";
-
-console.log(replace(tx, /\`{3}(?<code>.+)\`{3}/, "<code>$code$</code>"));
 
 function replace(str, reg, temp, dict={}) {
     // finds variable names from temp
