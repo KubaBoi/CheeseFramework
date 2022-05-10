@@ -6,6 +6,7 @@ import base64
 
 from Cheese.resourceManager import ResMan
 from Cheese.Logger import Logger
+from Cheese.variables import Variables
 
 class Metadata:
     
@@ -19,7 +20,7 @@ class Metadata:
     def loadMetadata():
         try:
             with open(ResMan.metadata(), "r") as f:
-                data = json.loads(Metadata.decode64(f.read()))
+                data = json.loads(Metadata.decode(f.read()))
 
             Metadata.repos = data["REPOSITORIES"]
             Metadata.contr = data["CONTROLLERS"]
@@ -34,6 +35,12 @@ class Metadata:
             Metadata.prepareControllers()
             Metadata.prepareTests()
             Metadata.cleanInits()
+        except PermissionError as e:
+            Logger.warning("Didn't you forgot to make 'secretPass' file?")
+            Logger.warning("Is decrypt key in 'secretPass' file actual?")
+            Logger.warning("For more information check:")
+            Logger.warning(Variables.documentation)
+            raise e
         except Exception as e:
             Logger.fail("Error while loading metadata", False, False)
             Logger.warning("Didn't you forgot to build application?", False, False)
@@ -166,6 +173,37 @@ class Metadata:
         return repository["DBSCHEME"].replace("(", "").replace(")", "")
 
     @staticmethod
+    def getKey():
+        key = "Default"
+        secPath = ResMan.joinPath(ResMan.root(), "secretPass")
+        if (os.path.exists(secPath)):
+            with open(secPath, "r") as f:
+                key = secPath.read()
+
+    @staticmethod
+    def encode(data):
+        key = Metadata.getKey()
+        coded = ""
+        for i, ch in enumerate("$accessAllowed$" + data):
+            keyIndex = i % len(key)
+            coded += chr(ord(ch) + ord(key[keyIndex]))
+        return coded
+
+    @staticmethod
+    def decode(data):
+        key = Metadata.getKey()
+        decoded = ""
+        for i, ch in enumerate(data):
+            keyIndex = i % len(key)
+            decoded += chr(ord(ch) - ord(key[keyIndex]))
+            if (i == len("$accessAllowed$")-1):
+                if (decoded == "$accessAllowed$"):
+                    decoded = ""
+                else:
+                    raise PermissionError("Metadata has not been able to be decoded because decrypt key is invalid")
+        return decoded
+            
+    @staticmethod
     def code64(data, coding="utf-8"):
         bts = base64.b64encode(data.encode(coding))
         return bts.decode(coding)
@@ -173,4 +211,4 @@ class Metadata:
     @staticmethod
     def decode64(bts, coding="utf-8"):
         return base64.b64decode(bts).decode(coding)
-            
+    
