@@ -152,7 +152,7 @@ Directory where belongs all non source code files which won't be served by serve
 
 ### 4.3 /src
 
-Python source code directory. Cheese will be searching there for ```controllers```, ```models``` and ```repositories``` during building your application. You do not have to follow any structure. If .py file is in /src, it WILL be found by Cheeser.build().
+Python source code directory. Cheese will be searching there for ```controllers``` and ```repositories``` during building your application. You do not have to follow any structure. If .py file is in /src, it WILL be found by Cheeser.build().
 
 ### 4.4 /web
 
