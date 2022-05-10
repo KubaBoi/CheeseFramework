@@ -9,6 +9,8 @@ from Cheese.Logger import Logger
 from Cheese.variables import Variables
 
 class Metadata:
+
+    maxChar = 1114111
     
     repos = None
     contr = None
@@ -187,7 +189,10 @@ class Metadata:
         coded = ""
         for i, ch in enumerate("$accessAllowed$" + data):
             keyIndex = i % len(key)
-            coded += chr(ord(ch) + ord(key[keyIndex]))
+            code = ord(ch) + ord(key[keyIndex])
+            if (code > Metadata.maxChar):
+                code -= Metadata.maxChar
+            coded += chr(code)
         return coded
 
     @staticmethod
@@ -196,7 +201,11 @@ class Metadata:
         decoded = ""
         for i, ch in enumerate(data):
             keyIndex = i % len(key)
-            decoded += chr(ord(ch) - ord(key[keyIndex]))
+            code = ord(ch) - ord(key[keyIndex])
+            if (code < 0):
+                code += Metadata.maxChar
+            decoded += chr(code)
+
             if (i == len("$accessAllowed$")-1):
                 if (decoded == "$accessAllowed$"):
                     decoded = ""
