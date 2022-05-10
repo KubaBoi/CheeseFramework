@@ -93,9 +93,7 @@ class CheeseHandler(BaseHTTPRequestHandler):
     def end_headers(self):
         if (Settings.allowCORS):
             self.send_header("Access-Control-Allow-Origin", "*")
-            BaseHTTPRequestHandler.end_headers(self)
-        else:
-            self.send_header("Content-type", "application/json")
+        BaseHTTPRequestHandler.end_headers(self)
 
     def log_message(self, format, *args):
         return
