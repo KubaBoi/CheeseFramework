@@ -4,9 +4,37 @@
 }
 
 .string {
-    color: rgb(121, 192, 255);
+    color: rgb(121, 255, 121);
 }
 
 .keywords {
     color: rgb(255, 166, 64);
+}
+
+.comment {
+    color: rgb(47, 150, 47);
+}
+
+.multiline_comment {
+    color: rgb(182, 69, 69);
+}
+
+.annotation {
+    color: rgb(210, 168, 255);
+}
+
+.class {
+    color: rgb(165, 214, 255);
+}
+
+.function {
+    color: rgb(121, 192, 255);
+}
+
+.cheese_annotation {
+    color: rgb(170, 136, 43);
+}
+
+.function_variables {
+    color: rgb(255, 148, 25);
 }

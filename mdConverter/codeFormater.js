@@ -1,19 +1,19 @@
 
 function formatCode() {
     
-    var codes = document.body.getElementsByTagName("code");
-    for (let i = 0; i < codes.length; i++) {
+    var pres = document.body.getElementsByTagName("pre");
+    for (let i = 0; i < pres.length; i++) {
+        var pre = pres[i];
+        var clsList = pre.classList;
 
-        clsList = codes[i].classList;
         if (clsList.contains("language-python")) {
-            codes[i].innerHTML = formatPython(codes[i].innerHTML);
+            pre.innerHTML = formatPython(pre.innerHTML);
         }
-        else if (clsList.contains("language-json")) {
-            codes[i].innerHTML = formatJson(codes[i].innerHTML);
+        /*else if (clsList.contains("language-json")) {
+            pre.innerHTML = formatJson(pre.innerHTML);
         }
         else if (clsList.contains("language-sql")) {
-            codes[i].innerHTML = formatSql(codes[i].innerHTML);
-        }
+            pre.innerHTML = formatSql(pre.innerHTML);
+        }*/
     }
-    return "";
 }
