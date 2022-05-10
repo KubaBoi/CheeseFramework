@@ -212,7 +212,7 @@ class Metadata:
                 else:
                     raise PermissionError("Metadata has not been able to be decoded because decode key is invalid")
         if (key == "Default"):
-            Logger.warning("You are using default decode key. Consider to change it.")
+            Logger.warning("You are using default decode key. Consider to change it.", False, False)
         return decoded
             
     @staticmethod
