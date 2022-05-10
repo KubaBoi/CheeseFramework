@@ -90,7 +90,7 @@ class ProjectBuilder:
 
     def saveMetadata(self):
         with open(os.path.join(ResMan.metadata()), "w") as f:
-            f.write(Metadata.code64(json.dumps(self.dictJson)))
+            f.write(Metadata.encode(json.dumps(self.dictJson)))
 
 
     def doJson(self, srcCodes, dictName, mainAnnotations, methodAnnotations):
