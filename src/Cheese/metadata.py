@@ -179,6 +179,7 @@ class Metadata:
         if (os.path.exists(secPath)):
             with open(secPath, "r") as f:
                 key = secPath.read()
+        return key
 
     @staticmethod
     def encode(data):
