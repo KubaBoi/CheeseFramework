@@ -130,7 +130,7 @@ Congratulation :clap: you are now Dairy developer :clap:
 
 ## 2 Cheese Tools
 
-WIP ::
+WIP :nail_care:
 
 ## 3 Build
 
