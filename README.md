@@ -174,6 +174,7 @@ All configration is set in ```*.json``` files in root of project.
 Contains only list of credentials for admin access.
 
 Default ```adminSettings.json```
+
 ```json
 {
     "adminUsers":[
