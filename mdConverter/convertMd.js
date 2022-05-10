@@ -26,7 +26,7 @@ var isUls = false;
 var activeP = null;
 var mainIndex = 0;
 
-function convert(str) {
+function convertOld(str) {
     var lines = str.split("\n");
 
     clearTable(mdDiv);

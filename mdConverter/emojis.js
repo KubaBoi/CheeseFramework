@@ -1,3 +1,6 @@
+/**
+ * credit https://github.com/privatenumber/gh-emojis
+ */
 const EMOJIS = {
     "+1": "https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png?v8",
     "-1": "https://github.githubassets.com/images/icons/emoji/unicode/1f44e.png?v8",

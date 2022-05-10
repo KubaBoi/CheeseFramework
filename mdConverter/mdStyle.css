@@ -20,11 +20,12 @@ body {
     padding: 50px;
 }
 
-.oneLineCode {
-    position: relative;
+code {
+    padding: .2em .4em;
+    margin: 0;
+    font-size: 85%;
     background-color: rgb(53, 58, 65);
-    border-radius: 5px;
-    padding: 5px;
+    border-radius: 6px;
     white-space: nowrap;
 }
 
@@ -52,7 +53,8 @@ a {
 }
 
 p {
-    margin-left: 30px;
+    margin-top: 0;
+    margin-bottom: 16px;
 }
 
 figure {
@@ -79,10 +81,18 @@ figure {
     font-size: 20px;
 }
 
-.contents li { display: block }
-.contents li:before {
+li { 
+    display: block;
+    position: relative;
+    margin-bottom: 0.3em;
+}
+li:before {
+    list-style-type: circle;
     font-weight: bold;
 }
+
+
+/*scroll*/
 
 /* width */
 ::-webkit-scrollbar {
