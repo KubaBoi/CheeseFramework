@@ -3,6 +3,7 @@
 import os
 import json
 import base64
+import struct
 
 from Cheese.resourceManager import ResMan
 from Cheese.Logger import Logger
@@ -21,8 +22,7 @@ class Metadata:
     @staticmethod
     def loadMetadata():
         try:
-            with open(ResMan.metadata(), "r") as f:
-                data = json.loads(Metadata.decode(f.read()))
+            data = Metadata.read()
 
             Metadata.repos = data["REPOSITORIES"]
             Metadata.contr = data["CONTROLLERS"]
@@ -180,14 +180,14 @@ class Metadata:
         secPath = ResMan.joinPath(ResMan.root(), "secretPass")
         if (os.path.exists(secPath)):
             with open(secPath, "r") as f:
-                key = secPath.read()
+                key = f.read()
         return key
 
     @staticmethod
     def encode(data):
         key = Metadata.getKey()
         coded = ""
-        for i, ch in enumerate("$accessAllowed$" + data):
+        for i, ch in enumerate(key + data):
             keyIndex = i % len(key)
             code = ord(ch) + ord(key[keyIndex])
             if (code > Metadata.maxChar):
@@ -206,8 +206,8 @@ class Metadata:
                 code += Metadata.maxChar
             decoded += chr(code)
 
-            if (i == len("$accessAllowed$")-1):
-                if (decoded == "$accessAllowed$"):
+            if (i == len(key)-1):
+                if (decoded == key):
                     decoded = ""
                 else:
                     raise PermissionError("Metadata has not been able to be decoded because decrypt key is invalid")
@@ -221,4 +221,16 @@ class Metadata:
     @staticmethod
     def decode64(bts, coding="utf-8"):
         return base64.b64decode(bts).decode(coding)
+
+    @staticmethod
+    def save(data):
+        with open(ResMan.metadata(), "w", encoding="utf-8") as f:
+            data = Metadata.encode(json.dumps(data))
+            f.write(Metadata.code64(data))
+
+    @staticmethod
+    def read():
+        with open(ResMan.metadata(), "r", encoding="utf-8") as f:
+            data = Metadata.decode64(f.read())
+            return json.loads(Metadata.decode(data))
     
