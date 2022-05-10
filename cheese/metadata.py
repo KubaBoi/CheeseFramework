@@ -41,7 +41,6 @@ class Metadata:
             Logger.warning("For more information check:")
             Logger.warning(Variables.documentation)
             raise e
-
         except Exception as e:
             Logger.fail("Error while loading metadata", False, False)
             Logger.warning("Didn't you forgot to build application?", False, False)
