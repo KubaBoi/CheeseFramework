@@ -60,6 +60,12 @@ https://kubaboi.github.io/CheeseFramework/
         - [Passing arguments to SQL query](#723-passing-arguments-to-sql-query)
             - [Passing model](#7231-passing-model)
         - [Prebuilded methods](#724-prebuilded-methods)
+    - [Models](#73-models)
+        - [CheeseModel methods](#731-cheesemodel-methods)
+            - [toJson()](#7311-tojson)
+            - [toModel(jsn)](#7312-tomodeljsn)
+            - [setAttrs(**attrs)](#7313-setattrsattrs)
+        - [Creating model](#732-creating-model)
  - [Testing](#8-testing)
     - [Cheese test modules](#81-cheese-test-modules)
     - [Creating test file](#82-creating-test-file)
@@ -359,15 +365,11 @@ Repository is like access into one table of database. There are methods that com
 
 #### 7.2.1 Create repository
 
-Repositories are last but most complex part of Cheese Framework. They are again classes but there need to be more annotations. Also repository have to inherits from ```CheeseRepository```
+Repositories are most complex part of Cheese Framework. They are again classes but there need to be more annotations. Also repository have to inherits from ```CheeseRepository```
 
 First annotation is ```#@repository```, so cheeser knows this is repository, followed by name of table.
 
-Second annotation is ```#@dbscheme``` followed by name of table's columns in brackets where first should be Primary Key.
-
-### :bangbang: IMPORTANT :bangbang:
-
-Column names need to be in same order as in model initializer and need to have same names!!
+Second annotation is ```#@dbscheme``` followed by name of table's columns in brackets where first should be ```Primary Key``` .
 
 Last annotation is ```#@dbmodel``` followed by name of model for the table. It is just name for your better identification of model. But it is neccessary to be there.
 
@@ -377,7 +379,7 @@ from cheese.modules.cheeseRepository import CheeseRepository
 #@repository users;
 #@dbscheme (id, user_name, age);
 #@dbmodel User;
-class PasswordRepository(CheeseRepository):
+class UserRepository(CheeseRepository):
 ```
 
 #### 7.2.2 Methods of repository
@@ -388,7 +390,7 @@ Method scheme is again very strict. They need to be static and every method need
 return CheeseRepository.query(argName1=arg1, argName2=arg2,...)
 ```
 
-```arg1``` and ```arg2``` are method's arguments.
+```arg1``` and ```arg2``` are method's arguments. Those argument's names need to corespond to names in sql annotation. 
 
 There are two types of SQL query annotations query and commit.
 
@@ -454,7 +456,7 @@ This annotation is for writing data into database.
 #@commit "update files set id=:id where file_name=:file_name;";
 ```
 
-You will need it only when you want to change Primary Key of some row because there are three prebuilded methods that you should add into your repository. Those methods does not have any annotation and accepts only models. The update and delete method search rows by Primary Key so if you want to update row's Primary Key you need to write your own SQL query.
+You will need it only when you want to change Primary Key of some row because there are three prebuilded methods that you should add into your repository. Those methods does not have any annotation and accepts only models. The update and delete method search rows by Primary Key so if you want to update row's Primary Key you need to write your own SQL query. (Maybe will be depreated idk)
 
 #### 7.2.3 Passing arguments to SQL query
 
@@ -471,6 +473,8 @@ def findByIdAndName(id, name):
 ```
 
 ##### 7.2.3.1 Passing model
+
+# :bangbang: This does not work really well :bangbang:
 
 If you want to pass an model it is possible.
 
@@ -507,28 +511,166 @@ select (id, name, greet) from table where name='first hello' or greet='hello boi
 
 #### 7.2.4 Prebuilded methods
 
-There are some prebuilded methods for saving, updating, removing and find new id. You can see their settings in ```/.metadata/repMetadata.json``` after build.
+There are some prebuilded methods for saving, updating, removing and find new id. Those methods do not need to be defined in your custom repository. They are in ```CheeseRepository``` and are accessible from custom repositories.
+
+- ```findNewId()```
+    - finds new ID (free one)
+- ```save(obj)```
+    - inserts new row into database by ```obj``` (it is CheeseModel)
+- ```update(obj)```
+    - updates values in database by id of ```obj```
+- ```delete(obj)```
+    - deletes row from database by id of ```obj```
+- ```model()```
+    - returns new instance of ```CheeseModel``` and finds to it free id via ```findNewId()```
+
+### 7.3 Models
+
+Models are non-static objects which contains data from one row of database. There is class ```CheeseModel``` . This class stores your data and is returned from ```repository``` (called method is annotated with ```#@return one``` or ```#@return array``` annotations).
+
+Every instance of ```CheeseModel``` has variables ```modelName``` and ```scheme```.
+
+- ```modelName``` is defined in repository with ```#@dbModel``` annotation
+    - it is only for you to recognize which model is which
+- ```scheme``` is list of column names and is also defined in repository with ```#@dbScheme``` annotation
+
+You can add your own variables (that does not matter) but when model is returned from repository query call then there are defined variables by ```scheme```. Those variables are filled with values from database.
+
+Example for this repository:
 
 ```python
-#SQL = select max(id)
-@staticmethod
-def findNewId():
-    return CheeseRepository.query()+1
+from cheese.modules.cheeseRepository import CheeseRepository
 
-#SQL = insert
-@staticmethod
-def save(obj):
-    return CheeseRepository.query(obj=obj)
+#@repository users;
+#@dbscheme (id, user_name, age);
+#@dbmodel User;
+class UserRepository(CheeseRepository):
 
-#SQL = update
-@staticmethod
-def update(obj):
-    return CheeseRepository.query(obj=obj)
+    #@query "select * from users where age>:age;";
+    #@return array;
+    def getOlderThen(userAge):
+        return CheeseRepository.query(age=userAge)
+```
 
-#SQL = delete
-@staticmethod
-def delete(obj):
-    return CheeseRepository.query(obj=obj)
+We can do this:
+
+```python
+users = UserRepository.getOlderThen(20) # returns array of CheeseModel with .age > 20
+
+# prints all users older then 20
+for user in users:
+    print(user.id, user.user_name, user.age)
+
+# prints name of CheeseModel, in this case => User
+print(users[0].modelName)
+# prints database scheme, in this case => ['id', 'user_name', 'age']
+print(users[0].scheme)
+```
+### 7.3.1 CheeseModel methods
+
+#### 7.3.1.1 toJson()
+
+```toJson()``` method creates python dictionary from storred variables of model. But only from variables which are in databse scheme.
+
+This example uses some of models from previous example.
+
+```python
+print(user.toJson())
+```
+
+Output:
+
+```json
+{
+    "ID": 0,
+    "USER_NAME": "idk Joe",
+    "AGE": 69 
+}
+```
+
+#### 7.3.1.2 toModel(jsn)
+
+```toModel(jsn)``` method sets variables of model by ```jsn``` argument. ```jsn``` can be dictionary or any iterable structure (list, tuple, Row (this is object from ```pyodbc``` library))
+
+:bangbang: If you pass anything else (but iterable) then dictionary it MUST be in order by ```#@dbScheme```. 
+
+```python
+user.toModel([0, "Joe", 15]) # list example
+print(user.toJson())
+
+user.toModel((0, "Joe Boy", 15)) # tuple example
+print(user.toJson())
+
+user.toModel({"id": 0, "user_name": "Joe", "age": 4}) # dictionary example
+print(user.toJson())
+
+user.toModel({"id": 0, "user_name": "Joe", "age": 4, "fancy_level": 45}) # dictionary example
+print(user.toJson())
+```
+
+Output:
+
+```json
+{
+    "ID": 0,
+    "USER_NAME": "Joe",
+    "AGE": 15
+}
+
+{
+    "ID": 0,
+    "USER_NAME": "Joe Boy",
+    "AGE": 15
+}
+
+{
+    "ID": 0,
+    "USER_NAME": "Joe",
+    "AGE": 4
+}
+// you can see that "fancy_level" variable is not in json because it is not defined in database scheme
+{
+    "ID": 0,
+    "USER_NAME": "Joe",
+    "AGE": 4
+}
+```
+
+#### 7.3.1.3 setAttrs(**attrs)
+
+```setAttrs(**attrs)``` is pretty similar to ```toModel(jsn)``` but arguments you pass can be written like kwargs:
+
+```python
+user.setAttrs(id=1, user_name="Jimbo", age=47)
+print(user.toJson())
+```
+
+Output:
+
+```json
+{
+    "ID": 1,
+    "USER_NAME": "Jimbo",
+    "AGE": 47
+}
+```
+
+### 7.3.2 Creating model
+
+## :bangbang: Do not create models by yourself :bangbang:
+
+Always use repository method ```model()``` . This method will automatically finds free id for your model. This is maybe not the best way to do it so I will probably change id. But USE it.
+
+:x:
+
+```python
+model = CheeseModel(modelName, scheme)
+```
+
+:heavy_check_mark:
+
+```python
+model = YourRepository.model()
 ```
 
 ## 8 Testing
