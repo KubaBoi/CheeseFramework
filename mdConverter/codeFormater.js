@@ -12,6 +12,9 @@ function formatCode() {
         else if (clsList.contains("language-json")) {
             pre.innerHTML = formatJson(pre.innerHTML);
         }
+        else if (clsList.contains("language-html")) {
+            pre.innerHTML = formatHtml(pre.innerHTML);
+        }
         /*else if (clsList.contains("language-sql")) {
             pre.innerHTML = formatSql(pre.innerHTML);
         }*/

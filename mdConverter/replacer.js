@@ -25,7 +25,7 @@ function rplcReg(str, reg, temp, maxIters=-1, dict={}) {
 
     var iter = 0;
     while (true) {
-        if (iter == maxIters) break;
+        if (iter == maxIters || iter > 1000) break;
         iter++;
         var tempCopy = temp;
         var match = reg.exec(str);
