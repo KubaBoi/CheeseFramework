@@ -539,7 +539,7 @@ Tests are run during start of application after [Build](#3-build) when applicati
 
 ### 8.1 Cheese test modules
 
-There is list of classes which your test class file should contains. Everything will be clear in the end of [Testing](#8-testing) when you check [Test examples](#84-test-examples).
+There is list of classes which your test class file should contains. Everything will be clear when you check [Test examples](#84-test-examples).
 
 ## UnitTest
 
