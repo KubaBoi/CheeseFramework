@@ -541,7 +541,7 @@ Tests are run during start of application after [Build](#3-build) when applicati
 
 There is list of classes which your test class file should contains. Everything will be clear in the end of [Testing](#8-testing) when you check [Test examples](#84-test-examples).
 
-## ```UnitTest```
+## UnitTest
 
 ```python
 from Cheese.test import UnitTest
@@ -569,7 +569,7 @@ UnitTest.assertFalse(value, comment)
 
 If ```value``` is not equal ```False``` the ```TestError``` will be raised and test fails.
  
-## ```Pointer```
+## Pointer
 
 ```python
 from Cheese.pointer import Pointer
@@ -591,7 +591,7 @@ Pointer.setValue(value)
 
 Sets value to which ```Pointer``` points. (You won't need it)
 
-## ```Mock```
+## Mock
 
 ```python
 from Cheese.mock import Mock
