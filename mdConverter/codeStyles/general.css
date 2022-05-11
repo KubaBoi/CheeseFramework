@@ -1,14 +1,18 @@
 
-.numbers {
-    color: rgb(121, 192, 255);
+.number {
+    color: rgb(91, 108, 156);
 }
 
 .string {
-    color: rgb(121, 255, 121);
+    color: rgb(153, 109, 189);
+}
+
+.bool {
+    color: rgb(158, 65, 135)
 }
 
 .keyword {
-    color: rgb(255, 166, 64);
+    color: rgb(255, 148, 25);
 }
 
 .comment {
@@ -36,5 +40,5 @@
 }
 
 .function_variable {
-    color: rgb(255, 148, 25);
+    color: rgb(247, 175, 93);
 }

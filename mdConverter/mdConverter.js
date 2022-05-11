@@ -42,7 +42,7 @@ function convert(str) {
     str = mdDiv.innerHTML;
 
     // headers -> ## Header
-    str = rplcReg(str, /^(?<hdr>#+) (?<title>.*)/g, "<h$hdr.length$ id=$title.id$>$title$</h$hdr.length$>");
+    str = rplcReg(str, /((?<!\>)(?<hdr>#+)) (?<title>.*)/g, "<h$hdr.length$ id=$title.id$>$title$</h$hdr.length$>");
 
     /** emojis -> :emoji:
      * list in emojis.js (https://github.com/KubaBoi/CheeseFramework/blob/webServices/mdConverter/emojis.js)

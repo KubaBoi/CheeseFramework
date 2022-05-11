@@ -9,10 +9,10 @@ function formatCode() {
         if (clsList.contains("language-python")) {
             pre.innerHTML = formatPython(pre.innerHTML);
         }
-        /*else if (clsList.contains("language-json")) {
+        else if (clsList.contains("language-json")) {
             pre.innerHTML = formatJson(pre.innerHTML);
         }
-        else if (clsList.contains("language-sql")) {
+        /*else if (clsList.contains("language-sql")) {
             pre.innerHTML = formatSql(pre.innerHTML);
         }*/
     }
