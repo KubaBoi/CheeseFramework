@@ -45,7 +45,7 @@ class ProjectBuilder:
             #build security rules
             SecurityBuilder.build(self)
 
-            self.saveMetadata()
+            Metadata.save(self.dictJson)
 
             self.count()
             return True
@@ -56,8 +56,7 @@ class ProjectBuilder:
             raise
             
     def count(self):
-        with open(os.path.join(ResMan.metadata()), "r") as f:
-            data = json.loads(Metadata.decode64(f.read()))
+        data = Metadata.read()
 
         gets = 0
         posts = 0
@@ -87,11 +86,6 @@ class ProjectBuilder:
         {Logger.OKBLUE}commit methods: {commits}{Logger.ENDC}
             """,
         False, False)
-
-    def saveMetadata(self):
-        with open(os.path.join(ResMan.metadata()), "w") as f:
-            f.write(Metadata.code64(json.dumps(self.dictJson)))
-
 
     def doJson(self, srcCodes, dictName, mainAnnotations, methodAnnotations):
         self.finder = Finder()

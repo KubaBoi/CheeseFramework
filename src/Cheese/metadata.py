@@ -3,11 +3,15 @@
 import os
 import json
 import base64
+import struct
 
 from Cheese.resourceManager import ResMan
 from Cheese.Logger import Logger
+from Cheese.variables import Variables
 
 class Metadata:
+
+    maxChar = 1114111
     
     repos = None
     contr = None
@@ -18,8 +22,7 @@ class Metadata:
     @staticmethod
     def loadMetadata():
         try:
-            with open(ResMan.metadata(), "r") as f:
-                data = json.loads(Metadata.decode64(f.read()))
+            data = Metadata.read()
 
             Metadata.repos = data["REPOSITORIES"]
             Metadata.contr = data["CONTROLLERS"]
@@ -34,6 +37,12 @@ class Metadata:
             Metadata.prepareControllers()
             Metadata.prepareTests()
             Metadata.cleanInits()
+        except PermissionError as e:
+            Logger.warning("Didn't you forgot to make 'secretPass' file?")
+            Logger.warning("Is decrypt key in 'secretPass' file actual?")
+            Logger.warning("For more information check:")
+            Logger.warning(Variables.documentation)
+            raise e
         except Exception as e:
             Logger.fail("Error while loading metadata", False, False)
             Logger.warning("Didn't you forgot to build application?", False, False)
@@ -166,6 +175,47 @@ class Metadata:
         return repository["DBSCHEME"].replace("(", "").replace(")", "")
 
     @staticmethod
+    def getKey():
+        key = "Default"
+        secPath = ResMan.joinPath(ResMan.root(), "secretPass")
+        if (os.path.exists(secPath)):
+            with open(secPath, "r") as f:
+                key = f.read()
+        return key
+
+    @staticmethod
+    def encode(data):
+        key = Metadata.getKey()
+        coded = ""
+        for i, ch in enumerate(key + data):
+            keyIndex = i % len(key)
+            code = ord(ch) + ord(key[keyIndex])
+            if (code > Metadata.maxChar):
+                code -= Metadata.maxChar
+            coded += chr(code)
+        return coded
+
+    @staticmethod
+    def decode(data):
+        key = Metadata.getKey()
+        decoded = ""
+        for i, ch in enumerate(data):
+            keyIndex = i % len(key)
+            code = ord(ch) - ord(key[keyIndex])
+            if (code < 0):
+                code += Metadata.maxChar
+            decoded += chr(code)
+
+            if (i == len(key)-1):
+                if (decoded == key):
+                    decoded = ""
+                else:
+                    raise PermissionError("Metadata has not been able to be decoded because decode key is invalid")
+        if (key == "Default"):
+            Logger.warning("You are using default decode key. Consider to change it.", False, False)
+        return decoded
+            
+    @staticmethod
     def code64(data, coding="utf-8"):
         bts = base64.b64encode(data.encode(coding))
         return bts.decode(coding)
@@ -173,4 +223,16 @@ class Metadata:
     @staticmethod
     def decode64(bts, coding="utf-8"):
         return base64.b64decode(bts).decode(coding)
-            
+
+    @staticmethod
+    def save(data):
+        with open(ResMan.metadata(), "w", encoding="utf-8") as f:
+            data = Metadata.encode(json.dumps(data))
+            f.write(Metadata.code64(data))
+
+    @staticmethod
+    def read():
+        with open(ResMan.metadata(), "r", encoding="utf-8") as f:
+            data = Metadata.decode64(f.read())
+            return json.loads(Metadata.decode(data))
+    
