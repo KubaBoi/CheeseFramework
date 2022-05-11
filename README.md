@@ -570,7 +570,7 @@ print(users[0].scheme)
 
 #### 7.3.1.1 toJson()
 
-```toJson()``` method creates python dictionary from storred variables of model. But only from variables which are in databse scheme.
+```toJson()``` method creates python dictionary from storred variables of model. But only from variables which are in database scheme.
 
 This example uses some of models from previous example.
 
@@ -592,7 +592,7 @@ Output:
 
 ```toModel(jsn)``` method sets variables of model by ```jsn``` argument. ```jsn``` can be dictionary or any iterable structure (list, tuple, Row (this is object from ```pyodbc``` library))
 
-:bangbang: If you pass anything else (but iterable) then dictionary it MUST be in order by ```#@dbScheme```. 
+:bangbang: If you pass anything else (but iterable) than dictionary it MUST be in order by ```#@dbScheme```. 
 
 ```python
 user.toModel([0, "Joe", 15]) # list example
@@ -659,7 +659,7 @@ Output:
 
 ## :bangbang: Do not create models by yourself :bangbang:
 
-Always use repository method ```model()``` . This method will automatically finds free id for your model. This is maybe not the best way to do it so I will probably change id. But USE it.
+Always use repository method ```model()``` . This method will automatically finds free id for your model. This is maybe not the best way to do it so I will probably change it so id will be find during save. But USE it.
 
 :x:
 
