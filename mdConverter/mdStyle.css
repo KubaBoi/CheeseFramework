@@ -67,14 +67,18 @@ p {
     font-size: 20px;
 }
 
+.contents li {
+    display: block;
+    position: relative;
+    margin-bottom: 0.3em;
+}
+
 li { 
     /*display: block;*/
     position: relative;
     margin-bottom: 0.3em;
 }
-/*li:before {
-    font-weight: bold;
-}*/
+
 
 
 /*scroll*/

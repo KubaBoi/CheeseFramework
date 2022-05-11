@@ -78,10 +78,7 @@ function convert(str) {
 
     mdDiv.innerHTML = str;
 
-    var contentsDiv = document.getElementById("contentsId");
-    contentsDiv.remove();
-    contentsDiv.classList.add("contents");
-    document.body.appendChild(contentsDiv);
+    contents();
 }
 
 function headers(str) {
@@ -91,11 +88,13 @@ function headers(str) {
     var paragraph = "";
     var parId = "";
 
+    var mouseEvents = "onmouseover=onScrollDiv(this) onmousemove=onScrollDiv(this)"
+
     for (let i = 0; i < lines.length; i++) {
         var line = lines[i];
         if (line.startsWith("#")) {
             if (paragraph != "") {
-                newStr += `<div id=${parId}Id>${paragraph}</div>`;
+                newStr += `<div id=${parId}Id ${mouseEvents}>${paragraph}</div>`;
                 paragraph = "";
             }
             parId = rplcReg(line, /((?<!\>)(?<hdr>#+)) (?<title>.*)/g, "$title.id$");
@@ -103,17 +102,29 @@ function headers(str) {
         }
         paragraph += line + "\n";
     }
-    newStr += `<div id=${parId}Id>${paragraph}</div>`;
+    newStr += `<div id=${parId}Id ${mouseEvents}>${paragraph}</div>`;
     return newStr;
 }
 
-/*
-// headers -> ## Header
-    str = rplcReg(str, /((?<!\>)(?<hdr>#+)) (?<title>.*)/g, "<h$hdr.length$ id=$title.id$>$title$</h$hdr.length$>");
+function contents() {
+    var contentsDiv = document.getElementById("contentsId");
+    contentsDiv.remove();
+    contentsDiv.classList.add("contents");
 
-    /** emojis -> :emoji:
-     * list in emojis.js (https://github.com/KubaBoi/CheeseFramework/blob/webServices/mdConverter/emojis.js)
-     * credit https://github.com/privatenumber/gh-emojis
-     
-     str = rplcReg(str, /:(?<emoji>[a-z0-9_\-\+]+):/g, "$emoji.emoji$");*/
-//console.log("http://github.com/KubaBoi/CheeseFramework/tree/development</code>".match(/(https*\:\/\/.* *)(\<\/code\>)$/g));
+    var cont = contentsDiv.innerHTML;
+    var lines = cont.split("<br>")[2].split("</li>");
+
+    contentsDiv.innerHTML = "<p>Contents</p>";
+    
+    for (let i = 0; i < lines.length; i++) {
+        var index = rplcReg(lines[i], /.*\<a href="#(?<index>\d+)-.*/, "$index$");
+        var dotIndex = "";
+        for (let o = 0; o < index.length; o++) {
+            dotIndex += index[o] + ".";
+        }
+        var line = lines[i].split("<a");
+        contentsDiv.innerHTML += `${line[0]}${dotIndex} <a${line[1]}</li>`;
+    }
+
+    document.body.appendChild(contentsDiv);
+}
