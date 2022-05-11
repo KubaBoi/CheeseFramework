@@ -100,7 +100,7 @@ function headers(str) {
                 paragraph = "";
             }
             parId = rplcReg(line, /((?<!\>)(?<hdr>#+)) (?<title>.*)/g, "$title.id$");
-            line = rplcReg(line, /((?<!\>)(?<hdr>#+)) (?<title>.*)/g, "<h$hdr.length$ id=$title.id$>$title$</h$hdr.length$>");
+            line = rplcReg(line, /((?<!\>)(?<hdr>#+)) (?<title>.*)/g, "<h$hdr.len$ id=$title.id$>$title$</h$hdr.len$>");
         }
         paragraph += line + "\n";
     }

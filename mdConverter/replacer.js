@@ -11,6 +11,11 @@ var preFuncs = {
     "checkBox": function(vl){
         if (vl == "x") return emojiImg("heavy_check_mark");
         return emojiImg("x");
+    },
+    "len": function(vl){
+        let len = vl.length;
+        if (len > 3) return 3;
+        return len;
     }
 }
 
