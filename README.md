@@ -216,7 +216,7 @@ Contains app configuration.
 
 ### 5.3 authExceptions.json
 
-WIP
+WIP :nail_care:
 
 ## 6 Annotations
 
