@@ -392,7 +392,7 @@ return CheeseRepository.query(argName1=arg1, argName2=arg2,...)
 
 There are two types of SQL query annotations query and commit.
 
-## ```#@query```
+## #@query
 
 This annotation says that we want to get data from database. It is followed by SQL query. This query can be more than one line but have to be in quotation marks and the query can ends with semicolon.
 
@@ -446,7 +446,7 @@ With ```#@query``` annotation is related annotation ```#@return```. It determine
 #@return num;
 ```
 
-## ```#@commit```
+## #@commit
     
 This annotation is for writing data into database.
 
