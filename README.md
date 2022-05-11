@@ -71,6 +71,15 @@ https://kubaboi.github.io/CheeseFramework/
     - [Creating test file](#82-creating-test-file)
     - [Test method](#83-test-method)
     - [Test examples](#84-test-examples)
+ - [JavaScript](#9-javascript)
+    - [autocomplete](#91-autocomplete)
+    - [cookies](#92-cookies)
+    - [communication](#93-communication)
+    - [elementManager](#94-elementmanager)
+    - [tableBuilder](#95-tablebuilder)
+    - [alerts](#96-alerts)
+    - [loadPage](#97-loadpage)
+    - [time](#98-time)
 
 ## 1 Introduction
 
@@ -930,6 +939,394 @@ def helloWorldTest():
     UnitTest.assertEqual(httpCode, 200, "Status code was not 200")
 ```
 
+# 9 JavaScript
+
+I have create some useful javascript functions. Those scripts can be used if CORS is enabled or you can download them and insert them into your project for offline use.
+
+Some of those scripts (for example ```alerts.js```) needs a ```css``` for proper functionality. You can change it but if scripts needs ```css``` then you should add classes with same names like which are in given ```.css``` file. (hope you understand it).
+
+All imports:
+
+```html
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>    
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/cookies.js"></script>    
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>         
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/elementManager.js"></script>   
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/tableBuilder.js"></script>
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/alerts.js"></script>
+
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/autoComplete.js"></script>
+```
+
+## 9.1 autoComplete
+
+Easy way to create a custom combobox. Credit belongs to w3schools: https://www.w3schools.com/howto/howto_js_autocomplete.asp 
+
+Import:
+
+```html
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/autoComplete.js"></script>
+
+<!-- necessary dependencies -->
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/elementManager.js"></script>
+```
+
+Needs css:
+
+```html
+<link rel="stylesheet" href="https://kubaboi.github.io/CheeseFramework/public/styles/autocompleteStyle.css">
+```
+
+Variables of css:
+
+```css
+/* colors */
+--light-color /* background color of main dialog */
+--text-color /* text color of not chosen row */
+--secondary-color /* background color of chosen row */
+
+/* classes */
+.autocomplete /* better not to be changed */
+.autocomplete-items /* all items of autocomplete list */
+.autocomplete-items div /* one item of autocomplete list */
+.autocomplete-items div:hover 
+.autocomplete-active /* onclick */
+```
+
+Functions:
+
+### autocomplete(inp, arr)
+
+Method generates html elements for autocomplete dialog
+
+- ```inp``` - input html element (html object)
+- ```arr``` - array of options for autocomplete 
+
+## 9.2 cookies
+
+Script for saving and reading cookies.
+
+Import:
+
+```html
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/cookies.js"></script>
+```
+
+Functions:
+
+### setCookie(cname, cvalue, exdays)
+
+Sets a cookie
+
+- ```cname``` - string name of the cookie
+- ```cvalue``` - value of the cookie
+- ```exdays``` - float value of how long will cookie be storred (in days)
+
+### getCookie(cname)
+
+Returns value of cookie
+
+- ```cname``` - string name of the cookie
+
+## 9.3 communication
+
+Script that sends ```xmlhttp``` requests. There are two global variables. You can change them anywhere in your scripts (but change will be proceede only if your scripts are imported AFTER ```communication``` script)
+
+- ```debug``` - default setting is ```true```, change it if you do not want to print informations about requests 
+- ```authorization``` - variable that will be send like ```Authorization``` header in request (if empty than this header won't be created). For example: ```authorization="userName:password"```
+
+Import:
+
+```html
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>
+
+// necessary dependencies
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
+```
+
+Functions:
+
+### callEndpoint(type, url, request=null)
+
+Returns Promise with server JSON response.
+
+- ```type``` - HTTP method ("GET"/"POST")
+- ```url``` - request url in most cases only endpoint. It can be used even for external server but than ```url``` needs to have ```http[s]://server/endpoint``` structure
+- ```request``` - default null (it is for "GET"). For "POST" it is just JavaScript object
+
+Usage:
+
+```javascript
+async function getData() {
+    var response = await callEndpoint("POST", "/endpoint", someObject);
+    if (response.ERROR == null) {
+        console.log(response);
+    }
+    else {
+        alert(response.ERROR);
+    }
+} 
+```
+
+## 9.4 elementManager
+
+Script for creating html elements.
+
+Import:
+
+```html
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/elementManager.js"></script>
+```
+
+Functions:
+
+### createElement(type, parent=null, innerHTML="", attributes=[])
+
+Returns created element
+
+- ```type``` - html tag ("div", "label"...)
+- ```parent``` - parent element (element will be append to parent if it is not null)
+- ```innerHTML``` - innerHTML of created element
+- ```attributes``` - list of attributes ("id", "class", "onclikc"...)
+    - one attribute is JavaScript object contaning "name" and "value"
+
+Usage:
+
+```javascript
+// function will create div and button inside that div with text "Click me :)"
+// button will have class "coolButton" and onclick will print in console "hello"
+function makeElement() {
+    var div = createElement("div");
+    var element = createElement("button", div, "Click me :)",
+        [
+            {"name": "onclick", "value": "console.log('hello');"},
+            {"name": "class", "value": "coolButton"}
+        ]
+    );
+}
+```
+
+### getValueOf(id)
+
+Return value of element with id = ```id``` . It will parse value based on element type. For ```text``` or ```datetime``` it will be string. For ```number``` it will be integer and for ```radio``` or ```checkbox``` it will be boolean.
+
+- ```id``` - id of element 
+
+## 9.5 tableBuilder
+
+Script for creating tables.
+
+Import:
+
+```html
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/tableBuilder.js"></script>
+
+<!-- necessary dependencies -->
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/elementManager.js"></script>
+```
+
+Functions:
+
+### clearTable(table)
+
+Sets innerHTML of table to "".
+
+- ```table``` - html element (do not need to be table)
+
+### addRow(table, cells, rowAttributes=[])
+
+Adds one row in the end of the table.
+
+- ```table``` - html element (need to be table)
+- ```cells``` - array of cell objects
+    - cell are javascript objects containing "text" and "attributes" which is a list
+    - attributes are javascript objects containing "name" and "value"
+- ```rowAttributes``` - list of attributes for row element ("id", "class", "onclick"...)
+    - attributes are javascript objects containing "name" and "value"
+
+### addHeader(table, cells, rowAttributes=[])
+
+Adds header to the end of the table. Make sure that you are adding it like first. (If you do not want to have header in the end or in the middle of table ofc).
+
+- ```table``` - html element (need to be table)
+- ```cells``` - array of cell objects
+    - cell are javascript objects containing "text" and "attributes" which is a list
+    - attributes are javascript objects containing "name" and "value"
+- ```rowAttributes``` - list of attributes for row element ("id", "class", "onclick"...)
+    - attributes are javascript objects containing "name" and "value"
+
+## 9.6 alerts
+
+Alerts script allows to create custom alerts.
+
+Import:
+
+```html
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/alerts.js"></script>
+
+<!-- necessary dependencies -->
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/elementManager.js"></script>
+```
+
+Need css:
+
+```html
+<link rel="stylesheet" href="https://kubaboi.github.io/CheeseFramework/public/styles/alertStyle.css">
+```
+
+Variables of css:
+
+```css
+/*
+You can create your own animations, classes, colors or just change mine... 
+If you make something cool I would love to see it :)
+*/
+
+/* colors */
+--light-color /* background color of main dialog */
+--text-color /* text color */
+--secondary-color /* border color */
+
+/* classes */
+.alertDiv /* better not to be changed (except for colors) */
+.alertH2 /* alert title */
+.alertLabel /* alert label */
+.alertOKbutton /* ok button */ 
+.alertOKbutton:hover 
+.alertCancelButton /* cancel button */
+.alertCancelButton:hover
+.divOkAlert /* alert which pop up on the left top and it is green */
+.divWrongAlert /* alert which pop up on the left top and it is red */
+
+/* animations */
+@keyframes showAlert {} /* show animation for .alertDiv (slides from top) */
+@keyframes hideAlert {} /* hide animation for .alertDiv (slides into top) */
+@keyframes okShowAlert {} /* show animation for .divOkAlert and .divWrongAlert (slides from left) */
+@keyframes okHideAlert {} /* hide animation for .divOkAlert and .divWrongAlert (slides into left) */
+```
+
+Functions:
+
+### showAlert(title, message, divClass, animation, closeAnimation)
+
+Shows alert. There are not default values (it would be soooo long).
+
+- ```title``` - title of alert (header)
+- ```message``` - message of alert (label)
+- ```divClass``` - css class name
+    - default is ```"alertDiv"```
+- ```animation``` - show animation
+    - default is ```{"name":"showAlert","duration":"0.5s"}```
+    - "name" is css animation name
+    - "duration" is duration of animation
+- ```closeAnimation``` - close animation
+    - default is ```{"name":"hideAlert","duration":"0.5s"}```
+
+### showConfirm(title, message, ifOk, divClass, animation, closeAnimation)
+
+Show confirm alert. It will be closed after user clicks at "OK"/"Close" button.
+
+- ```title``` - title of alert (header)
+- ```message``` - message of alert (label) 
+- ```ifOk``` - function done after "OK" confirmation
+- ```divClass``` - css class name
+    - default is ```"alertDiv"```
+- ```animation``` - show animation
+    - default is ```{"name":"showAlert","duration":"0.5s"}```
+- ```closeAnimation``` - close animation
+    - default is ```{"name":"hideAlert","duration":"0.5s"}```
+
+Usage:
+
+```javascript
+function func(v) {
+    console.log(v);
+}
+
+showConfirm("Really?", 
+    "Do you really want to print hello??????!!!!",
+    function() {func("Hello :)");});
+```
+
+### showTimerAlert(title, message, time, divClass, animation, closeAnimation)
+
+Show alert which will be after ```time``` miliseconds closed
+
+- ```title``` - title of alert (header)
+- ```message``` - message of alert (label) 
+- ```time``` - time in miliseconds
+- ```divClass``` - css class name
+    - default is ```"alertDiv"```
+- ```animation``` - show animation
+    - default is ```{"name":"showAlert","duration":"0.5s"}```
+- ```closeAnimation``` - close animation
+    - default is ```{"name":"hideAlert","duration":"0.5s"}```
+
+### showOkAlert(title, message, timeAlert=0)
+
+Show ok alert (the green one on the left). If ```timeAlert``` is 0 then the alert won't be closed automaticaly
+
+- ```title``` - title of alert (header)
+- ```message``` - message of alert (label) 
+- ```timeAlert``` - time in miliseconds (if 0 there won't be timer)
+
+### showWrongAlert(title, message, timeAlert=0)
+
+Show wrong alert (the red one on the left). If ```timeAlert``` is 0 then the alert won't be closed automaticaly
+
+- ```title``` - title of alert (header)
+- ```message``` - message of alert (label) 
+- ```timeAlert``` - time in miliseconds (if 0 there won't be timer)
+
+## 9.7 loadPage
+
+Script for downloading parts of web dynamically. It is prepared for ```CheeseApplications```. I do not even know if it is best practice. :no_good:
+
+Import:
+
+```html
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/loadPage.js"></script>
+
+<!-- necessary dependencies --> 
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/elementManager.js"></script>
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
+```
+
+Functions:
+
+### loadPage(startArray, doAfter=null, afterArray=[])
+
+Parts of the web need to be inside folder ```webParts``` and paths inside arrays does not contain full path (```main/header``` for ```header.html``` inside ```/web/webParts/main/```)
+
+- ```startArray``` - list of paths for part that need to be loaded before some javascript intialization
+- ```doAfter``` - javascript initialization, it is a function with processess that need loaded web parts from startArray
+- ```afterArray``` - list of paths for part that do need to be loaded before initialization
+
+### getHtml(name, path, parentId, attributeClass="")
+
+Creates div with attributeClass class, innerHTML from file and will be inside parent. And returns that div.
+
+- ```name``` - name of html file (without .html)
+- ```path``` - folder without "/webParts/" and withou name
+- ```parentId``` - id of html object which will contain this part of web
+- ```attributeClass``` - class name of div
+
+## 9.8 time
+
+This script has only one function which returns actual time. It is used by ```communcation.js``` for logs timestamps.
+
+Import:
+
+```html
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
+```
+
+Functions:
+
+### nowTime()
+
+Return string of actual time formated as ```hh:mm:ss```
 
 
 
