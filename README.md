@@ -526,7 +526,7 @@ There are some prebuilded methods for saving, updating, removing and find new id
 
 ### 7.3 Models
 
-Models are non-static objects which contains data from one row of database. There is class ```CheeseModel``` . This class stores your data and is returned from ```repository``` (if called method is annotated with ```#@return``` values ```one``` or ```array``` annotations).
+Models are non-static objects which contains data from one row of database. There is class ```CheeseModel``` . This class stores your data and is returned from ```repository``` (if called method is annotated with ```#@return``` annotation and values ```one``` or ```array```).
 
 Every instance of ```CheeseModel``` has variables ```modelName``` and ```scheme```.
 
