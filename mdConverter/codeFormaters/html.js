@@ -6,8 +6,7 @@ function formatHtml(str) {
 
     for (let i = 0; i < lines.length; i++) {
         var line = lines[i];
-        console.log(line);
-
+        
         line = line.replaceAll("<", "&lt;");
         line = line.replaceAll(">", "&gt;");
 
