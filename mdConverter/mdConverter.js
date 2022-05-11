@@ -79,6 +79,7 @@ function convert(str) {
     mdDiv.innerHTML = str;
 
     contents();
+    changeWelcome();
 }
 
 function headers(str) {
