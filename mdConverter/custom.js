@@ -4,7 +4,7 @@ function changeWelcome() {
     var str = `
         <h2 id="documentation">Documentation</h2>
         <br>
-        Yeeey you are here :heart_eyes: . That's amazing, thank you. All source codes for this .md to .html converter
+        Yeeey you are here :heart_eyes: <br>That's amazing, thank you. All source codes for this .md to .html converter
         are <a href="https://github.com/KubaBoi/CheeseFramework/tree/webServices/mdConverter">here</a><br>
     `;
 
