@@ -14,7 +14,7 @@ function formatHtml(str) {
         line = line.replaceAll("&lt;script", "&lt;<span class=keyword>script</span>");
         line = line.replaceAll("&lt;/script&gt;", "&lt;<span class=keyword>/script</span>&gt;");
 
-        line = rplcReg(line, /\<\!--(?<comment>.*)--\>/, "<span class=comment>&lt;!--$comment$--&gt;</span>");
+        line = rplcReg(line, /\&lt;\!--(?<comment>.*)--\&gt;/, "<span class=comment>&lt;!--$comment$--&gt;</span>");
 
         str += line + " <br>";
     }
