@@ -474,7 +474,7 @@ def findByIdAndName(id, name):
 
 If you want to pass an model it is possible.
 
-For model ```Hello``` with attributes ```id=0```, ```name="first hello"```, ```greet="hello boi"``` (this is prebuilded method save):
+For model ```Hello``` with attributes ```id=0```, ```name="hello"```, ```greet="hello boi"``` (this is prebuilded method save):
 
 ```python
 #@commit "insert into table values :someModel;";
