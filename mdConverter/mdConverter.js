@@ -80,6 +80,7 @@ function convert(str) {
 
     contents();
     changeWelcome();
+    images();
 }
 
 function headers(str) {
@@ -128,4 +129,14 @@ function contents() {
     }
 
     document.body.appendChild(contentsDiv);
+}
+
+function images() {
+    var imgs = document.body.getElementsByTagName("img");
+    for (let i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        if (!img.classList.contains("emojiImg")) {
+            img.classList.add("contentImg");
+        }
+    }
 }
