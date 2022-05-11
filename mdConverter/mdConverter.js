@@ -18,7 +18,7 @@ function convert(str) {
     
     // one line codes -> ```code```
     // no space
-    str = rplcReg(str, /\`{3}(?<code>[a-zA-Z0-9\#\@\&\?\/\:\=]+)\`{3}/g, "<code>$code$</code>");
+    str = rplcReg(str, /\`{3}(?<code>[a-zA-Z0-9\#\@\&\?\/\:\=\"\']+)\`{3}/g, "<code class=''>$code$</code>");
     // with space
     str = rplcReg(str, /\`{3}(?<code>.+)\`{3}/g, "<code>$code$</code>");
     
