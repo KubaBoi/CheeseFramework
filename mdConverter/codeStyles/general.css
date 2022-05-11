@@ -7,7 +7,7 @@
     color: rgb(121, 255, 121);
 }
 
-.keywords {
+.keyword {
     color: rgb(255, 166, 64);
 }
 
@@ -35,6 +35,6 @@
     color: rgb(170, 136, 43);
 }
 
-.function_variables {
+.function_variable {
     color: rgb(255, 148, 25);
 }
