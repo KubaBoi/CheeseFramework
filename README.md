@@ -1040,7 +1040,7 @@ Import:
 ```html
 <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>
 
-// necessary dependencies
+<!-- necessary dependencies -->
 <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
 ```
 
