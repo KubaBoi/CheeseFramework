@@ -3,9 +3,7 @@ var debug = false;
 
 function convert(str) {
     var mdDiv = document.getElementById("md");
-    var contentsDiv = document.getElementById("contents");
     clearTable(mdDiv);
-    clearTable(contentsDiv);
     
     // hrefs within md document -> [title](#headerId) 
     str = rplcReg(str, /\[(?<title>.+)\]\((?<href>#.*)\)/g, "<a href=$href.lowerCase$>$title$</a>");
@@ -18,7 +16,7 @@ function convert(str) {
     
     // one line codes -> ```code```
     // no space
-    str = rplcReg(str, /\`{3}(?<code>[a-zA-Z0-9\#\@\&\?\/\:\=\"\'\(\)\.\,\*\[\]]+)\`{3}/g, "<code class=''>$code$</code>");
+    str = rplcReg(str, /\`{3}(?<code>[a-zA-Z0-9\#\@\&\?\/\:\=\"\'\(\)\.\,\*\[\]\%\{\}]+)\`{3}/g, "<code class=''>$code$</code>");
     // with space
     str = rplcReg(str, /\`{3}(?<code>.+)\`{3}/g, "<code>$code$</code>");
     
@@ -42,6 +40,12 @@ function convert(str) {
     str = mdDiv.innerHTML;
 
     str = headers(str);
+
+    /** emojis -> :emoji:
+     * list in emojis.js (https://github.com/KubaBoi/CheeseFramework/blob/webServices/mdConverter/emojis.js)
+     * credit https://github.com/privatenumber/gh-emojis
+     */
+    str = rplcReg(str, /:(?<emoji>[a-z0-9_\-\+]+):/g, "$emoji.emoji$");
 
     var lines = str.split("\n");
     str = "";
@@ -73,6 +77,11 @@ function convert(str) {
     }
 
     mdDiv.innerHTML = str;
+
+    var contentsDiv = document.getElementById("contentsId");
+    contentsDiv.remove();
+    contentsDiv.classList.add("contents");
+    document.body.appendChild(contentsDiv);
 }
 
 function headers(str) {
@@ -86,7 +95,7 @@ function headers(str) {
         var line = lines[i];
         if (line.startsWith("#")) {
             if (paragraph != "") {
-                newStr += `<div id=${parId}>${paragraph}</div>`;
+                newStr += `<div id=${parId}Id>${paragraph}</div>`;
                 paragraph = "";
             }
             parId = rplcReg(line, /((?<!\>)(?<hdr>#+)) (?<title>.*)/g, "$title.id$");
@@ -94,8 +103,7 @@ function headers(str) {
         }
         paragraph += line + "\n";
     }
-    newStr += `<div id=${parId}>${paragraph}</div>`;
-    newStr = rplcReg(newStr, /:(?<emoji>[a-z0-9_\-\+]+):/g, "$emoji.emoji$");
+    newStr += `<div id=${parId}Id>${paragraph}</div>`;
     return newStr;
 }
 

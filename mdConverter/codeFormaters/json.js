@@ -48,6 +48,11 @@ function getType(value) {
         bracket = "{";
         value = value.replace("{", "");
     }
+    var bracket = "";
+    if (value.trim().startsWith("[")) {
+        bracket = "[";
+        value = value.replace("[", "");
+    }
 
     return `${bracket}<span class=${cls}>${value.trim()}</span>${comma}`;
 }
