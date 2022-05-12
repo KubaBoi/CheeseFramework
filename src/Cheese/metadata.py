@@ -8,6 +8,7 @@ import struct
 from Cheese.resourceManager import ResMan
 from Cheese.Logger import Logger
 from Cheese.variables import Variables
+from Cheese.appSettings import Settings
 
 class Metadata:
 
@@ -79,6 +80,7 @@ class Metadata:
             for moduleKey in modules.keys():
                 module = modules[moduleKey]
 
+                if (type(module) is list): continue
                 if ("FILE" not in module.keys()): continue
 
                 path = module["FILE"].replace(ResMan.getFileName(module["FILE"]), "")[:-1]
