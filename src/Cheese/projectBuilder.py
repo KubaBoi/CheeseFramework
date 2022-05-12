@@ -30,6 +30,8 @@ class ProjectBuilder:
                 "CONTROLLERS": {}, 
                 "REPOSITORIES": {}, 
                 "TESTS": {},
+                "ADMIN": {},
+                "SECURITY": {},
                 "SECRETS": {}
             }
 
@@ -63,7 +65,10 @@ class ProjectBuilder:
         queries = 0
         commits = 0
         for key in data.keys():
-            if (key == "SECRETS"): continue
+            if (key == "SECRETS" or
+                key == "ADMIN" or 
+                key == "SECURITY"): continue
+                
             for pKey in data[key].keys():
                 cont = data[key][pKey]
                 for methodKey in cont["METHODS"].keys():
