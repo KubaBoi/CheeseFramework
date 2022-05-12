@@ -7,7 +7,7 @@ async function getMd(url) {
 }
 
 async function source() {
-    var contentsDiv = document.getElementById("contents");
+    var contentsDiv = document.getElementById("contentsId");
     var sourceDiv = document.getElementById("source");
     if (sourceDiv == null) {
         contentsDiv.style.visibility = "hidden";

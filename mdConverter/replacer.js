@@ -2,6 +2,7 @@
 var preFuncs = {
     "lowerCase": function(vl){return vl.toLowerCase();},
     "upperCase": function(vl){return vl.toUpperCase();},
+    "strip": function(vl){return vl.trim();},
     "emoji": function(vl){return emojiImg(vl);},
     "id": function(vl){
         vl = vl.replaceAll(/:[a-z0-9_]+:/g, "");
