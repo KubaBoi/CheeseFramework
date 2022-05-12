@@ -28,15 +28,25 @@ class Metadata:
             Metadata.contr = data["CONTROLLERS"]
             Metadata.tests = data["TESTS"]
 
-            Metadata.admin = data["SECRETS"]["ADMIN"]
-            Metadata.authentication = data["SECRETS"]["SECURITY"]["AUTHENTICATION"]
-            Metadata.roles = data["SECRETS"]["SECURITY"]["ROLES"]
-            Metadata.access = data["SECRETS"]["SECURITY"]["ACCESS"]
+            Metadata.admin = data["ADMIN"]
+            Metadata.authentication = data["SECURITY"]["AUTHENTICATION"]
+            Metadata.roles = data["SECURITY"]["ROLES"]
+            Metadata.access = data["SECURITY"]["ACCESS"]
+            Metadata.secrets = data["SECRETS"]
 
             Metadata.createInits(data)
             Metadata.prepareControllers()
             Metadata.prepareTests()
             Metadata.cleanInits()
+
+            Settings.loadSecrets(Metadata.secrets)
+        except KeyError as e:
+            Logger.warning("Cannot find secrets:")
+            for key in e.args:
+                Logger.fail(f"{key[0]}: {key[1]}")
+            Logger.warning("For more information check:")
+            Logger.warning(Variables.documentation)
+
         except PermissionError as e:
             Logger.warning("Didn't you forgot to make 'secretPass' file?")
             Logger.warning("Is decrypt key in 'secretPass' file actual?")

@@ -30,6 +30,8 @@ class ProjectBuilder:
                 "CONTROLLERS": {}, 
                 "REPOSITORIES": {}, 
                 "TESTS": {},
+                "ADMIN": {},
+                "SECURITY": {},
                 "SECRETS": {}
             }
 
