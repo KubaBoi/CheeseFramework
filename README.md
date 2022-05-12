@@ -37,6 +37,7 @@ https://kubaboi.github.io/CheeseFramework/
         - [Run Cheese application](#113-run-cheese-application)
  - [Cheese Tools](#2-cheese-tools)
  - [Build](#3-build)
+    - [Metadata](#31-metadata) 
  - [Project structure](#4-project-structure)
     - [/.admin](#41-admin)
     - [/resources](#42-resources)
