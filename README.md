@@ -57,6 +57,8 @@ https://kubaboi.github.io/CheeseFramework/
     - [Repositories](#72-repositories)
         - [Create repository](#721-create-repository)
         - [Methods of repository](#722-methods-of-repository)
+            - [#@query](#7221-query)
+            - [#@commit](#7222-commit)
         - [Passing arguments to SQL query](#723-passing-arguments-to-sql-query)
             - [Passing model](#7231-passing-model)
         - [Prebuilded methods](#724-prebuilded-methods)
@@ -406,7 +408,7 @@ return CheeseRepository.query(argName1=arg1, argName2=arg2,...)
 
 There are two types of SQL query annotations query and commit.
 
-## #@query
+## 7.2.2.1 #@query
 
 This annotation says that we want to get data from database. It is followed by SQL query. This query can be more than one line but have to be in quotation marks and the query can ends with semicolon.
 
@@ -460,7 +462,7 @@ With ```#@query``` annotation is related annotation ```#@return```. It determine
 #@return num;
 ```
 
-## #@commit
+## 7.2.2.2 #@commit
     
 This annotation is for writing data into database.
 
