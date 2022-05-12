@@ -486,7 +486,7 @@ def findByIdAndName(id, name):
 
 ##### 7.2.3.1 Passing model
 
-# :bangbang: This does not work really well :bangbang:
+# :bangbang: This does not work very well :bangbang:
 
 If you want to pass an model it is possible.
 
