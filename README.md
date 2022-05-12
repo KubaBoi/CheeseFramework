@@ -10,7 +10,7 @@
 
 - [x] :bangbang: TESTS :bangbang: - 1.2.0
 - [x] do authorization - 1.3.0
-- [ ] repair doc - 1.3.5
+- [x] repair doc - 1.3.5
 - [ ] do Cheese tools - 1.4.0
 - [ ] metadata load setting (RAM/dynamic)
 - [x] repair CORS not allowed
