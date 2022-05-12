@@ -17,12 +17,12 @@ class Security:
         if (server.headers.get("Authorization") != None):
             auth = Metadata.decode64(server.headers.get("Authorization"))
             
-            for type in Metadata.authentication["types"]:
-                dict = Security.fitPatern(auth, type["patern"])
+            for tp in Metadata.authentication["types"]:
+                dict = Security.fitPatern(auth, tp["patern"])
                 if (dict != None):
-                    valid = Security.validate(dict, type["validation"])
+                    valid = Security.validate(dict, tp["validation"])
                     if (valid):
-                        role = Security.findRole(dict, type["roleId"])
+                        role = Security.findRole(dict, tp["roleId"])
                     break
         
         pth = cc.getPath(path)
@@ -62,4 +62,6 @@ class Security:
 
     @staticmethod
     def fitPatern(auth, patern):
-        return re.search(patern, auth).groupdict()
+        p = re.search(patern, auth)
+        if (p == None): return None
+        return p.groupdict()
