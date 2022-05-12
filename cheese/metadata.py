@@ -198,8 +198,7 @@ class Metadata:
         return key
 
     @staticmethod
-    def encode(data):
-        key = Metadata.getKey()
+    def encode(data, key):
         coded = ""
         for i, ch in enumerate(key + data):
             keyIndex = i % len(key)
@@ -210,8 +209,7 @@ class Metadata:
         return coded
 
     @staticmethod
-    def decode(data):
-        key = Metadata.getKey()
+    def decode(data, key):
         decoded = ""
         for i, ch in enumerate(data):
             keyIndex = i % len(key)
@@ -241,12 +239,12 @@ class Metadata:
     @staticmethod
     def save(data):
         with open(ResMan.metadata(), "w", encoding="utf-8") as f:
-            data = Metadata.encode(json.dumps(data))
+            data = Metadata.encode(json.dumps(data), Metadata.getKey())
             f.write(Metadata.code64(data))
 
     @staticmethod
     def read():
         with open(ResMan.metadata(), "r", encoding="utf-8") as f:
-            data = Metadata.decode64(f.read())
+            data = Metadata.decode64(f.read(), Metadata.getKey())
             return json.loads(Metadata.decode(data))
     
