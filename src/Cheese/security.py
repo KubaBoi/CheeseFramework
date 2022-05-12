@@ -1,5 +1,7 @@
 #cheese
 
+import re
+
 from Cheese.cheeseController import CheeseController as cc
 from Cheese.database import Database
 from Cheese.metadata import Metadata
@@ -15,12 +17,12 @@ class Security:
         if (server.headers.get("Authorization") != None):
             auth = Metadata.decode64(server.headers.get("Authorization"))
             
-            for type in Metadata.authentication["types"]:
-                dict = Security.fitPatern(auth, type["patern"])
+            for tp in Metadata.authentication["types"]:
+                dict = Security.fitPatern(auth, tp["patern"])
                 if (dict != None):
-                    valid = Security.validate(dict, type["validation"])
+                    valid = Security.validate(dict, tp["validation"])
                     if (valid):
-                        role = Security.findRole(dict, type["roleId"])
+                        role = Security.findRole(dict, tp["roleId"])
                     break
         
         pth = cc.getPath(path)
@@ -60,18 +62,6 @@ class Security:
 
     @staticmethod
     def fitPatern(auth, patern):
-        vars = patern.split("$")[1::2]
-        unvars = patern.split("$")[0::2]
-
-        for un in unvars:
-            if (un == ""): continue
-            auth = auth.replace(un, " ")
-
-        auth = auth.strip().split(" ")
-        if (len(auth) != len(vars)):
-            return None
-        
-        authDict = {}
-        for name, var in zip(vars, auth):
-            authDict[name] = var
-        return authDict
+        p = re.search(patern, auth)
+        if (p == None): return None
+        return p.groupdict()
