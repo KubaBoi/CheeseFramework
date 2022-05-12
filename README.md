@@ -213,7 +213,7 @@ Contains app configuration.
 - licenseCode 
     - can be left empty
     - it will affect if there will be ```Powered by Cheese Framework``` watermark at the right bottom corner of html pages served by Cheese server
-    - if you want to get rid of this watermark go on this url ```frogie.cz:6969/licence/generate?type=full%20access``` and from ```{ "LICENSE": { "CODE": code, "ID": int, "TYPE": "full access" } }``` copy ```code```    
+    - if you want to get rid of this watermark go on this url http://frogie.cz:6969/licence/generate?type=full%20access and from ```{ "LICENSE": { "CODE": code, "ID": int, "TYPE": "full access" } }``` copy ```code```    
 - host - leave default
 - port - port of your app
 - dbDriver - driver for database
