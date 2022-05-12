@@ -20,22 +20,8 @@ class Settings:
     @staticmethod 
     def loadSettings():
         Settings.settings = Settings.loadJson()
-        Settings.name = Settings.settings["name"]
-        Settings.version = Settings.settings["version"]
-        Settings.licenseCode = Settings.settings["licenseCode"]
-        Settings.host = Settings.settings["host"]
-        Settings.port = Settings.settings["port"]
-        Settings.dbDriver = Settings.settings["dbDriver"]
-        Settings.dbHost = Settings.settings["dbHost"]
-        Settings.dbName = Settings.settings["dbName"]
-        Settings.dbUser = Settings.settings["dbUser"]
-        Settings.dbPassword = Settings.settings["dbPassword"]
-        Settings.dbPort = Settings.settings["dbPort"]
-        Settings.allowDebug = Settings.settings["allowDebug"]
-        Settings.allowCommit = Settings.settings["allowCommit"]
-        Settings.allowMultiThreading = Settings.settings["allowMultiThreading"]
-        Settings.allowCORS = Settings.settings["allowCORS"]
-        Settings.allowDB = Settings.settings["allowDB"]
+        for key in Settings.settings.keys():
+            Settings.__setattr__(key, Settings.settings[key])
 
         Settings.activeLicense = "None"
 
@@ -52,4 +38,18 @@ class Settings:
     def saveJson(jsonConf):
         with open(os.path.join(ResMan.root(), "appSettings.json"), "w") as f:
             f.write(json.dumps(jsonConf))
-        
+
+    @staticmethod
+    def loadSecrets(secrets):
+        errors = []
+        for key in Settings.__dict__:
+            value = str(Settings.__getattribute__(key))
+            if (not value.startsWith("$")): continue
+
+            if (value[1:] not in secrets.keys()):
+                errors.append((key, value))
+            else:
+                Settings.__setattr__(key, secrets[key])
+
+        if (len(errors) > 0):
+            raise KeyError(*errors)

@@ -10,14 +10,12 @@ class SecurityBuilder:
     
     @staticmethod
     def build(parent):
-        secrets = {}
-
-        with open(ResMan.joinPath(ResMan.root(), "adminSettings.json"), "r") as f:
+        with open(ResMan.root("adminSettings.json"), "r") as f:
             data = json.loads(f.read())
 
-        secrets["ADMIN"] = data
+        parent.dictJson["ADMIN"] = data
 
-        secPath = ResMan.joinPath(ResMan.root(), "securitySettings.json")
+        secPath = ResMan.root("securitySettings.json")
         with open(secPath, "r") as f:
             data = json.loads(f.read())
 
@@ -48,7 +46,13 @@ class SecurityBuilder:
                 access[key] = data["access"][key]
 
         security["ACCESS"] = access
-        secrets["SECURITY"] = security 
 
+        parent.dictJson["SECURITY"] = security
+
+        if (os.path.exists(ResMan.root("secrets.json")):
+            with open(ResMan.root("secrets.json"), "r") as f:
+                secrets = json.loads(f.read())
+        else:
+            secrets = {}
         parent.dictJson["SECRETS"] = secrets
 
