@@ -13,7 +13,7 @@
 - [ ] repair doc - 1.3.5
 - [ ] do Cheese tools - 1.4.0
 - [ ] metadata load setting (RAM/dynamic)
-- [ ] repair CORS not allowed
+- [x] repair CORS not allowed
 - [x] repair admin access
 - [x] remove deprecated ```#@acceptsModel``` annotation
 
@@ -46,7 +46,12 @@ https://kubaboi.github.io/CheeseFramework/
  - [Configuration](#5-configuration)
     - [adminSettings.json](#51-adminsettingsjson)
     - [appSettings.json](#52-appsettingsjson)
-    - [authExceptions.json](#53-authexceptionsjson)
+    - [securitySettings.json](#53-securitysettingsjson)
+        - [authentication](#531-authentication)
+        - [roles](#532-roles)
+        - [access](#533-access)
+        - [Authorization process](#534-authorization-process)
+    - [secrets.json](#54-secretsjson)
  - [Annotations](#6-annotations)
  - [Python code](#7-python-code)
     - [API Controllers](#71-api-controllers)
@@ -154,9 +159,17 @@ WIP :nail_care:
 
 ## 3 Build
 
-Build is proccess which generates .metadata for your application. Build runs at start of application (it is pretty fast) if is is in debug mode. Also build creates ```__init__.py``` files inside every directory of /src/. No need to care about those files, they will be overwriten every build according to actual source code. 
+Build is proccess which generates ```.metadata``` for your application. Build runs at start of application (it is pretty fast) if is in debug mode.
 
-Building performs Cheeser.build() automatically.
+### 3.1 Metadata
+
+```.metadata``` is actually ```json``` but it is coded with your ```key```. ```key``` is storred in file ```./secretPass``` just like regular string, nothing else. Only one string nothing more.
+
+This file should be ignored in ```.gitignore``` so during deploy you need create it in deploy app enviroment (developing on windows -> deploy on linux server) because if you would leave it in git repository, it would lose that secret point. ```key``` is just password for your application.
+
+If the ```secretPass``` file is missing Cheese will try for coding and decoding ```Default``` as a key. 
+
+In ```.metadata``` is storred everything except ```appSettings.json``` . So ```adminSettings.json``` , ```securitySettings.json``` and ```secrets.json``` .
 
 ## 4 Project structure
 
@@ -234,9 +247,134 @@ Contains app configuration.
     - BTW... without this it does not work (yet) :scream_cat:
 - allowDB - If ```false``` Cheese won't try to connect database
 
-### 5.3 authExceptions.json
+### 5.3 securitySettings.json
 
-WIP :nail_care:
+In this file can be defined access to your application. There need to be 3 objects in this json ```authentication``` , ```roles``` and ```access``` . 
+
+#### 5.3.1 authentication
+
+```authentication``` needs two variables inside. ```enabled``` and ```types``` . ```enabled``` is a boolean and it tells to Cheese if you want to authenticate requests or not. ```types``` is an array of some ... something... you will see.
+
+Example of ```authentication```
+
+```json
+{
+    "authentication": {
+        "enabled": false,
+        "types": [
+            {
+                "patern": "(?P<login>\w+):(?P<password>\w+)", // regular expression for authentication header (for example "Joe:heslo12")
+                "validation": "select * from passwords where password = $password$ and login = $login$", // this sql will validate if validation is possible (if there is any case)
+                "roleId": "select role_id from users where login = $login$" // founds users role id after validation
+            }
+        ]
+    }
+}
+```
+
+#### 5.3.2 roles
+
+Roles are defined with ```value``` and ```name``` . Name of role field coresponds with value returned from database via ```roleId``` sql request.
+
+Example of ```roles```
+
+```json
+{
+    "roles": {
+            "0": { // name of field fits value of roleId from database
+                "value": 0,
+                "name": "Admin"
+            },
+            "1": {
+                "value": 1,
+                "name": "Organiser"
+            },
+            "2": {
+                "value": 2,
+                "name": "Client"
+            }
+    }
+}
+```
+
+#### 5.3.3 access
+
+Access is dictionary of endpoints and their minimal role value which is need to be accesible. If you have more endpoints which starts with same prefix and have same role level you can use ```*``` keyword and Cheese will complete them for you. And if you will use ```*``` but there will be some endpoints with diferent level, just add them.
+
+Example of ```access```
+
+```json
+{
+    "access": {
+        "/users/login": {
+            "minRoleId": 2
+        },
+        "/users/get": {
+            "minRoleId": 2 
+        },
+        "/clubs/*": { // all endpoints starting with /clubs will have minimal role level 1 
+            "minRoleId": 1
+        },
+        "/clubs/getAll": { //except for this one... this endpoint will have minimal role level 2 
+            "minRoleId": 2
+        }
+    }
+}
+```
+
+#### 5.3.4 Authorization process
+
+Ok ... this may looks little confusing. But it is actually pretty simple. This is process of authorization:
+
+- first of all is checked if authorization is even enabled - if not -> skipping
+- decode ```Authorization``` header from request
+- find if decoded header fits any of ```paterns``` from ```types```
+    -  ```patern``` is regular expression 
+    -  more about regular expresions https://docs.python.org/3/howto/regex.html 
+- validation of credentials with ```validation```
+    - sql in this part needs to return anything (not empty response)
+    - for example above would finall sql looks like this:
+```sql
+select case when exists 
+    (select * from passwords 
+    where password = 'heslo12' and login = 'Joe') 
+then cast(1 as bit) 
+else cast(0 as bit) end
+```
+    - variables from ```Authorization``` header need to have same name as in ```patern``` and need to be wrapped in ```$$``` characters
+- if credentials are valid it will try to find role id via ```roleId``` sql
+    - ```roleId``` sql just finds value from database
+    - than use this value as key for ```roles``` dictionary
+- endpoint validation 
+    - ```endpoint``` will be used as key for ```access``` dictionary
+        - if ```endpoint``` does not exist in ```access``` than it will returns found ```role``` (it means ```AUTHORIZED```)
+        - if ```endpoint``` exists in ```access``` and its ```minRoleId``` is equal or lower then ```roleId``` . ```value``` returns ```role``` (```AUTHORIZED```)
+        - if ```endpoint``` exists in ```access``` but its ```minRoleId``` is greater then ```roleId``` . ```value``` returns ```False``` (```UNAUTHORIZED```)
+        - if ```endpoint``` exists in ```access``` but ```role``` is ```None``` returns ```False``` (```UNAUTHORIZED```)
+
+### 5.4 secrets.json
+
+Secrets are variables which you do not want to show public in git repository or whatever. You can use ```secrets.json``` for storring any sensitive data. Those data will be coded into ```metadata``` during build and you do not need to commit them public.
+
+Example of storring secrets:
+
+```json
+{
+    "databasePassword": "sdjfgnskjdng4",
+    "sizeOfMyPP": "extreme"
+}
+```
+
+And in ```appSettings.json``` just insert its name with ```$``` prefix:
+
+```json
+{
+    "bla": "bla",
+    "blabla": "blo",
+    "dbPass": "$databasePassword",
+    "ppMeter": "$sizeOfMyPP"
+}
+```
 
 ## 6 Annotations
 
