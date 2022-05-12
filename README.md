@@ -20,7 +20,7 @@
 
 ## Source code
 
-https://github.com/KubaBoi/CheeseFramework/tree/development
+ https://github.com/KubaBoi/CheeseFramework/tree/development 
 
 ## Documentation
 
@@ -218,7 +218,7 @@ Contains app configuration.
 - port - port of your app
 - dbDriver - driver for database
     - postgres - for postgresql database
-    - https://github.com/mkleehammer/pyodbc/wiki - for other databases
+    - https://github.com/mkleehammer/pyodbc/wiki  - for other databases
 - dbHost - host of your database
 - dbName - name of your database
 - dbUser - user of database
