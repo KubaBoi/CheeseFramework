@@ -31,6 +31,10 @@ function rplcReg(str, reg, temp, maxIters=-1, dict={}) {
         var match = reg.exec(str);
         if (match == null) break; // no more matches
 
+        if (temp == "<a href='$url$' target=_blank>$url$</a>") {
+            //console.log(match);
+        }
+
         //runs through all variables from temp
         for (let i = 0; i < tempVars.length; i++) {
             // searching for advanced variables (title.length...)
@@ -60,7 +64,7 @@ function rplcReg(str, reg, temp, maxIters=-1, dict={}) {
             // inserts value
             tempCopy = tempCopy.replace(`\$${tempVars[i]}\$`, value);
         }
-        str = str.replace(match[0], tempCopy);
+        str = str.replaceAt(match.index, match[0], tempCopy);
     }
     return str;
 }
@@ -80,6 +84,11 @@ function matchAll(str, reg, replace="", to="") {
         arr[i] = arr[i].replaceAll(replace, to);
     }
     return arr;
+}
+
+// cool funkce
+String.prototype.replaceAt = function(index, what, replacement) {
+    return this.substring(0, index) + replacement + this.substring(index + what.length);
 }
 
 function emojiImg(emoji) {

@@ -1,6 +1,8 @@
 
 var debug = false;
 
+console.log("ahoj".slice(1, "ahoj".length));
+
 function convert(str) {
     var mdDiv = document.getElementById("md");
     clearTable(mdDiv);
@@ -13,10 +15,13 @@ function convert(str) {
     
     // images -> ![title](imgSrc)
     str = rplcReg(str, /\!\[(?<title>.*)\]\((?<src>.*)\)/g, "<img src=$src$ title=$title$>");
+
+    // urls
+    str = rplcReg(str, /(?<![\"\>\'\=])(?<url>https*\:\/\/.*) *(?![\"\<\'])/g, "<a href='$url$' target=_blank>$url$</a>");
     
     // one line codes -> ```code```
     // no space
-    str = rplcReg(str, /\`{3}(?<code>[a-zA-Z0-9\#\@\&\?\/\:\=\"\'\(\)\.\,\*\[\]\%\{\}]+)\`{3}/g, "<code class=''>$code$</code>");
+    str = rplcReg(str, /\`{3}(?<code>[a-zA-Z0-9\#\@\&\?\/\:\=\"\'\(\)\.\,\*\[\]\%\{\}]+)\`{3}/g, "<code>$code$</code>");
     // with space
     str = rplcReg(str, /\`{3}(?<code>.+)\`{3}/g, "<code>$code$</code>");
     
