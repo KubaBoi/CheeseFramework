@@ -12,7 +12,6 @@
 - [x] do authorization - 1.3.0
 - [x] repair doc - 1.3.5
 - [ ] do Cheese tools - 1.4.0
-- [ ] metadata load setting (RAM/dynamic)
 - [x] repair CORS not allowed
 - [x] repair admin access
 - [x] remove deprecated ```#@acceptsModel``` annotation
