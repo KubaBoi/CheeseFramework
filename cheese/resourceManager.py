@@ -80,17 +80,17 @@ class ResMan:
     def error(*paths):
         return ResMan.web("errors", *paths)
 
-    # metadata
-    @staticmethod
-    def metadata():
-        return ResMan.root(".metadata")
-
     # admin
     @staticmethod
     def admin(*paths):
         return ResMan.root(".admin", *paths)
 
-    # # convert bytes
+    # metadata
+    @staticmethod
+    def metadata():
+        return ResMan.root(".metadata")
+
+    # convert bytes
     @staticmethod
     def convertBytes(bytes):
         if bytes == 0:
