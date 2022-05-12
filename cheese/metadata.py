@@ -43,7 +43,7 @@ class Metadata:
         except KeyError as e:
             message = "Cannot find secrets:\n"
             for key in e.args:
-                message += f"{key[0]}: {key[1]}\n")
+                message += f"{key[0]}: {key[1]}\n"
             Logger.warning(message)
             Logger.warning("For more information check:")
             Logger.warning(Variables.documentation)
