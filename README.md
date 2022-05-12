@@ -68,6 +68,9 @@ https://kubaboi.github.io/CheeseFramework/
         - [Creating model](#732-creating-model)
  - [Testing](#8-testing)
     - [Cheese test modules](#81-cheese-test-modules)
+        - [UnitTest](#811-unittest)
+        - [Pointer](#812-pointer)
+        - [Mock](#813-mock)
     - [Creating test file](#82-creating-test-file)
     - [Test method](#83-test-method)
     - [Test examples](#84-test-examples)
@@ -692,7 +695,7 @@ Tests are run during start of application after [Build](#3-build) when applicati
 
 There is list of classes which your test class file should contains. Everything will be clear when you check [Test examples](#84-test-examples).
 
-## UnitTest
+## 8.1.1 UnitTest
 
 ```python
 from Cheese.test import UnitTest
@@ -720,7 +723,7 @@ UnitTest.assertFalse(value, comment)
 
 If ```value``` is not equal ```False``` the ```TestError``` will be raised and test fails.
  
-## Pointer
+## 8.1.2 Pointer
 
 ```python
 from Cheese.pointer import Pointer
@@ -742,7 +745,7 @@ Pointer.setValue(value)
 
 Sets value to which ```Pointer``` points. (You won't need it)
 
-## Mock
+## 8.1.3 Mock
 
 ```python
 from Cheese.mock import Mock
