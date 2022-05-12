@@ -1,5 +1,7 @@
 #cheese
 
+import re
+
 from Cheese.cheeseController import CheeseController as cc
 from Cheese.database import Database
 from Cheese.metadata import Metadata
@@ -60,18 +62,4 @@ class Security:
 
     @staticmethod
     def fitPatern(auth, patern):
-        vars = patern.split("$")[1::2]
-        unvars = patern.split("$")[0::2]
-
-        for un in unvars:
-            if (un == ""): continue
-            auth = auth.replace(un, " ")
-
-        auth = auth.strip().split(" ")
-        if (len(auth) != len(vars)):
-            return None
-        
-        authDict = {}
-        for name, var in zip(vars, auth):
-            authDict[name] = var
-        return authDict
+        return re.search(patern, auth).groupdict()
