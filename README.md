@@ -1,4 +1,6 @@
+<a href="https://kubaboi.github.io/CheeseFramework/">
 <img align="right" width=150 height=150 src="https://kubaboi.github.io/CheeseFramework/documentation/documentation300x300.png">
+</a>
 
 # Cheese Framework
 
