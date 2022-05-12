@@ -21,7 +21,7 @@ class Settings:
     def loadSettings():
         Settings.settings = Settings.loadJson()
         for key in Settings.settings.keys():
-            Settings.__setattr__(key, Settings.settings[key])
+            setattr(Settings, key, Settings.settings[key])
 
         Settings.activeLicense = "None"
 
@@ -43,13 +43,13 @@ class Settings:
     def loadSecrets(secrets):
         errors = []
         for key in Settings.__dict__:
-            value = str(Settings.__getattribute__(key))
-            if (not value.startsWith("$")): continue
+            value = str(getattr(Settings, key))
+            if (not value.startswith("$")): continue
 
             if (value[1:] not in secrets.keys()):
                 errors.append((key, value))
             else:
-                Settings.__setattr__(key, secrets[key])
+                setattr(Settings, key, secrets[key])
 
         if (len(errors) > 0):
             raise KeyError(*errors)
