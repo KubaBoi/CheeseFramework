@@ -1317,7 +1317,7 @@ Creates div with attributeClass class, innerHTML from file and will be inside pa
 
 ## 9.8 time
 
-This script has only one function which returns actual time. It is used by ```communcation.js``` for logs timestamps.
+This script has only one function which returns actual time. It is used by ```communication.js``` for logs timestamps.
 
 Import:
 
