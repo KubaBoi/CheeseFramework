@@ -726,7 +726,7 @@ If ```value``` is not equal ```False``` the ```TestError``` will be raised and t
 from Cheese.pointer import Pointer
 ```
 
-Usage of ```Pointer``` is approximately similar as in C/C++. But because python does not have this amazing feature I had to make my own. ```Pointer``` is just some pointer (:D) to any variable you need. I will show you that in some [Test examples](#84-test-examples) at the end of [Testing](#8-testing) module.
+Usage of ```Pointer``` is approximately similar as in C/C++. But because python does not have this amazing feature I had to make my own. ```Pointer``` is just some pointer (:D) to any variable you need. I will show you that in some [Test examples](#84-test-examples) .
 
 Methods of ```Pointer``` :
 
