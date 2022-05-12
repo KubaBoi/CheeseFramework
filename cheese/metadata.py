@@ -245,6 +245,6 @@ class Metadata:
     @staticmethod
     def read():
         with open(ResMan.metadata(), "r", encoding="utf-8") as f:
-            data = Metadata.decode64(f.read(), Metadata.getKey())
-            return json.loads(Metadata.decode(data))
+            data = Metadata.decode64(f.read())
+            return json.loads(Metadata.decode(data, Metadata.getKey()))
     
