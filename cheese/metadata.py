@@ -80,7 +80,7 @@ class Metadata:
             for moduleKey in modules.keys():
                 module = modules[moduleKey]
 
-                if (type(module) is list): continue
+                if (type(module) is not dict): continue
                 if ("FILE" not in module.keys()): continue
 
                 path = module["FILE"].replace(ResMan.getFileName(module["FILE"]), "")[:-1]
