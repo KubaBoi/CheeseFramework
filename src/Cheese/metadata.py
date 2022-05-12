@@ -41,9 +41,10 @@ class Metadata:
 
             Settings.loadSecrets(Metadata.secrets)
         except KeyError as e:
-            Logger.warning("Cannot find secrets:")
+            message = "Cannot find secrets:\n"
             for key in e.args:
-                Logger.fail(f"{key[0]}: {key[1]}")
+                message += f"{key[0]}: {key[1]}\n"
+            Logger.warning(message)
             Logger.warning("For more information check:")
             Logger.warning(Variables.documentation)
 

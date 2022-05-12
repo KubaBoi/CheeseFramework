@@ -49,7 +49,7 @@ class SecurityBuilder:
 
         parent.dictJson["SECURITY"] = security
 
-        if (os.path.exists(ResMan.root("secrets.json")):
+        if (os.path.exists(ResMan.root("secrets.json"))):
             with open(ResMan.root("secrets.json"), "r") as f:
                 secrets = json.loads(f.read())
         else:
