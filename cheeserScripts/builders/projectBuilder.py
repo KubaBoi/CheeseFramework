@@ -68,6 +68,7 @@ class ProjectBuilder:
             if (key == "SECRETS" or
                 key == "ADMIN" or 
                 key == "SECURITY"): continue
+                
             for pKey in data[key].keys():
                 cont = data[key][pKey]
                 for methodKey in cont["METHODS"].keys():
