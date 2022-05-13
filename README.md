@@ -284,7 +284,7 @@ Example of ```authentication```
         "enabled": false,
         "types": [
             {
-                "patern": "(?P<login>\w+):(?P<password>\w+)", // regular expression for authentication header (for example "Joe:heslo12")
+                "patern": "(?P&lt;login&gt;\w+):(?P&lt;password&gt;\w+)", // regular expression for authentication header (for example "Joe:heslo12")
                 "validation": "select * from passwords where password = $password$ and login = $login$", // this sql will validate if validation is possible (if there is any case)
                 "roleId": "select role_id from users where login = $login$" // founds users role id after validation
             }
