@@ -21,12 +21,6 @@ if (message == "test build"):
     v = int(vers[2]) + 1
     vers[2] = str(v)
     print("Promoting version: " + ".".join(vers))
-#elif (message == "build"):
-#    if (int(vers[2]) != 0):
-#        v = int(vers[1]) + 1
-#        vers[1] = str(v)
-#        vers[2] = "0"
-#        print("Promoting version: " + ".".join(vers))
 
     with open(setupPath, "w") as f:
         f.write(data.replace(oldLine, "version = " + ".".join(vers)))

@@ -42,7 +42,23 @@ now = datetime.now(timezone.utc) + timedelta(hours=2)
 releaseDate = now.strftime("%y.%m.%d.%H.%M")
 commitMessage = f"Test build - {releaseDate} v({getVersion()})"
 
-if (message == "build"):
+if (message == "test build"):
+    readmeFile = os.path.abspath(os.path.join(frameworkDir, "README.md"))
+
+    with open(readmeFile, "r") as f:
+        data = f.read()
+        dataLines = data.split("\n")
+
+    oldLine = ""
+    for line in dataLines:
+        if (line.startswith("### Test version")):
+            oldLine = line
+            break
+
+    with open(readmeFile, "w") as f:
+        f.write(data.replace(oldLine, f"### Test version v({getVersion()}) - {releaseDate}"))
+
+elif (message == "build"):
     commitMessage = f"Build - {releaseDate} v({getVersion()})"
     readmeFile = os.path.abspath(os.path.join(frameworkDir, "README.md"))
 
