@@ -1,6 +1,7 @@
 #cheese
 
 import os
+import re
 
 from Cheese.resourceManager import ResMan
 from Cheese.finder import Finder
