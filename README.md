@@ -692,7 +692,7 @@ There are some prebuilded methods for saving, updating, removing and find new id
     - finds all rows of table
 - ```find(primaryKey)```
     - finds one model by ```primaryKey```
-- ```findBy(columnName, value```
+- ```findBy(columnName, value)```
     - finds all rows with ```value``` of column ```columnName```
 - ```findNewId()```
     - finds new ID (free one)
