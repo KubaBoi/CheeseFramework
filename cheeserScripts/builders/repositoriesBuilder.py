@@ -28,7 +28,7 @@ class RepositoriesBuilder:
         for repo in parent.dictJson["REPOSITORIES"].keys():
             scheme = parent.dictJson["REPOSITORIES"][repo]["DBSCHEME"]
             pk = re.search("\((?P<pk>\w+),.*", scheme)
-            parent.dictJson["PRIMARY_KEY"] = pk["pk"]
+            parent.dictJson["REPOSITORIES"][repo]["PRIMARY_KEY"] = pk["pk"]
 
         RepositoriesBuilder.preQueries(parent)
         RepositoriesBuilder.preCommits(parent)
