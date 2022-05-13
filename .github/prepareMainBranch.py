@@ -51,12 +51,12 @@ if (message == "test build"):
 
     oldLine = ""
     for line in dataLines:
-        if (line.startswith("## Test version")):
+        if (line.startswith("Test version")):
             oldLine = line
             break
 
     with open(readmeFile, "w") as f:
-        f.write(data.replace(oldLine, f"## Test version v({getVersion()}) - {releaseDate}"))
+        f.write(data.replace(oldLine, f"Test version v({getVersion()}) - {releaseDate}"))
 
 elif (message == "build"):
     commitMessage = f"Build - {releaseDate} v({getVersion()})"
