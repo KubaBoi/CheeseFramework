@@ -38,7 +38,15 @@ class CheeseRepository:
 
     @classmethod
     def findAll(cls):
-        
+        return CheeseRepository.query(cls.__name__)
+
+    @classmethod
+    def find(cls, primaryKey):
+        return CheeseRepository.query(cls.__name__, primaryKey=primaryKey)
+
+    @classmethod
+    def findBy(cls, columnName, value):
+        return CheeseRepository.query(cls.__name__, columnName="columnName-" + columnName, value=value)
 
     @classmethod
     def findNewId(cls):
