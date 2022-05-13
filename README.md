@@ -688,6 +688,12 @@ select (id, name, greet) from table where name='first hello' or greet='hello boi
 
 There are some prebuilded methods for saving, updating, removing and find new id. Those methods do not need to be defined in your custom repository. They are in ```CheeseRepository``` and are accessible from custom repositories.
 
+- ```findAll()```
+    - finds all rows of table
+- ```find(primaryKey)```
+    - finds one model by ```primaryKey```
+- ```findBy(columnName, value```
+    - finds all rows with ```value``` of column ```columnName```
 - ```findNewId()```
     - finds new ID (free one)
 - ```save(obj)```
