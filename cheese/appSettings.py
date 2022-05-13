@@ -13,9 +13,6 @@ class that stores Cheese Application settings
 
 class Settings:
 
-    settings = {}
-    adminSettings = {}
-
     # load settings
     @staticmethod 
     def loadSettings():
@@ -24,9 +21,6 @@ class Settings:
             setattr(Settings, key, Settings.settings[key])
 
         Settings.activeLicense = "None"
-
-        with open(os.path.join(ResMan.root(), "adminSettings.json"), "r") as f:
-            Settings.adminSettings = json.loads(f.read())
 
     @staticmethod
     def loadJson():

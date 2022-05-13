@@ -13,6 +13,7 @@ from cheese.Logger import Logger
 from cheese.resourceManager import ResMan
 from cheese.appSettings import Settings
 from cheese.ErrorCodes import Error
+from cheese.metadata import Metadata
 
 class AdminManager:
 
@@ -59,11 +60,8 @@ class AdminManager:
 
     @staticmethod
     def setAuth():
-        with open(ResMan.joinPath(ResMan.root(), "adminSettings.json"), "r") as f:
-            data = json.loads(f.read())
-
         AdminManager.users = []
-        for user in data["adminUsers"]:
+        for user in Metadata.admin["adminUsers"]:
             AdminManager.users.append(base64.b64encode(
                 bytes('%s:%s' % (user["name"], user["password"]), 'utf-8')).decode('ascii'))
 
