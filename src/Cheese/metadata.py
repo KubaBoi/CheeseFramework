@@ -219,7 +219,6 @@ class Metadata:
             decoded += chr(code)
 
             if (i == len(key)-1):
-                print(key, decoded, len(key))
                 if (decoded == key):
                     decoded = ""
                 else:
