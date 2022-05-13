@@ -191,7 +191,7 @@ class Metadata:
     @staticmethod
     def getKey():
         key = "Default"
-        secPath = ResMan.joinPath(ResMan.root(), "secretPass")
+        secPath = ResMan.root("secretPass")
         if (os.path.exists(secPath)):
             with open(secPath, "r") as f:
                 key = f.read()
@@ -219,6 +219,7 @@ class Metadata:
             decoded += chr(code)
 
             if (i == len(key)-1):
+                print(key, decoded)
                 if (decoded == key):
                     decoded = ""
                 else:
