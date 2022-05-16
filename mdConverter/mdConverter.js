@@ -94,7 +94,7 @@ function headers(str) {
     var paragraph = "";
     var parId = "";
 
-    var mouseEvents = "onmouseover=onScrollDiv(this) onmousemove=onScrollDiv(this)"
+    var mouseEvents = ""; // "onmouseover=onScrollDiv(this) onmousemove=onScrollDiv(this)";
 
     for (let i = 0; i < lines.length; i++) {
         var line = lines[i];
@@ -129,6 +129,7 @@ function contents() {
             dotIndex += index[o] + ".";
         }
         var line = lines[i].split("<a");
+        console.log(line[1]);
         contentsDiv.innerHTML += `${line[0]}${dotIndex} <a${line[1]}</li>`;
     }
 
