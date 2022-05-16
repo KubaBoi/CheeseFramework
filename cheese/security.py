@@ -14,12 +14,14 @@ class Security:
             return True
 
         role = None
+        dict = None
         if (server.headers.get("Authorization") != None):
             auth = Metadata.decode64(server.headers.get("Authorization"))
-            
+
             for tp in Metadata.authentication["types"]:
                 dict = Security.fitPatern(auth, tp["patern"])
                 if (dict != None):
+
                     valid = Security.validate(dict, tp["validation"])
                     if (valid):
                         role = Security.findRole(dict, tp["roleId"])
@@ -34,7 +36,10 @@ class Security:
             if (role["value"] > acc["minRoleId"]):
                 return False            
 
-        return role
+        return {
+            "role": role,
+            "login": dict
+        }
 
     @staticmethod
     def findRole(dict, roleIdSql):
