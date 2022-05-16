@@ -1,6 +1,7 @@
 
 function changeWelcome() {
     var docDiv = document.getElementById("documentationId");
+    if (docDiv == null) return;
     var str = `
         <h2 id="documentation">Documentation</h2>
         Yeeey you are here :heart_eyes: 
