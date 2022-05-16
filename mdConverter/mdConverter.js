@@ -129,7 +129,6 @@ function contents() {
             dotIndex += index[o] + ".";
         }
         var line = lines[i].split("<a");
-        console.log(line[1]);
         contentsDiv.innerHTML += `${line[0]}${dotIndex} <a${line[1]}</li>`;
     }
 
