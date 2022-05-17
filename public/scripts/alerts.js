@@ -1,4 +1,8 @@
 
+function showErrorAlert(error, alertTime=0) {
+    showWrongAlert(error.NAME, `${error.CODE}<br>${error.DESCRIPTION}`, alertTime);
+}
+
 function showOkAlert(title, message, alertTime=0) {
     if (alertTime == 0) {
         showAlert(title, message, "divOkAlert",
