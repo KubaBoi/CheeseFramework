@@ -10,6 +10,7 @@ function addRow(table, cells, rowAttributes=[]) {
             cells[i].attributes = [];
         createElement("td", row, cells[i].text, cells[i].attributes);
     }
+    return row;
 }
 
 function addHeader(table, cells, rowAttributes=[]) {
@@ -19,4 +20,5 @@ function addHeader(table, cells, rowAttributes=[]) {
             cells[i].attributes = [];
         createElement("th", row, cells[i].text, cells[i].attributes);
     }
+    return row;
 }
