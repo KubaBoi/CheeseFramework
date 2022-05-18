@@ -1,7 +1,9 @@
 #cheese
 
-from cheese.modules.cheeseController import CheeseController
-from cheese.Logger import Logger
+from Cheese.cheeseController import CheeseController
+from Cheese.Logger import Logger
+from Cheese.httpError import HTTPError
+from Cheese.httpServerError import InternalServerError
 
 class Error:
     
@@ -30,9 +32,12 @@ class Error:
 
     @staticmethod
     def handleError(server, error):
-        Error.logErrorMessage(error)
+        if (not isinstance(error, HTTPError)):
+            Error.logErrorMessage(error)
+            error = InternalServerError("Internal serve error :(")
+
         if (server != None):
-            Error.sendCustomError(server, 500, f"Internal server error :(", DESCRIPTION=error.args[0])
+            Error.sendCustomError(server, error.code, error.name, DESCRIPTION=error.description)
 
     @staticmethod
     def logErrorMessage(error):
