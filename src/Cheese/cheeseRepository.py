@@ -129,7 +129,7 @@ class CheeseRepository:
         elif (method["RETURN"] == "bool"):
             return bool(int(response[0][0]))
         elif (method["RETURN"] == "one"):
-            return CheeseRepository.toModel(repository, response[0])
+            return CheeseRepository.toModel(repository, response)
         elif (method["RETURN"] == "array"):
             array = []
             for item in response:
