@@ -34,7 +34,7 @@ class Error:
     def handleError(server, error):
         if (not isinstance(error, HTTPError)):
             Error.logErrorMessage(error)
-            error = InternalServerError("Internal serve error :(")
+            error = InternalServerError("An unknown error occured")
 
         if (server != None):
             Error.sendCustomError(server, error.code, error.name, DESCRIPTION=error.description)
