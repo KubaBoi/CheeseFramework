@@ -133,7 +133,7 @@ class CheeseRepository:
         elif (method["RETURN"] == "array"):
             array = []
             for item in response:
-                array.append(CheeseRepository.toModel(repository, item))
+                array.append(CheeseRepository.toModel(repository, [item]))
             return array
 
     @staticmethod
