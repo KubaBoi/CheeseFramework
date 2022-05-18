@@ -200,7 +200,7 @@ class CheeseRepository:
     @staticmethod
     def getTypeOf(arg, variables=None, key=None, scheme=None):
         if (type(arg) is str):
-            if (len(arg) == 0): return ""
+            ##if (len(arg) == 0): return "" # idk proc to tu bylo... to se uvidi
             elif (arg[-1] != "\'" 
                 and arg[-1] != ")" 
                 and not arg.endswith("DESC") 
