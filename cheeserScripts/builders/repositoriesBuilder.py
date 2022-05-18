@@ -52,6 +52,10 @@ class RepositoriesBuilder:
                 "QUERY": f"select * from {repo['REPOSITORY']} where :columnName=:value;",
                 "RETURN": "array"
             }
+            repo["METHODS"]["findByOne"] = {
+                "QUERY": f"select * from {repo['REPOSITORY']} where :columnName=:value;",
+                "RETURN": "one"
+            }
             repo["METHODS"]["findNewId"] = {
                     "QUERY": f"select max(id) from {repo['REPOSITORY']};",
                     "RETURN": "num"
