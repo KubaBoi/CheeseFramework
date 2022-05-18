@@ -208,6 +208,7 @@ class CheeseRepository:
                 if (arg.startswith("columnName-")):
                     return arg.replace("columnName-", "")
                 else:
+                    arg = arg.replace("'", "''")
                     return f"\'{arg}\'"
             else:
                 return str(arg)
