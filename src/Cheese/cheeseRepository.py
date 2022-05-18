@@ -146,10 +146,13 @@ class CheeseRepository:
 
     @staticmethod
     def toModel(repository, data):
+        if (len(data) == 0):
+            return None
+
         modelName = Metadata.getModel(repository)
         scheme = Metadata.getScheme(repository)
         model = CheeseModel(modelName, scheme)
-        model.toModel(data)
+        model.toModel(data[0])
         return model
 
     # finds name of user-made repository
