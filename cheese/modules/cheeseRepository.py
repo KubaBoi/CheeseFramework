@@ -2,6 +2,7 @@
 
 from datetime import datetime
 import inspect
+import re
 
 from Cheese.metadata import Metadata
 from Cheese.cheeseModel import CheeseModel
@@ -102,10 +103,32 @@ class CheeseRepository:
             preparedSql = method["COMMIT"]
 
         variables = CheeseRepository.getVariables(preparedSql)
-
         for key, value in kwargs.items():
             arg = CheeseRepository.getTypeOf(value, variables, key, repository["DBSCHEME"])
-            preparedSql = preparedSql.replace(f":{key}", arg)
+
+            if (type(arg) is list):
+                for a in arg:
+                    index = 0
+                    while True:
+                        index = preparedSql.find(":", index)
+                        print(index)
+                        if (index == -1): break
+                        newIndex = index+1
+                        argName = ""
+                        while (re.search(r"[; )]", preparedSql[newIndex]) == None):
+                            newIndex += 1
+                            if (newIndex >= len(preparedSql)):
+                                newIndex -= 1
+                                argName = preparedSql[index:newIndex]
+                                break
+                            argName = preparedSql[index:newIndex]
+                        if (argName[1:] == a[1]):
+                            break
+                        index += 1
+
+                    preparedSql = preparedSql[0:index] + a[0] + preparedSql[newIndex:]
+            else:
+                preparedSql = preparedSql.replace(f":{key}", arg)
 
         preparedSql = preparedSql.replace("*", Metadata.getRawScheme(repository))
 
@@ -217,11 +240,12 @@ class CheeseRepository:
         elif (type(arg) is datetime):
             return "'" + datetime.strftime(arg, "%d-%m-%Y %H:%M:%S") + "'"
         elif (isinstance(arg, CheeseModel)):
+            ret = []
             for var in variables:
                 spl = var.split(".")
                 if (spl[0] == key):
                     if (len(spl) >= 2):
-                        return CheeseRepository.getTypeOf(getattr(arg, spl[1]))
+                        ret.append((CheeseRepository.getTypeOf(getattr(arg, spl[1])), var))
                     else:
                         schemeArr = scheme.replace(")", "").replace("(", "").split(",")
                         newScheme = "("
@@ -229,7 +253,8 @@ class CheeseRepository:
                             attr = attr.strip()
                             newScheme += CheeseRepository.getTypeOf(getattr(arg, attr)) + ","
                         newScheme = newScheme[:-1] + ")"
-                        return newScheme
+                        ret.append((newScheme, var))
+            return ret
         else:
             return str(arg)
 
