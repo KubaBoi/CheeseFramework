@@ -52,7 +52,7 @@ class RepositoriesBuilder:
                 "QUERY": f"select * from {repo['REPOSITORY']} where :columnName=:value;",
                 "RETURN": "array"
             }
-            repo["METHODS"]["findByOne"] = {
+            repo["METHODS"]["findOneBy"] = {
                 "QUERY": f"select * from {repo['REPOSITORY']} where :columnName=:value;",
                 "RETURN": "one"
             }

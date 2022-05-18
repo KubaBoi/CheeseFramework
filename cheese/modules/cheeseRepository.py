@@ -49,7 +49,7 @@ class CheeseRepository:
         return CheeseRepository.query(cls.__name__, columnName="columnName-" + columnName, value=value)
 
     @classmethod
-    def findByOne(cls, columnName, value):
+    def findOneBy(cls, columnName, value):
         return CheeseRepository.query(cls.__name__, columnName="columnName-" + columnName, value=value)
 
     @classmethod
