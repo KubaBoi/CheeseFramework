@@ -9,6 +9,7 @@ from datetime import datetime
 
 from Cheese.resourceManager import ResMan
 from Cheese.appSettings import Settings
+from Cheese.adminFiles import AdminFiles
 
 class FileFilter(logging.Filter):
     def filter(self, rec):
@@ -198,8 +199,7 @@ class Logger:
     @staticmethod
     def listLogs():
         for root, dirs, files in os.walk(ResMan.logs()):
-            with open(ResMan.joinPath(ResMan.admin(), "allLogs.html"), "r") as temp:
-                data = temp.read()
+            data = AdminFiles.admin_files_allLogs_html
             
             table = "<tr><th>Log name</th><th>Redirect</th><th>Status</th><th>Last logged</th><th>Size</th>"
             i = 0
@@ -245,7 +245,7 @@ class Logger:
             logging.file(f"listing log files: {server.client_address[0]}")
             return Logger.listLogs()
 
-        log = ResMan.joinPath(ResMan.root(), path.replace("/admin", ""))
+        log = ResMan.root(path.replace("/admin", ""))
         logging.file(f"Serving log file: {server.client_address[0]} \"{server.path}\"")
         
         if (not os.path.exists(f"{log}")):
