@@ -24,7 +24,7 @@ class AdminManager:
             return
 
         if (server.path == "/admin"):
-            AdminManager.__sendFile(server, "/admin/index.html") 
+            AdminManager.__sendFile(server, "/admin/files/index.html") 
             return
         elif (server.path == "/admin/createUser"): #TODO
             AdminManager.__createUser(server)
