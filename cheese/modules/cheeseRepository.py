@@ -237,7 +237,7 @@ class CheeseRepository:
         elif (type(arg) is list):
             return "(" + ",".join(CheeseRepository.getTypeOf(arg)) + ")"
         elif (type(arg) is datetime):
-            return "'" + datetime.strftime(arg, "%d-%m-%Y %H:%M:%S") + "'"
+            return "'" + datetime.strftime(arg, "%d-%m-%YT%H:%M:%S") + "'"
         elif (isinstance(arg, CheeseModel)):
             ret = []
             for var in variables:
