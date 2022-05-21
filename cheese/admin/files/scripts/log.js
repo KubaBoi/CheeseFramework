@@ -2,14 +2,14 @@ debug = false;
 
 setTitle();
 async function setTitle() {
-    response = await callEndpoint("GET", "/admin/getSettings");
+    response = await callEndpoint(`GET`, `/admin/getSettings`);
     if (!response.ERROR) {
-        document.title = "Cheese logs - " + response.name;
+        document.title = `Cheese logs - ${response.name}`;
     }
 }
 
 function getActiveLog() {
-    url = "/admin/getActiveLog";
+    url = `/admin/getActiveLog`;
     
     return new Promise(resolve => {
         sendGet(url, debug, function(response){
@@ -19,7 +19,7 @@ function getActiveLog() {
 }
 
 function deleteLog(log) {
-    url = "/admin/deleteLog?log=" + log;
+    url = `/admin/deleteLog?log=${log}`;
     
     return new Promise(resolve => {
         sendGet(url, debug, function(response){
@@ -31,27 +31,27 @@ function deleteLog(log) {
 async function buildLogTable() {
     response = await getActiveLog();
     if (!response.ERROR) {
-        var table = document.querySelector("#logTable");
-        table.innerHTML = "";
+        var table = document.querySelector(`#logTable`);
+        table.innerHTML = ``;
         table.innerHTML = response.RESPONSE.LOG;
 
-        var label = document.querySelector("#logDesc");
-        if (label.tagName == "LABEL") {
-            label.innerHTML = "<button onclick=\"location='/admin/logs'\">All logs</button>	&nbsp;" +
-            "<button onclick=\"location='/admin/activeLog.html'\">Full log</button>";
+        var label = document.querySelector(`#logDesc`);
+        if (label.tagName == `LABEL`) {
+            label.innerHTML = `<button onclick=\"location='/admin/logs'\">All logs</button>	&nbsp;
+            <button onclick=\"location='/admin/activeLog.html'\">Full log</button>`;
         }
         else {
-            label.innerHTML = "Cheese log - " + response.RESPONSE.LOG_DESC + " - <label class='okGreen'>ACTIVE</label>";
+            label.innerHTML = `Cheese log - ${response.RESPONSE.LOG_DESC} - <label class='okGreen'>ACTIVE</label>`;
         }
     }
 }
 
-if (typeof dontRunScript == "undefined") updateInterval = setInterval(update, 1000);
+if (typeof dontRunScript == `undefined`) updateInterval = setInterval(update, 1000);
 var oldC = 0;
 var oldScrollHeight = 0;
 function update() {
     buildLogTable();
-    element = document.getElementById("log");
+    element = document.getElementById(`log`);
     var a = element.scrollTop;
     var b = element.scrollHeight - element.clientHeight;
     if (oldC < 500 && oldScrollHeight != element.scrollHeight) {
@@ -65,10 +65,10 @@ function update() {
 async function deleteFile(log) {
     response = await deleteLog(log);
     if (!response.ERROR) {
-        alert("Log " + log + " was deleted")
+        alert(`Log ${log} was deleted`);
         location.reload();
     }
     else {
-        alert("An error occurred: " + response.ERROR);
+        alert(`An error occurred: ${response.ERROR}`);
     }
 }
