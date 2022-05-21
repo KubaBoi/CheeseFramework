@@ -35,7 +35,7 @@ class ProjectBuilder:
                 "SECRETS": {}
             }
 
-            if (not os.exists(ResMan.root("adminSettings.json"))):
+            if (not os.path.exists(ResMan.root("adminSettings.json"))):
                 Logger.bold("SKIPPING BUILD")
                 return True
 
