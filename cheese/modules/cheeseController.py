@@ -148,7 +148,7 @@ class CheeseController:
 
         if (file.endswith(".html")):
             with open(f"{file}", "r", encoding="utf-8") as f:
-                data += f.read()
+                data = f.read()
 
             if (Settings.allowDebug):
                 if (data.find("</body>") != -1):
