@@ -11,5 +11,5 @@ function nowTime() {
 }
 
 function getTime(strTime=null) {
-    return new Date(s).toISOString().slice(0,16);
+    return new Date(strTime).toISOString().slice(0,16);
 }
