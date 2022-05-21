@@ -106,12 +106,15 @@ for root, dirs, files in os.walk(repoDir):
 # ADMIN HTML FILES
 adminPath = os.path.join(repoDir, "cheese", "admin")
 filesPath = os.path.join(adminPath, "files")
+print("")
+print("HTML FILES")
 
 with open(os.path.join(frameworkDir, "src", "Cheese", "adminFiles.py"), "w") as f:
     f.write("class AdminFiles:\n\tdef sayHello():\n\t\tprint('hello')\n\n") 
 
 for root, dirs, files in os.walk(filesPath):
     for file in files:
+        print(f"Found: {os.path.join(root, file)}")
         varName = os.path.join(root.split("cheese")[1], file).split("\\")
         varName = "_".join(varName[1:]).replace(".", "_")
         
