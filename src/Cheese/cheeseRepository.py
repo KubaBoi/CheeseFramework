@@ -55,7 +55,10 @@ class CheeseRepository:
 
     @classmethod
     def findNewId(cls):
-        return CheeseRepository.query(cls.__name__)+1
+        r = CheeseRepository.query(cls.__name__)
+        print(r)
+        print(r+1)
+        return r+1
 
     @classmethod
     def save(cls, obj):
@@ -111,7 +114,6 @@ class CheeseRepository:
                     index = 0
                     while True:
                         index = preparedSql.find(":", index)
-                        print(index)
                         if (index == -1): break
                         newIndex = index+1
                         argName = ""
