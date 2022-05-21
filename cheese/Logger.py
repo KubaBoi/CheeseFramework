@@ -256,10 +256,10 @@ class Logger:
         logName = ResMan.getFileName(log).replace(".html", "")
         for root, dirs, files in os.walk(ResMan.logs()):
             if (sorted(files)[-1] == logName + ".html"):
-                data = temp.read()
+                data = temp
             else:
                 with open(f"{log}", "r") as f:
-                    data = temp.read()
+                    data = temp
                     data = data.replace('class="logTable">', 'class="logTable">' + f.read())
                     data = data.replace("Cheese log - ", "Cheese log - " + 
                         logName + " - <label class='fail'>CLOSED</label>")
