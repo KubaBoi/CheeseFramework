@@ -252,18 +252,18 @@ class Logger:
             with open(f"{ResMan.error()}/error404.html", "rb") as f:
                 return (f.read(), 404)
 
-        with open(ResMan.joinPath(ResMan.admin(), "activeLog.html"), "r") as temp:
-            logName = ResMan.getFileName(log).replace(".html", "")
-            for root, dirs, files in os.walk(ResMan.logs()):
-                if (sorted(files)[-1] == logName + ".html"):
+        temp = AdminFiles.admin_files_activeLog_html
+        logName = ResMan.getFileName(log).replace(".html", "")
+        for root, dirs, files in os.walk(ResMan.logs()):
+            if (sorted(files)[-1] == logName + ".html"):
+                data = temp.read()
+            else:
+                with open(f"{log}", "r") as f:
                     data = temp.read()
-                else:
-                    with open(f"{log}", "r") as f:
-                        data = temp.read()
-                        data = data.replace('class="logTable">', 'class="logTable">' + f.read())
-                        data = data.replace("Cheese log - ", "Cheese log - " + 
-                            logName + " - <label class='fail'>CLOSED</label>")
-                        data = data.replace("//dontRunScript", "dontRunScript")
+                    data = data.replace('class="logTable">', 'class="logTable">' + f.read())
+                    data = data.replace("Cheese log - ", "Cheese log - " + 
+                        logName + " - <label class='fail'>CLOSED</label>")
+                    data = data.replace("//dontRunScript", "dontRunScript")
         return (bytes(data, "utf-8"), 200)
                 
 
