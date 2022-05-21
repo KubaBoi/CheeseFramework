@@ -80,6 +80,6 @@ class RepositoriesBuilder:
                 }
 
             repo["METHODS"]["delete"] = {
-                    "COMMIT": f"delete from {name} where {repo['PRIMARY_KEY']}=:model.{repo['PRIMARY_KEY']};",
+                    "COMMIT": f"delete from {name} where {repo['PRIMARY_KEY']}=:obj.{repo['PRIMARY_KEY']};",
                     "RETURN": ""
                 }
