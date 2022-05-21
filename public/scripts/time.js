@@ -9,3 +9,7 @@ function nowTime() {
     return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 
 }
+
+function getTime(strTime=null) {
+    return new Date(s).toISOString().slice(0,16);
+}
