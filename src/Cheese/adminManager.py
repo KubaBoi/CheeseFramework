@@ -14,6 +14,7 @@ from Cheese.resourceManager import ResMan
 from Cheese.appSettings import Settings
 from Cheese.ErrorCodes import Error
 from Cheese.metadata import Metadata
+from Cheese.adminFiles import AdminFiles
 
 class AdminManager:
 
@@ -79,14 +80,13 @@ class AdminManager:
 
     @staticmethod
     def __sendFile(server, file):
-        file = ResMan.joinPath(ResMan.admin(), *file.split("/")[2:])
-        if (not os.path.exists(file)):
+        file = file.replace("/", "_").replace(".", "_")
+        if (not hasattr(AdminFiles, file)):
             with open(f"{ResMan.error()}/error404.html", "rb") as f:
                 CheeseController.sendResponse(server, (f.read(), 404))
             return
 
-        with open(f"{file}", "r", encoding="utf-8") as f:
-            CheeseController.sendResponse(server, (bytes(f.read(), "utf-8"), 200), "text/html")
+        CheeseController.sendResponse(server, (bytes(getattr(AdminFiles, file), "utf-8"), 200), "text/html")
 
     @staticmethod
     def __createUser(server):
