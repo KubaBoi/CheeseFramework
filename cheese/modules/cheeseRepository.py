@@ -111,7 +111,6 @@ class CheeseRepository:
                     index = 0
                     while True:
                         index = preparedSql.find(":", index)
-                        print(index)
                         if (index == -1): break
                         newIndex = index+1
                         argName = ""
