@@ -2,7 +2,7 @@ class AdminFiles:
 	def sayHello():
 		print('hello')
 
-	index_html = """$<html lang="cs">
+	admin_files_index_html = """$<html lang="cs">
 <head>
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,6 +14,7 @@ class AdminFiles:
     <h1>CHAdmin</h1>
     <label id="release"></label>
     <div id="control" class="controlDiv">
+        <button onclick="shutdown()" id="shutdownButt" style="background-color:#ff0000">Shutdown</button>
         <button onclick="restart()" id="restartButt">Restart server</button>
         <button onclick="saveChanges()" id="saveButt">Save configuration</button>
         <button onclick="pullChanges()" id="updateButt">Get new version from git</button>
@@ -40,7 +41,7 @@ class AdminFiles:
 </body>
 </html>"""
 
-	allLogs_html = """$<html lang="cs">
+	admin_files_allLogs_html = """$<html lang="cs">
 <html>
 <head>
     <meta charset='utf-8'>
@@ -64,7 +65,7 @@ class AdminFiles:
 </body>
 </html>"""
 
-	activeLog_html = """$<html lang="cs">
+	admin_files_activeLog_html = """$<html lang="cs">
 <html>
 <head>
     <meta charset='utf-8'>
@@ -90,7 +91,7 @@ class AdminFiles:
 </body>
 </html>"""
 
-	settings_js = """$
+	admin_files_scripts_settings_js = """$
 async function buildSettingTable() {
     response = await callEndpoint("GET", "/admin/getSettings");
     if (!response.ERROR) {
@@ -121,7 +122,7 @@ function addSetting(setting, value) {
     table.appendChild(row);
 }"""
 
-	release_js = """$function getRelease() {
+	admin_files_scripts_release_js = """$function getRelease() {
     url = "/admin/cheeseRelease";
     
     return new Promise(resolve => {
@@ -140,7 +141,7 @@ async function setRelease() {
     }
 }"""
 
-	log_js = """$debug = false;
+	admin_files_scripts_log_js = """$debug = false;
 
 setTitle();
 async function setTitle() {
@@ -215,12 +216,20 @@ async function deleteFile(log) {
     }
 }"""
 
-	controll_js = """$function apiFunction(url) {    
+	admin_files_scripts_controll_js = """$function apiFunction(url) {    
     return new Promise(resolve => {
         sendGet(url, debug, function(response){
             resolve(response);
         });  
     });
+}
+
+function shutdown() {
+    if (confirm("Do you really want to turn off the server?")) {
+        document.getElementById("shutdownButt").disabled = true;
+        document.getElementById("restartButt").disabled = true;
+        apiFunction("/admin/shutdown");
+    }
 }
 
 function restart() {
@@ -317,7 +326,7 @@ async function pullChanges() {
     }
 }"""
 
-	style_css = """$body {
+	admin_files_styles_style_css = """$body {
     color: white;
     background-color: #2b2b2b;
     font-family: Arial, Helvetica, sans-serif;
