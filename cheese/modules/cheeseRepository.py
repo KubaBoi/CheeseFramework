@@ -55,10 +55,7 @@ class CheeseRepository:
 
     @classmethod
     def findNewId(cls):
-        r = CheeseRepository.query(cls.__name__)
-        print(r)
-        print(r+1)
-        return r+1
+        return CheeseRepository.query(cls.__name__)+1
 
     @classmethod
     def save(cls, obj):
