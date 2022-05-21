@@ -6,6 +6,14 @@ function apiFunction(url) {
     });
 }
 
+function shutdown() {
+    if (confirm("Do you really want to turn off the server?")) {
+        document.getElementById("shutdownButt").disabled = true;
+        document.getElementById("restartButt").disabled = true;
+        apiFunction("/admin/shutdown");
+    }
+}
+
 function restart() {
     if (confirm("Do you really want to restart your application?\nIt will took about 20 seconds.")) {
         clearInterval(updateInterval);
