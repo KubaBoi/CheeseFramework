@@ -16,6 +16,7 @@ class Security:
         role = None
         dict = None
         authHeader = server.headers.get("Authorization")
+        print(authHeader)
         if (authHeader != None):
             auth = Metadata.decode64(authHeader)
 
