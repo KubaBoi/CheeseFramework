@@ -115,7 +115,10 @@ with open(os.path.join(frameworkDir, "src", "Cheese", "adminFiles.py"), "w") as 
 for root, dirs, files in os.walk(filesPath):
     for file in files:
         varName = os.path.join(root.split("cheese")[1], file)
-        varName = os.path.split(varName)
+        if (varName.find("\\") == -1):
+            varName = varName.split("/")
+        else:
+            varName = varName.split("\\")
         varName = "_".join(varName[1:]).replace(".", "_")
         
         print(f"Found: {os.path.join(root, file)} as {varName}")
