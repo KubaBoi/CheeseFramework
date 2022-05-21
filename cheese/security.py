@@ -15,8 +15,9 @@ class Security:
 
         role = None
         dict = None
-        if (server.headers.get("Authorization") != None):
-            auth = Metadata.decode64(server.headers.get("Authorization"))
+        authHeader = server.headers.get("Authorization")
+        if (authHeader != None):
+            auth = Metadata.decode64(authHeader)
 
             for tp in Metadata.authentication["types"]:
                 dict = Security.fitPatern(auth, tp["patern"])
