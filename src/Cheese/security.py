@@ -17,7 +17,7 @@ class Security:
         dict = None
         authHeader = server.headers.get("Authorization")
         
-        if (authHeader.startsWith("Basic ")):
+        if (authHeader.startswith("Basic ")):
             authHeader = authHeader.replace("Basic ", "")
 
         if (authHeader != None):
