@@ -114,10 +114,12 @@ with open(os.path.join(frameworkDir, "src", "Cheese", "adminFiles.py"), "w") as 
 
 for root, dirs, files in os.walk(filesPath):
     for file in files:
-        print(f"Found: {os.path.join(root, file)}")
-        varName = os.path.join(root.split("cheese")[1], file).split("\\")
+        varName = os.path.join(root.split("cheese")[1], file)
+        varName = os.path.split(varName)
         varName = "_".join(varName[1:]).replace(".", "_")
         
+        print(f"Found: {os.path.join(root, file)} as {varName}")
+
         with open(os.path.join(root, file), "r") as f:
             data = f.read()
 
