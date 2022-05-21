@@ -35,6 +35,8 @@ class Error:
         if (not isinstance(error, HTTPError)):
             Error.logErrorMessage(error)
             error = InternalServerError("An unknown error occured")
+        else:
+            Error.logHttpErrorMessage(error)
 
         if (server != None):
             Error.sendCustomError(server, error.code, error.name, DESCRIPTION=error.description)
@@ -47,4 +49,13 @@ class Error:
             errorMessage += "\n" + 20*"==" + "\n"
             errorMessage += "\n" + f"{Logger.WARNING}{error.args[0]}{Logger.FAIL}"
         Logger.fail(f"{type(error).__name__} occurred: {errorMessage}", False)
-        return error
+
+    @staticmethod
+    def logHttpErrorMessage(error):
+        errorMessage = f"""\n{Logger.WARNING}{error.name}{Logger.FAIL}
+        {error.code}
+        {error.description}
+        """
+        Logger.fail(errorMessage, False)
+
+        
