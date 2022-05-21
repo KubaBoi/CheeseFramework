@@ -15,6 +15,7 @@ class CheeseModel:
     def toModel(self, jsn):
         if (type(jsn).__name__ == "dict"):
             for attr in self.scheme:
+                if (attr.upper() == "ID"): continue
                 if (attr in jsn.keys()):
                     setattr(self, attr, jsn[attr])
                 if (attr.upper() in jsn.keys()):
