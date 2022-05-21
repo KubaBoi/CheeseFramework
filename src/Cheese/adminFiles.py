@@ -181,7 +181,7 @@ async function buildLogTable() {
         var label = document.querySelector(`#logDesc`);
         if (label.tagName == `LABEL`) {
             label.innerHTML = `<button onclick=\"location='/admin/logs'\">All logs</button>	&nbsp;
-            <button onclick=\"location='/admin/activeLog.html'\">Full log</button>`;
+            <button onclick=\"location='/admin/files/activeLog.html'\">Full log</button>`;
         }
         else {
             label.innerHTML = `Cheese log - ${response.RESPONSE.LOG_DESC} - <label class='okGreen'>ACTIVE</label>`;
