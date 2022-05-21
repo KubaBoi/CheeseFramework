@@ -127,4 +127,4 @@ for root, dirs, files in os.walk(filesPath):
             data = f.read()
 
         with open(os.path.join(frameworkDir, "src", "Cheese", "adminFiles.py"), "a") as f:
-            f.write(f"\t{varName} = \"\"\"${data}\"\"\"\n\n")
+            f.write(f"\t{varName} = \"\"\"{data}\"\"\"\n\n")
