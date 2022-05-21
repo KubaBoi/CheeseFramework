@@ -1,5 +1,7 @@
 #cheese
 
+import json
+
 from Cheese.mockManager import MockManager
 
 class Mock:
@@ -43,6 +45,25 @@ class Mock:
 class ServerMock:
 
     def __init__(self, **kwargs):
-
+        self.headers = HeadersMock()
         for key in kwargs.keys():
             setattr(self, key, kwargs[key])
+
+    def mockPostBody(self, jsn):
+        self.rfile = RfileMock(jsn)
+
+class HeadersMock:
+
+    def __init__(self, **kwargs):
+        self.attrs = kwargs
+
+    def get(self, smth):
+        return 0
+
+class RfileMock:
+
+    def __init__(self, jsn):
+        self.content = json.dumps(jsn).encode("utf-8")
+
+    def read(self, lngth):
+        return self.content
