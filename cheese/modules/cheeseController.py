@@ -153,7 +153,7 @@ class CheeseController:
             if (Settings.allowDebug):
                 if (data.find("</body>") != -1):
                     data = (data.split("</body>")[0] + "<label style='position: fixed;right: 5px;bottom: 16px; font-family: Arial, Helvetica, sans-serif;'>"
-                    + f"version {Settings.vesrion} </label></body>{data.split('</body>')[1]}")
+                    + f"version {Settings.version} </label></body>{data.split('</body>')[1]}")
             
             if (not CheeseController.checkLicense()):
                 if (data.find("</body>") != -1):
