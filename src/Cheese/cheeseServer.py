@@ -10,6 +10,8 @@ from Cheese.appSettings import Settings
 from Cheese.cheeseController import CheeseController as cc
 from Cheese.adminManager import AdminManager
 from Cheese.Logger import Logger
+from Cheese.httpClientErrors import *
+from Cheese.httpServerError import *
 from Cheese.ErrorCodes import Error
 from Cheese.security import Security
 
@@ -45,9 +47,7 @@ class CheeseHandler(BaseHTTPRequestHandler):
             auth = Security.authenticate(self, self.path)
 
             if (auth == False):
-                response = cc.createResponse({"ERROR": "Unauthorized access"}, 401)
-                cc.sendResponse(self, response)
-                return
+                raise Unauthorized("Wrong credentials")
 
             endpoint = cc.getPath(self.path)
             controller = Metadata.findMethod(endpoint, "GET")
@@ -75,14 +75,12 @@ class CheeseHandler(BaseHTTPRequestHandler):
             auth = Security.authenticate(self, self.path)
 
             if (auth == False):
-                response = cc.createResponse({"ERROR": "Unauthorized access"}, 401)
-                cc.sendResponse(self, response)
-                return
+                raise Unauthorized("Wrong credentials")
 
             endpoints = cc.getPath(self.path)
             controller = Metadata.findMethod(endpoints, "POST")
             if (not controller):
-                Error.sendCustomError(self, "Endpoint not found :(", 404)
+                raise NotFound("Endpoint not found :(")
             else:
                 response = controller(self, self.path, auth)
                 cc.sendResponse(self, response)
