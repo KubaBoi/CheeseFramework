@@ -14,7 +14,7 @@ from cheese.resourceManager import ResMan
 from cheese.appSettings import Settings
 from cheese.ErrorCodes import Error
 from cheese.metadata import Metadata
-from cheese.adminFiles import AdminFiles
+from Cheese.adminFiles import AdminFiles
 
 class AdminManager:
 
