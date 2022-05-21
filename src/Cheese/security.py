@@ -66,9 +66,9 @@ class Security:
             validation = validation.replace(f"${key}$", f"'{dict[key]}'")
 
         db = Database()
-        response = db.query(f"select case when exists ({validation}) then cast(1 as bit) else cast(0 as bit) end")
+        response = db.query(f"select case when exists ({validation}) then cast(1 as bit) else cast(0 as bit) end;")
         db.done()
-        return bool(response[0][0])
+        return bool(int(response[0][0]))
 
     @staticmethod
     def fitPatern(auth, patern):
