@@ -81,6 +81,9 @@ class AdminManager:
     @staticmethod
     def __sendFile(server, file):
         file = file.replace("/", "_").replace(".", "_")
+        if (file[0] == "_"):
+            file = file[1:]
+            
         if (not hasattr(AdminFiles, file)):
             with open(f"{ResMan.error()}/error404.html", "rb") as f:
                 CheeseController.sendResponse(server, (f.read(), 404))

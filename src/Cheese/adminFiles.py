@@ -2,57 +2,7 @@ class AdminFiles:
 	def sayHello():
 		print('hello')
 
-	admin_files_activeLog_html = """$<html lang="cs">
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/admin/styles/style.css">
-    <link rel="icon" href="/admin/web/favicon.ico" type="image/x-icon">
-    <title>Cheese log</title>
-</head>
-<body>
-    <button onclick="location='/admin/logs'">All logs</button>
-    <button onclick="location='/admin'">CHAdmin</button>
-    <h1 id="logDesc">Cheese log - </h1>
-    <div id="log" class="logDivBig">
-        <table id="logTable" class="logTable"></table>
-    </div>
-
-    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/cookies.js"></script>
-    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>
-    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
-
-    <script>//dontRunScript = true;</script>
-    <script src="/admin/scripts/log.js"></script>
-</body>
-</html>"""
-
-	admin_files_allLogs_html = """$<html lang="cs">
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/admin/styles/style.css">
-    <link rel="icon" href="/admin/web/favicon.ico" type="image/x-icon">
-    <title>Cheese logs</title>
-</head>
-<body>
-    <h1>Cheese Logs</h1>
-    <button onclick="location='/admin'">CHAdmin</button><br><br>
-    <table>
-        TABLE
-    </table>
-    <script>
-        dontRunScript = true;
-    </script>
-    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>
-    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
-    <script src="/admin/scripts/log.js"></script>
-</body>
-</html>"""
-
-	admin_files_index_html = """$<html lang="cs">
+	index_html = """$<html lang="cs">
 <head>
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -90,7 +40,182 @@ class AdminFiles:
 </body>
 </html>"""
 
-	admin_files_scripts_controll_js = """$function apiFunction(url) {    
+	allLogs_html = """$<html lang="cs">
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/admin/styles/style.css">
+    <link rel="icon" href="/admin/web/favicon.ico" type="image/x-icon">
+    <title>Cheese logs</title>
+</head>
+<body>
+    <h1>Cheese Logs</h1>
+    <button onclick="location='/admin'">CHAdmin</button><br><br>
+    <table>
+        TABLE
+    </table>
+    <script>
+        dontRunScript = true;
+    </script>
+    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>
+    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
+    <script src="/admin/scripts/log.js"></script>
+</body>
+</html>"""
+
+	activeLog_html = """$<html lang="cs">
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/admin/styles/style.css">
+    <link rel="icon" href="/admin/web/favicon.ico" type="image/x-icon">
+    <title>Cheese log</title>
+</head>
+<body>
+    <button onclick="location='/admin/logs'">All logs</button>
+    <button onclick="location='/admin'">CHAdmin</button>
+    <h1 id="logDesc">Cheese log - </h1>
+    <div id="log" class="logDivBig">
+        <table id="logTable" class="logTable"></table>
+    </div>
+
+    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/cookies.js"></script>
+    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>
+    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
+
+    <script>//dontRunScript = true;</script>
+    <script src="/admin/scripts/log.js"></script>
+</body>
+</html>"""
+
+	settings_js = """$
+async function buildSettingTable() {
+    response = await callEndpoint("GET", "/admin/getSettings");
+    if (!response.ERROR) {
+        for (const key in response) {
+            if (response.hasOwnProperty(key)) {
+                addSetting(key, response[key]);
+            }
+        }
+        document.title = "CHAdmin - " + response.name;
+    }
+}
+
+function addSetting(setting, value) {
+    var table = document.querySelector("#settingsTable");
+
+    var row = document.createElement("tr");
+    var nameColumn = document.createElement("td");
+    var valueColumn = document.createElement("td");
+
+    nameColumn.innerHTML = setting;
+    if (setting == "dbPassword")
+        valueColumn.innerHTML = "<input type='password' value='" + value + "'>";
+    else
+        valueColumn.innerHTML = "<input type='text' value='" + value + "'>";
+    
+    row.appendChild(nameColumn);
+    row.appendChild(valueColumn);
+    table.appendChild(row);
+}"""
+
+	release_js = """$function getRelease() {
+    url = "/admin/cheeseRelease";
+    
+    return new Promise(resolve => {
+        sendGet(url, debug, function(response){
+            resolve(response);
+        });  
+    });
+}
+
+async function setRelease() {
+    var lbl = document.getElementById("release");
+
+    var response = await getRelease();
+    if (!response.ERROR) {
+        lbl.innerHTML = "Cheese Framework (v" + response.RELEASE + ")"
+    }
+}"""
+
+	log_js = """$debug = false;
+
+setTitle();
+async function setTitle() {
+    response = await callEndpoint("GET", "/admin/getSettings");
+    if (!response.ERROR) {
+        document.title = "Cheese logs - " + response.name;
+    }
+}
+
+function getActiveLog() {
+    url = "/admin/getActiveLog";
+    
+    return new Promise(resolve => {
+        sendGet(url, debug, function(response){
+            resolve(response);
+        });  
+    });
+}
+
+function deleteLog(log) {
+    url = "/admin/deleteLog?log=" + log;
+    
+    return new Promise(resolve => {
+        sendGet(url, debug, function(response){
+            resolve(response);
+        });  
+    });
+}
+
+async function buildLogTable() {
+    response = await getActiveLog();
+    if (!response.ERROR) {
+        var table = document.querySelector("#logTable");
+        table.innerHTML = "";
+        table.innerHTML = response.RESPONSE.LOG;
+
+        var label = document.querySelector("#logDesc");
+        if (label.tagName == "LABEL") {
+            label.innerHTML = "<button onclick=\"location='/admin/logs'\">All logs</button>	&nbsp;" +
+            "<button onclick=\"location='/admin/activeLog.html'\">Full log</button>";
+        }
+        else {
+            label.innerHTML = "Cheese log - " + response.RESPONSE.LOG_DESC + " - <label class='okGreen'>ACTIVE</label>";
+        }
+    }
+}
+
+if (typeof dontRunScript == "undefined") updateInterval = setInterval(update, 1000);
+var oldC = 0;
+var oldScrollHeight = 0;
+function update() {
+    buildLogTable();
+    element = document.getElementById("log");
+    var a = element.scrollTop;
+    var b = element.scrollHeight - element.clientHeight;
+    if (oldC < 500 && oldScrollHeight != element.scrollHeight) {
+        element.scrollTop = b;
+    }
+
+    oldScrollHeight = element.scrollHeight;
+    oldC = b - a;
+}
+
+async function deleteFile(log) {
+    response = await deleteLog(log);
+    if (!response.ERROR) {
+        alert("Log " + log + " was deleted")
+        location.reload();
+    }
+    else {
+        alert("An error occurred: " + response.ERROR);
+    }
+}"""
+
+	controll_js = """$function apiFunction(url) {    
     return new Promise(resolve => {
         sendGet(url, debug, function(response){
             resolve(response);
@@ -192,132 +317,7 @@ async function pullChanges() {
     }
 }"""
 
-	admin_files_scripts_log_js = """$debug = false;
-
-setTitle();
-async function setTitle() {
-    response = await callEndpoint("GET", "/admin/getSettings");
-    if (!response.ERROR) {
-        document.title = "Cheese logs - " + response.name;
-    }
-}
-
-function getActiveLog() {
-    url = "/admin/getActiveLog";
-    
-    return new Promise(resolve => {
-        sendGet(url, debug, function(response){
-            resolve(response);
-        });  
-    });
-}
-
-function deleteLog(log) {
-    url = "/admin/deleteLog?log=" + log;
-    
-    return new Promise(resolve => {
-        sendGet(url, debug, function(response){
-            resolve(response);
-        });  
-    });
-}
-
-async function buildLogTable() {
-    response = await getActiveLog();
-    if (!response.ERROR) {
-        var table = document.querySelector("#logTable");
-        table.innerHTML = "";
-        table.innerHTML = response.RESPONSE.LOG;
-
-        var label = document.querySelector("#logDesc");
-        if (label.tagName == "LABEL") {
-            label.innerHTML = "<button onclick=\"location='/admin/logs'\">All logs</button>	&nbsp;" +
-            "<button onclick=\"location='/admin/activeLog.html'\">Full log</button>";
-        }
-        else {
-            label.innerHTML = "Cheese log - " + response.RESPONSE.LOG_DESC + " - <label class='okGreen'>ACTIVE</label>";
-        }
-    }
-}
-
-if (typeof dontRunScript == "undefined") updateInterval = setInterval(update, 1000);
-var oldC = 0;
-var oldScrollHeight = 0;
-function update() {
-    buildLogTable();
-    element = document.getElementById("log");
-    var a = element.scrollTop;
-    var b = element.scrollHeight - element.clientHeight;
-    if (oldC < 500 && oldScrollHeight != element.scrollHeight) {
-        element.scrollTop = b;
-    }
-
-    oldScrollHeight = element.scrollHeight;
-    oldC = b - a;
-}
-
-async function deleteFile(log) {
-    response = await deleteLog(log);
-    if (!response.ERROR) {
-        alert("Log " + log + " was deleted")
-        location.reload();
-    }
-    else {
-        alert("An error occurred: " + response.ERROR);
-    }
-}"""
-
-	admin_files_scripts_release_js = """$function getRelease() {
-    url = "/admin/cheeseRelease";
-    
-    return new Promise(resolve => {
-        sendGet(url, debug, function(response){
-            resolve(response);
-        });  
-    });
-}
-
-async function setRelease() {
-    var lbl = document.getElementById("release");
-
-    var response = await getRelease();
-    if (!response.ERROR) {
-        lbl.innerHTML = "Cheese Framework (v" + response.RELEASE + ")"
-    }
-}"""
-
-	admin_files_scripts_settings_js = """$
-async function buildSettingTable() {
-    response = await callEndpoint("GET", "/admin/getSettings");
-    if (!response.ERROR) {
-        for (const key in response) {
-            if (response.hasOwnProperty(key)) {
-                addSetting(key, response[key]);
-            }
-        }
-        document.title = "CHAdmin - " + response.name;
-    }
-}
-
-function addSetting(setting, value) {
-    var table = document.querySelector("#settingsTable");
-
-    var row = document.createElement("tr");
-    var nameColumn = document.createElement("td");
-    var valueColumn = document.createElement("td");
-
-    nameColumn.innerHTML = setting;
-    if (setting == "dbPassword")
-        valueColumn.innerHTML = "<input type='password' value='" + value + "'>";
-    else
-        valueColumn.innerHTML = "<input type='text' value='" + value + "'>";
-    
-    row.appendChild(nameColumn);
-    row.appendChild(valueColumn);
-    table.appendChild(row);
-}"""
-
-	admin_files_styles_style_css = """$body {
+	style_css = """$body {
     color: white;
     background-color: #2b2b2b;
     font-family: Arial, Helvetica, sans-serif;
