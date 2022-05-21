@@ -16,7 +16,10 @@ class Security:
         role = None
         dict = None
         authHeader = server.headers.get("Authorization")
-        print(authHeader)
+        
+        if (authHeader.startsWith("Basic ")):
+            authHeader = authHeader.replace("Basic ", "")
+
         if (authHeader != None):
             auth = Metadata.decode64(authHeader)
 
