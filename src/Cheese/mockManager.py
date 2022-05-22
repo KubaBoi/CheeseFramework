@@ -12,6 +12,9 @@ class MockManager:
 
     @staticmethod
     def returnMock(repositoryName, methodName, kwargs):
+        """
+        Mocks repository method
+        """
 
         if (repositoryName.upper() in MockManager.mocks.keys()):
             mock = MockManager.mocks[repositoryName.upper()]
@@ -43,6 +46,12 @@ class MockManager:
         return None
 
     def prepareResponse(response):
+        """
+        Prepares response
+        Finds its type and returns it
+        If type is Pointer returns value
+        """
+
         newResponse = response
         if (type(response) == list): #list
             newResponse = []

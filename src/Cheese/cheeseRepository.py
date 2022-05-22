@@ -38,6 +38,10 @@ class CheeseRepository:
         return model
 
     @classmethod
+    def className(cls):
+        return cls.__name__
+
+    @classmethod
     def findAll(cls):
         return CheeseRepository.query(cls.__name__)
 

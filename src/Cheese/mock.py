@@ -6,10 +6,10 @@ from Cheese.mockManager import MockManager
 
 class Mock:
 
-    def __init__(self, repositoryName):
+    def __init__(self, repository):
         self.whenReturns = {}
         self.catch = {}
-        self.repoName = repositoryName
+        self.repoName = repository.className()
         MockManager.setMock(self)
 
     def whenReturn(self, methodName, response, **kwargs):
