@@ -34,9 +34,6 @@ class MockManager:
                         if (key not in kwargs.keys()):
                             raise MockError(repositoryName, methodName, key)
 
-                        if (kwargs[key] != catch["KWARGS"][key]): # if any of conditions is not acomplished
-                            continue
-
                     if (catch["ARG_NAME"] not in kwargs): # if cached argument is not in kwargs of real method
                         raise MockError(repositoryName, methodName, catch["ARG_NAME"])
 
