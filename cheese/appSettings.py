@@ -43,7 +43,7 @@ class Settings:
             if (value[1:] not in secrets.keys()):
                 errors.append((key, value))
             else:
-                setattr(Settings, key, secrets[key])
+                setattr(Settings, key, secrets[value[1:]])
 
         if (len(errors) > 0):
             raise KeyError(*errors)
