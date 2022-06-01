@@ -180,7 +180,7 @@ import json
 from Cheese.metadata import Metadata
 
 pathToCodedFile = "some\\path\\.metadata"
-key = "jauukfnd" # key to decode data
+key = "jauukfndl" # key to decode data
 
 with open(pathToCodedFile, "r", encoding="utf-8") as f:
     rawData = f.read() # loads data from file coded base64 
