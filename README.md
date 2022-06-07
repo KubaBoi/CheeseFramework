@@ -180,7 +180,10 @@ Uncoded metadata are accessible via ```Metadata``` class.
 
 ```python
 import json
+from Cheese.cheese import CheeseBurger
 from Cheese.metadata import Metadata
+
+CheeseBurger.init()
 
 pathToCodedFile = "some\\path\\.metadata"
 key = "jauukfnd" # key to decode data
@@ -191,7 +194,9 @@ with open(pathToCodedFile, "r", encoding="utf-8") as f:
 codedData = Metadata.decode64(rawData) # decode base64
 rawJsonData = Metadata.decode(codedData, key) # decode by your key
 jsonData = json.loads(rawJsonData) # loads json from string into dictionary
-print(jsonData)
+
+with open("metadata.json", "w") as f:
+    f.write(json.dumps(jsonData))
 ```
 
 ## 4 Project structure
