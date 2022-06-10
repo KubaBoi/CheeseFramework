@@ -14,7 +14,7 @@ Test version v(1.3.85) - 22.06.11.01.15
 
 - [x] :bangbang: TESTS :bangbang: - 1.2.0
 - [x] do authorization - 1.3.0
-- [x] repair doc - 1.3.5
+- [ ] repair doc - 1.4.0
 - [ ] do Cheese tools - 1.4.0
 - [ ] getTime js script - 1.4.0
 - [x] repair CORS not allowed
