@@ -22,3 +22,16 @@ function addHeader(table, cells, rowAttributes=[]) {
     }
     return row;
 }
+
+function insertRow(table, rowIndex, cells, rowAttributes=[]) {
+    var row = table.insertRow(rowIndex);
+
+    for (let i = 0; i < cells.length; i++) {
+        if (!cells[i].attributes) {
+            cells[i].attributes = [];
+        }
+        createElement("td", row, cells[i].text, cells[i].attributes);
+    }
+
+    return row;
+}
