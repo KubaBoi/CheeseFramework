@@ -1,5 +1,7 @@
 #cheese
 
+import os
+
 from Cheese.checkVersion import Updater
 Updater.checkUpdate()
 
@@ -41,8 +43,8 @@ class Cheeser:
 
 
     @staticmethod
-    def generate(path, generateFiles=True):
-        ProjectGenerator.generate(path, generateFiles)
+    def generate(generateFiles=True):
+        ProjectGenerator.generate(os.path.curdir, generateFiles)
 
     @staticmethod
     def build():
