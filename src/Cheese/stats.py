@@ -9,7 +9,7 @@ class Stats:
         Stats.path = os.path.curdir
         Stats.projectName = os.path.basename(os.path.abspath(os.path.curdir))
 
-        Stats.suffixes = ["py", "js", "html", "css"] + suffixes
+        Stats.suffixes = ["py", "js", "html", "css"] + list(suffixes)
 
         allFiles = 0
         allRows = 0
@@ -42,3 +42,5 @@ class Stats:
                     rows += len(f.readlines())
 
         return filesCount, rows
+
+Stats.rowCount()
