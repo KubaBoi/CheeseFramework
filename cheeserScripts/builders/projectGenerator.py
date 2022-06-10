@@ -35,10 +35,10 @@ class ProjectGenerator:
             os.remove(os.path.join(src, "models", "Hello.py"))
             os.remove(os.path.join(src, "repositories", "helloRepository.py"))
 
-        with open(os.path.join(src, "mainTemplate.py"), "r") as f:
+        with open(os.path.join(path, "mainTemplate.py"), "r") as f:
             data = f.read()
 
-        with open(os.path.join(src, f"{name}.py"), "w") as f:
+        with open(os.path.join(path, f"{name}.py"), "w") as f:
             f.write(data)
 
-        os.remove(os.path.join(src, "mainTemplate.py"))
+        os.remove(os.path.join(path, "mainTemplate.py"))
