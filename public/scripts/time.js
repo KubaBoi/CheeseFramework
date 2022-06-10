@@ -12,7 +12,7 @@ function nowTime() {
 
 function getTimestamp(strTime=null, nullIsNow=true) {
     if (!nullIsNow && strTime == null) {
-        return null;
+        return "";
     }
     return new Date(strTime).toISOString().slice(0,16);
 }
