@@ -13,3 +13,7 @@ function nowTime() {
 function getTime(strTime=null) {
     return new Date(strTime).toISOString().slice(0,16);
 }
+
+function getDate(strTime=null) {
+    return new Date(strTime).toISOString().substring(0,10);
+}
