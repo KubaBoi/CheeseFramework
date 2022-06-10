@@ -36,7 +36,8 @@ class Stats:
         for root, dirs, files in os.walk(Stats.path):
             for file in files:
                 if (not file.endswith(suffix)): continue
-
+                if (suffix == "html" and os.path.dirname(os.path.join(root, file)).endswith("logs")): continue
+                
                 filesCount += 1
                 with open(os.path.join(root, file), "r") as f:
                     rows += len(f.readlines())
