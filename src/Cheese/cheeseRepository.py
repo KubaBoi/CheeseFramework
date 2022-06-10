@@ -225,7 +225,9 @@ class CheeseRepository:
     # convert arguments
     @staticmethod
     def getTypeOf(arg, variables=None, key=None, scheme=None):
-        if (type(arg) is str):
+        if (arg == None):
+            return "NULL"
+        elif (type(arg) is str):
             if (len(arg) == 0): return "''"
             if (arg[-1] != "\'" 
                 and arg[-1] != ")" 
