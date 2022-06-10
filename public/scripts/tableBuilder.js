@@ -26,6 +26,10 @@ function addHeader(table, cells, rowAttributes=[]) {
 function insertRow(table, rowIndex, cells, rowAttributes=[]) {
     var row = table.insertRow(rowIndex);
 
+    for (let i = 0; i < rowAttributes.length; i++) {
+        row.setAttribute(rowAttributes[i].name, rowAttributes[i].value);
+    }
+
     for (let i = 0; i < cells.length; i++) {
         if (!cells[i].attributes) {
             cells[i].attributes = [];
