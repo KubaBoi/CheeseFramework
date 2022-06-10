@@ -15,8 +15,6 @@ class ProjectGenerator:
 
     @staticmethod
     def generate(path, generateFiles):
-        name = ResMan.getFileName(path)
-
         repo = git.Repo.clone_from("https://github.com/KubaBoi/CheeseFramework.git", path)
 
         repo.git.checkout("template")  
@@ -38,7 +36,7 @@ class ProjectGenerator:
         with open(os.path.join(path, "mainTemplate.py"), "r") as f:
             data = f.read()
 
-        with open(os.path.join(path, f"{name}.py"), "w") as f:
+        with open(os.path.join(path, f"{os.path.basename(os.path.abspath(os.path.curdir))}.py"), "w") as f:
             f.write(data)
 
         os.remove(os.path.join(path, "mainTemplate.py"))
