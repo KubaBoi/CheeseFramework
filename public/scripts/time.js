@@ -10,8 +10,22 @@ function nowTime() {
 
 }
 
-function getTime(strTime=null) {
+function getTimestamp(strTime=null, nullIsNow=true) {
+    if (!nullIsNow && strTime == null) {
+        return null;
+    }
     return new Date(strTime).toISOString().slice(0,16);
+}
+
+/**
+ * @deprecated Use getTimestamp. getTime will return only time part of date since CheeseFramework 1.4.0
+ */
+function getTime(strTime=null, nullIsNow=true) {
+    if (!nullIsNow && strTime == null) {
+        return null;
+    }
+    return new Date(strTime).toISOString().slice(0,16);
+    //return new Date(strTime).toISOString().slice(10,16);
 }
 
 function getDate(strTime=null, nullIsNow=true) {
