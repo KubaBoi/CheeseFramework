@@ -42,5 +42,3 @@ class Stats:
                     rows += len(f.readlines())
 
         return filesCount, rows
-
-Stats.rowCount()
