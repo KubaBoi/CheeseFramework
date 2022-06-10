@@ -21,6 +21,9 @@ function getTimestamp(strTime=null, nullIsNow=true) {
  * @deprecated Use getTimestamp. getTime will return only time part of date since CheeseFramework 1.4.0
  */
 function getTime(strTime=null, nullIsNow=true) {
+    console.warn(`WARNING! Obsolete function called. Function getTime() has been deprecated, 
+please use the new getTimestamp() function instead! Function will return time part of datetime stamp since 1.4.0`);
+
     if (!nullIsNow && strTime == null) {
         return null;
     }
