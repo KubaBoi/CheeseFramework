@@ -16,6 +16,7 @@ Test version v(1.3.78) - 22.06.10.19.20
 - [x] do authorization - 1.3.0
 - [x] repair doc - 1.3.5
 - [ ] do Cheese tools - 1.4.0
+- [ ] getTime js script - 1.4.0
 - [x] repair CORS not allowed
 - [x] repair admin access
 - [x] remove deprecated ```#@acceptsModel``` annotation
