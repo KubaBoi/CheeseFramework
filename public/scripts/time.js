@@ -14,6 +14,9 @@ function getTime(strTime=null) {
     return new Date(strTime).toISOString().slice(0,16);
 }
 
-function getDate(strTime=null) {
+function getDate(strTime=null, nullIsNow=true) {
+    if (!nullIsNow && strTime == null) {
+        return null;
+    }
     return new Date(strTime).toISOString().substring(0,10);
 }
