@@ -47,6 +47,13 @@ for root, dirs, files in os.walk(sourcePath):
             cont = f"- [{clsName}](#{m}-{changeName(clsName)})\n"
             n = 0
 
+            clsDoc = cls.__doc__
+            if (clsDoc != None):
+                docC = ""
+                for line in clsDoc.split("\n"):
+                    docC += line.strip() + "\n"
+                mthStr += docC + "\n\n"
+
             for attr in attributes:
                 doc = getattr(cls, attr).__doc__
                 if (doc == None):
