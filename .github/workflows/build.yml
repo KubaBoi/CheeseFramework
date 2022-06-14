@@ -26,6 +26,7 @@ jobs:
           python3 -m pip install --upgrade twine
           python3 -m pip install --upgrade build
           python3 -m pip install --upgrade GitPython
+          python3 -m pip isntall --upgrade CheeseFramework
 
       - name: Promote version
         run: python3 .github/promoteVersion.py ${{ github.event.commits[0].message }}
