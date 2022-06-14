@@ -1,8 +1,19 @@
-## 1. AdminFiles
+## 1. MockManager
 
-### 1.1 sayHello
+### 1.1 prepareResponse
 
-hello
+
+Prepares response
+Finds its type and returns it
+If type is Pointer returns value
+
+
+
+### 1.2 returnMock
+
+
+Mocks repository method
+
 
 
 ## 2. CheeseController
@@ -169,16 +180,35 @@ return true if all keys are in dictionary
 
 
 
-## 3. CheeseModel
+## 3. Mock
 
-### 3.1 _CheeseModel__getAttrs
+### 3.1 catchArgs
+
+
+pointer - id of object which will be filled with return
+methodName - name of method which will be cached
+
+
+
+### 3.2 whenReturn
+
+
+methodName - name of method which will be mocked
+response - response which mocked return will return
+kwargs - dict of arguments singalizing that this is THE case
+
+
+
+## 4. CheeseModel
+
+### 4.1 _CheeseModel__getAttrs
 
 
 returns every attribute in ```self``` object
 
 
 
-### 3.2 setAttrs
+### 4.2 setAttrs
 
 
 converts ```kwargs``` into model such as ```toModel()``` method
@@ -188,7 +218,7 @@ It will be passed to ```toModel()``` method as ```dict```.
 
 
 
-### 3.3 toJson
+### 4.3 toJson
 
 
 return model data as dictionary
@@ -201,7 +231,7 @@ only attributes from ```scheme```
 
 
 
-### 3.4 toModel
+### 4.4 toModel
 
 
 converts ```dict``` or anything iterable into ```model```
@@ -209,74 +239,6 @@ converts ```dict``` or anything iterable into ```model```
 ```jsn``` is an object with data
 - if it is NOT ```dict``` than it need to be iterable and
 it needs to be in same order as ```scheme``` is. (tuple, list...)
-
-
-
-## 4. CheeseRepository
-
-### 4.1 className
-
-
-return string with name of class
-
-
-
-### 4.2 find
-
-
-return one ```CheeseModel``` by ```Primary key```
-
-
-
-### 4.3 findAll
-
-
-return whole table of database as list of ```CheeseModel```
-
-
-
-### 4.4 findBy
-
-
-return list of ```CheeseModel```
-
-```columnName``` name of column for filtering
-
-```value``` value of ```column```
-
-example:
-```
-columnName = "age"
-value = 15
-->
-SQL: "... WHERE age = 15 ..."
-```
-
-
-
-### 4.5 findOneBy
-
-
-return one ```CheeseModel``` by ```columnName```
-
-```columnName``` name of column for filtering
-
-```value``` value of ```column```
-
-example:
-```
-columnName = "age"
-value = 15
-->
-SQL: "... WHERE age = 15 ..."
-```
-
-
-
-### 4.6 model
-
-
-return ```CheeseModel``` with ```Primary key```, ```modelName``` and ```scheme```
 
 
 
@@ -689,7 +651,7 @@ Send the response header only.
 Return the server software version string.
 
 
-## 8. BadRequest
+## 8. TestError
 
 ### 8.1 with_traceback
 
@@ -697,7 +659,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 9. Unauthorized
+## 9. MockError
 
 ### 9.1 with_traceback
 
@@ -705,7 +667,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 10. PaymentRequired
+## 10. BadRequest
 
 ### 10.1 with_traceback
 
@@ -713,7 +675,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 11. Forbidden
+## 11. Unauthorized
 
 ### 11.1 with_traceback
 
@@ -721,7 +683,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 12. NotFound
+## 12. PaymentRequired
 
 ### 12.1 with_traceback
 
@@ -729,7 +691,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 13. MethodNotAllowed
+## 13. Forbidden
 
 ### 13.1 with_traceback
 
@@ -737,7 +699,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 14. NotAcceptable
+## 14. NotFound
 
 ### 14.1 with_traceback
 
@@ -745,7 +707,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 15. Conflict
+## 15. MethodNotAllowed
 
 ### 15.1 with_traceback
 
@@ -753,7 +715,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 16. ImTeaPot
+## 16. NotAcceptable
 
 ### 16.1 with_traceback
 
@@ -761,7 +723,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 17. HTTPError
+## 17. Conflict
 
 ### 17.1 with_traceback
 
@@ -769,7 +731,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 18. InternalServerError
+## 18. ImTeaPot
 
 ### 18.1 with_traceback
 
@@ -777,54 +739,85 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 19. Mock
+## 19. CheeseRepository
 
-### 19.1 catchArgs
-
-
-pointer - id of object which will be filled with return
-methodName - name of method which will be cached
+### 19.1 className
 
 
-
-### 19.2 whenReturn
-
-
-methodName - name of method which will be mocked
-response - response which mocked return will return
-kwargs - dict of arguments singalizing that this is THE case
+return string with name of class
 
 
 
-## 20. MockManager
-
-### 20.1 prepareResponse
+### 19.2 find
 
 
-Prepares response
-Finds its type and returns it
-If type is Pointer returns value
+return one ```CheeseModel``` by ```Primary key```
 
 
 
-### 20.2 returnMock
+### 19.3 findAll
 
 
-Mocks repository method
+return whole table of database as list of ```CheeseModel```
 
 
 
-## 21. TestError
+### 19.4 findBy
 
-### 21.1 with_traceback
+
+return list of ```CheeseModel```
+
+```columnName``` name of column for filtering
+
+```value``` value of ```column```
+
+example:
+```
+columnName = "age"
+value = 15
+->
+SQL: "... WHERE age = 15 ..."
+```
+
+
+
+### 19.5 findOneBy
+
+
+return one ```CheeseModel``` by ```columnName```
+
+```columnName``` name of column for filtering
+
+```value``` value of ```column```
+
+example:
+```
+columnName = "age"
+value = 15
+->
+SQL: "... WHERE age = 15 ..."
+```
+
+
+
+### 19.6 model
+
+
+return ```CheeseModel``` with ```Primary key```, ```modelName``` and ```scheme```
+
+
+
+## 20. InternalServerError
+
+### 20.1 with_traceback
 
 Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 22. MockError
+## 21. HTTPError
 
-### 22.1 with_traceback
+### 21.1 with_traceback
 
 Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
