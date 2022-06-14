@@ -1,3 +1,7 @@
+# CheeseFramework documentation
+
+[Back to README](https://kubaboi.github.io/CheeseFramework/)
+
 ## Contents
 
 - [MockManager](#1-mockmanager)
@@ -112,10 +116,6 @@
 - [HTTPError](#21-httperror)
     - [with_traceback](#211-with_traceback)
 
-
-# CheeseFramework documentation
-
-[Back to README](https://kubaboi.github.io/CheeseFramework/)
 
 ## 1. MockManager
 
