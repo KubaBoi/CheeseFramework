@@ -6,14 +6,14 @@ function formatCode() {
         var pre = pres[i];
         var clsList = pre.classList;
 
-        if (clsList.contains("language-python")) {
-            pre.innerHTML = formatPython(pre.innerHTML);
-        }
-        else if (clsList.contains("language-json")) {
+        if (clsList.contains("language-json")) {
             pre.innerHTML = formatJson(pre.innerHTML);
         }
         else if (clsList.contains("language-html")) {
             pre.innerHTML = formatHtml(pre.innerHTML);
+        }
+        else {
+            pre.innerHTML = formatPython(pre.innerHTML);
         }
         /*else if (clsList.contains("language-sql")) {
             pre.innerHTML = formatSql(pre.innerHTML);
