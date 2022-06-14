@@ -884,18 +884,6 @@
     {
         "CheeseRepository": {
             "file": "cheeseRepository.py",
-            "method": "delete"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "findNewId"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
             "method": "findUserMethod"
         }
     },
@@ -920,43 +908,7 @@
     {
         "CheeseRepository": {
             "file": "cheeseRepository.py",
-            "method": "query"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "queryType"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "save"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "startTesting"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "stopTesting"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
             "method": "toModel"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "update"
         }
     },
     {

@@ -106,11 +106,19 @@
     - [with_traceback](#181-with_traceback)
 - [CheeseRepository](#19-cheeserepository)
     - [className](#191-classname)
-    - [find](#192-find)
-    - [findAll](#193-findall)
-    - [findBy](#194-findby)
-    - [findOneBy](#195-findoneby)
-    - [model](#196-model)
+    - [delete](#192-delete)
+    - [find](#193-find)
+    - [findAll](#194-findall)
+    - [findBy](#195-findby)
+    - [findNewId](#196-findnewid)
+    - [findOneBy](#197-findoneby)
+    - [model](#198-model)
+    - [query](#199-query)
+    - [queryType](#1910-querytype)
+    - [save](#1911-save)
+    - [startTesting](#1912-starttesting)
+    - [stopTesting](#1913-stoptesting)
+    - [update](#1914-update)
 - [InternalServerError](#20-internalservererror)
     - [with_traceback](#201-with_traceback)
 - [HTTPError](#21-httperror)
@@ -891,21 +899,30 @@ return string with name of class
 
 
 
-### 19.2 find
+### 19.2 delete
+
+
+deletes row from database
+
+```obj``` is ```CheeseModel``` object
+
+
+
+### 19.3 find
 
 
 return one ```CheeseModel``` by ```Primary key```
 
 
 
-### 19.3 findAll
+### 19.4 findAll
 
 
 return whole table of database as list of ```CheeseModel```
 
 
 
-### 19.4 findBy
+### 19.5 findBy
 
 
 return list of ```CheeseModel```
@@ -924,7 +941,14 @@ SQL: "... WHERE age = 15 ..."
 
 
 
-### 19.5 findOneBy
+### 19.6 findNewId
+
+
+find new available ```Primary key```
+
+
+
+### 19.7 findOneBy
 
 
 return one ```CheeseModel``` by ```columnName```
@@ -943,10 +967,62 @@ SQL: "... WHERE age = 15 ..."
 
 
 
-### 19.6 model
+### 19.8 model
 
 
 return ```CheeseModel``` with ```Primary key```, ```modelName``` and ```scheme```
+
+
+
+### 19.9 query
+
+
+Access point to database. Returns database output.
+
+```userRepository``` is string name of used repository
+
+```**kwargs``` is ```dict``` of arguments for SQL request
+
+
+
+### 19.10 queryType
+
+
+
+
+
+
+### 19.11 save
+
+
+creates new row in database
+
+```obj``` is ```CheeseModel``` object
+
+
+
+### 19.12 startTesting
+
+
+sets repository testing enviroment
+
+```mockManager``` is instance of ```MockManager``` used by testing
+
+
+
+### 19.13 stopTesting
+
+
+stop repository testing enviroment
+
+
+
+### 19.14 update
+
+
+updates row in database
+
+```obj``` is ```CheeseModel``` object
 
 
 
