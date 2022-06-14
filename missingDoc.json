@@ -1,128 +1,92 @@
 [
     {
-        "Stats": {
-            "file": "stats.py",
-            "method": "countSpecFiles"
+        "AdminFiles": {
+            "file": "adminFiles.py",
+            "method": "sayHello"
         }
     },
     {
-        "Stats": {
-            "file": "stats.py",
-            "method": "rowCount"
+        "AdminManager": {
+            "file": "adminManager.py",
+            "method": "_AdminManager__changeConfig"
         }
     },
     {
-        "Error": {
-            "file": "ErrorCodes.py",
-            "method": "handleError"
+        "AdminManager": {
+            "file": "adminManager.py",
+            "method": "_AdminManager__createUser"
         }
     },
     {
-        "Error": {
-            "file": "ErrorCodes.py",
-            "method": "init"
+        "AdminManager": {
+            "file": "adminManager.py",
+            "method": "_AdminManager__deleteLog"
         }
     },
     {
-        "Error": {
-            "file": "ErrorCodes.py",
-            "method": "logErrorMessage"
+        "AdminManager": {
+            "file": "adminManager.py",
+            "method": "_AdminManager__getActiveLog"
         }
     },
     {
-        "Error": {
-            "file": "ErrorCodes.py",
-            "method": "logHttpErrorMessage"
+        "AdminManager": {
+            "file": "adminManager.py",
+            "method": "_AdminManager__getRelease"
         }
     },
     {
-        "Error": {
-            "file": "ErrorCodes.py",
-            "method": "sendCustomError"
+        "AdminManager": {
+            "file": "adminManager.py",
+            "method": "_AdminManager__getSettings"
         }
     },
     {
-        "ProjectBuilder": {
-            "file": "projectBuilder.py",
-            "method": "build"
+        "AdminManager": {
+            "file": "adminManager.py",
+            "method": "_AdminManager__restartServer"
         }
     },
     {
-        "ProjectBuilder": {
-            "file": "projectBuilder.py",
-            "method": "count"
+        "AdminManager": {
+            "file": "adminManager.py",
+            "method": "_AdminManager__sendFile"
         }
     },
     {
-        "ProjectBuilder": {
-            "file": "projectBuilder.py",
-            "method": "doJson"
+        "AdminManager": {
+            "file": "adminManager.py",
+            "method": "_AdminManager__showLogs"
         }
     },
     {
-        "ProjectBuilder": {
-            "file": "projectBuilder.py",
-            "method": "doMethods"
+        "AdminManager": {
+            "file": "adminManager.py",
+            "method": "_AdminManager__shutDown"
         }
     },
     {
-        "ProjectBuilder": {
-            "file": "projectBuilder.py",
-            "method": "validateJson"
+        "AdminManager": {
+            "file": "adminManager.py",
+            "method": "_AdminManager__update"
         }
     },
     {
-        "ProjectBuilder": {
-            "file": "projectBuilder.py",
-            "method": "validateJsonOne"
+        "AdminManager": {
+            "file": "adminManager.py",
+            "method": "authorizeAsAdmin"
         }
     },
     {
-        "UnitTest": {
-            "file": "test.py",
-            "method": "assertEqual"
+        "AdminManager": {
+            "file": "adminManager.py",
+            "method": "controller"
         }
     },
     {
-        "UnitTest": {
-            "file": "test.py",
-            "method": "assertFalse"
-        }
-    },
-    {
-        "UnitTest": {
-            "file": "test.py",
-            "method": "assertTrue"
-        }
-    },
-    {
-        "CheeseTests": {
-            "file": "cheeseTests.py",
-            "method": "formatTime"
-        }
-    },
-    {
-        "CheeseTests": {
-            "file": "cheeseTests.py",
-            "method": "getTestSign"
-        }
-    },
-    {
-        "CheeseTests": {
-            "file": "cheeseTests.py",
-            "method": "oneTest"
-        }
-    },
-    {
-        "CheeseTests": {
-            "file": "cheeseTests.py",
-            "method": "testAll"
-        }
-    },
-    {
-        "MockManager": {
-            "file": "mockManager.py",
-            "method": "setMock"
+        "AdminManager": {
+            "file": "adminManager.py",
+            "method": "setAuth"
         }
     },
     {
@@ -150,213 +114,153 @@
         }
     },
     {
-        "SecurityBuilder": {
-            "file": "securityBuilder.py",
+        "Updater": {
+            "file": "checkVersion.py",
+            "method": "checkUpdate"
+        }
+    },
+    {
+        "CheeseBurger": {
+            "file": "cheese.py",
+            "method": "init"
+        }
+    },
+    {
+        "CheeseBurger": {
+            "file": "cheese.py",
+            "method": "initServer"
+        }
+    },
+    {
+        "CheeseBurger": {
+            "file": "cheese.py",
+            "method": "loadLicence"
+        }
+    },
+    {
+        "CheeseBurger": {
+            "file": "cheese.py",
+            "method": "serveForever"
+        }
+    },
+    {
+        "Cheeser": {
+            "file": "cheeser.py",
             "method": "build"
         }
     },
     {
-        "ControllerBuilder": {
-            "file": "controllerBuilder.py",
-            "method": "build"
+        "Cheeser": {
+            "file": "cheeser.py",
+            "method": "controllers"
         }
     },
     {
-        "CreateByDB": {
-            "file": "createByDb.py",
-            "method": "addSpaces"
+        "Cheeser": {
+            "file": "cheeser.py",
+            "method": "createApi"
         }
     },
     {
-        "CreateByDB": {
-            "file": "createByDb.py",
-            "method": "create"
+        "Cheeser": {
+            "file": "cheeser.py",
+            "method": "database"
         }
     },
     {
-        "CreateByDB": {
-            "file": "createByDb.py",
-            "method": "createFiles"
+        "Cheeser": {
+            "file": "cheeser.py",
+            "method": "generate"
         }
     },
     {
-        "CreateByDB": {
-            "file": "createByDb.py",
-            "method": "createMethod"
+        "Cheeser": {
+            "file": "cheeser.py",
+            "method": "help"
         }
     },
     {
-        "CreateByDB": {
-            "file": "createByDb.py",
-            "method": "generateModel"
+        "CheeseRepository": {
+            "file": "cheeseRepository.py",
+            "method": "commitType"
         }
     },
     {
-        "CreateByDB": {
-            "file": "createByDb.py",
-            "method": "generateRepository"
+        "CheeseRepository": {
+            "file": "cheeseRepository.py",
+            "method": "delete"
         }
     },
     {
-        "CreateByDB": {
-            "file": "createByDb.py",
-            "method": "removeSpaces"
+        "CheeseRepository": {
+            "file": "cheeseRepository.py",
+            "method": "findNewId"
         }
     },
     {
-        "ServerMock": {
-            "file": "mock.py",
-            "method": "mockPostBody"
+        "CheeseRepository": {
+            "file": "cheeseRepository.py",
+            "method": "findUserMethod"
         }
     },
     {
-        "HeadersMock": {
-            "file": "mock.py",
-            "method": "get"
+        "CheeseRepository": {
+            "file": "cheeseRepository.py",
+            "method": "findUserRepository"
         }
     },
     {
-        "RfileMock": {
-            "file": "mock.py",
-            "method": "read"
+        "CheeseRepository": {
+            "file": "cheeseRepository.py",
+            "method": "getTypeOf"
         }
     },
     {
-        "Database": {
-            "file": "database.py",
-            "method": "close"
+        "CheeseRepository": {
+            "file": "cheeseRepository.py",
+            "method": "getVariables"
         }
     },
     {
-        "Database": {
-            "file": "database.py",
-            "method": "commit"
-        }
-    },
-    {
-        "Database": {
-            "file": "database.py",
-            "method": "connect"
-        }
-    },
-    {
-        "Database": {
-            "file": "database.py",
-            "method": "done"
-        }
-    },
-    {
-        "Database": {
-            "file": "database.py",
+        "CheeseRepository": {
+            "file": "cheeseRepository.py",
             "method": "query"
         }
     },
     {
-        "Database": {
-            "file": "database.py",
-            "method": "rollback"
+        "CheeseRepository": {
+            "file": "cheeseRepository.py",
+            "method": "queryType"
         }
     },
     {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "create"
+        "CheeseRepository": {
+            "file": "cheeseRepository.py",
+            "method": "save"
         }
     },
     {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "createCREATE"
+        "CheeseRepository": {
+            "file": "cheeseRepository.py",
+            "method": "startTesting"
         }
     },
     {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "createContents"
+        "CheeseRepository": {
+            "file": "cheeseRepository.py",
+            "method": "stopTesting"
         }
     },
     {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "createCustom"
+        "CheeseRepository": {
+            "file": "cheeseRepository.py",
+            "method": "toModel"
         }
     },
     {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "createDELETE"
-        }
-    },
-    {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "createEndpoint"
-        }
-    },
-    {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "createGET"
-        }
-    },
-    {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "createGETALL"
-        }
-    },
-    {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "createGETBY"
-        }
-    },
-    {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "createHeader"
-        }
-    },
-    {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "createUPDATE"
-        }
-    },
-    {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "endFigure"
-        }
-    },
-    {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "generateApi"
-        }
-    },
-    {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "getJson"
-        }
-    },
-    {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "lite"
-        }
-    },
-    {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "printOptions"
-        }
-    },
-    {
-        "ApiGenerator": {
-            "file": "generateApi.py",
-            "method": "startFigure"
+        "CheeseRepository": {
+            "file": "cheeseRepository.py",
+            "method": "update"
         }
     },
     {
@@ -420,33 +324,33 @@
         }
     },
     {
-        "Updater": {
-            "file": "checkVersion.py",
-            "method": "checkUpdate"
+        "CheeseTests": {
+            "file": "cheeseTests.py",
+            "method": "formatTime"
         }
     },
     {
-        "ProjectGenerator": {
-            "file": "projectGenerator.py",
-            "method": "generate"
+        "CheeseTests": {
+            "file": "cheeseTests.py",
+            "method": "getTestSign"
         }
     },
     {
-        "RepositoriesBuilder": {
-            "file": "repositoriesBuilder.py",
+        "CheeseTests": {
+            "file": "cheeseTests.py",
+            "method": "oneTest"
+        }
+    },
+    {
+        "CheeseTests": {
+            "file": "cheeseTests.py",
+            "method": "testAll"
+        }
+    },
+    {
+        "ControllerBuilder": {
+            "file": "controllerBuilder.py",
             "method": "build"
-        }
-    },
-    {
-        "RepositoriesBuilder": {
-            "file": "repositoriesBuilder.py",
-            "method": "preCommits"
-        }
-    },
-    {
-        "RepositoriesBuilder": {
-            "file": "repositoriesBuilder.py",
-            "method": "preQueries"
         }
     },
     {
@@ -522,39 +426,111 @@
         }
     },
     {
-        "Cheeser": {
-            "file": "cheeser.py",
-            "method": "build"
+        "CreateByDB": {
+            "file": "createByDb.py",
+            "method": "addSpaces"
         }
     },
     {
-        "Cheeser": {
-            "file": "cheeser.py",
-            "method": "controllers"
+        "CreateByDB": {
+            "file": "createByDb.py",
+            "method": "create"
         }
     },
     {
-        "Cheeser": {
-            "file": "cheeser.py",
-            "method": "createApi"
+        "CreateByDB": {
+            "file": "createByDb.py",
+            "method": "createFiles"
         }
     },
     {
-        "Cheeser": {
-            "file": "cheeser.py",
-            "method": "database"
+        "CreateByDB": {
+            "file": "createByDb.py",
+            "method": "createMethod"
         }
     },
     {
-        "Cheeser": {
-            "file": "cheeser.py",
-            "method": "generate"
+        "CreateByDB": {
+            "file": "createByDb.py",
+            "method": "generateModel"
         }
     },
     {
-        "Cheeser": {
-            "file": "cheeser.py",
-            "method": "help"
+        "CreateByDB": {
+            "file": "createByDb.py",
+            "method": "generateRepository"
+        }
+    },
+    {
+        "CreateByDB": {
+            "file": "createByDb.py",
+            "method": "removeSpaces"
+        }
+    },
+    {
+        "Database": {
+            "file": "database.py",
+            "method": "close"
+        }
+    },
+    {
+        "Database": {
+            "file": "database.py",
+            "method": "commit"
+        }
+    },
+    {
+        "Database": {
+            "file": "database.py",
+            "method": "connect"
+        }
+    },
+    {
+        "Database": {
+            "file": "database.py",
+            "method": "done"
+        }
+    },
+    {
+        "Database": {
+            "file": "database.py",
+            "method": "query"
+        }
+    },
+    {
+        "Database": {
+            "file": "database.py",
+            "method": "rollback"
+        }
+    },
+    {
+        "Error": {
+            "file": "ErrorCodes.py",
+            "method": "handleError"
+        }
+    },
+    {
+        "Error": {
+            "file": "ErrorCodes.py",
+            "method": "init"
+        }
+    },
+    {
+        "Error": {
+            "file": "ErrorCodes.py",
+            "method": "logErrorMessage"
+        }
+    },
+    {
+        "Error": {
+            "file": "ErrorCodes.py",
+            "method": "logHttpErrorMessage"
+        }
+    },
+    {
+        "Error": {
+            "file": "ErrorCodes.py",
+            "method": "sendCustomError"
         }
     },
     {
@@ -660,303 +636,105 @@
         }
     },
     {
-        "TestsBuilder": {
-            "file": "testsBuilder.py",
-            "method": "build"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "create"
         }
     },
     {
-        "Pointer": {
-            "file": "pointer.py",
-            "method": "getValue"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "createCREATE"
         }
     },
     {
-        "Pointer": {
-            "file": "pointer.py",
-            "method": "setValue"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "createContents"
         }
     },
     {
-        "ResMan": {
-            "file": "resourceManager.py",
-            "method": "admin"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "createCustom"
         }
     },
     {
-        "ResMan": {
-            "file": "resourceManager.py",
-            "method": "convertBytes"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "createDELETE"
         }
     },
     {
-        "ResMan": {
-            "file": "resourceManager.py",
-            "method": "error"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "createEndpoint"
         }
     },
     {
-        "ResMan": {
-            "file": "resourceManager.py",
-            "method": "getFileName"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "createGET"
         }
     },
     {
-        "ResMan": {
-            "file": "resourceManager.py",
-            "method": "getRelativePathFrom"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "createGETALL"
         }
     },
     {
-        "ResMan": {
-            "file": "resourceManager.py",
-            "method": "joinPath"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "createGETBY"
         }
     },
     {
-        "ResMan": {
-            "file": "resourceManager.py",
-            "method": "logs"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "createHeader"
         }
     },
     {
-        "ResMan": {
-            "file": "resourceManager.py",
-            "method": "metadata"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "createUPDATE"
         }
     },
     {
-        "ResMan": {
-            "file": "resourceManager.py",
-            "method": "removeSlash"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "endFigure"
         }
     },
     {
-        "ResMan": {
-            "file": "resourceManager.py",
-            "method": "resources"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "generateApi"
         }
     },
     {
-        "ResMan": {
-            "file": "resourceManager.py",
-            "method": "root"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "getJson"
         }
     },
     {
-        "ResMan": {
-            "file": "resourceManager.py",
-            "method": "setPath"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "lite"
         }
     },
     {
-        "ResMan": {
-            "file": "resourceManager.py",
-            "method": "src"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "printOptions"
         }
     },
     {
-        "ResMan": {
-            "file": "resourceManager.py",
-            "method": "tests"
-        }
-    },
-    {
-        "ResMan": {
-            "file": "resourceManager.py",
-            "method": "web"
-        }
-    },
-    {
-        "Security": {
-            "file": "security.py",
-            "method": "authenticate"
-        }
-    },
-    {
-        "Security": {
-            "file": "security.py",
-            "method": "findRole"
-        }
-    },
-    {
-        "Security": {
-            "file": "security.py",
-            "method": "fitPatern"
-        }
-    },
-    {
-        "Security": {
-            "file": "security.py",
-            "method": "validate"
-        }
-    },
-    {
-        "AdminManager": {
-            "file": "adminManager.py",
-            "method": "_AdminManager__changeConfig"
-        }
-    },
-    {
-        "AdminManager": {
-            "file": "adminManager.py",
-            "method": "_AdminManager__createUser"
-        }
-    },
-    {
-        "AdminManager": {
-            "file": "adminManager.py",
-            "method": "_AdminManager__deleteLog"
-        }
-    },
-    {
-        "AdminManager": {
-            "file": "adminManager.py",
-            "method": "_AdminManager__getActiveLog"
-        }
-    },
-    {
-        "AdminManager": {
-            "file": "adminManager.py",
-            "method": "_AdminManager__getRelease"
-        }
-    },
-    {
-        "AdminManager": {
-            "file": "adminManager.py",
-            "method": "_AdminManager__getSettings"
-        }
-    },
-    {
-        "AdminManager": {
-            "file": "adminManager.py",
-            "method": "_AdminManager__restartServer"
-        }
-    },
-    {
-        "AdminManager": {
-            "file": "adminManager.py",
-            "method": "_AdminManager__sendFile"
-        }
-    },
-    {
-        "AdminManager": {
-            "file": "adminManager.py",
-            "method": "_AdminManager__showLogs"
-        }
-    },
-    {
-        "AdminManager": {
-            "file": "adminManager.py",
-            "method": "_AdminManager__shutDown"
-        }
-    },
-    {
-        "AdminManager": {
-            "file": "adminManager.py",
-            "method": "_AdminManager__update"
-        }
-    },
-    {
-        "AdminManager": {
-            "file": "adminManager.py",
-            "method": "authorizeAsAdmin"
-        }
-    },
-    {
-        "AdminManager": {
-            "file": "adminManager.py",
-            "method": "controller"
-        }
-    },
-    {
-        "AdminManager": {
-            "file": "adminManager.py",
-            "method": "setAuth"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "commitType"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "delete"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "findNewId"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "findUserMethod"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "findUserRepository"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "getTypeOf"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "getVariables"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "query"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "queryType"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "save"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "startTesting"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "stopTesting"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "toModel"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "update"
+        "ApiGenerator": {
+            "file": "generateApi.py",
+            "method": "startFigure"
         }
     },
     {
@@ -1122,36 +900,6 @@
         }
     },
     {
-        "AdminFiles": {
-            "file": "adminFiles.py",
-            "method": "sayHello"
-        }
-    },
-    {
-        "CheeseBurger": {
-            "file": "cheese.py",
-            "method": "init"
-        }
-    },
-    {
-        "CheeseBurger": {
-            "file": "cheese.py",
-            "method": "initServer"
-        }
-    },
-    {
-        "CheeseBurger": {
-            "file": "cheese.py",
-            "method": "loadLicence"
-        }
-    },
-    {
-        "CheeseBurger": {
-            "file": "cheese.py",
-            "method": "serveForever"
-        }
-    },
-    {
         "Metadata": {
             "file": "metadata.py",
             "method": "cleanInits"
@@ -1269,6 +1017,258 @@
         "Metadata": {
             "file": "metadata.py",
             "method": "save"
+        }
+    },
+    {
+        "ServerMock": {
+            "file": "mock.py",
+            "method": "mockPostBody"
+        }
+    },
+    {
+        "HeadersMock": {
+            "file": "mock.py",
+            "method": "get"
+        }
+    },
+    {
+        "RfileMock": {
+            "file": "mock.py",
+            "method": "read"
+        }
+    },
+    {
+        "MockManager": {
+            "file": "mockManager.py",
+            "method": "setMock"
+        }
+    },
+    {
+        "Pointer": {
+            "file": "pointer.py",
+            "method": "getValue"
+        }
+    },
+    {
+        "Pointer": {
+            "file": "pointer.py",
+            "method": "setValue"
+        }
+    },
+    {
+        "ProjectBuilder": {
+            "file": "projectBuilder.py",
+            "method": "build"
+        }
+    },
+    {
+        "ProjectBuilder": {
+            "file": "projectBuilder.py",
+            "method": "count"
+        }
+    },
+    {
+        "ProjectBuilder": {
+            "file": "projectBuilder.py",
+            "method": "doJson"
+        }
+    },
+    {
+        "ProjectBuilder": {
+            "file": "projectBuilder.py",
+            "method": "doMethods"
+        }
+    },
+    {
+        "ProjectBuilder": {
+            "file": "projectBuilder.py",
+            "method": "validateJson"
+        }
+    },
+    {
+        "ProjectBuilder": {
+            "file": "projectBuilder.py",
+            "method": "validateJsonOne"
+        }
+    },
+    {
+        "ProjectGenerator": {
+            "file": "projectGenerator.py",
+            "method": "generate"
+        }
+    },
+    {
+        "RepositoriesBuilder": {
+            "file": "repositoriesBuilder.py",
+            "method": "build"
+        }
+    },
+    {
+        "RepositoriesBuilder": {
+            "file": "repositoriesBuilder.py",
+            "method": "preCommits"
+        }
+    },
+    {
+        "RepositoriesBuilder": {
+            "file": "repositoriesBuilder.py",
+            "method": "preQueries"
+        }
+    },
+    {
+        "ResMan": {
+            "file": "resourceManager.py",
+            "method": "admin"
+        }
+    },
+    {
+        "ResMan": {
+            "file": "resourceManager.py",
+            "method": "convertBytes"
+        }
+    },
+    {
+        "ResMan": {
+            "file": "resourceManager.py",
+            "method": "error"
+        }
+    },
+    {
+        "ResMan": {
+            "file": "resourceManager.py",
+            "method": "getFileName"
+        }
+    },
+    {
+        "ResMan": {
+            "file": "resourceManager.py",
+            "method": "getRelativePathFrom"
+        }
+    },
+    {
+        "ResMan": {
+            "file": "resourceManager.py",
+            "method": "joinPath"
+        }
+    },
+    {
+        "ResMan": {
+            "file": "resourceManager.py",
+            "method": "logs"
+        }
+    },
+    {
+        "ResMan": {
+            "file": "resourceManager.py",
+            "method": "metadata"
+        }
+    },
+    {
+        "ResMan": {
+            "file": "resourceManager.py",
+            "method": "removeSlash"
+        }
+    },
+    {
+        "ResMan": {
+            "file": "resourceManager.py",
+            "method": "resources"
+        }
+    },
+    {
+        "ResMan": {
+            "file": "resourceManager.py",
+            "method": "root"
+        }
+    },
+    {
+        "ResMan": {
+            "file": "resourceManager.py",
+            "method": "setPath"
+        }
+    },
+    {
+        "ResMan": {
+            "file": "resourceManager.py",
+            "method": "src"
+        }
+    },
+    {
+        "ResMan": {
+            "file": "resourceManager.py",
+            "method": "tests"
+        }
+    },
+    {
+        "ResMan": {
+            "file": "resourceManager.py",
+            "method": "web"
+        }
+    },
+    {
+        "Security": {
+            "file": "security.py",
+            "method": "authenticate"
+        }
+    },
+    {
+        "Security": {
+            "file": "security.py",
+            "method": "findRole"
+        }
+    },
+    {
+        "Security": {
+            "file": "security.py",
+            "method": "fitPatern"
+        }
+    },
+    {
+        "Security": {
+            "file": "security.py",
+            "method": "validate"
+        }
+    },
+    {
+        "SecurityBuilder": {
+            "file": "securityBuilder.py",
+            "method": "build"
+        }
+    },
+    {
+        "Stats": {
+            "file": "stats.py",
+            "method": "countSpecFiles"
+        }
+    },
+    {
+        "Stats": {
+            "file": "stats.py",
+            "method": "rowCount"
+        }
+    },
+    {
+        "UnitTest": {
+            "file": "test.py",
+            "method": "assertEqual"
+        }
+    },
+    {
+        "UnitTest": {
+            "file": "test.py",
+            "method": "assertFalse"
+        }
+    },
+    {
+        "UnitTest": {
+            "file": "test.py",
+            "method": "assertTrue"
+        }
+    },
+    {
+        "TestsBuilder": {
+            "file": "testsBuilder.py",
+            "method": "build"
         }
     }
 ]

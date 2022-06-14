@@ -19,8 +19,12 @@ def findClassNames(lines):
             classes.append(line.replace("class ", "").split("(")[0].split(":")[0])
     return classes
 
+def changeName(name):
+    return name.replace(" ", "-").lower()
+
 missingDoc = []
-docStr = ""
+docStr = "# CheeseFramework documentation\n\n"
+contents = "## Contents\n\n"
 for root, dirs, files in os.walk(sourcePath):
     m = 1
     for file in files:
@@ -40,6 +44,7 @@ for root, dirs, files in os.walk(sourcePath):
             print(file, clsName, attributes)
 
             mthStr = f"## {m}. {clsName}\n\n"
+            cont = f"- [{clsName}](#{m}-{changeName(clsName)})\n"
             n = 0
 
             for attr in attributes:
@@ -54,17 +59,19 @@ for root, dirs, files in os.walk(sourcePath):
                     n += 1
                     mthStr += f"### {m}.{n} {attr}\n\n"
                     mthStr += docS + "\n\n"
+                    cont += f"    - [{attr}](#{m}{n}-{changeName(attr)})\n"
 
             if (n != 0):
                 docStr += mthStr
+                contents += cont
                 m += 1
 
 with open(missingPath, "w") as f:
     f.write(json.dumps(missingDoc, indent=4, sort_keys=True))
 
 with open(docPath, "w") as f:
-    f.write(docStr)
-    
+    f.write(contents + "\n\n" + docStr)
+
 shutil.rmtree(os.path.join(sourcePath, "__pycache__"))
 
 
