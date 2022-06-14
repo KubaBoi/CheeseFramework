@@ -32,7 +32,7 @@ It is same as this BUT it is formated by my own algorithm into html. So contents
 
 https://kubaboi.github.io/CheeseFramework/
 
-<a href="https://kubaboi.github.io/CheeseFramework/doc.html">Complete method and classes documentation</a>
+<a href="https://kubaboi.github.io/CheeseFramework/doc.html" target="_blank">Complete method and classes documentation</a>
 
 ## Contents
 
