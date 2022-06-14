@@ -86,9 +86,18 @@ class Logger:
 
     @staticmethod
     def set():
-        Logger.__addLoggingLevel("HTML_FILE", 11)
-        Logger.__addLoggingLevel("FILE", 10)
-        Logger.__addLoggingLevel("CONSOLE", 9)
+        try:
+            Logger.__addLoggingLevel("HTML_FILE", 11)
+        except Exception as e:
+            print(e)
+        try:
+            Logger.__addLoggingLevel("FILE", 10)
+        except Exception as e:
+            print(e)
+        try:
+            Logger.__addLoggingLevel("CONSOLE", 9)
+        except Exception as e:
+            print(e)
 
         logFormatter = logging.Formatter(fmt="%(asctime)s - %(message)s", datefmt="%H:%M:%S")
         Logger.rootLogger = logging.getLogger()

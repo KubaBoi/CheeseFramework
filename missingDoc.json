@@ -1,11 +1,5 @@
 [
     {
-        "AdminFiles": {
-            "file": "adminFiles.py",
-            "method": "sayHello"
-        }
-    },
-    {
         "AdminManager": {
             "file": "adminManager.py",
             "method": "_AdminManager__changeConfig"

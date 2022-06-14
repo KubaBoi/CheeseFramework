@@ -1,12 +1,15 @@
 
-from opcode import opname
 import os
 import inspect
 import json
+import sys
+import shutil
 
 sourcePath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), "..", "src", "Cheese"))
 docPath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), "..", "DOC.md"))
 missingPath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), "..", "missingDoc.json"))
+
+sys.path.insert(0, sourcePath)
 
 def findClassNames(lines):
     classes = []
@@ -21,16 +24,16 @@ docStr = ""
 for root, dirs, files in os.walk(sourcePath):
     m = 1
     for file in files:
-        if (file == "__init__.py"): continue
+        if (file == "__init__.py" or file.endswith(".pyc")): continue
 
         with open(os.path.join(root, file), "r") as f:
             data = f.readlines()
 
         names = findClassNames(data)
         for clsName in names:
-            module = __import__(f"Cheese.{file.replace('.py', '')}")
+            module = __import__(f"{file.replace('.py', '')}")
 
-            cls = getattr(getattr(module, file.replace('.py', '')), clsName)
+            cls = getattr(module, clsName)
 
             attributes = inspect.getmembers(cls, lambda a:inspect.isroutine(a))
             attributes = [a[0] for a in attributes if not(a[0].startswith('__') and a[0].endswith('__'))]
@@ -61,6 +64,8 @@ with open(missingPath, "w") as f:
 
 with open(docPath, "w") as f:
     f.write(docStr)
+    
+shutil.rmtree(os.path.join(sourcePath, "__pycache__"))
 
 
         

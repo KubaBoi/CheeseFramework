@@ -36,6 +36,10 @@ jobs:
           output=$(python3 .github/prepareMainBranch.py ${{ github.event.commits[0].message }})
           echo "::set-output name=commitMessage::$output"
 
+      - name: Documentation build
+        run: |
+          python3 .github/docBuild.py
+
       - name: Build
         run: |
           python3 -m build

@@ -1,8 +1,9 @@
 class AdminFiles:
-	def sayHello():
-		print('hello')
+    def sayHello():
+        """hello"""
+        print('hello')
 
-	admin_files_index_html = """<html lang="cs">
+    admin_files_index_html = """<html lang="cs">
 <head>
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,7 +42,7 @@ class AdminFiles:
 </body>
 </html>"""
 
-	admin_files_activeLog_html = """<html lang="cs">
+    admin_files_activeLog_html = """<html lang="cs">
 <html>
 <head>
     <meta charset='utf-8'>
@@ -67,7 +68,7 @@ class AdminFiles:
 </body>
 </html>"""
 
-	admin_files_allLogs_html = """<html lang="cs">
+    admin_files_allLogs_html = """<html lang="cs">
 <html>
 <head>
     <meta charset='utf-8'>
@@ -91,7 +92,7 @@ class AdminFiles:
 </body>
 </html>"""
 
-	admin_files_scripts_log_js = """debug = false;
+    admin_files_scripts_log_js = """debug = false;
 
 setTitle();
 async function setTitle() {
@@ -130,7 +131,7 @@ async function buildLogTable() {
 
         var label = document.querySelector(`#logDesc`);
         if (label.tagName == `LABEL`) {
-            label.innerHTML = `<button onclick=\"location='/admin/logs'\">All logs</button>	&nbsp;
+            label.innerHTML = `<button onclick=\"location='/admin/logs'\">All logs</button> &nbsp;
             <button onclick=\"location='/admin/files/activeLog.html'\">Full log</button>`;
         }
         else {
@@ -166,7 +167,7 @@ async function deleteFile(log) {
     }
 }"""
 
-	admin_files_scripts_controll_js = """function apiFunction(url) {    
+    admin_files_scripts_controll_js = """function apiFunction(url) {    
     return new Promise(resolve => {
         sendGet(url, debug, function(response){
             resolve(response);
@@ -276,7 +277,7 @@ async function pullChanges() {
     }
 }"""
 
-	admin_files_scripts_settings_js = """
+    admin_files_scripts_settings_js = """
 async function buildSettingTable() {
     response = await callEndpoint("GET", "/admin/getSettings");
     if (!response.ERROR) {
@@ -307,7 +308,7 @@ function addSetting(setting, value) {
     table.appendChild(row);
 }"""
 
-	admin_files_scripts_release_js = """function getRelease() {
+    admin_files_scripts_release_js = """function getRelease() {
     url = "/admin/cheeseRelease";
     
     return new Promise(resolve => {
@@ -326,7 +327,7 @@ async function setRelease() {
     }
 }"""
 
-	admin_files_styles_style_css = """body {
+    admin_files_styles_style_css = """body {
     color: white;
     background-color: #2b2b2b;
     font-family: Arial, Helvetica, sans-serif;
