@@ -44,9 +44,13 @@ for root, dirs, files in os.walk(sourcePath):
                 if (doc == None):
                     missingDoc.append({clsName: {"file": file, "method": attr}})
                 else:
+                    docS = ""
+                    for line in doc.split("\n"):
+                        docS += line.strip() + "\n"
+
                     n += 1
                     mthStr += f"### {m}.{n} {attr}\n\n"
-                    mthStr += doc + "\n\n"
+                    mthStr += docS + "\n\n"
 
             if (n != 0):
                 docStr += mthStr
