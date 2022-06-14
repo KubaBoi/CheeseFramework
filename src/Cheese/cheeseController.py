@@ -12,7 +12,7 @@ from Cheese.Logger import Logger
 
 class CheeseController:
     """
-    `CheeseController` is static class for controlling endpoints. 
+    ```CheeseController``` is static class for controlling endpoints. 
 
     Controller documentation:
     https://kubaboi.github.io/CheeseFramework/#71-api-controllers
@@ -23,7 +23,7 @@ class CheeseController:
         """
         return client's address
 
-        `server` is instance of http handler
+        ```server``` is instance of http handler
         """
         return server.client_address[0]
 
@@ -32,7 +32,7 @@ class CheeseController:
         """
         return json array from list of modules
 
-        `modules` is list of CheeseModel instances
+        ```modules``` is list of CheeseModel instances
         """        
         jsonArray = []
         for m in modules:
@@ -44,7 +44,7 @@ class CheeseController:
         """
         return now time and add argument in seconds
 
-        `addTime` is time in `seconds` which will be added to now time. It can be negative value.
+        ```addTime``` is time in ```seconds``` which will be added to now time. It can be negative value.
         """
         return int(time.time()) + addTime
 
@@ -53,9 +53,9 @@ class CheeseController:
         """
         return true if all keys are in dictionary
 
-        `keys` is list of keys that should be in `dict`
+        ```keys``` is list of keys that should be in ```dict```
 
-        `dict` is tested dictionary
+        ```dict``` is tested dictionary
         """
         for key in keys:
             if (key not in dict):
@@ -67,9 +67,9 @@ class CheeseController:
         """
         raise BadRequest exception if any key is missing in json
 
-        `keys` is list of keys that should be in `dict`
+        ```keys``` is list of keys that should be in ```dict```
 
-        `dict` is tested dictionary
+        ```dict``` is tested dictionary
         """
         if (CheeseController.validateJson(keys, dict)): return
         raise BadRequest("Wrong json structure")
@@ -79,9 +79,9 @@ class CheeseController:
         """
         return path without arguments
 
-        `url` is url of request
+        ```url``` is url of request
 
-        splits url by `?` and return first part
+        splits url by ```?``` and return first part
 
         example:
         ```
@@ -95,9 +95,9 @@ class CheeseController:
         """
         return list of endpoints
 
-        `url` is url of request
+        ```url``` is url of request
 
-        splits url by `/` and returns this list
+        splits url by ```/``` and returns this list
 
         example:
         ```
@@ -112,9 +112,9 @@ class CheeseController:
         """
         return arguments from rest request url
 
-        `url` is url of request
+        ```url``` is url of request
 
-        `decode` if true than decode URL-encoded format
+        ```decode``` if true than decode URL-encoded format
         """
         arguments = {}
 
@@ -137,7 +137,7 @@ class CheeseController:
         """
         return bytes from post body
 
-        `server` is instance of http handler
+        ```server``` is instance of http handler
         """
         try:
             content_len = int(server.headers.get('Content-Length'))
@@ -151,7 +151,7 @@ class CheeseController:
         """
         return arguments from body of request as dictionary
 
-        `server` is instance of http handler
+        ```server``` is instance of http handler
         """
         try:
             content_len = int(server.headers.get('Content-Length'))
@@ -165,7 +165,7 @@ class CheeseController:
         """
         return cookies as dictionary from request header
 
-        `server` is instance of http handler 
+        ```server``` is instance of http handler 
         """
         cookieRaw = ""
         for header in server.headers._headers:
@@ -202,13 +202,13 @@ class CheeseController:
     @staticmethod
     def serveFile(server, file, header="text/html") -> None:
         """
-        sends file located in `/web` directory
+        sends file located in ```/web``` directory
 
-        `server` is instance of http handler
+        ```server``` is instance of http handler
 
-        `file` is string path to any file located in `/web` directory
+        ```file``` is string path to any file located in ```/web``` directory
 
-        `header` is string of header for http response 
+        ```header``` is string of header for http response 
         """
         file = unquote(file)
         file = ResMan.joinPath(ResMan.web(), file)
@@ -245,10 +245,10 @@ class CheeseController:
         """
         create response as tuple
         
-        `dict` is response dictionary. Dictionary will be dumped by `json` library 
-        and coded into bytes with `utf-8` coding. 
+        ```dict``` is response dictionary. Dictionary will be dumped by ```json``` library 
+        and coded into bytes with ```utf-8``` coding. 
 
-        `code` is http status code as `int`
+        ```code``` is http status code as ```int```
         """
         return (bytes(json.dumps(dict, indent=4, sort_keys=True, default=str), "utf-8"), code)
 
@@ -257,9 +257,9 @@ class CheeseController:
         """
         send response to client
 
-        `server` is instance of http handler
+        ```server``` is instance of http handler
 
-        `response` is tuple (response object created in `CheeseController.createResponse(...)` method)
+        ```response``` is tuple (response object created in ```CheeseController.createResponse(...)``` method)
         """
         server.send_response(response[1])
         server.send_header("Content-type", contentType)

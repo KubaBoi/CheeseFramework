@@ -11,7 +11,7 @@ from Cheese.database import Database
 
 class CheeseRepository:
     """
-    `CheeseRepository` is static class for communication with database
+    ```CheeseRepository``` is static class for communication with database
     """
 
     testing = False
@@ -19,7 +19,7 @@ class CheeseRepository:
     @classmethod
     def model(cls):
         """
-        return `CheeseModel` with `Primary key`, `modelName` and `scheme`
+        return ```CheeseModel``` with ```Primary key```, ```modelName``` and ```scheme```
         """
         repository = Metadata.getRepositoryFromClass(cls.__name__) 
         modelName = Metadata.getModel(repository)
@@ -43,25 +43,25 @@ class CheeseRepository:
     @classmethod
     def findAll(cls):
         """
-        return whole table of database as list of `CheeseModel`
+        return whole table of database as list of ```CheeseModel```
         """
         return CheeseRepository.query(cls.__name__)
 
     @classmethod
     def find(cls, primaryKey):
         """
-        return one `CheeseModel` by `Primary key`
+        return one ```CheeseModel``` by ```Primary key```
         """
         return CheeseRepository.query(cls.__name__, primaryKey=primaryKey)
 
     @classmethod
     def findBy(cls, columnName, value):
         """
-        return list of `CheeseModel`
+        return list of ```CheeseModel```
 
-        `columnName` name of column for filtering
+        ```columnName``` name of column for filtering
 
-        `value` value of `column`
+        ```value``` value of ```column```
 
         example:
         ```
@@ -76,11 +76,11 @@ class CheeseRepository:
     @classmethod
     def findOneBy(cls, columnName, value):
         """
-        return one `CheeseModel` by `columnName`
+        return one ```CheeseModel``` by ```columnName```
 
-        `columnName` name of column for filtering
+        ```columnName``` name of column for filtering
 
-        `value` value of `column`
+        ```value``` value of ```column```
 
         example:
         ```
