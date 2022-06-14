@@ -23,6 +23,12 @@ function convert(str) {
     str = rplcReg(str, /\`{3}(?<code>[a-zA-Z0-9\#\@\&\?\/\:\=\"\'\(\)\.\,\*\[\]\%\{\}]+)\`{3}/g, "<code>$code$</code>");
     // with space
     str = rplcReg(str, /\`{3}(?<code>.+)\`{3}/g, "<code>$code$</code>");
+
+    // one line codes -> `code`
+    // no space
+    str = rplcReg(str, /\`{1}(?<code>[a-zA-Z0-9\#\@\&\?\/\:\=\"\'\(\)\.\,\*\[\]\%\{\}]+)\`{1}/g, "<code>$code$</code>");
+    // with space
+    str = rplcReg(str, /\`{1}(?<code>.+)\`{1}/g, "<code>$code$</code>");
     
     // check boxes -> [ ] || [x]
     str = rplcReg(str, /\[(?<checkBox>[ x])\]/g, "$checkBox.checkBox$");
