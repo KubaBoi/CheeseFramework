@@ -17,7 +17,7 @@ class CheeseRepository:
     testing = False
 
     @classmethod
-    def model(cls):
+    def model(cls) -> CheeseModel:
         """
         return ```CheeseModel``` with ```Primary key```, ```modelName``` and ```scheme```
         """
@@ -34,28 +34,28 @@ class CheeseRepository:
         return model
 
     @classmethod
-    def className(cls):
+    def className(cls) -> str:
         """
         return string with name of class
         """
         return cls.__name__
 
     @classmethod
-    def findAll(cls):
+    def findAll(cls) -> list:
         """
         return whole table of database as list of ```CheeseModel```
         """
         return CheeseRepository.query(cls.__name__)
 
     @classmethod
-    def find(cls, primaryKey):
+    def find(cls, primaryKey) -> CheeseModel:
         """
         return one ```CheeseModel``` by ```Primary key```
         """
         return CheeseRepository.query(cls.__name__, primaryKey=primaryKey)
 
     @classmethod
-    def findBy(cls, columnName, value):
+    def findBy(cls, columnName, value) -> list:
         """
         return list of ```CheeseModel```
 
@@ -74,7 +74,7 @@ class CheeseRepository:
         return CheeseRepository.query(cls.__name__, columnName="columnName-" + columnName, value=value)
 
     @classmethod
-    def findOneBy(cls, columnName, value):
+    def findOneBy(cls, columnName, value) -> CheeseModel:
         """
         return one ```CheeseModel``` by ```columnName```
 
@@ -93,34 +93,67 @@ class CheeseRepository:
         return CheeseRepository.query(cls.__name__, columnName="columnName-" + columnName, value=value)
 
     @classmethod
-    def findNewId(cls):
+    def findNewId(cls) -> int:
+        """
+        find new available ```Primary key```
+        """
         return CheeseRepository.query(cls.__name__)+1
 
     @classmethod
-    def save(cls, obj):
+    def save(cls, obj) -> bool:
+        """
+        creates new row in database
+
+        ```obj``` is ```CheeseModel``` object
+        """
         return CheeseRepository.query(cls.__name__, obj=obj)
 
     @classmethod
-    def update(cls, obj):
+    def update(cls, obj) -> bool:
+        """
+        updates row in database
+
+        ```obj``` is ```CheeseModel``` object
+        """
         return CheeseRepository.query(cls.__name__, obj=obj)
 
     @classmethod
-    def delete(cls, obj):
+    def delete(cls, obj) -> bool:
+        """
+        deletes row from database
+
+        ```obj``` is ```CheeseModel``` object
+        """
         return CheeseRepository.query(cls.__name__, obj=obj)
 
     # STATIC METHODS
 
     @staticmethod
     def startTesting(mockManager):
+        """
+        sets repository testing enviroment
+
+        ```mockManager``` is instance of ```MockManager``` used by testing
+        """
         CheeseRepository.mockManager = mockManager
         CheeseRepository.testing = True
 
     @staticmethod
     def stopTesting():
+        """
+        stop repository testing enviroment
+        """
         CheeseRepository.testing = False
 
     @staticmethod
     def query(userRepository="", **kwargs):
+        """
+        Access point to database. Returns database output.
+
+        ```userRepository``` is string name of used repository
+
+        ```**kwargs``` is ```dict``` of arguments for SQL request
+        """
         if (userRepository == ""):
             userRepository = CheeseRepository.findUserRepository()
             repository = Metadata.getRepository(userRepository)
@@ -178,6 +211,9 @@ class CheeseRepository:
         
     @staticmethod
     def queryType(preparedSql, method, repository):
+        """
+        
+        """
         db = Database()
         response = db.query(preparedSql)
         db.done()
