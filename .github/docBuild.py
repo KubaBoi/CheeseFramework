@@ -23,7 +23,7 @@ def changeName(name):
     return name.replace(" ", "-").lower()
 
 missingDoc = []
-docStr = "# CheeseFramework documentation\n\n[Back to README](https://kubaboi.github.io/CheeseFramework/)\n\n"
+docStr = ""
 contents = "## Contents\n\n"
 for root, dirs, files in os.walk(sourcePath):
     m = 1
@@ -70,7 +70,7 @@ with open(missingPath, "w") as f:
     f.write(json.dumps(missingDoc, indent=4, sort_keys=True))
 
 with open(docPath, "w") as f:
-    f.write(contents + "\n\n" + docStr)
+    f.write("# CheeseFramework documentation\n\n[Back to README](https://kubaboi.github.io/CheeseFramework/)\n\n" + contents + "\n\n" + docStr)
 
 shutil.rmtree(os.path.join(sourcePath, "__pycache__"))
 
