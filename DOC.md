@@ -117,7 +117,19 @@
     - [with_traceback](#211-with_traceback)
 
 
+<<<<<<< HEAD
 ## 1. CheeseController
+=======
+## 1. MockManager
+
+### 1.1 prepareResponse
+
+
+Prepares response
+Finds its type and returns it
+If type is Pointer returns value
+
+>>>>>>> c1534f701e24bdd07832d033ded1893e2ac78b80
 
 
 ```CheeseController``` is static class for controlling endpoints.
