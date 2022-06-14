@@ -114,6 +114,7 @@ function headers(str) {
 
 function contents() {
     var contentsDiv = document.getElementById("contentsId");
+    if (contentsDiv == null) return;
     contentsDiv.remove();
     contentsDiv.classList.add("contents");
 
