@@ -75,6 +75,21 @@ class CheeseRepository:
 
     @classmethod
     def findOneBy(cls, columnName, value):
+        """
+        return one `CheeseModel` by `columnName`
+
+        `columnName` name of column for filtering
+
+        `value` value of `column`
+
+        example:
+        ```
+        columnName = "age"
+        value = 15
+        ->
+        SQL: "... WHERE age = 15 ..."
+        ```
+        """
         return CheeseRepository.query(cls.__name__, columnName="columnName-" + columnName, value=value)
 
     @classmethod
