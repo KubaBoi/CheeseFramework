@@ -105,7 +105,7 @@ function headers(str) {
             }
             parId = rplcReg(line, /((?<!\>)(?<hdr>#+)) (?<title>.*)/g, "$title.id$");
             line = rplcReg(line, /((?<!\>)(?<hdr>#+)) (?<title>.*)/g, "<h$hdr.len$ id=$title.id$>$title$</h$hdr.len$>");
-            if (line.startsWith("<h1")) {
+            if (line.startsWith("<h1") || line.startsWith("<h2")) {
                 line += "<hr>";
             }
         }
