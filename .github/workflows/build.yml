@@ -26,6 +26,12 @@ jobs:
           python3 -m pip install --upgrade twine
           python3 -m pip install --upgrade build
           python3 -m pip install --upgrade GitPython
+          python3 -m pip install --upgrade pyodbc
+          python3 -m pip install --upgrade psycopg2-binary
+          python3 -m pip install --upgrade psycopg2
+          python3 -m pip install --upgrade bs4
+          python3 -m pip install --upgrade requests
+          python3 -m pip install --upgrade CheeseFramework
 
       - name: Promote version
         run: python3 .github/promoteVersion.py ${{ github.event.commits[0].message }}
@@ -35,6 +41,10 @@ jobs:
         run: |
           output=$(python3 .github/prepareMainBranch.py ${{ github.event.commits[0].message }})
           echo "::set-output name=commitMessage::$output"
+
+      - name: Documentation build
+        run: |
+          python3 .github/docBuild.py
 
       - name: Build
         run: |
