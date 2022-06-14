@@ -23,7 +23,7 @@ def changeName(name):
     return name.replace(" ", "-").lower()
 
 missingDoc = []
-docStr = "# CheeseFramework documentation\n\n[Back to README](https://kubaboi.github.io/CheeseFramework/)"
+docStr = "# CheeseFramework documentation\n\n[Back to README](https://kubaboi.github.io/CheeseFramework/)\n\n"
 contents = "## Contents\n\n"
 for root, dirs, files in os.walk(sourcePath):
     m = 1
