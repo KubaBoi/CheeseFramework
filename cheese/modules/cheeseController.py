@@ -261,7 +261,6 @@ class CheeseController:
 
         `response` is tuple (response object created in `CheeseController.createResponse(...)` method)
         """
-        CheeseController.crea
         server.send_response(response[1])
         server.send_header("Content-type", contentType)
         server.end_headers()
