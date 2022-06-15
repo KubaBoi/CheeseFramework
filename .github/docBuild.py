@@ -77,7 +77,8 @@ with open(missingPath, "w") as f:
     f.write(json.dumps(missingDoc, indent=4, sort_keys=True))
 
 with open(docPath, "w") as f:
-    f.write("# CheeseFramework documentation\n\n[Back to README](https://kubaboi.github.io/CheeseFramework/)\n\n" + contents + "\n\n" + docStr)
+    f.write("# CheeseFramework documentation\n\n[Back to README](https://kubaboi.github.io/CheeseFramework/)\n\n" +
+    ":bang:This documentantion is automaticaly generated from code documentation.\n\n" + contents + "\n\n" + docStr)
 
 shutil.rmtree(os.path.join(sourcePath, "__pycache__"))
 
