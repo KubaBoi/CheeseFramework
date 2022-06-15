@@ -2,45 +2,6 @@ class AdminFiles:
 	def sayHello():
 		print('hello')
 
-	admin_files_index_html = """<html lang="cs">
-<head>
-    <meta charset='utf-8'>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/admin/files/styles/style.css">
-    <link rel="icon" href="/admin/files/web/favicon.ico" type="image/x-icon">
-    <title>CHAdmin</title>
-</head>
-<body>
-    <h1>CHAdmin</h1>
-    <label id="release"></label>
-    <div id="control" class="controlDiv">
-        <button onclick="shutdown()" id="shutdownButt" style="background-color:#ff0000">Shutdown</button>
-        <button onclick="restart()" id="restartButt">Restart server</button>
-        <button onclick="saveChanges()" id="saveButt">Save configuration</button>
-        <button onclick="pullChanges()" id="updateButt">Get new version from git</button>
-    </div>
-    <table id="settingsTable"></table>
-    <label id="logDesc"></label><br><br>
-    <div id="log" class="logDiv">
-        <table id="logTable" class="logTable"></table>
-    </div>
-
-    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/cookies.js"></script>
-    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>
-    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
-    
-    <script src="admin/files/scripts/settings.js"></script>
-    <script src="admin/files/scripts/log.js"></script>
-    <script src="admin/files/scripts/controll.js"></script>
-    <script src="admin/files/scripts/release.js"></script>
-    <script>
-        buildSettingTable();
-        buildLogTable();
-        setRelease();
-    </script>
-</body>
-</html>"""
-
 	admin_files_activeLog_html = """<html lang="cs">
 <html>
 <head>
@@ -90,6 +51,64 @@ class AdminFiles:
     <script src="/admin/files/scripts/log.js"></script>
 </body>
 </html>"""
+
+	admin_files_index_html = """<html lang="cs">
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/admin/files/styles/style.css">
+    <link rel="icon" href="/admin/files/web/favicon.ico" type="image/x-icon">
+    <title>CHAdmin</title>
+</head>
+<body>
+    <h1>CHAdmin</h1>
+    <label id="release"></label>
+    <div id="control" class="controlDiv">
+        <button onclick="shutdown()" id="shutdownButt" style="background-color:#ff0000">Shutdown</button>
+        <button onclick="restart()" id="restartButt">Restart server</button>
+        <button onclick="saveChanges()" id="saveButt">Save configuration</button>
+        <button onclick="pullChanges()" id="updateButt">Get new version from git</button>
+    </div>
+    <table id="settingsTable"></table>
+    <label id="logDesc"></label><br><br>
+    <div id="log" class="logDiv">
+        <table id="logTable" class="logTable"></table>
+    </div>
+
+    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/cookies.js"></script>
+    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>
+    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
+    
+    <script src="admin/files/scripts/settings.js"></script>
+    <script src="admin/files/scripts/log.js"></script>
+    <script src="admin/files/scripts/controll.js"></script>
+    <script src="admin/files/scripts/release.js"></script>
+    <script>
+        buildSettingTable();
+        buildLogTable();
+        setRelease();
+    </script>
+</body>
+</html>"""
+
+	admin_files_scripts_release_js = """function getRelease() {
+    url = "/admin/cheeseRelease";
+    
+    return new Promise(resolve => {
+        sendGet(url, debug, function(response){
+            resolve(response);
+        });  
+    });
+}
+
+async function setRelease() {
+    var lbl = document.getElementById("release");
+
+    var response = await getRelease();
+    if (!response.ERROR) {
+        lbl.innerHTML = "Cheese Framework (v" + response.RELEASE + ")"
+    }
+}"""
 
 	admin_files_scripts_log_js = """debug = false;
 
@@ -305,25 +324,6 @@ function addSetting(setting, value) {
     row.appendChild(nameColumn);
     row.appendChild(valueColumn);
     table.appendChild(row);
-}"""
-
-	admin_files_scripts_release_js = """function getRelease() {
-    url = "/admin/cheeseRelease";
-    
-    return new Promise(resolve => {
-        sendGet(url, debug, function(response){
-            resolve(response);
-        });  
-    });
-}
-
-async function setRelease() {
-    var lbl = document.getElementById("release");
-
-    var response = await getRelease();
-    if (!response.ERROR) {
-        lbl.innerHTML = "Cheese Framework (v" + response.RELEASE + ")"
-    }
 }"""
 
 	admin_files_styles_style_css = """body {
