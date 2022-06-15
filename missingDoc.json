@@ -6,12 +6,6 @@
         }
     },
     {
-        "Stats": {
-            "file": "stats.py",
-            "method": "rowCount"
-        }
-    },
-    {
         "Error": {
             "file": "ErrorCodes.py",
             "method": "handleError"
