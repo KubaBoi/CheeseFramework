@@ -38,8 +38,21 @@ class CheeseModel:
         jsn = {}
         for attr in scheme:
             if (attr == "modelName" or attr == "scheme"): continue
-            jsn[attr.upper()] = getattr(self, attr)
+            jsn[attr.upper()] = self.convert(getattr(self, attr))
         return jsn
+
+    def convert(self, value):
+        """
+        converts lists and CheeseModels into json
+        """
+        if (type(value) is list):
+            newList = []
+            for v in value:
+                newList.append(self.convert(v))
+            return newList
+        elif (isinstance(value, CheeseModel)):
+            return value.toJson()
+        return value
 
     def toModel(self, jsn) -> None:
         """
