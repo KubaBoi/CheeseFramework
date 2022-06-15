@@ -2,6 +2,8 @@
 
 [Back to README](https://kubaboi.github.io/CheeseFramework/)
 
+:bang:This documentantion is automaticaly generated from code documentation.
+
 ## Contents
 
 - [Stats](#1-stats)
@@ -30,9 +32,10 @@
     - [whenReturn](#42-whenreturn)
 - [CheeseModel](#5-cheesemodel)
     - [_CheeseModel__getAttrs](#51-_cheesemodel__getattrs)
-    - [setAttrs](#52-setattrs)
-    - [toJson](#53-tojson)
-    - [toModel](#54-tomodel)
+    - [convert](#52-convert)
+    - [setAttrs](#53-setattrs)
+    - [toJson](#54-tojson)
+    - [toModel](#55-tomodel)
 - [CheeseServerMulti](#6-cheeseservermulti)
     - [_handle_request_noblock](#61-_handle_request_noblock)
     - [close_request](#62-close_request)
@@ -370,7 +373,14 @@ returns every attribute in ```self``` object
 
 
 
-### 5.2 setAttrs
+### 5.2 convert
+
+
+converts lists and CheeseModels into json
+
+
+
+### 5.3 setAttrs
 
 
 converts ```kwargs``` into model such as ```toModel()``` method
@@ -380,7 +390,7 @@ It will be passed to ```toModel()``` method as ```dict```.
 
 
 
-### 5.3 toJson
+### 5.4 toJson
 
 
 return model data as dictionary
@@ -393,7 +403,7 @@ only attributes from ```scheme```
 
 
 
-### 5.4 toModel
+### 5.5 toModel
 
 
 converts ```dict``` or anything iterable into ```model```
