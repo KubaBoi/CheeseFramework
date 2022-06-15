@@ -11,7 +11,7 @@ function nowTime() {
 }
 
 function getTimestamp(strTime=null, nullIsNow=true) {
-    if (!nullIsNow && strTime == null) {
+    if (!nullIsNow && (strTime == null || strTime == "")) {
         return "";
     }
     return new Date(strTime).toISOString().slice(0,16);
@@ -24,7 +24,7 @@ function getTime(strTime=null, nullIsNow=true) {
     console.warn(`WARNING! Obsolete function called. Function getTime() has been deprecated, 
 please use the new getTimestamp() function instead! Function will return time part of datetime stamp since 1.4.0`);
 
-    if (!nullIsNow && strTime == null) {
+    if (!nullIsNow && (strTime == null || strTime == "")) {
         return null;
     }
     return new Date(strTime).toISOString().slice(0,16);
@@ -32,7 +32,7 @@ please use the new getTimestamp() function instead! Function will return time pa
 }
 
 function getDate(strTime=null, nullIsNow=true) {
-    if (!nullIsNow && strTime == null) {
+    if (!nullIsNow && (strTime == null || strTime == "")) {
         return null;
     }
     return new Date(strTime).toISOString().substring(0,10);
