@@ -3,9 +3,21 @@
 import os
 
 class Stats:
+    """
+    This class shows statistics about project
+    """
 
     @staticmethod
     def rowCount(*suffixes):
+        """
+        Count of rows in project.
+
+        ```*suffixes``` is list of file suffixes that should be counted.
+
+        Default ```suffixes``` are ```.py```, ```.js```, ```.html```, ```.css```.
+
+        ```*suffixes``` are being add to default one not overwrittes them.
+        """
         Stats.path = os.path.curdir
         Stats.projectName = os.path.basename(os.path.abspath(os.path.curdir))
 
