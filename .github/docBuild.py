@@ -4,6 +4,7 @@ import inspect
 import json
 import sys
 import shutil
+from datetime import datetime, timedelta, timezone
 
 sourcePath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), "..", "src", "Cheese"))
 docPath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), "..", "DOC.md"))
@@ -21,6 +22,15 @@ def findClassNames(lines):
 
 def changeName(name):
     return name.replace(" ", "-").lower()
+
+def getVersion():
+    setupPath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), "..", "setup.cfg"))
+    with open(setupPath, "r") as f:
+        data = f.readlines()
+
+    for line in data:
+        if (line.startswith("version")):
+            return line.split("=")[1].strip()
 
 missingDoc = []
 docStr = ""
@@ -76,9 +86,13 @@ for root, dirs, files in os.walk(sourcePath):
 with open(missingPath, "w") as f:
     f.write(json.dumps(missingDoc, indent=4, sort_keys=True))
 
+now = datetime.now(timezone.utc) + timedelta(hours=2)
+releaseDate = now.strftime("%y.%m.%d.%H.%M")
 with open(docPath, "w") as f:
     f.write("# CheeseFramework documentation\n\n[Back to README](https://kubaboi.github.io/CheeseFramework/)\n\n" +
-    ":bang:This documentantion is automaticaly generated from code documentation.\n\n" + contents + "\n\n" + docStr)
+    ":bangbang: This documentantion is automaticaly generated from code documentation.\n\n" +
+    f"timestamp: {releaseDate}\n\n" +
+    f"Cheese version v({getVersion()})\n\n" + contents + "\n\n" + docStr)
 
 shutil.rmtree(os.path.join(sourcePath, "__pycache__"))
 
