@@ -39,10 +39,10 @@ class CheeseHandler(BaseHTTPRequestHandler):
         if (self.path.startswith("/admin")):
             AdminManager.controller(self)
             return
-        self.__log()
         if (self.path == "/alive"):
             cc.sendResponse(self, cc.createResponse({"RESPONSE": "Yes"}, 200))
             return
+        self.__log()
         try:
             auth = Security.authenticate(self, self.path)
 
