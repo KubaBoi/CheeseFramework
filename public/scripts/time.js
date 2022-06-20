@@ -40,3 +40,15 @@ function getDate(strTime=null, nullIsNow=true) {
     }
     return new Date(strTime).toISOString().substring(0,10);
 }
+
+function formatTime(rootSeconds) {
+    var hours   = Math.floor(rootSeconds / 3600);
+    var minutes = Math.floor((rootSeconds - (hours * 3600)) / 60);
+    var seconds = rootSeconds - (hours * 3600) - (minutes * 60);
+
+    str = "";
+    if (hours > 0) str += `${hours}h`;
+    if (minutes > 0) str += ` ${minutes}m`;
+    if (seconds > 0) str += ` ${seconds}s`;
+    return str;
+}
