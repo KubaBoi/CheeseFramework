@@ -262,7 +262,7 @@ class CheeseController:
                 CheeseController.sendResponse(server, (f.read(), 200, {"Content-type": header}))
 
     @staticmethod
-    def createResponse(dict, code, headers={"Content-type": "text/html"}) -> tuple:
+    def createResponse(dict, code=200, headers={"Content-type": "text/html"}) -> tuple:
         """
         create response as tuple
         
