@@ -46,9 +46,6 @@ class CheeseHandler(BaseHTTPRequestHandler):
         try:
             auth = Security.authenticate(self, self.path)
 
-            if (auth == False):
-                raise Unauthorized("Wrong credentials")
-
             endpoint = cc.getPath(self.path)
             controller = Metadata.findMethod(endpoint, "GET")
             if (not controller):
@@ -73,9 +70,6 @@ class CheeseHandler(BaseHTTPRequestHandler):
         self.__log()
         try:
             auth = Security.authenticate(self, self.path)
-
-            if (auth == False):
-                raise Unauthorized("Wrong credentials")
 
             endpoints = cc.getPath(self.path)
             controller = Metadata.findMethod(endpoints, "POST")
