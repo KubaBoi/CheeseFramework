@@ -5,6 +5,7 @@ import re
 from Cheese.cheeseController import CheeseController as cc
 from Cheese.database import Database
 from Cheese.metadata import Metadata
+from Cheese.appSettings import Settings
 
 class Security:
 
@@ -27,7 +28,11 @@ class Security:
                 dict = Security.fitPatern(auth, tp["patern"])
                 if (dict != None):
 
-                    valid = Security.validate(dict, tp["validation"])
+                    encoders = []
+                    if ("encoders" in tp.keys()):
+                        encoders = tp["encoders"]
+
+                    valid = Security.validate(dict, tp["validation"], encoders)
                     if (valid):
                         role = Security.findRole(dict, tp["roleId"])
                     break
@@ -54,16 +59,22 @@ class Security:
         db = Database()
         response = db.query(roleIdSql)
         db.done()
-        roleId = str(response[0][0])
+
+        roleId = "None"
+        if (response != []):
+            roleId = str(response[0][0])
 
         if (roleId not in Metadata.roles):
             return None
         return Metadata.roles[roleId]
 
     @staticmethod
-    def validate(dict, validation):
+    def validate(dict, validation, encoders):   
         for key in dict.keys():
-            validation = validation.replace(f"${key}$", f"'{dict[key]}'")
+            value = dict[key]
+            if (key in encoders.keys()):
+                value = Metadata.encode(value, getattr(Settings, encoders[key]))
+            validation = validation.replace(f"${key}$", f"'{value}'")
 
         db = Database()
         response = db.query(f"select case when exists ({validation}) then cast(1 as bit) else cast(0 as bit) end;")
