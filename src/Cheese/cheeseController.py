@@ -238,7 +238,7 @@ class CheeseController:
         
         if (not os.path.exists(f"{file}")):
             with open(os.path.join(ResMan.error(), "error404.html"), "rb") as f:
-                CheeseController.sendResponse(server, (f.read(), 404))
+                CheeseController.sendResponse(server, (f.read(), 404, {"Content-type": header}))
             return
 
         if (file.endswith(".html")):
