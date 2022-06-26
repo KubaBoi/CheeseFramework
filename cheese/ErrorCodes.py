@@ -43,7 +43,11 @@ class Error:
 
     @staticmethod
     def logErrorMessage(error):
-        errorMessage = f"\n{Logger.WARNING}{error.args[0]}{Logger.FAIL}"
+        if (len(error.args) == 0):
+            errorMessage = f"\n{Logger.WARNING}{error.__doc__}{Logger.FAIL}"
+        else:
+            errorMessage = f"\n{Logger.WARNING}{error.args[0]}{Logger.FAIL}"
+            
         while (len(error.args) > 1):
             error = error.args[1]
             errorMessage += "\n" + 20*"==" + "\n"
