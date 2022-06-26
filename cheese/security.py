@@ -6,6 +6,7 @@ from Cheese.cheeseController import CheeseController as cc
 from Cheese.database import Database
 from Cheese.metadata import Metadata
 from Cheese.appSettings import Settings
+from Cheese.httpClientErrors import *
 
 class Security:
 
@@ -40,11 +41,11 @@ class Security:
         pth = cc.getPath(path)
         if (pth in Metadata.access.keys()):
             if (role == None):
-                return False
+                raise Unauthorized("Wrong credentials")
             
             acc = Metadata.access[pth]
             if (role["value"] > acc["minRoleId"]):
-                return False            
+                raise Unauthorized("You do not have access to this endpoint")           
 
         return {
             "role": role,
