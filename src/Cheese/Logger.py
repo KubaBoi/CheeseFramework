@@ -115,7 +115,7 @@ class Logger:
             handler.close()
     
     @staticmethod
-    def info(message, allowHeader=True, silence=True):
+    def info(message, allowHeader=False, silence=True):
         if (allowHeader): header = Logger.__getMethod()
         else: header = ""
         logging.file(header + message)
@@ -125,7 +125,7 @@ class Logger:
             logging.html_file(message)
 
     @staticmethod
-    def okBlue(message, allowHeader=True, silence=True):
+    def okBlue(message, allowHeader=False, silence=True):
         if (allowHeader): header = Logger.__getMethod()
         else: header = ""
         logging.file(header + message)
@@ -135,7 +135,7 @@ class Logger:
             logging.html_file(message)
 
     @staticmethod
-    def okCyan(message, allowHeader=True, silence=True):
+    def okCyan(message, allowHeader=False, silence=True):
         if (allowHeader): header = Logger.__getMethod()
         else: header = ""
         logging.file(header + message)
@@ -145,7 +145,7 @@ class Logger:
             logging.html_file(message)
 
     @staticmethod
-    def okGreen(message, allowHeader=True, silence=True):
+    def okGreen(message, allowHeader=False, silence=True):
         if (allowHeader): header = Logger.__getMethod()
         else: header = ""
         logging.file(header + message)
@@ -155,7 +155,7 @@ class Logger:
             logging.html_file(message)
 
     @staticmethod
-    def warning(message, allowHeader=True, silence=True):
+    def warning(message, allowHeader=False, silence=True):
         if (allowHeader): header = Logger.__getMethod()
         else: header = ""
         logging.file(header + message)
@@ -165,7 +165,7 @@ class Logger:
             logging.html_file(message)
 
     @staticmethod
-    def fail(message, allowHeader=True, silence=True):
+    def fail(message, allowHeader=False, silence=True):
         if (allowHeader): header = Logger.__getMethod()
         else: header = ""
         message = f"\n{format_exc()}\n{20*'=='}\n{message}\n{10*'='}"
@@ -186,7 +186,7 @@ class Logger:
             logging.console(message)
 
     @staticmethod
-    def bold(message, allowHeader=True, silence=True):
+    def bold(message, allowHeader=False, silence=True):
         if (allowHeader): header = Logger.__getMethod()
         else: header = ""
         logging.file(header + message)
@@ -196,7 +196,7 @@ class Logger:
             logging.html_file(message)
 
     @staticmethod
-    def underline(message, allowHeader=True, silence=True):
+    def underline(message, allowHeader=False, silence=True):
         if (allowHeader): header = Logger.__getMethod()
         else: header = ""
         logging.file(header + message)

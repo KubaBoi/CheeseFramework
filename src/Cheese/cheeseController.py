@@ -19,13 +19,34 @@ class CheeseController:
     """
     
     @staticmethod
-    def getClientAddress(server):
+    def getClientAddress(server) -> str:
         """
         return client's address
 
         ```server``` is instance of http handler
         """
         return server.client_address[0]
+
+    @staticmethod
+    def getHeaders(server) -> list:
+        """
+        return requests headers
+        
+        ```server``` is instance of http handler
+        """
+        return server.headers._headers
+
+    @staticmethod
+    def getHeadersDict(server) -> dict:
+        """
+        return request headers as dict
+
+        ```server``` is instance of http handler
+        """
+        headers = {}
+        for header in server.headers._headers:
+            headers[header[0]] = header[1]
+        return headers
 
     @staticmethod
     def modulesToJsonArray(modules) -> list:
@@ -40,7 +61,7 @@ class CheeseController:
         return jsonArray
 
     @staticmethod
-    def getTime(addTime=0):
+    def getTime(addTime=0) -> int:
         """
         return now time and add argument in seconds
 

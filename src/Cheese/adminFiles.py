@@ -2,56 +2,6 @@ class AdminFiles:
 	def sayHello():
 		print('hello')
 
-	admin_files_activeLog_html = """<html lang="cs">
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/admin/files/styles/style.css">
-    <link rel="icon" href="/admin/files/web/favicon.ico" type="image/x-icon">
-    <title>Cheese log</title>
-</head>
-<body>
-    <button onclick="location='/admin/logs'">All logs</button>
-    <button onclick="location='/admin'">CHAdmin</button>
-    <h1 id="logDesc">Cheese log - </h1>
-    <div id="log" class="logDivBig">
-        <table id="logTable" class="logTable"></table>
-    </div>
-
-    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/cookies.js"></script>
-    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>
-    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
-
-    <script>//dontRunScript = true;</script>
-    <script src="/admin/files/scripts/log.js"></script>
-</body>
-</html>"""
-
-	admin_files_allLogs_html = """<html lang="cs">
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/admin/files/styles/style.css">
-    <link rel="icon" href="/admin/files/web/favicon.ico" type="image/x-icon">
-    <title>Cheese logs</title>
-</head>
-<body>
-    <h1>Cheese Logs</h1>
-    <button onclick="location='/admin'">CHAdmin</button><br><br>
-    <table>
-        TABLE
-    </table>
-    <script>
-        dontRunScript = true;
-    </script>
-    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>
-    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
-    <script src="/admin/files/scripts/log.js"></script>
-</body>
-</html>"""
-
 	admin_files_index_html = """<html lang="cs">
 <head>
     <meta charset='utf-8'>
@@ -91,23 +41,121 @@ class AdminFiles:
 </body>
 </html>"""
 
-	admin_files_scripts_release_js = """function getRelease() {
-    url = "/admin/cheeseRelease";
-    
-    return new Promise(resolve => {
-        sendGet(url, debug, function(response){
-            resolve(response);
-        });  
-    });
+	admin_files_allLogs_html = """<html lang="cs">
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/admin/files/styles/style.css">
+    <link rel="icon" href="/admin/files/web/favicon.ico" type="image/x-icon">
+    <title>Cheese logs</title>
+</head>
+<body>
+    <h1>Cheese Logs</h1>
+    <button onclick="location='/admin'">CHAdmin</button><br><br>
+    <table>
+        TABLE
+    </table>
+    <script>
+        dontRunScript = true;
+    </script>
+    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>
+    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
+    <script src="/admin/files/scripts/log.js"></script>
+</body>
+</html>"""
+
+	admin_files_activeLog_html = """<html lang="cs">
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/admin/files/styles/style.css">
+    <link rel="icon" href="/admin/files/web/favicon.ico" type="image/x-icon">
+    <title>Cheese log</title>
+</head>
+<body>
+    <button onclick="location='/admin/logs'">All logs</button>
+    <button onclick="location='/admin'">CHAdmin</button>
+    <h1 id="logDesc">Cheese log - </h1>
+    <div id="log" class="logDivBig">
+        <table id="logTable" class="logTable"></table>
+    </div>
+
+    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/cookies.js"></script>
+    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>
+    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
+
+    <script>//dontRunScript = true;</script>
+    <script src="/admin/files/scripts/log.js"></script>
+</body>
+</html>"""
+
+	admin_files_styles_style_css = """body {
+    color: white;
+    background-color: #2b2b2b;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-async function setRelease() {
-    var lbl = document.getElementById("release");
+a{color:#4542fc;}
+a:visited{color:#9c2b2b;}
 
-    var response = await getRelease();
-    if (!response.ERROR) {
-        lbl.innerHTML = "Cheese Framework (v" + response.RELEASE + ")"
-    }
+.header { font-weight: bold; }
+.okBlue { color: #4542fc; }
+.okCyan { color: #0ff; }
+.okGreen { color: #0f0; }
+.warning { color: #ff0; }
+.fail { color: #f00; }
+.bold { font-weight: bold; }
+.underLine { text-decoration: underline; }
+
+.logDiv {
+    position: fixed;
+    width: 50%;
+    right: 0%;
+    top: 5%;
+    height: 94%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    background-color: black;
+    border: 2px solid #fff;
+}
+
+.logDivBig {
+    position: fixed;
+    width: 100%;
+    left: 0%;
+    top: 9%;
+    height: 90%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    background-color: black;
+    border: 2px solid #fff;
+}
+
+.logTable {
+    word-wrap: break-word;
+    word-break: break-all;
+    table-layout: fixed;
+}
+
+#logDesc {
+    position: fixed;
+    width: 50%;
+    right: 0%;
+    top: 15px;
+}
+
+td, th {
+    min-width: 180px;
+    vertical-align: top;
+    text-align: left;
+}
+
+.controlDiv {
+    padding: 10px;
 }"""
 
 	admin_files_scripts_log_js = """debug = false;
@@ -183,6 +231,37 @@ async function deleteFile(log) {
     else {
         alert(`An error occurred: ${response.ERROR}`);
     }
+}"""
+
+	admin_files_scripts_settings_js = """
+async function buildSettingTable() {
+    response = await callEndpoint("GET", "/admin/getSettings");
+    if (!response.ERROR) {
+        for (const key in response) {
+            if (response.hasOwnProperty(key)) {
+                addSetting(key, response[key]);
+            }
+        }
+        document.title = "CHAdmin - " + response.name;
+    }
+}
+
+function addSetting(setting, value) {
+    var table = document.querySelector("#settingsTable");
+
+    var row = document.createElement("tr");
+    var nameColumn = document.createElement("td");
+    var valueColumn = document.createElement("td");
+
+    nameColumn.innerHTML = setting;
+    if (setting == "dbPassword")
+        valueColumn.innerHTML = "<input type='password' value='" + value + "'>";
+    else
+        valueColumn.innerHTML = "<input type='text' value='" + value + "'>";
+    
+    row.appendChild(nameColumn);
+    row.appendChild(valueColumn);
+    table.appendChild(row);
 }"""
 
 	admin_files_scripts_controll_js = """function apiFunction(url) {    
@@ -295,101 +374,22 @@ async function pullChanges() {
     }
 }"""
 
-	admin_files_scripts_settings_js = """
-async function buildSettingTable() {
-    response = await callEndpoint("GET", "/admin/getSettings");
-    if (!response.ERROR) {
-        for (const key in response) {
-            if (response.hasOwnProperty(key)) {
-                addSetting(key, response[key]);
-            }
-        }
-        document.title = "CHAdmin - " + response.name;
-    }
-}
-
-function addSetting(setting, value) {
-    var table = document.querySelector("#settingsTable");
-
-    var row = document.createElement("tr");
-    var nameColumn = document.createElement("td");
-    var valueColumn = document.createElement("td");
-
-    nameColumn.innerHTML = setting;
-    if (setting == "dbPassword")
-        valueColumn.innerHTML = "<input type='password' value='" + value + "'>";
-    else
-        valueColumn.innerHTML = "<input type='text' value='" + value + "'>";
+	admin_files_scripts_release_js = """function getRelease() {
+    url = "/admin/cheeseRelease";
     
-    row.appendChild(nameColumn);
-    row.appendChild(valueColumn);
-    table.appendChild(row);
-}"""
-
-	admin_files_styles_style_css = """body {
-    color: white;
-    background-color: #2b2b2b;
-    font-family: Arial, Helvetica, sans-serif;
+    return new Promise(resolve => {
+        sendGet(url, debug, function(response){
+            resolve(response);
+        });  
+    });
 }
 
-a{color:#4542fc;}
-a:visited{color:#9c2b2b;}
+async function setRelease() {
+    var lbl = document.getElementById("release");
 
-.header { font-weight: bold; }
-.okBlue { color: #4542fc; }
-.okCyan { color: #0ff; }
-.okGreen { color: #0f0; }
-.warning { color: #ff0; }
-.fail { color: #f00; }
-.bold { font-weight: bold; }
-.underLine { text-decoration: underline; }
-
-.logDiv {
-    position: fixed;
-    width: 50%;
-    right: 0%;
-    top: 5%;
-    height: 94%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    background-color: black;
-    border: 2px solid #fff;
-}
-
-.logDivBig {
-    position: fixed;
-    width: 100%;
-    left: 0%;
-    top: 9%;
-    height: 90%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    background-color: black;
-    border: 2px solid #fff;
-}
-
-.logTable {
-    word-wrap: break-word;
-    word-break: break-all;
-    table-layout: fixed;
-}
-
-#logDesc {
-    position: fixed;
-    width: 50%;
-    right: 0%;
-    top: 15px;
-}
-
-td, th {
-    min-width: 180px;
-    vertical-align: top;
-    text-align: left;
-}
-
-.controlDiv {
-    padding: 10px;
+    var response = await getRelease();
+    if (!response.ERROR) {
+        lbl.innerHTML = "Cheese Framework (v" + response.RELEASE + ")"
+    }
 }"""
 
