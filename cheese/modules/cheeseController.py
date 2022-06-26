@@ -256,13 +256,13 @@ class CheeseController:
                     + "Powered By <a href='https://kubaboi.github.io/CheeseFramework/'"
                     + "style='color: var(--text-color);' target='_blank'>Cheese Framework</a> </label></body>" + data.split("</body>")[1])
 
-            CheeseController.sendResponse(server, (bytes(data, "utf-8"), 200), header)
+            CheeseController.sendResponse(server, (bytes(data, "utf-8"), 200, {"Content-type": header}))
         else:
             with open(f"{file}", "rb") as f:
-                CheeseController.sendResponse(server, (f.read(), 200), header)
+                CheeseController.sendResponse(server, (f.read(), 200, {"Content-type": header}))
 
     @staticmethod
-    def createResponse(dict, code) -> tuple:
+    def createResponse(dict, code, headers={"Content-type": "text/html"}) -> tuple:
         """
         create response as tuple
         
@@ -270,11 +270,17 @@ class CheeseController:
         and coded into bytes with ```utf-8``` coding. 
 
         ```code``` is http status code as ```int```
+
+        ```headers``` is dict with headers and its values
         """
-        return (bytes(json.dumps(dict, indent=4, sort_keys=True, default=str), "utf-8"), code)
+
+        if ("Content-type" not in headers.keys()):
+            headers["Content-type"] = "text/html"
+
+        return (bytes(json.dumps(dict, indent=4, sort_keys=True, default=str), "utf-8"), code, headers)
 
     @staticmethod
-    def sendResponse(server, response, contentType="text/html") -> None:
+    def sendResponse(server, response) -> None:
         """
         send response to client
 
@@ -283,7 +289,8 @@ class CheeseController:
         ```response``` is tuple (response object created in ```CheeseController.createResponse(...)``` method)
         """
         server.send_response(response[1])
-        server.send_header("Content-type", contentType)
+        for headerKey in response[2].keys():
+            server.send_header(headerKey, response[2][headerKey])
         server.end_headers()
 
         server.wfile.write(response[0])
