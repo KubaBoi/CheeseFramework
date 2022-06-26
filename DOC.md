@@ -4,9 +4,9 @@
 
 :bangbang: This documentantion is automaticaly generated from code documentation.
 
-timestamp: 22.06.26.20.13
+timestamp: 22.06.26.20.20
 
-Cheese version v(1.4.1)
+Cheese version v(1.4.2)
 
 ## Contents
 
@@ -945,6 +945,8 @@ create response as tuple
 and coded into bytes with ```utf-8``` coding.
 
 ```code``` is http status code as ```int```
+
+```headers``` is dict with headers and its values
 
 
 
