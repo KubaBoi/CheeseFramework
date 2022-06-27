@@ -33,9 +33,15 @@ class Security:
                     if ("encoders" in tp.keys()):
                         encoders = tp["encoders"]
 
-                    valid = Security.validate(dict, tp["validation"], encoders)
+                    valid = Security.validate(dict, tp["validation"], encoders, server)
                     if (valid):
                         role = Security.findRole(dict, tp["roleId"])
+
+                        if ("additional" in tp.keys()):
+                            additional = tp["additional"]
+                            for add in additional:
+                                if (not Security.validate(dict, add["validation"], encoders, server)):
+                                    raise Unauthorized(add["exception"])
                     break
         
         pth = cc.getPath(path)
@@ -70,12 +76,14 @@ class Security:
         return Metadata.roles[roleId]
 
     @staticmethod
-    def validate(dict, validation, encoders):   
+    def validate(dict, validation, encoders, server):   
         for key in dict.keys():
             value = dict[key]
             if (key in encoders.keys()):
                 value = Metadata.encode(value, getattr(Settings, encoders[key]))
             validation = validation.replace(f"${key}$", f"'{value}'")
+
+        validation = validation.replace("$client_ip$", f"'{cc.getClientAddress(server)}'")
 
         db = Database()
         response = db.query(f"select case when exists ({validation}) then cast(1 as bit) else cast(0 as bit) end;")
