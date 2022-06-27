@@ -1,0 +1,39 @@
+name: Pack Javascript
+
+on:
+  push:
+    branches:
+      - webServices
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content to github runner
+        with:
+            ref: webServices
+
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9' # install the python version needed
+
+      - name: Packing
+        run: |
+          python3 .github/pack.py
+
+      - name: commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "packing" -a
+          
+      - name: push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: webServices  
+        
