@@ -245,7 +245,7 @@ class Logger:
                     table += f"<td><button onclick=\"deleteFile('{name}')\">Remove log</button></td></tr>"
 
             data = data.replace("TABLE", table)
-            return (bytes(data, "utf-8"), 200)
+            return (bytes(data, "utf-8"), 200, {"Content-type": "text/html"})
 
     @staticmethod
     def serveLogs(server):
@@ -259,7 +259,7 @@ class Logger:
         
         if (not os.path.exists(f"{log}")):
             with open(f"{ResMan.error()}/error404.html", "rb") as f:
-                return (f.read(), 404)
+                return (f.read(), 404, {"Content-type": "text/html"})
 
         temp = AdminFiles.admin_files_activeLog_html
         logName = ResMan.getFileName(log).replace(".html", "")
@@ -273,7 +273,7 @@ class Logger:
                     data = data.replace("Cheese log - ", "Cheese log - " + 
                         logName + " - <label class='fail'>CLOSED</label>")
                     data = data.replace("//dontRunScript", "dontRunScript")
-        return (bytes(data, "utf-8"), 200)
+        return (bytes(data, "utf-8"), 200, {"Content-type": "text/html"})
                 
 
     #PRIVATE METHODS

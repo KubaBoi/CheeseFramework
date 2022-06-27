@@ -1,6 +1,8 @@
 #cheese
 
 import re
+import requests
+import json
 
 from Cheese.cheeseController import CheeseController as cc
 from Cheese.database import Database
@@ -13,6 +15,14 @@ class Security:
     @staticmethod
     def authenticate(server, path):
         if (not Metadata.authentication["enabled"]):
+            return True
+
+        pth = cc.getPath(path)
+        try:
+            acc = Metadata.access[pth]
+            if (acc["minRoleId"] < 0):
+                return True
+        except:
             return True
 
         role = None
@@ -33,17 +43,22 @@ class Security:
                     if ("encoders" in tp.keys()):
                         encoders = tp["encoders"]
 
-                    valid = Security.validate(dict, tp["validation"], encoders)
+                    valid = Security.validate(dict, tp["validation"], encoders, server)
                     if (valid):
                         role = Security.findRole(dict, tp["roleId"])
+
+                        if ("additional" in tp.keys()):
+                            additional = tp["additional"]
+                            for add in additional:
+                                if (not Security.validate(dict, add["validation"], encoders, server)):
+                                    Security.handleExceptions(add["exceptions"], dict, encoders, server)
+                                    raise Unauthorized(add["raise"])
                     break
         
-        pth = cc.getPath(path)
         if (pth in Metadata.access.keys()):
             if (role == None):
                 raise Unauthorized("Wrong credentials")
             
-            acc = Metadata.access[pth]
             if (role["value"] > acc["minRoleId"]):
                 raise Unauthorized("You do not have access to this endpoint")           
 
@@ -51,6 +66,20 @@ class Security:
             "role": role,
             "login": dict
         }
+
+    @staticmethod
+    def handleExceptions(excp, dict, encoders, server):
+        endpoint = excp["endpoint"]
+        method = excp["method"]
+        content = {}
+
+        for cont in excp["content"].keys():
+            content[cont] = Security.prepareString(dict, excp["content"][cont], encoders, server)
+        
+        if (method == "GET"):
+            requests.get(f"http://localhost:{Settings.port}{endpoint}")
+        elif (method == "POST"):
+            requests.post(f"http://localhost:{Settings.port}{endpoint}", json=content)
 
     @staticmethod
     def findRole(dict, roleIdSql):
@@ -70,17 +99,26 @@ class Security:
         return Metadata.roles[roleId]
 
     @staticmethod
-    def validate(dict, validation, encoders):   
-        for key in dict.keys():
-            value = dict[key]
-            if (key in encoders.keys()):
-                value = Metadata.encode(value, getattr(Settings, encoders[key]))
-            validation = validation.replace(f"${key}$", f"'{value}'")
+    def validate(dict, validation, encoders, server):   
+        validation = Security.prepareString(dict, validation, encoders, server)
 
         db = Database()
         response = db.query(f"select case when exists ({validation}) then cast(1 as bit) else cast(0 as bit) end;")
         db.done()
         return bool(int(response[0][0]))
+
+    @staticmethod
+    def prepareString(dict, string, encoders, server):
+        for key in dict.keys():
+            value = dict[key]
+            if (key in encoders.keys()):
+                value = Metadata.encode(value, getattr(Settings, encoders[key]))
+            string = string.replace(f"${key}$", f"'{value}'")
+
+        string = string.replace("$client_ip$", f"'{cc.getClientAddress(server)}'")
+        string = string.replace("$headers$", json.dumps(cc.getHeadersDict(server)))
+
+        return string
 
     @staticmethod
     def fitPatern(auth, patern):

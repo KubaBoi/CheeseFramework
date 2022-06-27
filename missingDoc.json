@@ -956,6 +956,18 @@
     {
         "Security": {
             "file": "security.py",
+            "method": "handleExceptions"
+        }
+    },
+    {
+        "Security": {
+            "file": "security.py",
+            "method": "prepareString"
+        }
+    },
+    {
+        "Security": {
+            "file": "security.py",
             "method": "validate"
         }
     },
