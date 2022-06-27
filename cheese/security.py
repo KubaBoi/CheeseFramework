@@ -53,7 +53,8 @@ class Security:
                                 if (not Security.validate(dict, add["validation"], encoders, server)):
                                     if ("exceptions" in add.keys()):
                                         Security.handleExceptions(add["exceptions"], dict, encoders, server)
-                                    raise Unauthorized(add["raise"])
+                                    if ("raise" in add.keys()):
+                                        raise Unauthorized(add["raise"])
                     break
         
         if (pth in Metadata.access.keys()):
