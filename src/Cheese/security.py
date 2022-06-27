@@ -51,7 +51,8 @@ class Security:
                             additional = tp["additional"]
                             for add in additional:
                                 if (not Security.validate(dict, add["validation"], encoders, server)):
-                                    Security.handleExceptions(add["exceptions"], dict, encoders, server)
+                                    if ("exceptions" in add.keys()):
+                                        Security.handleExceptions(add["exceptions"], dict, encoders, server)
                                     raise Unauthorized(add["raise"])
                     break
         

@@ -4,9 +4,9 @@
 
 :bangbang: This documentantion is automaticaly generated from code documentation.
 
-timestamp: 22.06.27.19.57
+timestamp: 22.06.27.20.17
 
-Cheese version v(1.4.9)
+Cheese version v(1.4.10)
 
 ## Contents
 
