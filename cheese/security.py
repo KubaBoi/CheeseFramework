@@ -105,7 +105,13 @@ class Security:
         validation = Security.prepareString(dict, validation, encoders, server)
 
         db = Database()
-        response = db.query(f"select case when exists ({validation}) then cast(1 as bit) else cast(0 as bit) end;")
+        trueNess = (1, 0)
+        # negace
+        if (validation.startswith("!")):
+            validation = validation[1:]
+            trueNess = (0, 1)
+
+        response = db.query(f"select case when exists ({validation}) then cast({trueNess[0]} as bit) else cast({trueNess[1]} as bit) end;")
         db.done()
         return bool(int(response[0][0]))
 
