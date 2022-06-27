@@ -86,10 +86,10 @@ class AdminManager:
             
         if (not hasattr(AdminFiles, file)):
             with open(f"{ResMan.error()}/error404.html", "rb") as f:
-                CheeseController.sendResponse(server, (f.read(), 404))
+                CheeseController.sendResponse(server, (f.read(), 404, {"Content-type": "text/html"}))
             return
 
-        CheeseController.sendResponse(server, (bytes(getattr(AdminFiles, file), "utf-8"), 200), "text/html")
+        CheeseController.sendResponse(server, (bytes(getattr(AdminFiles, file), "utf-8"), 200, {"Content-type": "text/html"}))
 
     @staticmethod
     def __createUser(server):
@@ -97,7 +97,7 @@ class AdminManager:
 
     @staticmethod
     def __showLogs(server):
-        CheeseController.sendResponse(server, Logger.serveLogs(server), "text/html")
+        CheeseController.sendResponse(server, Logger.serveLogs(server))
 
     @staticmethod
     def __deleteLog(server):
@@ -114,7 +114,7 @@ class AdminManager:
 
         try:
             os.remove(path)
-            response = CheeseController.createResponse({"RESPONSE": "OK"}, 200)
+            response = CheeseController.createResponse({"RESPONSE": "OK"})
             CheeseController.sendResponse(server, response)
         except Exception as e:
             Logger.fail("Error while removing log", e, silence=False)
@@ -132,13 +132,13 @@ class AdminManager:
             min = 0
             if (len(lines) >= 1000): min = len(lines) - 1000
             onlyTable = "".join(lines[min:(min+1000)])
-        response = CheeseController.createResponse({"RESPONSE": {"LOG_DESC": activeLog.replace(".html", ""), "LOG": onlyTable}}, 200)
-        CheeseController.sendResponse(server, response, "text/html")
+        response = CheeseController.createResponse({"RESPONSE": {"LOG_DESC": activeLog.replace(".html", ""), "LOG": onlyTable}})
+        CheeseController.sendResponse(server, response)
 
     @staticmethod
     def __getSettings(server):
         js = Settings.loadJson()
-        CheeseController.sendResponse(server, (bytes(json.dumps(js), "utf-8"), 200), "text/html")
+        CheeseController.sendResponse(server, (bytes(json.dumps(js), "utf-8"), 200, {"Content-type": "text/html"}))
 
     @staticmethod
     def __restartServer(server):
@@ -175,7 +175,7 @@ class AdminManager:
 
         Logger.adminInfo("Configuration was updated.", silence=False)
         Logger.adminInfo("Restart to apply changes.", silence=False)
-        response = CheeseController.createResponse({"STATUS": "ok"}, 200)
+        response = CheeseController.createResponse({"STATUS": "ok"})
         CheeseController.sendResponse(server, response)
         
     @staticmethod
@@ -184,10 +184,10 @@ class AdminManager:
         Logger.adminInfo("Updating from git", silence=False)
         subprocess.call(f"cd {ResMan.root()}; git pull", shell=True)
         Logger.adminInfo("Project has been updated. Restart to apply changes.", silence=False)
-        response = CheeseController.createResponse({"RESPONSE": "OK"}, 200)
+        response = CheeseController.createResponse({"RESPONSE": "OK"})
         CheeseController.sendResponse(server, response)
 
     @staticmethod
     def __getRelease(server):
-        response = CheeseController.createResponse({"RELEASE": Variables.release}, 200)
+        response = CheeseController.createResponse({"RELEASE": Variables.release})
         CheeseController.sendResponse(server, response)
