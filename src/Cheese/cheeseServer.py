@@ -1,7 +1,5 @@
 #cheese
 
-import json
-
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from socketserver import ThreadingMixIn
 

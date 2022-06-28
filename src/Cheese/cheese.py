@@ -86,6 +86,7 @@ class CheeseBurger:
             print("Check if there are all necessary files in your project")
             print(Variables.documentation)
             print(20*"=")
+            sys.exit()
 
     # initialization application server
     @staticmethod
