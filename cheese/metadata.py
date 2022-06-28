@@ -218,7 +218,7 @@ class Metadata:
                 code += Metadata.maxChar
             decoded += chr(code)
 
-            if (i == len(key)-1):
+            if (i == len(key)-1 or len(key) > len(data)):
                 if (decoded == key):
                     decoded = ""
                 else:
