@@ -1,6 +1,6 @@
 #cheese
 
-from datetime import datetime
+import datetime
 import inspect
 import re
 
@@ -341,8 +341,10 @@ class CheeseRepository:
                 return str(arg)
         elif (type(arg) is list):
             return "(" + ",".join(CheeseRepository.getTypeOf(arg)) + ")"
-        elif (type(arg) is datetime):
-            return "'" + datetime.strftime(arg, "%Y-%m-%dT%H:%M:%S") + "'"
+        elif (type(arg) is datetime.datetime):
+            return "'" + datetime.datetime.strftime(arg, "%Y-%m-%dT%H:%M:%S") + "'"
+        elif (type(arg) is datetime.date):
+            return "'" + datetime.datetime.strftime(arg, "%Y-%m-%d") + "'"
         elif (isinstance(arg, CheeseModel)):
             ret = []
             for var in variables:
