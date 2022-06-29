@@ -20,7 +20,7 @@ class CheeseRepository:
     __autoCommit = True
 
     @classmethod
-    def model(cls) -> CheeseModel:
+    def model(cls, addId=0) -> CheeseModel:
         """
         return ```CheeseModel``` with ```Primary key```, ```modelName``` and ```scheme```
         """
@@ -31,7 +31,7 @@ class CheeseRepository:
         model = CheeseModel(modelName, scheme)
         for sch in scheme:
             if (sch == "id"):
-                setattr(model, sch, cls.findNewId())
+                setattr(model, sch, cls.findNewId()+addId)
             else:
                 setattr(model, sch, "")
         return model
