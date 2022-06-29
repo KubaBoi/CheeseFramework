@@ -244,7 +244,8 @@ class CheeseRepository:
             db.done()
         else:
             if (not preparedSql.endswith(";")):
-                preparedSql += ";\n"
+                preparedSql += ";"
+            preparedSql += "\n"
             CheeseRepository.__commitSql += preparedSql
 
         return True
