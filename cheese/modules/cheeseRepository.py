@@ -248,6 +248,7 @@ class CheeseRepository:
     @staticmethod
     def commit():
         if (CheeseRepository.__autoCommit != None):
+            Logger.okGreen("Commiting")
             CheeseRepository.__commitDb.done()
             CheeseRepository.__commitDb = None
         else:
