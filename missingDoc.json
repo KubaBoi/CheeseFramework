@@ -294,6 +294,12 @@
         }
     },
     {
+        "FileHeaders": {
+            "file": "fileHeaders.py",
+            "method": "getHeader"
+        }
+    },
+    {
         "CreateByDB": {
             "file": "createByDb.py",
             "method": "addSpaces"
