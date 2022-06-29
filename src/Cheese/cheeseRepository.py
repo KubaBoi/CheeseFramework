@@ -16,7 +16,7 @@ class CheeseRepository:
     """
 
     testing = False
-    __commitDb = None
+    __commitSql = None
     __autoCommit = True
 
     @classmethod
@@ -238,19 +238,25 @@ class CheeseRepository:
 
     @staticmethod
     def commitType(preparedSql):
-        CheeseRepository.__commitDb = Database()
-        CheeseRepository.__commitDb.commit(preparedSql)
         if (CheeseRepository.__autoCommit):
-            CheeseRepository.commit()
+            db = Database()
+            db.commit(preparedSql)
+            db.done()
+        else:
+            if (not preparedSql.endswith(";")):
+                preparedSql += ";"
+            CheeseRepository.__commitSql += preparedSql
 
         return True
 
     @staticmethod
     def commit():
-        if (CheeseRepository.__autoCommit != None):
-            Logger.okGreen("Commiting")
-            CheeseRepository.__commitDb.done()
-            CheeseRepository.__commitDb = None
+        if (CheeseRepository.__commitSql != ""):
+            db = Database()
+            db.commit(CheeseRepository.__commitSql)
+            db.done()
+            CheeseRepository.__commitSql = ""
+            Logger.okGreen("Commited")
         else:
             Logger.warning("Nothing to commit")
 
