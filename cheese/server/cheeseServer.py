@@ -47,16 +47,12 @@ class CheeseHandler(BaseHTTPRequestHandler):
             endpoint = cc.getPath(self.path)
             controller = Metadata.findMethod(endpoint, "GET")
             if (not controller):
-                if (self.path.endswith(".css")):
-                    cc.serveFile(self, self.path, "text/css")
+                if (self.path == "/"):
+                    cc.serveFile(self, "index.html")
                     return
                 else:
-                    if (self.path == "/"):
-                        cc.serveFile(self, "index.html")
-                        return
-                    else:
-                        cc.serveFile(self, self.path)
-                        return
+                    cc.serveFile(self, self.path)
+                    return
             else:
                 response = controller(self, self.path, auth)
                 cc.sendResponse(self, response)

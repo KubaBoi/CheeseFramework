@@ -9,6 +9,7 @@ from Cheese.httpClientErrors import *
 from cheese.resourceManager import ResMan
 from cheese.appSettings import Settings
 from cheese.Logger import Logger
+from cheese.modules.fileHeaders import FileHeaders
 
 class CheeseController:
     """
@@ -258,6 +259,9 @@ class CheeseController:
 
             CheeseController.sendResponse(server, (bytes(data, "utf-8"), 200, {"Content-type": header}))
         else:
+            try: header = FileHeaders.getHeader(file)
+            except: Logger.info(f"Suffix for {file} not found")
+
             with open(f"{file}", "rb") as f:
                 CheeseController.sendResponse(server, (f.read(), 200, {"Content-type": header}))
 
