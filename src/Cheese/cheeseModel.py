@@ -21,7 +21,7 @@ class CheeseModel:
         self.modelName = modelName
         self.scheme = scheme
 
-    def toJson(self, allData=True) -> dict:
+    def toJson(self, allData=True, upperKeys=True) -> dict:
         """
         return model data as dictionary
 
@@ -38,7 +38,10 @@ class CheeseModel:
         jsn = {}
         for attr in scheme:
             if (attr == "modelName" or attr == "scheme"): continue
-            jsn[attr.upper()] = self.convert(getattr(self, attr))
+            attrKey = attr
+            if (upperKeys):
+                attrKey = attrKey.upper()
+            jsn[attrKey] = self.convert(getattr(self, attr))
         return jsn
 
     def convert(self, value):
