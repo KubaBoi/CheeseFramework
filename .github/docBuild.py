@@ -45,43 +45,46 @@ for root, dirs, files in os.walk(sourcePath):
 
         names = findClassNames(data)
         for clsName in names:
-            module = __import__(f"{file.replace('.py', '')}")
+            try:
+                module = __import__(f"{file.replace('.py', '')}")
 
-            cls = getattr(module, clsName)
+                cls = getattr(module, clsName)
 
-            attributes = inspect.getmembers(cls, lambda a:inspect.isroutine(a))
-            attributes = [a[0] for a in attributes if not(a[0].startswith('__') and a[0].endswith('__'))]
-            print(file, clsName, attributes)
+                attributes = inspect.getmembers(cls, lambda a:inspect.isroutine(a))
+                attributes = [a[0] for a in attributes if not(a[0].startswith('__') and a[0].endswith('__'))]
+                print(file, clsName, attributes)
 
-            mthStr = f"## {m}. {clsName}\n\n"
-            cont = f"- [{clsName}](#{m}-{changeName(clsName)})\n"
-            n = 0
+                mthStr = f"## {m}. {clsName}\n\n"
+                cont = f"- [{clsName}](#{m}-{changeName(clsName)})\n"
+                n = 0
 
-            clsDoc = cls.__doc__
-            if (clsDoc != None):
-                docC = ""
-                for line in clsDoc.split("\n"):
-                    docC += line.strip() + "\n"
-                mthStr += docC + "\n\n"
+                clsDoc = cls.__doc__
+                if (clsDoc != None):
+                    docC = ""
+                    for line in clsDoc.split("\n"):
+                        docC += line.strip() + "\n"
+                    mthStr += docC + "\n\n"
 
-            for attr in attributes:
-                doc = getattr(cls, attr).__doc__
-                if (doc == None):
-                    missingDoc.append({clsName: {"file": file, "method": attr}})
-                else:
-                    docS = ""
-                    for line in doc.split("\n"):
-                        docS += line.strip() + "\n"
+                for attr in attributes:
+                    doc = getattr(cls, attr).__doc__
+                    if (doc == None):
+                        missingDoc.append({clsName: {"file": file, "method": attr}})
+                    else:
+                        docS = ""
+                        for line in doc.split("\n"):
+                            docS += line.strip() + "\n"
 
-                    n += 1
-                    mthStr += f"### {m}.{n} {attr}\n\n"
-                    mthStr += docS + "\n\n"
-                    cont += f"    - [{attr}](#{m}{n}-{changeName(attr)})\n"
+                        n += 1
+                        mthStr += f"### {m}.{n} {attr}\n\n"
+                        mthStr += docS + "\n\n"
+                        cont += f"    - [{attr}](#{m}{n}-{changeName(attr)})\n"
 
-            if (n != 0):
-                docStr += mthStr
-                contents += cont
-                m += 1
+                if (n != 0):
+                    docStr += mthStr
+                    contents += cont
+                    m += 1
+            except:
+                print("Error", file)
 
 with open(missingPath, "w") as f:
     f.write(json.dumps(missingDoc, indent=4, sort_keys=True))
