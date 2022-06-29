@@ -16,7 +16,7 @@ class CheeseRepository:
     """
 
     testing = False
-    __commitSql = None
+    __commitSql = ""
     __autoCommit = True
 
     @classmethod
