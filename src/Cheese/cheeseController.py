@@ -50,7 +50,7 @@ class CheeseController:
         return headers
 
     @staticmethod
-    def modulesToJsonArray(modules, allData=True, upperKeys=False) -> list:
+    def modulesToJsonArray(modules, allData=True, upperKeys=True) -> list:
         """
         return json array from list of modules
 
