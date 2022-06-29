@@ -41,6 +41,8 @@ class CheeseModel:
             attrKey = attr
             if (upperKeys):
                 attrKey = attrKey.upper()
+            else:
+                attrKey = attrKey.lower()
             jsn[attrKey] = self.convert(getattr(self, attr))
         return jsn
 
