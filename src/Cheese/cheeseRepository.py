@@ -8,6 +8,7 @@ from Cheese.metadata import Metadata
 from Cheese.cheeseModel import CheeseModel
 from Cheese.resourceManager import ResMan
 from Cheese.database import Database
+from Cheese.Logger import Logger
 
 class CheeseRepository:
     """
@@ -15,6 +16,8 @@ class CheeseRepository:
     """
 
     testing = False
+    __commitDb = None
+    __autoCommit = True
 
     @classmethod
     def model(cls) -> CheeseModel:
@@ -235,11 +238,28 @@ class CheeseRepository:
 
     @staticmethod
     def commitType(preparedSql):
-        db = Database()
-        db.commit(preparedSql)
-        db.done()
+        CheeseRepository.__commitDb = Database()
+        CheeseRepository.__commitDb.commit(preparedSql)
+        if (CheeseRepository.__autoCommit):
+            CheeseRepository.commit()
 
         return True
+
+    @staticmethod
+    def commit():
+        if (CheeseRepository.__autoCommit != None):
+            CheeseRepository.__commitDb.done()
+            CheeseRepository.__commitDb = None
+        else:
+            Logger.warning("Nothing to commit")
+
+    @staticmethod
+    def disableAutocommit():
+        CheeseRepository.__autoCommit = False
+    
+    @staticmethod
+    def enableAutocommit():
+        CheeseRepository.__autoCommit = True
 
     @staticmethod
     def toModel(repository, data):
