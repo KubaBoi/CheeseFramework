@@ -376,6 +376,23 @@ function formatTime(rootSeconds) {
     return str;
 }
 
+function formatDatetime(datetime, includeSeconds=true) {
+
+    let year = datetime.getFullYear();
+    let date = datetime.getDate();
+    let month = datetime.getMonth();
+
+    let hours = datetime.getHours();
+    let minutes = datetime.getMinutes();
+    let seconds = datetime.getSeconds();
+
+    let dateString = `${date}.${month}.${year} ${hours}:${minutes}`;
+    if (includeSeconds) {
+        dateString += `:${seconds}`;
+    }
+    return dateString;
+}
+
 
 // COMMUNICATION.JS
 
