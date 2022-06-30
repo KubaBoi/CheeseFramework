@@ -386,9 +386,26 @@ function formatDatetime(datetime, includeSeconds=true) {
     let minutes = datetime.getMinutes();
     let seconds = datetime.getSeconds();
 
+    if (`${hours}`.length == 1) hours = `0${hours}`;
+    if (`${minutes}`.length == 1) minutes = `0${minutes}`;
+    if (`${seconds}`.length == 1) seconds = `0${seconds}`;
+
     let dateString = `${date}.${month}.${year} ${hours}:${minutes}`;
     if (includeSeconds) {
         dateString += `:${seconds}`;
+    }
+    return dateString;
+}
+
+function formatDate(datetime, includeYear=true) {
+
+    let year = datetime.getFullYear();
+    let date = datetime.getDate();
+    let month = datetime.getMonth();
+
+    let dateString = `${date}.${month}`;
+    if (includeYear) {
+        dateString += `.${year}`;
     }
     return dateString;
 }
