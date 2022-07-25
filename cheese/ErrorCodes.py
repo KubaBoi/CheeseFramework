@@ -51,7 +51,7 @@ class Error:
         while (len(error.args) > 1):
             error = error.args[1]
             errorMessage += "\n" + 20*"==" + "\n"
-            if (error is str):
+            if (isinstance(error, str)):
                 errorMessage += "\n" + f"{Logger.WARNING}{error}{Logger.FAIL}"
                 break
             else:
