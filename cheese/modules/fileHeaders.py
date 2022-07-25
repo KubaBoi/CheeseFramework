@@ -13,7 +13,8 @@ class FileHeaders:
         "js": "application/javascript",
         "pdf": "application/pdf",
         "zip": "application/zip",
-        "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "mp3": "mpeg"
     }
 
     @staticmethod
