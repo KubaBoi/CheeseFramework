@@ -2,6 +2,30 @@ class AdminFiles:
 	def sayHello():
 		print('hello')
 
+	admin_files_allLogs_html = """<html lang="cs">
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/admin/files/styles/style.css">
+    <link rel="icon" href="/admin/files/web/favicon.ico" type="image/x-icon">
+    <title>Cheese logs</title>
+</head>
+<body>
+    <h1>Cheese Logs</h1>
+    <button onclick="location='/admin'">CHAdmin</button><br><br>
+    <table>
+        TABLE
+    </table>
+    <script>
+        dontRunScript = true;
+    </script>
+    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>
+    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
+    <script src="/admin/files/scripts/log.js"></script>
+</body>
+</html>"""
+
 	admin_files_index_html = """<html lang="cs">
 <head>
     <meta charset='utf-8'>
@@ -38,30 +62,6 @@ class AdminFiles:
         buildLogTable();
         setRelease();
     </script>
-</body>
-</html>"""
-
-	admin_files_allLogs_html = """<html lang="cs">
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/admin/files/styles/style.css">
-    <link rel="icon" href="/admin/files/web/favicon.ico" type="image/x-icon">
-    <title>Cheese logs</title>
-</head>
-<body>
-    <h1>Cheese Logs</h1>
-    <button onclick="location='/admin'">CHAdmin</button><br><br>
-    <table>
-        TABLE
-    </table>
-    <script>
-        dontRunScript = true;
-    </script>
-    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/communication.js"></script>
-    <script src="https://kubaboi.github.io/CheeseFramework/public/scripts/time.js"></script>
-    <script src="/admin/files/scripts/log.js"></script>
 </body>
 </html>"""
 
@@ -158,6 +158,37 @@ td, th {
     padding: 10px;
 }"""
 
+	admin_files_scripts_settings_js = """
+async function buildSettingTable() {
+    response = await callEndpoint("GET", "/admin/getSettings");
+    if (!response.ERROR) {
+        for (const key in response) {
+            if (response.hasOwnProperty(key)) {
+                addSetting(key, response[key]);
+            }
+        }
+        document.title = "CHAdmin - " + response.name;
+    }
+}
+
+function addSetting(setting, value) {
+    var table = document.querySelector("#settingsTable");
+
+    var row = document.createElement("tr");
+    var nameColumn = document.createElement("td");
+    var valueColumn = document.createElement("td");
+
+    nameColumn.innerHTML = setting;
+    if (setting == "dbPassword")
+        valueColumn.innerHTML = "<input type='password' value='" + value + "'>";
+    else
+        valueColumn.innerHTML = "<input type='text' value='" + value + "'>";
+    
+    row.appendChild(nameColumn);
+    row.appendChild(valueColumn);
+    table.appendChild(row);
+}"""
+
 	admin_files_scripts_log_js = """debug = false;
 
 setTitle();
@@ -233,35 +264,23 @@ async function deleteFile(log) {
     }
 }"""
 
-	admin_files_scripts_settings_js = """
-async function buildSettingTable() {
-    response = await callEndpoint("GET", "/admin/getSettings");
-    if (!response.ERROR) {
-        for (const key in response) {
-            if (response.hasOwnProperty(key)) {
-                addSetting(key, response[key]);
-            }
-        }
-        document.title = "CHAdmin - " + response.name;
-    }
+	admin_files_scripts_release_js = """function getRelease() {
+    url = "/admin/cheeseRelease";
+    
+    return new Promise(resolve => {
+        sendGet(url, debug, function(response){
+            resolve(response);
+        });  
+    });
 }
 
-function addSetting(setting, value) {
-    var table = document.querySelector("#settingsTable");
+async function setRelease() {
+    var lbl = document.getElementById("release");
 
-    var row = document.createElement("tr");
-    var nameColumn = document.createElement("td");
-    var valueColumn = document.createElement("td");
-
-    nameColumn.innerHTML = setting;
-    if (setting == "dbPassword")
-        valueColumn.innerHTML = "<input type='password' value='" + value + "'>";
-    else
-        valueColumn.innerHTML = "<input type='text' value='" + value + "'>";
-    
-    row.appendChild(nameColumn);
-    row.appendChild(valueColumn);
-    table.appendChild(row);
+    var response = await getRelease();
+    if (!response.ERROR) {
+        lbl.innerHTML = "Cheese Framework (v" + response.RELEASE + ")"
+    }
 }"""
 
 	admin_files_scripts_controll_js = """function apiFunction(url) {    
@@ -371,25 +390,6 @@ async function pullChanges() {
     var response = await apiFunction(`/admin/update`);
     if (response.ERROR) {
         alert(response.ERROR);
-    }
-}"""
-
-	admin_files_scripts_release_js = """function getRelease() {
-    url = "/admin/cheeseRelease";
-    
-    return new Promise(resolve => {
-        sendGet(url, debug, function(response){
-            resolve(response);
-        });  
-    });
-}
-
-async function setRelease() {
-    var lbl = document.getElementById("release");
-
-    var response = await getRelease();
-    if (!response.ERROR) {
-        lbl.innerHTML = "Cheese Framework (v" + response.RELEASE + ")"
     }
 }"""
 

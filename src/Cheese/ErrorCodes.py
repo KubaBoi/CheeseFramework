@@ -51,7 +51,10 @@ class Error:
         while (len(error.args) > 1):
             error = error.args[1]
             errorMessage += "\n" + 20*"==" + "\n"
-            errorMessage += "\n" + f"{Logger.WARNING}{error.args[0]}{Logger.FAIL}"
+            if (error.args is str):
+                errorMessage += "\n" + f"{Logger.WARNING}{error.args}{Logger.FAIL}"
+            else:
+                errorMessage += "\n" + f"{Logger.WARNING}{error.args[0]}{Logger.FAIL}"
         Logger.fail(f"{type(error).__name__} occurred: {errorMessage}", False)
 
     @staticmethod
