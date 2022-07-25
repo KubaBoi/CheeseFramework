@@ -14,7 +14,7 @@ class FileHeaders:
         "pdf": "application/pdf",
         "zip": "application/zip",
         "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        "mp3": "mpeg"
+        "mp3": "audio/mpeg"
     }
 
     @staticmethod
