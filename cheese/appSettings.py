@@ -1,6 +1,7 @@
 #cheese
 
 import os
+import socket
 import json
 
 from Cheese.resourceManager import ResMan
