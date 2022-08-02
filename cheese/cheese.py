@@ -93,9 +93,9 @@ class CheeseBurger:
     @staticmethod
     def initServer():
         if (Settings.allowMultiThreading):
-            CheeseBurger.server = CheeseServerMulti((Settings.host, Settings.port), CheeseHandler)
+            CheeseBurger.server = CheeseServerMulti(("0.0.0.0", Settings.port), CheeseHandler)
         else:
-            CheeseBurger.server = CheeseServer((Settings.host, Settings.port), CheeseHandler)
+            CheeseBurger.server = CheeseServer(("0.0.0.0", Settings.port), CheeseHandler)
 
     # start server
     @staticmethod
