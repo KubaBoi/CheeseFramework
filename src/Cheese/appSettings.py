@@ -20,6 +20,11 @@ class Settings:
         for key in Settings.settings.keys():
             setattr(Settings, key, Settings.settings[key])
 
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        setattr(Settings, "host", s.getsockname()[0]))
+        s.close()
+
         Settings.activeLicense = "None"
 
     @staticmethod
