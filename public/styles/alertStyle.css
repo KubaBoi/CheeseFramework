@@ -1,5 +1,5 @@
 .alertDiv {
-    position: absolute;
+    position: fixed;
     top: -200px;
     left: 34%;
     width: 26%;
