@@ -1212,6 +1212,30 @@
         }
     },
     {
+        "Settings": {
+            "file": "appSettings.py",
+            "method": "loadJson"
+        }
+    },
+    {
+        "Settings": {
+            "file": "appSettings.py",
+            "method": "loadSecrets"
+        }
+    },
+    {
+        "Settings": {
+            "file": "appSettings.py",
+            "method": "loadSettings"
+        }
+    },
+    {
+        "Settings": {
+            "file": "appSettings.py",
+            "method": "saveJson"
+        }
+    },
+    {
         "RepositoriesBuilder": {
             "file": "repositoriesBuilder.py",
             "method": "build"

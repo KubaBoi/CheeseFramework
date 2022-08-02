@@ -1,6 +1,7 @@
 #cheese
 
 import os
+import socket
 import json
 
 from Cheese.resourceManager import ResMan
@@ -22,7 +23,7 @@ class Settings:
 
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(("8.8.8.8", 80))
-        setattr(Settings, "host", s.getsockname()[0]))
+        setattr(Settings, "host", s.getsockname()[0])
         s.close()
 
         Settings.activeLicense = "None"
