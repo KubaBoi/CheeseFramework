@@ -34,6 +34,7 @@
     left: 10px;
 }
 
+/*DEPRECATED*/
 .alertOKbutton {
     position: absolute;
     right: 5px;
@@ -47,8 +48,28 @@
     transition: all;
     transition-duration: 0.4s;
 }
-
+/*DEPRECATED*/
 .alertOKbutton:hover {
+    background-color: var(--secondary-light-color);
+    transition: all;
+    transition-duration: 0.4s;
+}
+
+.alertOKButton {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    border-width: 0px;
+    padding: 1em;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: var(--main-color);
+    color: var(--main-text-color);
+    transition: all;
+    transition-duration: 0.4s;
+}
+
+.alertOKButton:hover {
     background-color: var(--secondary-light-color);
     transition: all;
     transition-duration: 0.4s;
@@ -75,7 +96,7 @@
 }
 
 .divOkAlert {
-    position: absolute;
+    position: fixed;
     top: 20px;
     left: 20px;
     width: 400px;
@@ -89,7 +110,7 @@
 }
 
 .divWrongAlert {
-    position: absolute;
+    position: fixed;
     top: 20px;
     left: 20px;
     width: 400px;
