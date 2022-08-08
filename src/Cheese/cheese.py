@@ -115,6 +115,11 @@ class CheeseBurger:
     # loads licence
     @staticmethod
     def loadLicence():
+        if (Settings.licenseCode == ""): 
+            Logger.warning("No license")
+            Settings.activeLicense = ""
+            return
+
         try:
             r = requests.get(f"http://frogie.cz:6969/licence/authLic?code={Settings.licenseCode}")
             if (r.status_code == 401): 
