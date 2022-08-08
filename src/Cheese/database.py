@@ -5,7 +5,7 @@ from Cheese.Logger import Logger
 try:    
     import pyodbc 
 except:
-    Logger.fail("Unable to load pyodbc module")
+    print("Unable to load pyodbc module")
 import psycopg2
 
 """
