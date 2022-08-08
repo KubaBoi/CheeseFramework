@@ -115,6 +115,11 @@ class CheeseBurger:
     # loads licence
     @staticmethod
     def loadLicence():
+        if (not hasattr(Settings, "licenseCode")):
+            Logger.warning("No license")
+            Settings.activeLicense = ""
+            return
+
         if (Settings.licenseCode == ""): 
             Logger.warning("No license")
             Settings.activeLicense = ""
