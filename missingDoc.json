@@ -864,42 +864,6 @@
         }
     },
     {
-        "Security": {
-            "file": "security.py",
-            "method": "authenticate"
-        }
-    },
-    {
-        "Security": {
-            "file": "security.py",
-            "method": "findRole"
-        }
-    },
-    {
-        "Security": {
-            "file": "security.py",
-            "method": "fitPatern"
-        }
-    },
-    {
-        "Security": {
-            "file": "security.py",
-            "method": "handleExceptions"
-        }
-    },
-    {
-        "Security": {
-            "file": "security.py",
-            "method": "prepareString"
-        }
-    },
-    {
-        "Security": {
-            "file": "security.py",
-            "method": "validate"
-        }
-    },
-    {
         "Finder": {
             "file": "finder.py",
             "method": "findAnnotatedStructure"
