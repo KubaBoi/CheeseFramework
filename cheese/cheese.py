@@ -11,7 +11,6 @@ from Cheese.variables import Variables
 from Cheese.metadata import Metadata
 from Cheese.resourceManager import ResMan
 from Cheese.appSettings import Settings
-from Cheese.cheeseServer import *
 from Cheese.ErrorCodes import Error
 from Cheese.Logger import Logger
 from Cheese.adminManager import AdminManager
@@ -92,6 +91,8 @@ class CheeseBurger:
     # initialization application server
     @staticmethod
     def initServer():
+        from Cheese.cheeseServer import CheeseServerMulti, CheeseServer, CheeseHandler
+
         if (Settings.allowMultiThreading):
             CheeseBurger.server = CheeseServerMulti(("0.0.0.0", Settings.port), CheeseHandler)
         else:
