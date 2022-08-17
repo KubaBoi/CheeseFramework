@@ -12,7 +12,6 @@ from Cheese.metadata import Metadata
 from Cheese.resourceManager import ResMan
 from Cheese.appSettings import Settings
 from Cheese.cheeseServer import *
-from Cheese.database import Database
 from Cheese.ErrorCodes import Error
 from Cheese.Logger import Logger
 from Cheese.adminManager import AdminManager
@@ -64,6 +63,7 @@ class CheeseBurger:
 
             # connect to database
             if (Settings.allowDB):
+                from Cheese.database import Database
                 Logger.warning("Initializing database connection...", silence=False)
                 try:
                     db = Database()
