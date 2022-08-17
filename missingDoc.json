@@ -810,60 +810,6 @@
         }
     },
     {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "commit"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "commitType"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "disableAutocommit"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "enableAutocommit"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "findUserMethod"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "findUserRepository"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "getTypeOf"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "getVariables"
-        }
-    },
-    {
-        "CheeseRepository": {
-            "file": "cheeseRepository.py",
-            "method": "toModel"
-        }
-    },
-    {
         "Finder": {
             "file": "finder.py",
             "method": "findAnnotatedStructure"

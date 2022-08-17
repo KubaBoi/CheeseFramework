@@ -7,7 +7,9 @@ import re
 from Cheese.metadata import Metadata
 from Cheese.cheeseModel import CheeseModel
 from Cheese.resourceManager import ResMan
-from Cheese.database import Database
+from Cheese.appSettings import Settings
+if (Settings.allowDB):
+    from Cheese.database import Database
 from Cheese.Logger import Logger
 
 class CheeseRepository:

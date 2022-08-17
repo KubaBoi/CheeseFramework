@@ -4,9 +4,9 @@
 
 :bangbang: This documentantion is automaticaly generated from code documentation.
 
-timestamp: 22.08.17.16.43
+timestamp: 22.08.17.16.47
 
-Cheese version v(1.4.43)
+Cheese version v(1.4.44)
 
 ## Contents
 
@@ -46,43 +46,28 @@ Cheese version v(1.4.43)
     - [setAttrs](#73-setattrs)
     - [toJson](#74-tojson)
     - [toModel](#75-tomodel)
-- [CheeseRepository](#8-cheeserepository)
-    - [className](#81-classname)
-    - [delete](#82-delete)
-    - [find](#83-find)
-    - [findAll](#84-findall)
-    - [findBy](#85-findby)
-    - [findNewId](#86-findnewid)
-    - [findOneBy](#87-findoneby)
-    - [model](#88-model)
-    - [query](#89-query)
-    - [queryType](#810-querytype)
-    - [save](#811-save)
-    - [startTesting](#812-starttesting)
-    - [stopTesting](#813-stoptesting)
-    - [update](#814-update)
-- [TestError](#9-testerror)
+- [TestError](#8-testerror)
+    - [with_traceback](#81-with_traceback)
+- [MockError](#9-mockerror)
     - [with_traceback](#91-with_traceback)
-- [MockError](#10-mockerror)
+- [BadRequest](#10-badrequest)
     - [with_traceback](#101-with_traceback)
-- [BadRequest](#11-badrequest)
+- [Unauthorized](#11-unauthorized)
     - [with_traceback](#111-with_traceback)
-- [Unauthorized](#12-unauthorized)
+- [PaymentRequired](#12-paymentrequired)
     - [with_traceback](#121-with_traceback)
-- [PaymentRequired](#13-paymentrequired)
+- [Forbidden](#13-forbidden)
     - [with_traceback](#131-with_traceback)
-- [Forbidden](#14-forbidden)
+- [NotFound](#14-notfound)
     - [with_traceback](#141-with_traceback)
-- [NotFound](#15-notfound)
+- [MethodNotAllowed](#15-methodnotallowed)
     - [with_traceback](#151-with_traceback)
-- [MethodNotAllowed](#16-methodnotallowed)
+- [NotAcceptable](#16-notacceptable)
     - [with_traceback](#161-with_traceback)
-- [NotAcceptable](#17-notacceptable)
+- [Conflict](#17-conflict)
     - [with_traceback](#171-with_traceback)
-- [Conflict](#18-conflict)
+- [ImTeaPot](#18-imteapot)
     - [with_traceback](#181-with_traceback)
-- [ImTeaPot](#19-imteapot)
-    - [with_traceback](#191-with_traceback)
 
 
 ## 1. InternalServerError
@@ -405,148 +390,15 @@ it needs to be in same order as ```scheme``` is. (tuple, list...)
 
 
 
-## 8. CheeseRepository
+## 8. TestError
 
+### 8.1 with_traceback
 
-```CheeseRepository``` is static class for communication with database
+Exception.with_traceback(tb) --
+set self.__traceback__ to tb and return self.
 
 
-
-### 8.1 className
-
-
-return string with name of class
-
-
-
-### 8.2 delete
-
-
-deletes row from database
-
-```obj``` is ```CheeseModel``` object
-
-
-
-### 8.3 find
-
-
-return one ```CheeseModel``` by ```Primary key```
-
-
-
-### 8.4 findAll
-
-
-return whole table of database as list of ```CheeseModel```
-
-
-
-### 8.5 findBy
-
-
-return list of ```CheeseModel```
-
-```columnName``` name of column for filtering
-
-```value``` value of ```column```
-
-example:
-```
-columnName = "age"
-value = 15
-->
-SQL: "... WHERE age = 15 ..."
-```
-
-
-
-### 8.6 findNewId
-
-
-find new available ```Primary key```
-
-
-
-### 8.7 findOneBy
-
-
-return one ```CheeseModel``` by ```columnName```
-
-```columnName``` name of column for filtering
-
-```value``` value of ```column```
-
-example:
-```
-columnName = "age"
-value = 15
-->
-SQL: "... WHERE age = 15 ..."
-```
-
-
-
-### 8.8 model
-
-
-return ```CheeseModel``` with ```Primary key```, ```modelName``` and ```scheme```
-
-
-
-### 8.9 query
-
-
-Access point to database. Returns database output.
-
-```userRepository``` is string name of used repository
-
-```**kwargs``` is ```dict``` of arguments for SQL request
-
-
-
-### 8.10 queryType
-
-
-
-
-
-
-### 8.11 save
-
-
-creates new row in database
-
-```obj``` is ```CheeseModel``` object
-
-
-
-### 8.12 startTesting
-
-
-sets repository testing enviroment
-
-```mockManager``` is instance of ```MockManager``` used by testing
-
-
-
-### 8.13 stopTesting
-
-
-stop repository testing enviroment
-
-
-
-### 8.14 update
-
-
-updates row in database
-
-```obj``` is ```CheeseModel``` object
-
-
-
-## 9. TestError
+## 9. MockError
 
 ### 9.1 with_traceback
 
@@ -554,7 +406,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 10. MockError
+## 10. BadRequest
 
 ### 10.1 with_traceback
 
@@ -562,7 +414,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 11. BadRequest
+## 11. Unauthorized
 
 ### 11.1 with_traceback
 
@@ -570,7 +422,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 12. Unauthorized
+## 12. PaymentRequired
 
 ### 12.1 with_traceback
 
@@ -578,7 +430,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 13. PaymentRequired
+## 13. Forbidden
 
 ### 13.1 with_traceback
 
@@ -586,7 +438,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 14. Forbidden
+## 14. NotFound
 
 ### 14.1 with_traceback
 
@@ -594,7 +446,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 15. NotFound
+## 15. MethodNotAllowed
 
 ### 15.1 with_traceback
 
@@ -602,7 +454,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 16. MethodNotAllowed
+## 16. NotAcceptable
 
 ### 16.1 with_traceback
 
@@ -610,7 +462,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 17. NotAcceptable
+## 17. Conflict
 
 ### 17.1 with_traceback
 
@@ -618,17 +470,9 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 18. Conflict
+## 18. ImTeaPot
 
 ### 18.1 with_traceback
-
-Exception.with_traceback(tb) --
-set self.__traceback__ to tb and return self.
-
-
-## 19. ImTeaPot
-
-### 19.1 with_traceback
 
 Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
