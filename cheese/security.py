@@ -5,10 +5,12 @@ import requests
 import json
 
 from Cheese.cheeseController import CheeseController as cc
-from Cheese.database import Database
 from Cheese.metadata import Metadata
 from Cheese.appSettings import Settings
 from Cheese.httpClientErrors import *
+
+if (Settings.allowDB):
+    from Cheese.database import Database
 
 class Security:
 
