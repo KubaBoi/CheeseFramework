@@ -1,5 +1,8 @@
 #cheese
 
+from re import M
+
+
 class FileHeaders:
     """
     https://www.geeksforgeeks.org/http-headers-content-type/
@@ -14,7 +17,10 @@ class FileHeaders:
         "pdf": "application/pdf",
         "zip": "application/zip",
         "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        "mp3": "audio/mpeg"
+        "mp3": "audio/mpeg",
+        "gif": "image/gif",
+        "png": "image/png",
+        "jpeg": "image/jpeg"
     }
 
     @staticmethod
