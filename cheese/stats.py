@@ -51,7 +51,7 @@ class Stats:
                 if (suffix == "html" and os.path.dirname(os.path.join(root, file)).endswith("logs")): continue
                 
                 filesCount += 1
-                with open(os.path.join(root, file), "r") as f:
+                with open(os.path.join(root, file), "r", encoding="utf8") as f:
                     rows += len(f.readlines())
 
         return filesCount, rows
