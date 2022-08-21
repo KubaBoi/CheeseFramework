@@ -59,7 +59,7 @@ function rplcReg(str, reg, temp, maxIters=-1, dict={}) {
                 }
             }
             // inserts value
-            tempCopy = tempCopy.replace(`\$${tempVars[i]}\$`, value);
+            tempCopy = tempCopy.replaceAll(`\$${tempVars[i]}\$`, value);
         }
         str = str.replaceAt(match.index, match[0], tempCopy);
     }
