@@ -5,19 +5,18 @@ function convert(str) {
     var mdDiv = document.getElementById("md");
     clearTable(mdDiv);
     
-    // urls
-    //str = rplcReg(str, /(?<![\"\>\'\=\`])(?<url>https*\:\/\/.*)[ |$]{1}(?![\"\<\'\`])/, "<a href='$url$' target=_blank>$url$</a> ");
-    str = rplcReg(str, /(?<url>(?<!"|'|(|>)https*\:\/\/[a-zA-Z0-9\/\.\:\%]*)(?!"|'|)|<)/, '<a href="$url.strip$" target=_blank>$url.strip$</a>');
+    // hrefs to another sites -> [title](url)
+    str = rplcReg(str, /\[(?<title>.+)\]\((?<href>.*)\)/g, '<a href="$href$" target=_blank>$title$</a>');
 
     // hrefs within md document -> [title](#headerId) 
-    str = rplcReg(str, /\[(?<title>.+)\]\((?<href>#.*)\)/g, "<a href=$href.lowerCase$>$title$</a>");
-    
-    // hrefs to another sites -> [title](url)
-    str = rplcReg(str, /\[(?<title>.+)\]\((?<href>.*)\)/g, "<a href=$href$ target=_blank>$title$</a>");
+    str = rplcReg(str, /\[(?<title>.+)\]\((?<href>#.*)\)/g, '<a href="$href.lowerCase$">$title$</a>');
     
     // images -> ![title](imgSrc)
-    str = rplcReg(str, /\!\[(?<title>.*)\]\((?<src>.*)\)/g, "<img src=$src$ title=$title$>");
+    str = rplcReg(str, /\!\[(?<title>.*)\]\((?<src>.*)\)/g, '<img src="$src$" title=$title$>');
     
+    // urls
+    str = rplcReg(str, /(?<url>(?<!"|'|>)https*\:\/\/[a-zA-Z0-9\/\.\:\%]*)(?!"|'|<)/, '<a href="$url.strip$" target=_blank>$url.strip$</a>');
+
     // one line codes -> `code` | ```code```
     str = rplcReg(str, /\`{1,3}(?<code>[a-zA-Z0-9\#\@\&\?\/\:\=\"\'\(\)\.\,\*\[\]\%\{\} ]+)\`{1,3}/g, "<code>$code$</code>");
     
