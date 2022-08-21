@@ -19,10 +19,7 @@ function convert(str) {
     str = rplcReg(str, /(?<url>(?<!href="|href='|>)https*\:\/\/[a-zA-Z0-p\/\.\:\%]*)(?!"|'|<)/, '<a href="$url.strip$" target=_blank>$url.strip$</a>');
     
     // one line codes -> ```code```
-    // no space
-    str = rplcReg(str, /\`{1,3}(?<code>[a-zA-Z0-9\#\@\&\?\/\:\=\"\'\(\)\.\,\*\[\]\%\{\}]+)\`{1,3}/g, "<code>$code$</code>");
-    // with space
-    str = rplcReg(str, /\`{3}(?<code>.+)\`{3}/g, "<code>$code$</code>");
+    str = rplcReg(str, /\`{1,3}(?<code>[a-zA-Z0-9\#\@\&\?\/\:\=\"\'\(\)\.\,\*\[\]\%\{\} ]+)\`{1,3}/g, "<code>$code$</code>");
     
     // check boxes -> [ ] || [x]
     str = rplcReg(str, /\[(?<checkBox>[ x])\]/g, "$checkBox.checkBox$");
