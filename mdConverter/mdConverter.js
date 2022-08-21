@@ -29,6 +29,9 @@ function convert(str) {
     // list -> - something
     str = rplcReg(str, /^((?<![a-zA-Z0-9])(?<spaces>[ ]*)- )(?<li>.*)/gm, "<li style=margin-left:$spaces.length$%;>$li$</li>");
 
+    // numbered list
+    str = rplcReg(str, /^((?<![a-zA-Z0-9])(?<spaces>[ ]*)(?<number>[0-9\.]+).{1} )(?<li>.*)/gm, "<li style=margin-left:$spaces.length$%; class='numberedList'>$number$. $li$</li>");
+
     //str = str.rplcRegAll(/(?<!\")[ ]*https\:\/\/.*(?=!<\/) /g, urls);
     str = rplcReg(str, /\`{3}(?<codeType>[a-z]+)/g, "<pre class=language-$codeType$>");
     str = rplcReg(str, /\`{3}/g, "</pre>");

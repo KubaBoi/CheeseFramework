@@ -93,6 +93,10 @@ li {
     margin-bottom: 0.3em;
 }
 
+.numberedList {
+    list-style-type: none;
+}
+
 
 
 /*scroll*/
