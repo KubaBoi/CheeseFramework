@@ -41,7 +41,7 @@ class Security:
                 dict = Security.fitPatern(auth, tp["patern"])
                 if (dict != None):
 
-                    encoders = []
+                    encoders = {}
                     if ("encoders" in tp.keys()):
                         encoders = tp["encoders"]
 
