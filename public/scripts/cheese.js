@@ -1,4 +1,135 @@
 
+// AUTOCOMPLETE.JS
+var currentFocus;
+
+function autocomplete(inp, arr) {
+    /*the autocomplete function takes two arguments,
+    the text field element and an array of possible autocompleted values:*/
+    /*execute a function when someone writes in the text field:*/
+    inp.addEventListener("input", function (e) {
+        var a, b, i, val = this.value;
+        /*close any already open lists of autocompleted values*/
+        closeAllLists();
+        if (!val) { return false; }
+        currentFocus = -1;
+        /*create a DIV element that will contain the items (values):*/
+        a = createElement("div", this.parentNode, "", [
+            { "name": "id", "value": this.id + "autocomplete-list" },
+            { "name": "class", "value": "autocomplete-items" }
+        ]);
+
+        /*for each item in the array...*/
+        for (i = 0; i < arr.length; i++) {
+            /*check if the item starts with the same letters as the text field value:*/
+            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                /*create a DIV element for each matching element:*/
+                b = createElement("div", a,
+                    "<strong>" + arr[i].substr(0, val.length) + "</strong>" +
+                    arr[i].substr(val.length) +
+                    "<input type='hidden' value='" + arr[i] + "'>");
+
+                /*execute a function when someone clicks on the item value (DIV element):*/
+                b.addEventListener("click", function (e) {
+                    /*insert the value for the autocomplete text field:*/
+                    inp.value = this.getElementsByTagName("input")[0].value;
+                    /*close the list of autocompleted values,
+                    (or any other open lists of autocompleted values:*/
+                    closeAllLists();
+                });
+            }
+        }
+    });
+    /*execute a function presses a key on the keyboard:*/
+    inp.addEventListener("keydown", function (e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+            /*If the arrow DOWN key is pressed,
+            increase the currentFocus variable:*/
+            currentFocus++;
+            /*and and make the current item more visible:*/
+            addActive(x);
+        } else if (e.keyCode == 38) { //up
+            /*If the arrow UP key is pressed,
+            decrease the currentFocus variable:*/
+            currentFocus--;
+            /*and and make the current item more visible:*/
+            addActive(x);
+        } else if (e.keyCode == 13) {
+            /*If the ENTER key is pressed, prevent the form from being submitted,*/
+            e.preventDefault();
+            if (currentFocus > -1) {
+                /*and simulate a click on the "active" item:*/
+                if (x) x[currentFocus].click();
+                currentFocus = -1;
+            }
+        }
+    });
+    function addActive(x) {
+        /*a function to classify an item as "active":*/
+        if (!x) return false;
+        /*start by removing the "active" class on all items:*/
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = (x.length - 1);
+        /*add class "autocomplete-active":*/
+        x[currentFocus].classList.add("autocomplete-active");
+    }
+    function removeActive(x) {
+        /*a function to remove the "active" class from all autocomplete items:*/
+        for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocomplete-active");
+        }
+    }
+    function closeAllLists(elmnt) {
+        /*close all autocomplete lists in the document,
+        except the one passed as an argument:*/
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+                x[i].parentNode.removeChild(x[i]);
+            }
+            closed = true;
+        }
+    }
+    /*execute a function when someone clicks in the document:*/
+    document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+    });
+}
+
+
+// ELEMENTMANAGER.JS
+
+function createElement(type, parent=null, innerHTML="", attributes=[]) {
+    var element = document.createElement(type);
+    element.innerHTML = innerHTML;
+
+    for (let i = 0; i < attributes.length; i++) {
+        element.setAttribute(attributes[i].name, attributes[i].value);
+    }
+
+    if (parent != null) {
+        parent.appendChild(element);
+    }
+
+    return element;
+}
+
+function getValueOf(id) {
+    var element = document.getElementById(id);
+    var type = element.getAttribute("type");
+
+    if (type == "text" || type == "datetime-local") 
+        return element.value;
+    else if (type == "number")
+        return parseInt(element.value);
+    else if (type == "radio" || type == "checkbox")
+        return element.checked;
+    
+}
+
+
 // PRISM.JS
 /* PrismJS 1.28.0
 https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+clike+javascript+bash+json+json5+markdown+powerquery+python */
@@ -14,6 +145,40 @@ Prism.languages.json={property:{pattern:/(^|[^\\])"(?:\\.|[^\\"\r\n])*"(?=\s*:)/
 Prism.languages.powerquery={comment:{pattern:/(^|[^\\])(?:\/\*[\s\S]*?\*\/|\/\/.*)/,lookbehind:!0,greedy:!0},"quoted-identifier":{pattern:/#"(?:[^"\r\n]|"")*"(?!")/,greedy:!0},string:{pattern:/(?:#!)?"(?:[^"\r\n]|"")*"(?!")/,greedy:!0},constant:[/\bDay\.(?:Friday|Monday|Saturday|Sunday|Thursday|Tuesday|Wednesday)\b/,/\bTraceLevel\.(?:Critical|Error|Information|Verbose|Warning)\b/,/\bOccurrence\.(?:All|First|Last)\b/,/\bOrder\.(?:Ascending|Descending)\b/,/\bRoundingMode\.(?:AwayFromZero|Down|ToEven|TowardZero|Up)\b/,/\bMissingField\.(?:Error|Ignore|UseNull)\b/,/\bQuoteStyle\.(?:Csv|None)\b/,/\bJoinKind\.(?:FullOuter|Inner|LeftAnti|LeftOuter|RightAnti|RightOuter)\b/,/\bGroupKind\.(?:Global|Local)\b/,/\bExtraValues\.(?:Error|Ignore|List)\b/,/\bJoinAlgorithm\.(?:Dynamic|LeftHash|LeftIndex|PairwiseHash|RightHash|RightIndex|SortMerge)\b/,/\bJoinSide\.(?:Left|Right)\b/,/\bPrecision\.(?:Decimal|Double)\b/,/\bRelativePosition\.From(?:End|Start)\b/,/\bTextEncoding\.(?:Ascii|BigEndianUnicode|Unicode|Utf16|Utf8|Windows)\b/,/\b(?:Any|Binary|Date|DateTime|DateTimeZone|Duration|Function|Int16|Int32|Int64|Int8|List|Logical|None|Number|Record|Table|Text|Time)\.Type\b/,/\bnull\b/],boolean:/\b(?:false|true)\b/,keyword:/\b(?:and|as|each|else|error|if|in|is|let|meta|not|nullable|optional|or|otherwise|section|shared|then|try|type)\b|#(?:binary|date|datetime|datetimezone|duration|infinity|nan|sections|shared|table|time)\b/,function:{pattern:/(^|[^#\w.])[a-z_][\w.]*(?=\s*\()/i,lookbehind:!0},"data-type":{pattern:/\b(?:any|anynonnull|binary|date|datetime|datetimezone|duration|function|list|logical|none|number|record|table|text|time)\b/,alias:"class-name"},number:{pattern:/\b0x[\da-f]+\b|(?:[+-]?(?:\b\d+\.)?\b\d+|[+-]\.\d+|(^|[^.])\B\.\d+)(?:e[+-]?\d+)?\b/i,lookbehind:!0},operator:/[-+*\/&?@^]|<(?:=>?|>)?|>=?|=>?|\.\.\.?/,punctuation:/[,;\[\](){}]/},Prism.languages.pq=Prism.languages.powerquery,Prism.languages.mscript=Prism.languages.powerquery;
 Prism.languages.python={comment:{pattern:/(^|[^\\])#.*/,lookbehind:!0,greedy:!0},"string-interpolation":{pattern:/(?:f|fr|rf)(?:("""|''')[\s\S]*?\1|("|')(?:\\.|(?!\2)[^\\\r\n])*\2)/i,greedy:!0,inside:{interpolation:{pattern:/((?:^|[^{])(?:\{\{)*)\{(?!\{)(?:[^{}]|\{(?!\{)(?:[^{}]|\{(?!\{)(?:[^{}])+\})+\})+\}/,lookbehind:!0,inside:{"format-spec":{pattern:/(:)[^:(){}]+(?=\}$)/,lookbehind:!0},"conversion-option":{pattern:/![sra](?=[:}]$)/,alias:"punctuation"},rest:null}},string:/[\s\S]+/}},"triple-quoted-string":{pattern:/(?:[rub]|br|rb)?("""|''')[\s\S]*?\1/i,greedy:!0,alias:"string"},string:{pattern:/(?:[rub]|br|rb)?("|')(?:\\.|(?!\1)[^\\\r\n])*\1/i,greedy:!0},function:{pattern:/((?:^|\s)def[ \t]+)[a-zA-Z_]\w*(?=\s*\()/g,lookbehind:!0},"class-name":{pattern:/(\bclass\s+)\w+/i,lookbehind:!0},decorator:{pattern:/(^[\t ]*)@\w+(?:\.\w+)*/m,lookbehind:!0,alias:["annotation","punctuation"],inside:{punctuation:/\./}},keyword:/\b(?:_(?=\s*:)|and|as|assert|async|await|break|case|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|match|nonlocal|not|or|pass|print|raise|return|try|while|with|yield)\b/,builtin:/\b(?:__import__|abs|all|any|apply|ascii|basestring|bin|bool|buffer|bytearray|bytes|callable|chr|classmethod|cmp|coerce|compile|complex|delattr|dict|dir|divmod|enumerate|eval|execfile|file|filter|float|format|frozenset|getattr|globals|hasattr|hash|help|hex|id|input|int|intern|isinstance|issubclass|iter|len|list|locals|long|map|max|memoryview|min|next|object|oct|open|ord|pow|property|range|raw_input|reduce|reload|repr|reversed|round|set|setattr|slice|sorted|staticmethod|str|sum|super|tuple|type|unichr|unicode|vars|xrange|zip)\b/,boolean:/\b(?:False|None|True)\b/,number:/\b0(?:b(?:_?[01])+|o(?:_?[0-7])+|x(?:_?[a-f0-9])+)\b|(?:\b\d+(?:_\d+)*(?:\.(?:\d+(?:_\d+)*)?)?|\B\.\d+(?:_\d+)*)(?:e[+-]?\d+(?:_\d+)*)?j?(?!\w)/i,operator:/[-+%=]=?|!=|:=|\*\*?=?|\/\/?=?|<[<=>]?|>[=>]?|[&|^~]/,punctuation:/[{}[\];(),.:]/},Prism.languages.python["string-interpolation"].inside.interpolation.inside.rest=Prism.languages.python,Prism.languages.py=Prism.languages.python;
 
+
+
+// COOKIES.JS
+
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+
+// STRINGFORMATER.JS
+function stringShorter(str, maxChars) {
+    if (str.length > maxChars) 
+        return str.slice(0, maxChars) + "...";
+    return str;
+}
 
 
 // ALERTS.JS
@@ -211,73 +376,46 @@ function insertRow(table, rowIndex, cells, rowAttributes=[]) {
 }
 
 
-// COMMUNICATION.JS
+// LOADPAGE.JS
+// startArray are divs that are nnecessary for first run
+// divArray are others that do not need to be now
+async function loadPage(startArray, doAfter=null, afterArray=[]) {
+    for (let i = 0; i < startArray.length; i++) {
+        var name = startArray[i];
+        var response = await callEndpoint("GET", "/webParts/" + name + ".html")
+        if (!response.ERROR) {
+            var div = document.getElementById(name + "Div");
+            div.innerHTML = response;
+        }
+    }
 
-var debug = true;
-var authorization = "";
-function sendPost(url, jsonRequest, output, callback) {
-    var xmlHttp = new XMLHttpRequest(); 
+    if (doAfter != null)
+        doAfter();
     
-    if (output) console.log("SENDING", nowTime(), url, jsonRequest);
-
-    xmlHttp.onreadystatechange = function() {
-        if (this.readyState == 4) {
-            json = JSON.parse(this.responseText);
-            if(output) console.log("RESPONSE", nowTime(), url, json);
-            if(callback) callback(json);
-        }
-    };
-    xmlHttp.open("POST", url);
-    xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    if (authorization != "") {
-        xmlHttp.setRequestHeader("Authorization", window.btoa(authorization));
-    }
-    xmlHttp.send(jsonRequest);
-}
-
-function sendGet(url, output, callback) {
-    var xmlHttp = new XMLHttpRequest();
-
-    if (output) console.log("SENDING", nowTime(), url);
-
-    xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4) {
-            try {
-                json = JSON.parse(this.responseText);
-            }
-            catch {
-                json = this.responseText;
-            }
-            if(output) console.log("RESPONSE", nowTime(), url, json);
-            if(callback) callback(json);
+    for (let i = 0; i < afterArray.length; i++) {
+        var name = afterArray[i];
+        var response = await callEndpoint("GET", "/webParts/" + name + ".html")
+        if (!response.ERROR) {
+            var div = document.getElementById(name + "Div");
+            div.innerHTML = response;
         }
     }
-    xmlHttp.open("GET", url); 
-    xmlHttp.setRequestHeader("Content-Type", "text/plain;charset=UTF-8;");
-    if (authorization != "") {
-        xmlHttp.setRequestHeader("Authorization", window.btoa(authorization));
-    }
-    xmlHttp.send();
 }
 
-function callEndpoint(type, url, request=null) {
-    if (type == "GET") {
-        return new Promise(resolve => {
-            sendGet(url, debug, function(response) {
-                resolve(response);
-            });
-        });
-    } else if (type == "POST") {
-        var request = JSON.stringify(request);
-        return new Promise(resolve => {
-            sendPost(url, request, debug, function(response) {
-                resolve(response);
-            });
-        });
+async function getHtml(name, path, parentId, attributeClass="") {
+    var response = await callEndpoint("GET",
+         "/webParts/" + path + name + ".html")
+    if (!response.ERROR) {
+        var parent = document.getElementById(parentId);
+        var div = createElement("div", parent, "", 
+        [
+            {"name": "id", "value": name + "Div"},
+            {"name": "class", "value": attributeClass} 
+        ]);
+        div.innerHTML = response;
+        return div;
     }
     else {
-        console.log("Unknown type (Had to be GET or POST");
-        console.log(type);
         return null;
     }
 }
@@ -373,140 +511,6 @@ function formatDate(datetime, includeYear=true) {
 }
 
 
-// AUTOCOMPLETE.JS
-var currentFocus;
-
-function autocomplete(inp, arr) {
-    /*the autocomplete function takes two arguments,
-    the text field element and an array of possible autocompleted values:*/
-    /*execute a function when someone writes in the text field:*/
-    inp.addEventListener("input", function (e) {
-        var a, b, i, val = this.value;
-        /*close any already open lists of autocompleted values*/
-        closeAllLists();
-        if (!val) { return false; }
-        currentFocus = -1;
-        /*create a DIV element that will contain the items (values):*/
-        a = createElement("div", this.parentNode, "", [
-            { "name": "id", "value": this.id + "autocomplete-list" },
-            { "name": "class", "value": "autocomplete-items" }
-        ]);
-
-        /*for each item in the array...*/
-        for (i = 0; i < arr.length; i++) {
-            /*check if the item starts with the same letters as the text field value:*/
-            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-                /*create a DIV element for each matching element:*/
-                b = createElement("div", a,
-                    "<strong>" + arr[i].substr(0, val.length) + "</strong>" +
-                    arr[i].substr(val.length) +
-                    "<input type='hidden' value='" + arr[i] + "'>");
-
-                /*execute a function when someone clicks on the item value (DIV element):*/
-                b.addEventListener("click", function (e) {
-                    /*insert the value for the autocomplete text field:*/
-                    inp.value = this.getElementsByTagName("input")[0].value;
-                    /*close the list of autocompleted values,
-                    (or any other open lists of autocompleted values:*/
-                    closeAllLists();
-                });
-            }
-        }
-    });
-    /*execute a function presses a key on the keyboard:*/
-    inp.addEventListener("keydown", function (e) {
-        var x = document.getElementById(this.id + "autocomplete-list");
-        if (x) x = x.getElementsByTagName("div");
-        if (e.keyCode == 40) {
-            /*If the arrow DOWN key is pressed,
-            increase the currentFocus variable:*/
-            currentFocus++;
-            /*and and make the current item more visible:*/
-            addActive(x);
-        } else if (e.keyCode == 38) { //up
-            /*If the arrow UP key is pressed,
-            decrease the currentFocus variable:*/
-            currentFocus--;
-            /*and and make the current item more visible:*/
-            addActive(x);
-        } else if (e.keyCode == 13) {
-            /*If the ENTER key is pressed, prevent the form from being submitted,*/
-            e.preventDefault();
-            if (currentFocus > -1) {
-                /*and simulate a click on the "active" item:*/
-                if (x) x[currentFocus].click();
-                currentFocus = -1;
-            }
-        }
-    });
-    function addActive(x) {
-        /*a function to classify an item as "active":*/
-        if (!x) return false;
-        /*start by removing the "active" class on all items:*/
-        removeActive(x);
-        if (currentFocus >= x.length) currentFocus = 0;
-        if (currentFocus < 0) currentFocus = (x.length - 1);
-        /*add class "autocomplete-active":*/
-        x[currentFocus].classList.add("autocomplete-active");
-    }
-    function removeActive(x) {
-        /*a function to remove the "active" class from all autocomplete items:*/
-        for (var i = 0; i < x.length; i++) {
-            x[i].classList.remove("autocomplete-active");
-        }
-    }
-    function closeAllLists(elmnt) {
-        /*close all autocomplete lists in the document,
-        except the one passed as an argument:*/
-        var x = document.getElementsByClassName("autocomplete-items");
-        for (var i = 0; i < x.length; i++) {
-            if (elmnt != x[i] && elmnt != inp) {
-                x[i].parentNode.removeChild(x[i]);
-            }
-            closed = true;
-        }
-    }
-    /*execute a function when someone clicks in the document:*/
-    document.addEventListener("click", function (e) {
-        closeAllLists(e.target);
-    });
-}
-
-
-// STRINGFORMATER.JS
-function stringShorter(str, maxChars) {
-    if (str.length > maxChars) 
-        return str.slice(0, maxChars) + "...";
-    return str;
-}
-
-
-// COOKIES.JS
-
-function setCookie(cname, cvalue, exdays) {
-  const d = new Date();
-  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-  let expires = "expires="+ d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-  let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
-  for(let i = 0; i <ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-
-
 // CLICKMANAGER.JS
 var testingDoubleClick = false;
 var testingDoubleClickTimeout = null;
@@ -546,78 +550,74 @@ function doubleClickDone(func) {
 }
 
 
-// LOADPAGE.JS
-// startArray are divs that are nnecessary for first run
-// divArray are others that do not need to be now
-async function loadPage(startArray, doAfter=null, afterArray=[]) {
-    for (let i = 0; i < startArray.length; i++) {
-        var name = startArray[i];
-        var response = await callEndpoint("GET", "/webParts/" + name + ".html")
-        if (!response.ERROR) {
-            var div = document.getElementById(name + "Div");
-            div.innerHTML = response;
-        }
-    }
+// COMMUNICATION.JS
 
-    if (doAfter != null)
-        doAfter();
+var debug = true;
+var authorization = "";
+function sendPost(url, jsonRequest, output, callback) {
+    var xmlHttp = new XMLHttpRequest(); 
     
-    for (let i = 0; i < afterArray.length; i++) {
-        var name = afterArray[i];
-        var response = await callEndpoint("GET", "/webParts/" + name + ".html")
-        if (!response.ERROR) {
-            var div = document.getElementById(name + "Div");
-            div.innerHTML = response;
+    if (output) console.log("SENDING", nowTime(), url, jsonRequest);
+
+    xmlHttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+            json = JSON.parse(this.responseText);
+            if(output) console.log("RESPONSE", nowTime(), url, json);
+            if(callback) callback(json);
         }
+    };
+    xmlHttp.open("POST", url);
+    xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    if (authorization != "") {
+        xmlHttp.setRequestHeader("Authorization", window.btoa(authorization));
     }
+    xmlHttp.send(jsonRequest);
 }
 
-async function getHtml(name, path, parentId, attributeClass="") {
-    var response = await callEndpoint("GET",
-         "/webParts/" + path + name + ".html")
-    if (!response.ERROR) {
-        var parent = document.getElementById(parentId);
-        var div = createElement("div", parent, "", 
-        [
-            {"name": "id", "value": name + "Div"},
-            {"name": "class", "value": attributeClass} 
-        ]);
-        div.innerHTML = response;
-        return div;
+function sendGet(url, output, callback) {
+    var xmlHttp = new XMLHttpRequest();
+
+    if (output) console.log("SENDING", nowTime(), url);
+
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4) {
+            try {
+                json = JSON.parse(this.responseText);
+            }
+            catch {
+                json = this.responseText;
+            }
+            if(output) console.log("RESPONSE", nowTime(), url, json);
+            if(callback) callback(json);
+        }
+    }
+    xmlHttp.open("GET", url); 
+    xmlHttp.setRequestHeader("Content-Type", "text/plain;charset=UTF-8;");
+    if (authorization != "") {
+        xmlHttp.setRequestHeader("Authorization", window.btoa(authorization));
+    }
+    xmlHttp.send();
+}
+
+function callEndpoint(type, url, request=null) {
+    if (type == "GET") {
+        return new Promise(resolve => {
+            sendGet(url, debug, function(response) {
+                resolve(response);
+            });
+        });
+    } else if (type == "POST") {
+        var request = JSON.stringify(request);
+        return new Promise(resolve => {
+            sendPost(url, request, debug, function(response) {
+                resolve(response);
+            });
+        });
     }
     else {
+        console.log("Unknown type (Had to be GET or POST");
+        console.log(type);
         return null;
     }
-}
-
-
-// ELEMENTMANAGER.JS
-
-function createElement(type, parent=null, innerHTML="", attributes=[]) {
-    var element = document.createElement(type);
-    element.innerHTML = innerHTML;
-
-    for (let i = 0; i < attributes.length; i++) {
-        element.setAttribute(attributes[i].name, attributes[i].value);
-    }
-
-    if (parent != null) {
-        parent.appendChild(element);
-    }
-
-    return element;
-}
-
-function getValueOf(id) {
-    var element = document.getElementById(id);
-    var type = element.getAttribute("type");
-
-    if (type == "text" || type == "datetime-local") 
-        return element.value;
-    else if (type == "number")
-        return parseInt(element.value);
-    else if (type == "radio" || type == "checkbox")
-        return element.checked;
-    
 }
 
