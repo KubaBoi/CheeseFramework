@@ -29,6 +29,7 @@ class Security:
 
         role = None
         dict = None
+        userData = {}
         authHeader = server.headers.get("Authorization")
 
         if (authHeader != None):
@@ -57,6 +58,13 @@ class Security:
                                         Security.handleExceptions(add["exceptions"], dict, encoders, server)
                                     if ("raise" in add.keys()):
                                         raise Unauthorized(add["raise"])
+                        
+                        if ("userData" in tp.keys()):
+                            db = Database()
+                            sql = Security.prepareString(dict, tp["userData"], encoders, server)
+                            response = db.query(sql)
+                            db.done()
+                            userData = response[0]
                     break
         
         if (pth in Metadata.access.keys()):
@@ -68,11 +76,15 @@ class Security:
 
         return {
             "role": role,
-            "login": dict
+            "login": dict,
+            "userData": userData
         }
 
     @staticmethod
     def handleExceptions(excp, dict, encoders, server):
+        """
+        Handles custom exception defined in `securitySettings.json`
+        """
         endpoint = excp["endpoint"]
         method = excp["method"]
         content = {}
@@ -86,7 +98,14 @@ class Security:
             requests.post(f"http://localhost:{Settings.port}{endpoint}", json=content)
 
     @staticmethod
-    def findRole(dict, roleIdSql):
+    def findRole(dict: dict, roleIdSql: str):
+        """
+        Finds role id
+
+        `dict` is dictionary of replaceable values
+
+        `roleIdSql` sql string for finding role id
+        """
         for key in dict.keys():
             roleIdSql = roleIdSql.replace(f"${key}$", f"'{dict[key]}'")
 
@@ -103,7 +122,18 @@ class Security:
         return Metadata.roles[roleId]
 
     @staticmethod
-    def validate(dict, validation, encoders, server):   
+    def validate(dict: dict, validation: str, encoders: dict, server):   
+        """
+        Takes validation string and decide if sql is valid or not
+
+        `dict` is dictionary of replaceable values
+
+        `validation` is sql string for replacing values
+
+        `encoders` is dictionary of encoders
+
+        `server` is instance of http handler
+        """
         validation = Security.prepareString(dict, validation, encoders, server)
 
         db = Database()
@@ -118,7 +148,16 @@ class Security:
         return bool(int(response[0][0]))
 
     @staticmethod
-    def prepareString(dict, string, encoders, server):
+    def prepareString(dict: dict, string: str, encoders: dict, server):
+        """
+        `dict` is dictionary of replaceable values
+
+        `string` is sql string for replacing values
+
+        `encoders` is dictionary of encoders
+
+        `server` is instance of http handler
+        """
         for key in dict.keys():
             value = dict[key]
             if (key in encoders.keys()):
@@ -131,7 +170,12 @@ class Security:
         return string
 
     @staticmethod
-    def fitPatern(auth, patern):
+    def fitPatern(auth: str, patern: re):
+        """
+        `auth` is string of authentication
+
+        `re` is regex for recognising authentication
+        """
         p = re.search(patern, auth)
         if (p == None): return None
         return p.groupdict()
