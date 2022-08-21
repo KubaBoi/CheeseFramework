@@ -4,13 +4,13 @@ var debug = false;
 function convert(str) {
     var mdDiv = document.getElementById("md");
     clearTable(mdDiv);
-    
-    // hrefs to another sites -> [title](url)
-    str = rplcReg(str, /\[(?<title>.+)\]\((?<href>.*)\)/g, '<a href="$href$" target=_blank>$title$</a>');
 
     // hrefs within md document -> [title](#headerId) 
     str = rplcReg(str, /\[(?<title>.+)\]\((?<href>#.*)\)/g, '<a href="$href.lowerCase$">$title$</a>');
     
+    // hrefs to another sites -> [title](url)
+    str = rplcReg(str, /\[(?<title>.+)\]\((?<href>.*)\)/g, '<a href="$href$" target=_blank>$title$</a>');
+
     // images -> ![title](imgSrc)
     str = rplcReg(str, /\!\[(?<title>.*)\]\((?<src>.*)\)/g, '<img src="$src$" title=$title$>');
     
