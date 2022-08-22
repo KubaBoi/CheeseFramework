@@ -20,7 +20,9 @@ class FileHeaders:
         "mp3": "audio/mpeg",
         "gif": "image/gif",
         "png": "image/png",
-        "jpeg": "image/jpeg"
+        "jpeg": "image/jpeg",
+        "mp4": "video/mp4",
+        "mpeg": "video/mpeg"
     }
 
     @staticmethod
