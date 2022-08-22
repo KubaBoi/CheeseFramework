@@ -4,9 +4,9 @@
 
 :bangbang: This documentantion is automaticaly generated from code documentation.
 
-timestamp: 22.08.21.19.23
+timestamp: 22.08.22.17.53
 
-Cheese version v(1.4.48)
+Cheese version v(1.4.49)
 
 ## Contents
 
@@ -128,7 +128,7 @@ set self.__traceback__ to tb and return self.
 ## 5. CheeseController
 
 
-```CheeseController``` is static class for controlling endpoints.
+`CheeseController` is static class for controlling endpoints.
 
 Controller documentation:
 https://kubaboi.github.io/CheeseFramework/#71-api-controllers
@@ -140,9 +140,9 @@ https://kubaboi.github.io/CheeseFramework/#71-api-controllers
 
 raise BadRequest exception if any key is missing in json
 
-```keys``` is list of keys that should be in ```dict```
+`keys` is list of keys that should be in `dict`
 
-```dict``` is tested dictionary
+`dict` is tested dictionary
 
 
 
@@ -158,12 +158,12 @@ checks license
 
 create response as tuple
 
-```dict``` is response dictionary. Dictionary will be dumped by ```json``` library
-and coded into bytes with ```utf-8``` coding.
+`dict` is response dictionary. Dictionary will be dumped by `json` library
+and coded into bytes with `utf-8` coding.
 
-```code``` is http status code as ```int```
+`code` is http status code as `int`
 
-```headers``` is dict with headers and its values
+`headers` is dict with headers and its values
 
 
 
@@ -172,9 +172,9 @@ and coded into bytes with ```utf-8``` coding.
 
 return arguments from rest request url
 
-```url``` is url of request
+`url` is url of request
 
-```decode``` if true than decode URL-encoded format
+`decode` if true than decode URL-encoded format
 
 
 
@@ -183,7 +183,7 @@ return arguments from rest request url
 
 return client's address
 
-```server``` is instance of http handler
+`server` is instance of http handler
 
 
 
@@ -192,7 +192,7 @@ return client's address
 
 return cookies as dictionary from request header
 
-```server``` is instance of http handler
+`server` is instance of http handler
 
 
 
@@ -201,9 +201,9 @@ return cookies as dictionary from request header
 
 return list of endpoints
 
-```url``` is url of request
+`url` is url of request
 
-splits url by ```/``` and returns this list
+splits url by `/` and returns this list
 
 example:
 ```
@@ -217,7 +217,7 @@ example:
 
 return requests headers
 
-```server``` is instance of http handler
+`server` is instance of http handler
 
 
 
@@ -226,7 +226,7 @@ return requests headers
 
 return request headers as dict
 
-```server``` is instance of http handler
+`server` is instance of http handler
 
 
 
@@ -235,9 +235,9 @@ return request headers as dict
 
 return path without arguments
 
-```url``` is url of request
+`url` is url of request
 
-splits url by ```?``` and return first part
+splits url by `?` and return first part
 
 example:
 ```
@@ -251,7 +251,7 @@ example:
 
 return now time and add argument in seconds
 
-```addTime``` is time in ```seconds``` which will be added to now time. It can be negative value.
+`addTime` is time in `seconds` which will be added to now time. It can be negative value.
 
 
 
@@ -260,7 +260,7 @@ return now time and add argument in seconds
 
 return json array from list of modules
 
-```modules``` is list of CheeseModel instances
+`modules` is list of CheeseModel instances
 
 
 
@@ -269,7 +269,7 @@ return json array from list of modules
 
 return arguments from body of request as dictionary
 
-```server``` is instance of http handler
+`server` is instance of http handler
 
 
 
@@ -278,7 +278,7 @@ return arguments from body of request as dictionary
 
 return bytes from post body
 
-```server``` is instance of http handler
+`server` is instance of http handler
 
 
 
@@ -287,22 +287,22 @@ return bytes from post body
 
 send response to client
 
-```server``` is instance of http handler
+`server` is instance of http handler
 
-```response``` is tuple (response object created in ```CheeseController.createResponse(...)``` method)
+`response` is tuple (response object created in `CheeseController.createResponse(...)` method)
 
 
 
 ### 5.16 serveFile
 
 
-sends file located in ```/web``` directory
+sends file located in `/web` directory
 
-```server``` is instance of http handler
+`server` is instance of http handler
 
-```file``` is string path to any file located in ```/web``` directory
+`file` is string path to any file located in `/web` directory
 
-```header``` is string of header for http response
+`header` is string of header for http response
 
 
 
@@ -311,9 +311,9 @@ sends file located in ```/web``` directory
 
 return true if all keys are in dictionary
 
-```keys``` is list of keys that should be in ```dict```
+`keys` is list of keys that should be in `dict`
 
-```dict``` is tested dictionary
+`dict` is tested dictionary
 
 
 
