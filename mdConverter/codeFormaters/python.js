@@ -23,9 +23,9 @@ function formatPython(str) {
         }
 
         // from
-        line = rplcReg(line, /^(?<kwFrom>from) (?<from>.+)/, "<span class=keyword>$kwFrom$</span> <span class=class>$from$</span> ", 1)
+        line = rplcReg(line, /^(?<kwFrom>from) (?<from>.+)/, "<span class=keyword>$kwFrom$</span> <span class=class>$from$</span> ", 1);
         //import
-        line = rplcReg(line, /(?<kwImport>import) (?<import>.*)/,  "<span class=keyword>$kwImport$</span> <span class=class>$import$</span>", 1)
+        line = rplcReg(line, /(?<kwImport>import) (?<import>.*)/,  "<span class=keyword>$kwImport$</span> <span class=class>$import$</span>", 1);
         // python annotation
         line = rplcReg(line, /(?<!#)(?<annot>@.*)/, "<span class=annotation>$annot$</span>", 1);
         // one line comments

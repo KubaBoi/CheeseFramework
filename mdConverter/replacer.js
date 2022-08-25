@@ -32,6 +32,10 @@ function rplcReg(str, reg, temp, maxIters=-1, dict={}) {
         var match = reg.exec(str);
         if (match == null) break; // no more matches
 
+        if (str.startsWith("buffer times")) {
+            console.log(match);
+        }
+
         //runs through all variables from temp
         for (let i = 0; i < tempVars.length; i++) {
             // searching for advanced variables (title.length...)

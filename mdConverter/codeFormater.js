@@ -12,6 +12,9 @@ function formatCode() {
         else if (clsList.contains("language-html")) {
             pre.innerHTML = formatHtml(pre.innerHTML);
         }
+        else if (clsList.contains("language-assembler")) {
+            pre.innerHTML = formatAsm(pre.innerHTML);
+        }
         else {
             pre.innerHTML = formatPython(pre.innerHTML);
         }
