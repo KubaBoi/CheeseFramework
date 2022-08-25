@@ -1,8 +1,14 @@
 
 var varsAsm = ["DB", "DW", "DD", "DQ", "DT", "RESB", "RESW", "RESD", "TIMES"];
 var typesAsm = ["BYTE", "WORD", "DWORD", "QWORD", "TBYTE"];
-var instAsm = ["MOV", "JMP", "JZ", "CMP", "LODSB", "LODSW", "LODSD", "INC", "DEC", "RET"];
 var regsAsm = ["AL", "AH", "SI", "DI", "AX", "EAX", "RAX"];
+
+var instAsm = [
+    "MOV", "JMP", "JZ", 
+    "CMP", 
+    "LODSB", "LODSW", "LODSD", 
+    "INC", "DEC", "ADD", "SUB",
+    "RET"];
 
 function formatAsm(str) {
 
