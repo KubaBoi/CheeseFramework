@@ -14,7 +14,7 @@ from Cheese.Logger import Logger
 
 class CheeseRepository:
     """
-    ```CheeseRepository``` is static class for communication with database
+    `CheeseRepository` is static class for communication with database
     """
 
     testing = False
@@ -24,7 +24,7 @@ class CheeseRepository:
     @classmethod
     def model(cls, addId=0) -> CheeseModel:
         """
-        return ```CheeseModel``` with ```Primary key```, ```modelName``` and ```scheme```
+        return `CheeseModel` with `Primary key`, `modelName` and `scheme`
         """
         repository = Metadata.getRepositoryFromClass(cls.__name__) 
         modelName = Metadata.getModel(repository)
@@ -48,25 +48,28 @@ class CheeseRepository:
     @classmethod
     def findAll(cls) -> list:
         """
-        return whole table of database as list of ```CheeseModel```
+        return whole table of database as list of `CheeseModel`
         """
         return CheeseRepository.query(cls.__name__)
 
     @classmethod
     def find(cls, primaryKey) -> CheeseModel:
         """
-        return one ```CheeseModel``` by ```Primary key```
+        return one `CheeseModel` by `Primary key`
         """
         return CheeseRepository.query(cls.__name__, primaryKey=primaryKey)
 
     @classmethod
+    @DeprecationWarning
     def findBy(cls, columnName, value) -> list:
         """
-        return list of ```CheeseModel```
+        `DEPRECATED`
 
-        ```columnName``` name of column for filtering
+        return list of `CheeseModel`
 
-        ```value``` value of ```column```
+        `columnName` name of column for filtering
+
+        `value` value of `column`
 
         example:
         ```
@@ -76,16 +79,20 @@ class CheeseRepository:
         SQL: "... WHERE age = 15 ..."
         ```
         """
+        Logger.warning("Method findBy(...) is deprecated since 1.16. Use findByColumns(...) instead")
         return CheeseRepository.query(cls.__name__, columnName="columnName-" + columnName, value=value)
 
     @classmethod
+    @DeprecationWarning
     def findOneBy(cls, columnName, value) -> CheeseModel:
         """
-        return one ```CheeseModel``` by ```columnName```
+        `DEPRECATED`
 
-        ```columnName``` name of column for filtering
+        return one `CheeseModel` by `columnName`
 
-        ```value``` value of ```column```
+        `columnName` name of column for filtering
+
+        `value` value of `column`
 
         example:
         ```
@@ -95,12 +102,31 @@ class CheeseRepository:
         SQL: "... WHERE age = 15 ..."
         ```
         """
+        Logger.warning("Method findOneBy(...) is deprecated since 1.16. Use findOneByColumns(...) instead")
         return CheeseRepository.query(cls.__name__, columnName="columnName-" + columnName, value=value)
+
+    @classmethod
+    def findByColumns(cls, **kwargs) -> list:
+        """
+        return list of `CheeseModel`
+
+        `kwargs` is dictionary of column names and its values
+
+        example:
+        ```
+        findByColumns(age=15, gender="m")
+        ->
+        SQL: "... WHERE age = 15 AND gender = 'm' ..."
+        ```
+        """
+        filter = ""
+        for column in kwargs.keys():
+            filter += f"{column}={CheeseRepository.getTypeOf(kwargs[column])}"
 
     @classmethod
     def findNewId(cls) -> int:
         """
-        find new available ```Primary key```
+        find new available `Primary key`
         """
         return CheeseRepository.query(cls.__name__)+1
 
@@ -109,7 +135,7 @@ class CheeseRepository:
         """
         creates new row in database
 
-        ```obj``` is ```CheeseModel``` object
+        `obj` is `CheeseModel` object
         """
         return CheeseRepository.query(cls.__name__, obj=obj)
 
@@ -118,7 +144,7 @@ class CheeseRepository:
         """
         updates row in database
 
-        ```obj``` is ```CheeseModel``` object
+        `obj` is `CheeseModel` object
         """
         return CheeseRepository.query(cls.__name__, obj=obj)
 
@@ -127,7 +153,7 @@ class CheeseRepository:
         """
         deletes row from database
 
-        ```obj``` is ```CheeseModel``` object
+        `obj` is `CheeseModel` object
         """
         return CheeseRepository.query(cls.__name__, obj=obj)
 
@@ -138,7 +164,7 @@ class CheeseRepository:
         """
         sets repository testing enviroment
 
-        ```mockManager``` is instance of ```MockManager``` used by testing
+        `mockManager` is instance of `MockManager` used by testing
         """
         CheeseRepository.mockManager = mockManager
         CheeseRepository.testing = True
@@ -155,9 +181,9 @@ class CheeseRepository:
         """
         Access point to database. Returns database output.
 
-        ```userRepository``` is string name of used repository
+        `userRepository` is string name of used repository
 
-        ```**kwargs``` is ```dict``` of arguments for SQL request
+        `**kwargs` is `dict` of arguments for SQL request
         """
         if (userRepository == ""):
             userRepository = CheeseRepository.findUserRepository()
