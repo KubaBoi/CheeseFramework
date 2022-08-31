@@ -78,7 +78,7 @@ class CheeseRepository:
         SQL: "... WHERE age = 15 ..."
         ```
         """
-        Logger.warning(f"{Logger.FAIL}!DEPRECATION!{Logger.WARNING} Method findBy(...) is deprecated since 1.16. Use findByColumns(...) instead")
+        Logger.warning(f"{Logger.FAIL}!DEPRECATION!{Logger.WARNING} Method findBy(...) is deprecated since 1.6. Use findByColumns(...) instead")
         return CheeseRepository.query(cls.__name__, columnName="columnName-" + columnName, value=value)
 
     @classmethod
@@ -100,7 +100,7 @@ class CheeseRepository:
         SQL: "... WHERE age = 15 ..."
         ```
         """
-        Logger.warning(f"{Logger.FAIL}!DEPRECATION!{Logger.WARNING} Method findOneBy(...) is deprecated since 1.16. Use findOneByColumns(...) instead")
+        Logger.warning(f"{Logger.FAIL}!DEPRECATION!{Logger.WARNING} Method findOneBy(...) is deprecated since 1.6. Use findOneByColumns(...) instead")
         return CheeseRepository.query(cls.__name__, columnName="columnName-" + columnName, value=value)
 
     @classmethod
