@@ -6,7 +6,7 @@ var preFuncs = {
     "emoji": function(vl){return emojiImg(vl);},
     "id": function(vl){
         vl = vl.replaceAll(/:[a-z0-9_]+:/g, "");
-        vl = vl.trim().replaceAll(/[\.\/\*]/g, "").replaceAll(" ", "-").toLowerCase();//.replaceAll(" ", "-").replaceAll(".", "").replaceAll("/", "").toLowerCase();
+        vl = vl.trim().replaceAll(/[\.\/\*\']/g, "").replaceAll(" ", "-").toLowerCase();//.replaceAll(" ", "-").replaceAll(".", "").replaceAll("/", "").toLowerCase();
         return vl;
     },
     "checkBox": function(vl){
