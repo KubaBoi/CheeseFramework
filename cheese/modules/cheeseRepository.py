@@ -330,27 +330,35 @@ class CheeseRepository:
         model.toModel(data[0])
         return model
 
-    # finds name of user-made repository
     @staticmethod
     def findUserRepository():
+        """
+        finds name of user-made repository
+        """
         curframe = inspect.currentframe()
         calframe = inspect.getouterframes(curframe, 2)
         userRepository = ResMan.getFileName(calframe[2].filename).replace(".py", "")
         return userRepository
 
-    # finds name of method from user-made repository
     @staticmethod
     def findUserMethod():
+        """
+        finds name of method from user-made repository
+        """
         curframe = inspect.currentframe()
         calframe = inspect.getouterframes(curframe, 2)
         userMethod = ResMan.getFileName(calframe[2][3])
         return userMethod
 
-    # creates array of variables from sql
-    # ascii from 48-57 (numbers) and 65-90 (big letters) and 97-122 (small letters)
-    # or 46 (.) or 95 (_)
     @staticmethod
     def getVariables(sql):
+        """
+        creates array of variables from sql
+
+        ascii from 48-57 (numbers) and 65-90 (big letters) and 97-122 (small letters)
+
+        or 46 (.) or 95 (_)
+        """
         variables = []
         newVar = None
         for ch in sql:
@@ -370,10 +378,11 @@ class CheeseRepository:
             variables.append(newVar)
         return variables
 
-
-    # convert arguments
     @staticmethod
     def getTypeOf(arg, variables=None, key=None, scheme=None):
+        """
+        convert arguments
+        """
         if (arg == None):
             return "NULL"
         elif (type(arg) is str):
@@ -387,6 +396,8 @@ class CheeseRepository:
                 else:
                     arg = arg.replace("'", "''")
                     return f"\'{arg}\'"
+            elif (arg.startswith("columnName-")):
+                return arg.replace("columnName-", "")
             else:
                 return str(arg)
         elif (type(arg) is list):
