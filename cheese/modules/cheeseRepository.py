@@ -118,8 +118,32 @@ class CheeseRepository:
         ```
         """
         filter = ""
-        for column in kwargs.keys():
+        for i, column in enumerate(kwargs.keys()):
             filter += f"{column}={CheeseRepository.getTypeOf(kwargs[column])}"
+            if (i < len(kwargs.keys())-1):
+                filter += " AND "
+        return CheeseRepository.query(cls.__name__, filter="columnName-" + filter)
+
+    @classmethod
+    def findOneByColumns(cls, **kwargs) -> CheeseModel:
+        """
+        return one `CheeseModel`
+
+        `kwargs` is dictionary of column names and its values
+
+        example:
+        ```
+        findOneByColumns(age=15, gender="m")
+        ->
+        SQL: "... WHERE age = 15 AND gender = 'm' ..."
+        ```
+        """
+        filter = ""
+        for i, column in enumerate(kwargs.keys()):
+            filter += f"{column}={CheeseRepository.getTypeOf(kwargs[column])}"
+            if (i < len(kwargs.keys())-1):
+                filter += " AND "
+        return CheeseRepository.query(cls.__name__, filter="columnName-" + filter)
 
     @classmethod
     def findNewId(cls) -> int:

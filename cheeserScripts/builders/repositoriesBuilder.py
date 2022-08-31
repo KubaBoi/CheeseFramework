@@ -41,31 +41,33 @@ class RepositoriesBuilder:
             repo = parent.dictJson["REPOSITORIES"][repoKey]
 
             repo["METHODS"]["findAll"] = {
-                "QUERY": f"select * from {repo['REPOSITORY']};",
+                "QUERY": f"SELECT * FROM {repo['REPOSITORY']};",
                 "RETURN": "array"
             }
             repo["METHODS"]["find"] = {
-                "QUERY": f"select * from {repo['REPOSITORY']} where {repo['PRIMARY_KEY']}=:primaryKey;",
+                "QUERY": f"SELECT * FROM {repo['REPOSITORY']} WHERE {repo['PRIMARY_KEY']}=:primaryKey;",
                 "RETURN": "one"
             }
+            # DEPRECATED
             repo["METHODS"]["findBy"] = {
-                "QUERY": f"select * from {repo['REPOSITORY']} where :columnName=:value;",
+                "QUERY": f"SELECT * FROM {repo['REPOSITORY']} WHERE :columnName=:value;",
                 "RETURN": "array"
             }
+            # DEPRECATED
             repo["METHODS"]["findOneBy"] = {
-                "QUERY": f"select * from {repo['REPOSITORY']} where :columnName=:value;",
+                "QUERY": f"SELECT * FROM {repo['REPOSITORY']} WHERE :columnName=:value;",
                 "RETURN": "one"
             }
             repo["METHODS"]["findByColumns"] = {
-                "QUERY": f"select * from {repo['REPOSITORY']} where :filter;",
+                "QUERY": f"SELECT * FROM {repo['REPOSITORY']} WHERE :filter;",
                 "RETURN": "array"
             }
             repo["METHODS"]["findOneByColumns"] = {
-                "QUERY": f"select * from {repo['REPOSITORY']} where :filter;",
+                "QUERY": f"SELECT * FROM {repo['REPOSITORY']} WHERE :filter;",
                 "RETURN": "one"
             }
             repo["METHODS"]["findNewId"] = {
-                    "QUERY": f"select max(id) from {repo['REPOSITORY']};",
+                    "QUERY": f"SELECT MAX(id) FROM {repo['REPOSITORY']};",
                     "RETURN": "num"
                 }
 
@@ -78,16 +80,16 @@ class RepositoriesBuilder:
             name = repo["REPOSITORY"]
 
             repo["METHODS"]["save"] = {
-                    "COMMIT": f"insert into {name} {scheme} values :obj;",
+                    "COMMIT": f"INSERT INTO {name} {scheme} VALUES :obj;",
                     "RETURN": ""
                 }
             
             repo["METHODS"]["update"] = {
-                    "COMMIT": f"update {name} set {scheme} = :obj where {repo['PRIMARY_KEY']}=:obj.{repo['PRIMARY_KEY']};",
+                    "COMMIT": f"UPDATE {name} SET {scheme} = :obj WHERE {repo['PRIMARY_KEY']}=:obj.{repo['PRIMARY_KEY']};",
                     "RETURN": ""
                 }
 
             repo["METHODS"]["delete"] = {
-                    "COMMIT": f"delete from {name} where {repo['PRIMARY_KEY']}=:obj.{repo['PRIMARY_KEY']};",
+                    "COMMIT": f"DELETE FROM {name} WHERE {repo['PRIMARY_KEY']}=:obj.{repo['PRIMARY_KEY']};",
                     "RETURN": ""
                 }
