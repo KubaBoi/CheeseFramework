@@ -58,11 +58,11 @@ class RepositoriesBuilder:
                 "QUERY": f"SELECT * FROM {repo['REPOSITORY']} WHERE :columnName=:value;",
                 "RETURN": "one"
             }
-            repo["METHODS"]["findByColumns"] = {
+            repo["METHODS"]["findWhere"] = {
                 "QUERY": f"SELECT * FROM {repo['REPOSITORY']} WHERE :filter;",
                 "RETURN": "array"
             }
-            repo["METHODS"]["findOneByColumns"] = {
+            repo["METHODS"]["findOneWhere"] = {
                 "QUERY": f"SELECT * FROM {repo['REPOSITORY']} WHERE :filter;",
                 "RETURN": "one"
             }

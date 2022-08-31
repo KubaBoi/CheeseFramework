@@ -522,30 +522,6 @@
         }
     },
     {
-        "CheeseTests": {
-            "file": "cheeseTests.py",
-            "method": "formatTime"
-        }
-    },
-    {
-        "CheeseTests": {
-            "file": "cheeseTests.py",
-            "method": "getTestSign"
-        }
-    },
-    {
-        "CheeseTests": {
-            "file": "cheeseTests.py",
-            "method": "oneTest"
-        }
-    },
-    {
-        "CheeseTests": {
-            "file": "cheeseTests.py",
-            "method": "testAll"
-        }
-    },
-    {
         "MockManager": {
             "file": "mockManager.py",
             "method": "setMock"
