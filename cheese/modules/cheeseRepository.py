@@ -60,7 +60,6 @@ class CheeseRepository:
         return CheeseRepository.query(cls.__name__, primaryKey=primaryKey)
 
     @classmethod
-    @DeprecationWarning
     def findBy(cls, columnName, value) -> list:
         """
         `DEPRECATED`
@@ -83,7 +82,6 @@ class CheeseRepository:
         return CheeseRepository.query(cls.__name__, columnName="columnName-" + columnName, value=value)
 
     @classmethod
-    @DeprecationWarning
     def findOneBy(cls, columnName, value) -> CheeseModel:
         """
         `DEPRECATED`
