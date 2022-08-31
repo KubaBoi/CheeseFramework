@@ -78,7 +78,7 @@ class CheeseRepository:
         SQL: "... WHERE age = 15 ..."
         ```
         """
-        Logger.warning(f"{Logger.FAIL}!DEPRECATION!{Logger.WARNING} Method findBy(...) is deprecated since 1.6. Use findByColumns(...) instead")
+        Logger.warning(f"{Logger.FAIL}!DEPRECATION!{Logger.WARNING} Method findBy(...) is deprecated since 1.6. Use findWhere(...) instead")
         return CheeseRepository.query(cls.__name__, columnName="columnName-" + columnName, value=value)
 
     @classmethod
@@ -100,11 +100,11 @@ class CheeseRepository:
         SQL: "... WHERE age = 15 ..."
         ```
         """
-        Logger.warning(f"{Logger.FAIL}!DEPRECATION!{Logger.WARNING} Method findOneBy(...) is deprecated since 1.6. Use findOneByColumns(...) instead")
+        Logger.warning(f"{Logger.FAIL}!DEPRECATION!{Logger.WARNING} Method findOneBy(...) is deprecated since 1.6. Use findOneWhere(...) instead")
         return CheeseRepository.query(cls.__name__, columnName="columnName-" + columnName, value=value)
 
     @classmethod
-    def findByColumns(cls, **kwargs) -> list:
+    def findWhere(cls, **kwargs) -> list:
         """
         return list of `CheeseModel`
 
@@ -112,7 +112,7 @@ class CheeseRepository:
 
         example:
         ```
-        findByColumns(age=15, gender="m")
+        findWhere(age=15, gender="m")
         ->
         SQL: "... WHERE age = 15 AND gender = 'm' ..."
         ```
@@ -125,7 +125,7 @@ class CheeseRepository:
         return CheeseRepository.query(cls.__name__, filter="columnName-" + filter)
 
     @classmethod
-    def findOneByColumns(cls, **kwargs) -> CheeseModel:
+    def findOneWhere(cls, **kwargs) -> CheeseModel:
         """
         return one `CheeseModel`
 
@@ -133,7 +133,7 @@ class CheeseRepository:
 
         example:
         ```
-        findOneByColumns(age=15, gender="m")
+        findOneWhere(age=15, gender="m")
         ->
         SQL: "... WHERE age = 15 AND gender = 'm' ..."
         ```
