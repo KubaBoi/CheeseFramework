@@ -67,9 +67,13 @@ class RepositoriesBuilder:
                 "RETURN": "one"
             }
             repo["METHODS"]["findNewId"] = {
-                    "QUERY": f"SELECT MAX(id) FROM {repo['REPOSITORY']};",
-                    "RETURN": "num"
-                }
+                "QUERY": f"SELECT MAX(id) FROM {repo['REPOSITORY']};",
+                "RETURN": "num"
+            }
+            repo["METHODS"]["exists"] = {
+                "QUERY": f"SELECT CASE WHEN EXISTS (SELECT * from {repo['REPOSITORY']} WHERE :filter) THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT) END;",
+                "RETURN": "bool"
+            }
 
     # prefabricated commit methods 
     @staticmethod
