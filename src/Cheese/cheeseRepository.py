@@ -104,11 +104,11 @@ class CheeseRepository:
         return CheeseRepository.query(cls.__name__, columnName="columnName-" + columnName, value=value)
 
     @classmethod
-    def findWhere(cls, **kwargs) -> list:
+    def findWhere(cls, **columns) -> list:
         """
         return list of `CheeseModel`
 
-        `kwargs` is dictionary of column names and its values
+        `**columns` is dictionary of column names and its values
 
         example:
         ```
@@ -118,18 +118,18 @@ class CheeseRepository:
         ```
         """
         filter = ""
-        for i, column in enumerate(kwargs.keys()):
-            filter += f"{column}={CheeseRepository.getTypeOf(kwargs[column])}"
-            if (i < len(kwargs.keys())-1):
+        for i, column in enumerate(columns.keys()):
+            filter += f"{column}={CheeseRepository.getTypeOf(columns[column])}"
+            if (i < len(columns.keys())-1):
                 filter += " AND "
         return CheeseRepository.query(cls.__name__, filter="columnName-" + filter)
 
     @classmethod
-    def findOneWhere(cls, **kwargs) -> CheeseModel:
+    def findOneWhere(cls, **columns) -> CheeseModel:
         """
         return one `CheeseModel`
 
-        `kwargs` is dictionary of column names and its values
+        `**columns` is dictionary of column names and its values
 
         example:
         ```
@@ -139,9 +139,9 @@ class CheeseRepository:
         ```
         """
         filter = ""
-        for i, column in enumerate(kwargs.keys()):
-            filter += f"{column}={CheeseRepository.getTypeOf(kwargs[column])}"
-            if (i < len(kwargs.keys())-1):
+        for i, column in enumerate(columns.keys()):
+            filter += f"{column}={CheeseRepository.getTypeOf(columns[column])}"
+            if (i < len(columns.keys())-1):
                 filter += " AND "
         return CheeseRepository.query(cls.__name__, filter="columnName-" + filter)
 
@@ -178,6 +178,27 @@ class CheeseRepository:
         `obj` is `CheeseModel` object
         """
         return CheeseRepository.query(cls.__name__, obj=obj)
+
+    @classmethod
+    def exists(cls, **columns) -> bool:
+        """
+        return `true` if there is any row in database
+
+        `**columns` is dictionary of column names and its values
+
+        example:
+        ```
+        exists(age=15, gender="m")
+        ->
+        SQL: "... WHERE age = 15 AND gender = 'm' ..."
+        ```
+        """
+        filter = ""
+        for i, column in enumerate(columns.keys()):
+            filter += f"{column}={CheeseRepository.getTypeOf(columns[column])}"
+            if (i < len(columns.keys())-1):
+                filter += " AND "
+        return CheeseRepository.query(cls.__name__, filter="columnName-" + filter)
 
     # STATIC METHODS
 
