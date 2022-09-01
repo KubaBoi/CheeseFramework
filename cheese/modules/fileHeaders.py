@@ -22,6 +22,7 @@ class FileHeaders:
         "png": "image/png",
         "jpeg": "image/jpeg",
         "mp4": "video/mp4",
+        "mkv": "video/mp4",
         "mpeg": "video/mpeg"
     }
 
