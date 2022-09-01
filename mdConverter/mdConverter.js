@@ -84,6 +84,8 @@ function convert(str) {
     contents();
     changeWelcome();
     images();
+
+    scrollToAfter();
 }
 
 function headers(str) {
@@ -145,5 +147,13 @@ function images() {
         if (!img.classList.contains("emojiImg")) {
             img.classList.add("contentImg");
         }
+    }
+}
+
+function scrollToAfter() {
+    let url = new URL(window.location.href);
+    let hash = url.hash;
+    if (hash != "") {
+        window.location = hash;
     }
 }
