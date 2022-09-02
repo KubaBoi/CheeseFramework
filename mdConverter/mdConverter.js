@@ -1,6 +1,8 @@
 
 var debug = false;
 
+window.addEventListener("load", scrollToAfter);
+
 function convert(str) {
     var mdDiv = document.getElementById("md");
     clearTable(mdDiv);
@@ -84,8 +86,6 @@ function convert(str) {
     contents();
     changeWelcome();
     images();
-
-    scrollToAfter();
 }
 
 function headers(str) {
