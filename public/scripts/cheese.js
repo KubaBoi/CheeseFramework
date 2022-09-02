@@ -439,6 +439,9 @@ function getTimestamp(strTime=null, nullIsNow=true) {
     if (!nullIsNow && strTime == null) {
         return "";
     }
+    else if (nullIsNow && strTime == null) {
+        strTime = new Date();
+    }
     return new Date(strTime).toISOString().slice(0,16);
 }
 
