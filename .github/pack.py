@@ -42,7 +42,7 @@ fullData = ""
 for root, dirs, files in os.walk(mdScriptsPath):
     for file in files:
         if (not file.endswith(".css")): continue
-        if (file == "style.js"): continue
+        if (file == "style.css"): continue
         print(f"File: {file}")
         with open(os.path.join(root, file), "r", encoding="utf-8") as f:
             data = f.read()
