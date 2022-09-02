@@ -37,6 +37,9 @@ class AdminManager:
         elif (server.path.startswith("/admin/deleteLog")):
             AdminManager.__deleteLog(server)
             return
+        elif (server.path == "/admin/deleteAll"):
+            AdminManager.__deleteAll(server)
+            return
         elif (server.path == "/admin/getActiveLog"):
             AdminManager.__getActiveLog(server)
             return
@@ -109,7 +112,7 @@ class AdminManager:
             return
 
         log = args["log"]
-        path = f"{ResMan.logs()}/{log}"
+        path = ResMan.logs(log)
         if (not os.path.exists(path)):
             CheeseController.sendResponse(server, Error.FileNotFound)
             return
@@ -122,13 +125,24 @@ class AdminManager:
             Logger.fail("Error while removing log", e, silence=False)
             Error.sendCustomError(server, "File was not deleted", 500)
 
+    @staticmethod
+    def __deleteAll(server):
+        for root, dirs, files in os.walk(ResMan.logs()):
+            activeLog = sorted(files)[-1]
+
+        for root, dirs, files in os.walk(ResMan.logs()):
+            for file in files:
+                if (file == activeLog): continue
+                os.remove(ResMan.logs(file))
+        response = CheeseController.createResponse({"RESPONSE": "OK"})
+        CheeseController.sendResponse(server, response)
 
     @staticmethod
     def __getActiveLog(server):
         for root, dirs, files in os.walk(ResMan.logs()):
             activeLog = sorted(files)[-1]
         
-        log = ResMan.joinPath(ResMan.logs(), activeLog)
+        log = ResMan.logs(activeLog)
         with open(f"{log}", "r") as f:
             lines = f.readlines()
             min = 0
@@ -152,7 +166,6 @@ class AdminManager:
     def __restart(server):
         time.sleep(0.5)
         server.server.socket.close()
-        time.sleep(1)
         if (os.name == "nt"):
             subprocess.call(f"{sys.executable} \"{__main__.__file__}\"")
         else:

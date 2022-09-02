@@ -13,7 +13,8 @@ class AdminFiles:
 </head>
 <body>
     <h1>Cheese Logs</h1>
-    <button onclick="location='/admin'">CHAdmin</button><br><br>
+    <button onclick="location='/admin'">CHAdmin</button>
+    <button onclick="deleteAllFiles()">Delete all Closed and Empty logs</button><br><br>
     <table>
         TABLE
     </table>
@@ -123,6 +124,16 @@ function deleteLog(log) {
     });
 }
 
+function deleteAll() {
+    url = "/admin/deleteAll";
+    
+    return new Promise(resolve => {
+        sendGet(url, debug, function(response){
+            resolve(response);
+        });  
+    });
+}
+
 async function buildLogTable() {
     response = await getActiveLog();
     if (!response.ERROR) {
@@ -158,13 +169,28 @@ function update() {
 }
 
 async function deleteFile(log) {
-    response = await deleteLog(log);
-    if (!response.ERROR) {
-        alert(`Log ${log} was deleted`);
-        location.reload();
+    if (confirm(`Do you really want to delete ${log}?`)) {
+        response = await deleteLog(log);
+        if (!response.ERROR) {
+            alert(`Log ${log} was deleted`);
+            location.reload();
+        }
+        else {
+            alert(`An error occurred: ${response.ERROR}`);
+        }
     }
-    else {
-        alert(`An error occurred: ${response.ERROR}`);
+}
+
+async function deleteAllFiles() {
+    if (confirm("Do you really want to delete all Closed and Empty logs?")) {
+        response = await deleteAll();
+        if (!response.ERROR) {
+            alert(`All Closed and Empty logs was deleted`);
+            location.reload();
+        }
+        else {
+            alert(`An error occurred: ${response.ERROR}`);
+        }
     }
 }"""
 

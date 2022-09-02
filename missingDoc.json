@@ -950,6 +950,12 @@
     {
         "AdminManager": {
             "file": "adminManager.py",
+            "method": "_AdminManager__deleteAll"
+        }
+    },
+    {
+        "AdminManager": {
+            "file": "adminManager.py",
             "method": "_AdminManager__deleteLog"
         }
     },
