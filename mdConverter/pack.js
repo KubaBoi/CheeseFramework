@@ -1,32 +1,4 @@
 
-// CODEFORMATER.JS
-
-function formatCode() {
-    
-    var pres = document.body.getElementsByTagName("pre");
-    for (let i = 0; i < pres.length; i++) {
-        var pre = pres[i];
-        var clsList = pre.classList;
-
-        if (clsList.contains("language-json")) {
-            pre.innerHTML = formatJson(pre.innerHTML);
-        }
-        else if (clsList.contains("language-html")) {
-            pre.innerHTML = formatHtml(pre.innerHTML);
-        }
-        else if (clsList.contains("language-assembler")) {
-            pre.innerHTML = formatAsm(pre.innerHTML);
-        }
-        else {
-            pre.innerHTML = formatPython(pre.innerHTML);
-        }
-        /*else if (clsList.contains("language-sql")) {
-            pre.innerHTML = formatSql(pre.innerHTML);
-        }*/
-    }
-}
-
-
 // CUSTOM.JS
 
 function changeWelcome() {
@@ -1852,42 +1824,110 @@ const EMOJIS = {
 }
 
 
-// GETMD.JS
+// REPLACER.JS
 
-var mdUrl = "";
-async function getMd(url) {
-    mdUrl = url;
-    var response = await callEndpoint("GET", url);
-    convert(response);
+var preFuncs = {
+    "lowerCase": function(vl){return vl.toLowerCase();},
+    "upperCase": function(vl){return vl.toUpperCase();},
+    "strip": function(vl){return vl.trim();},
+    "emoji": function(vl){return emojiImg(vl);},
+    "id": function(vl){
+        vl = vl.replaceAll(/:[a-z0-9_]+:/g, "");
+        vl = vl.trim().replaceAll(/[\.\/\*\']/g, "").replaceAll(" ", "-").toLowerCase();//.replaceAll(" ", "-").replaceAll(".", "").replaceAll("/", "").toLowerCase();
+        return vl;
+    },
+    "checkBox": function(vl){
+        if (vl == "x") return emojiImg("heavy_check_mark");
+        return emojiImg("x");
+    },
+    "len": function(vl){
+        let len = vl.length;
+        if (len > 3) return 3;
+        return len;
+    }
 }
 
-async function source() {
-    var contentsDiv = document.getElementById("contentsId");
-    var sourceDiv = document.getElementById("source");
-    if (sourceDiv == null) {
-        contentsDiv.style.visibility = "hidden";
-        var d = document.getElementById("d");
-        var sourceDiv = createElement("div", d, "", [
-            {"name": "id", "value": "source"},
-            {"name": "class", "value": "main"}
-        ]);
+function rplcReg(str, reg, temp, maxIters=-1, dict={}) {
+    // finds variable names from temp
+    var tempVars = matchAll(temp, /\$[a-zA-Z0-9\.]+\$/g, /[\$]/g);
 
-        var response = await callEndpoint("GET", mdUrl);
-        if (response.ERROR == null) {
-            createElement("pre", sourceDiv, response);
+    var iter = 0;
+    while (true) {
+        if (iter == maxIters || iter > 1000) break;
+        iter++;
+        var tempCopy = temp;
+        var match = reg.exec(str);
+        if (match == null) break; // no more matches
+
+        if (str.startsWith("buffer times")) {
+            console.log(match);
         }
+
+        //runs through all variables from temp
+        for (let i = 0; i < tempVars.length; i++) {
+            // searching for advanced variables (title.length...)
+            var tempVar = tempVars[i].split("."); 
+            var var0 = tempVar[0];
+            var value = match.groups[var0];
+            
+            // runs through all variable parameters (.length, .id, .emoji ...)
+            for (let vrI = 1; vrI < tempVar.length; vrI++) {
+                value = value[tempVar[vrI]]; //finds matching parameter
+                
+                // if parameter does not exists
+                if (value == undefined) {
+                    var subFunc = dict[tempVars[i]]; // try to find function from user defined functions
+
+                    // if user did not define this function
+                    // try to find function from pre defined functions
+                    if (subFunc == undefined) {
+                        subFunc = preFuncs[tempVar[vrI]]; // when even this does not match that crash
+                    }
+                    // rewrite value to its default
+                    value = match.groups[var0];
+                    // runs found function
+                    value = subFunc(value);
+                }
+            }
+            // inserts value
+            tempCopy = tempCopy.replaceAll(`\$${tempVars[i]}\$`, value);
+        }
+        str = str.replaceAt(match.index, match[0], tempCopy);
     }
-    else {
-        sourceDiv.remove();
-        contentsDiv.style.visibility = "visible";
-    }
+    return str;
 }
 
-document.addEventListener('keydown', (event) => {
-    if (event.key == "p") {
-        source();
+function matchFirst(str, reg, replace="", to="") {
+    var arr = str.match(reg);
+    if (arr == null) return str;
+    if (replace == "") return arr[0];
+    return arr[0].replaceAll(replace, to);
+}
+
+function matchAll(str, reg, replace="", to="") {
+    var arr = str.match(reg);
+    if (arr == null) return [];
+    if (replace == "") return arr;
+    for (let i = 0; i < arr.length; i++) {
+        arr[i] = arr[i].replaceAll(replace, to);
     }
-}, false);
+    return arr;
+}
+
+// cool funkce
+String.prototype.replaceAt = function(index, what, replacement) {
+    return this.substring(0, index) + replacement + this.substring(index + what.length);
+}
+
+function emojiImg(emoji) {
+    if (EMOJIS[emoji] == null) return emoji;
+    var emojiObj = createElement("img", null, "", [
+        {"name": "src", "value": EMOJIS[emoji]},
+        {"name": "class", "value": "emojiImg"}
+    ]);
+
+    return emojiObj.outerHTML;
+}
 
 
 // MDCONVERTER.JS
@@ -2052,6 +2092,44 @@ function scrollToAfter() {
 }
 
 
+// GETMD.JS
+
+var mdUrl = "";
+async function getMd(url) {
+    mdUrl = url;
+    var response = await callEndpoint("GET", url);
+    convert(response);
+}
+
+async function source() {
+    var contentsDiv = document.getElementById("contentsId");
+    var sourceDiv = document.getElementById("source");
+    if (sourceDiv == null) {
+        contentsDiv.style.visibility = "hidden";
+        var d = document.getElementById("d");
+        var sourceDiv = createElement("div", d, "", [
+            {"name": "id", "value": "source"},
+            {"name": "class", "value": "main"}
+        ]);
+
+        var response = await callEndpoint("GET", mdUrl);
+        if (response.ERROR == null) {
+            createElement("pre", sourceDiv, response);
+        }
+    }
+    else {
+        sourceDiv.remove();
+        contentsDiv.style.visibility = "visible";
+    }
+}
+
+document.addEventListener('keydown', (event) => {
+    if (event.key == "p") {
+        source();
+    }
+}, false);
+
+
 // ONSCROLLMAN.JS
 
 function onScrollDiv(e) {
@@ -2059,109 +2137,31 @@ function onScrollDiv(e) {
 }
 
 
-// REPLACER.JS
+// CODEFORMATER.JS
 
-var preFuncs = {
-    "lowerCase": function(vl){return vl.toLowerCase();},
-    "upperCase": function(vl){return vl.toUpperCase();},
-    "strip": function(vl){return vl.trim();},
-    "emoji": function(vl){return emojiImg(vl);},
-    "id": function(vl){
-        vl = vl.replaceAll(/:[a-z0-9_]+:/g, "");
-        vl = vl.trim().replaceAll(/[\.\/\*\']/g, "").replaceAll(" ", "-").toLowerCase();//.replaceAll(" ", "-").replaceAll(".", "").replaceAll("/", "").toLowerCase();
-        return vl;
-    },
-    "checkBox": function(vl){
-        if (vl == "x") return emojiImg("heavy_check_mark");
-        return emojiImg("x");
-    },
-    "len": function(vl){
-        let len = vl.length;
-        if (len > 3) return 3;
-        return len;
-    }
-}
+function formatCode() {
+    
+    var pres = document.body.getElementsByTagName("pre");
+    for (let i = 0; i < pres.length; i++) {
+        var pre = pres[i];
+        var clsList = pre.classList;
 
-function rplcReg(str, reg, temp, maxIters=-1, dict={}) {
-    // finds variable names from temp
-    var tempVars = matchAll(temp, /\$[a-zA-Z0-9\.]+\$/g, /[\$]/g);
-
-    var iter = 0;
-    while (true) {
-        if (iter == maxIters || iter > 1000) break;
-        iter++;
-        var tempCopy = temp;
-        var match = reg.exec(str);
-        if (match == null) break; // no more matches
-
-        if (str.startsWith("buffer times")) {
-            console.log(match);
+        if (clsList.contains("language-json")) {
+            pre.innerHTML = formatJson(pre.innerHTML);
         }
-
-        //runs through all variables from temp
-        for (let i = 0; i < tempVars.length; i++) {
-            // searching for advanced variables (title.length...)
-            var tempVar = tempVars[i].split("."); 
-            var var0 = tempVar[0];
-            var value = match.groups[var0];
-            
-            // runs through all variable parameters (.length, .id, .emoji ...)
-            for (let vrI = 1; vrI < tempVar.length; vrI++) {
-                value = value[tempVar[vrI]]; //finds matching parameter
-                
-                // if parameter does not exists
-                if (value == undefined) {
-                    var subFunc = dict[tempVars[i]]; // try to find function from user defined functions
-
-                    // if user did not define this function
-                    // try to find function from pre defined functions
-                    if (subFunc == undefined) {
-                        subFunc = preFuncs[tempVar[vrI]]; // when even this does not match that crash
-                    }
-                    // rewrite value to its default
-                    value = match.groups[var0];
-                    // runs found function
-                    value = subFunc(value);
-                }
-            }
-            // inserts value
-            tempCopy = tempCopy.replaceAll(`\$${tempVars[i]}\$`, value);
+        else if (clsList.contains("language-html")) {
+            pre.innerHTML = formatHtml(pre.innerHTML);
         }
-        str = str.replaceAt(match.index, match[0], tempCopy);
+        else if (clsList.contains("language-assembler")) {
+            pre.innerHTML = formatAsm(pre.innerHTML);
+        }
+        else {
+            pre.innerHTML = formatPython(pre.innerHTML);
+        }
+        /*else if (clsList.contains("language-sql")) {
+            pre.innerHTML = formatSql(pre.innerHTML);
+        }*/
     }
-    return str;
-}
-
-function matchFirst(str, reg, replace="", to="") {
-    var arr = str.match(reg);
-    if (arr == null) return str;
-    if (replace == "") return arr[0];
-    return arr[0].replaceAll(replace, to);
-}
-
-function matchAll(str, reg, replace="", to="") {
-    var arr = str.match(reg);
-    if (arr == null) return [];
-    if (replace == "") return arr;
-    for (let i = 0; i < arr.length; i++) {
-        arr[i] = arr[i].replaceAll(replace, to);
-    }
-    return arr;
-}
-
-// cool funkce
-String.prototype.replaceAt = function(index, what, replacement) {
-    return this.substring(0, index) + replacement + this.substring(index + what.length);
-}
-
-function emojiImg(emoji) {
-    if (EMOJIS[emoji] == null) return emoji;
-    var emojiObj = createElement("img", null, "", [
-        {"name": "src", "value": EMOJIS[emoji]},
-        {"name": "class", "value": "emojiImg"}
-    ]);
-
-    return emojiObj.outerHTML;
 }
 
 
@@ -2220,92 +2220,6 @@ function formatAsm(str) {
 
     return str;
 } 
-
-
-// HTML.JS
-
-function formatHtml(str) {
-
-    var lines = str.split("\n");
-    str = "";
-
-    for (let i = 0; i < lines.length; i++) {
-        var line = lines[i];
-        
-        line = line.replaceAll("<", "&lt;");
-        line = line.replaceAll(">", "&gt;");
-
-        line = line.replaceAll("&lt;script", "&lt;<span class=keyword>script</span>");
-        line = line.replaceAll("&lt;/script&gt;", "&lt;<span class=keyword>/script</span>&gt;");
-
-        line = rplcReg(line, /\&lt;\!--(?<comment>.*)--\&gt;/, "<span class=comment>&lt;!--$comment$--&gt;</span>");
-
-        str += line + " <br>";
-    }
-    return str;
-}
-
-
-// JSON.JS
-
-function formatJson(str) {
-    
-    //console.log(str);
-    var lines = str.split("\n");
-    str = "";
-    for (let i = 0; i < lines.length; i++) {
-        var line = lines[i];
-
-        // multiline comment
-        rsp = multiLine(lines, "/*", "*/", "multiline_comment", i);
-        if (rsp[2]) {
-            str += rsp[0];
-            i = rsp[1];
-            continue;
-        }
-
-        line = rplcReg(line, /(?<key>".*"):(?<value>.*),*/, "<span class=keyword>$key$</span>: $value.getType$", 1,
-        {
-            "value.getType": function(vl){return getType(vl);}
-        });
-
-        // one line comments
-        line = rplcReg(line, /(?<comment>\/\/.*)/, "<span class=comment>$comment$</span>", 1);
-
-        str += line + "<br>";
-    }
-
-    return str;
-}
-
-function getType(value) {
-    var regStr = RegExp(/".*"/);
-    var regNum = RegExp(/\d+/);
-
-    var cls = "bool";
-    if (regStr.test(value)) cls = "string";
-    else if (regNum.test(value)) cls = "number";
-
-    var comma = "";
-    if (value.trim().endsWith(",")) {
-        comma = ",";
-        value = value.slice(0, -1); 
-    }
-
-    var bracket = "";
-    if (value.trim().startsWith("{")) {
-        bracket = "{";
-        value = value.replace("{", "");
-    }
-    var bracket = "";
-    if (value.trim().startsWith("[")) {
-        bracket = "[";
-        value = value.replace("[", "");
-    }
-
-    return `${bracket}<span class=${cls}>${value.trim()}</span>${comma}`;
-}
-
 
 
 // PYTHON.JS
@@ -2396,6 +2310,92 @@ function args(args, cls="function_variable") {
         }
     }
     return newStr;
+}
+
+
+
+// HTML.JS
+
+function formatHtml(str) {
+
+    var lines = str.split("\n");
+    str = "";
+
+    for (let i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        
+        line = line.replaceAll("<", "&lt;");
+        line = line.replaceAll(">", "&gt;");
+
+        line = line.replaceAll("&lt;script", "&lt;<span class=keyword>script</span>");
+        line = line.replaceAll("&lt;/script&gt;", "&lt;<span class=keyword>/script</span>&gt;");
+
+        line = rplcReg(line, /\&lt;\!--(?<comment>.*)--\&gt;/, "<span class=comment>&lt;!--$comment$--&gt;</span>");
+
+        str += line + " <br>";
+    }
+    return str;
+}
+
+
+// JSON.JS
+
+function formatJson(str) {
+    
+    //console.log(str);
+    var lines = str.split("\n");
+    str = "";
+    for (let i = 0; i < lines.length; i++) {
+        var line = lines[i];
+
+        // multiline comment
+        rsp = multiLine(lines, "/*", "*/", "multiline_comment", i);
+        if (rsp[2]) {
+            str += rsp[0];
+            i = rsp[1];
+            continue;
+        }
+
+        line = rplcReg(line, /(?<key>".*"):(?<value>.*),*/, "<span class=keyword>$key$</span>: $value.getType$", 1,
+        {
+            "value.getType": function(vl){return getType(vl);}
+        });
+
+        // one line comments
+        line = rplcReg(line, /(?<comment>\/\/.*)/, "<span class=comment>$comment$</span>", 1);
+
+        str += line + "<br>";
+    }
+
+    return str;
+}
+
+function getType(value) {
+    var regStr = RegExp(/".*"/);
+    var regNum = RegExp(/\d+/);
+
+    var cls = "bool";
+    if (regStr.test(value)) cls = "string";
+    else if (regNum.test(value)) cls = "number";
+
+    var comma = "";
+    if (value.trim().endsWith(",")) {
+        comma = ",";
+        value = value.slice(0, -1); 
+    }
+
+    var bracket = "";
+    if (value.trim().startsWith("{")) {
+        bracket = "{";
+        value = value.replace("{", "");
+    }
+    var bracket = "";
+    if (value.trim().startsWith("[")) {
+        bracket = "[";
+        value = value.replace("[", "");
+    }
+
+    return `${bracket}<span class=${cls}>${value.trim()}</span>${comma}`;
 }
 
 
