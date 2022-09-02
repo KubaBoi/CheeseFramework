@@ -6,6 +6,7 @@ import time
 import sys
 import subprocess
 import base64
+import __main__
 
 from Cheese.cheeseController import CheeseController
 from Cheese.variables import Variables
@@ -142,17 +143,11 @@ class AdminManager:
 
     @staticmethod
     def __restartServer(server):
-        Logger.adminInfo(20*"=", silence=False)
-        Logger.adminInfo("REQUEST FOR SERVER RESTART SUCCESSFULLY RECIEVED", silence=False)
-        Logger.adminInfo("Restart will start in 5 seconds", silence=False)
-        time.sleep(5)
-        for root, dirs, files in os.walk(ResMan.src()):
-            server.server.socket.close()
-            time.sleep(5)
-            if (os.name == "nt"):
-                subprocess.call(f"{sys.executable} \"{ResMan.joinPath(ResMan.src(), files[0])}\"")
-            else:
-                subprocess.call(f"{sys.executable} \"{ResMan.joinPath(ResMan.src(), files[0])}\"", shell=True)
+        server.server.socket.close()
+        if (os.name == "nt"):
+            subprocess.call(f"{sys.executable} \"{__main__.__file__}\"")
+        else:
+            subprocess.call(f"{sys.executable} \"{__main__.__file__}\"", shell=True)
 
     @staticmethod
     def __shutDown(server):

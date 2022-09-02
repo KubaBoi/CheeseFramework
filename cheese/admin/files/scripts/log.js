@@ -1,4 +1,5 @@
 debug = false;
+var updateTime = 500;
 
 setTitle();
 async function setTitle() {
@@ -46,7 +47,7 @@ async function buildLogTable() {
     }
 }
 
-if (typeof dontRunScript == `undefined`) updateInterval = setInterval(update, 1000);
+if (typeof dontRunScript == `undefined`) updateInterval = setInterval(update, updateTime);
 var oldC = 0;
 var oldScrollHeight = 0;
 function update() {
