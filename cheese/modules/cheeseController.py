@@ -93,8 +93,10 @@ class CheeseController:
 
         `dict` is tested dictionary
         """
-        if (CheeseController.validateJson(keys, dict)): return
-        raise BadRequest("Wrong json structure")
+        for key in keys:
+            if (key not in dict):
+                raise BadRequest(f"Wrong json structure: {key} is missing")
+        return
 
     @staticmethod
     def getPath(url) -> str:
