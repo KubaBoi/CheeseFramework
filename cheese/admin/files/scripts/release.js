@@ -13,6 +13,6 @@ async function setRelease() {
 
     var response = await getRelease();
     if (!response.ERROR) {
-        lbl.innerHTML = "Cheese Framework (v" + response.RELEASE + ")"
+        lbl.innerHTML = "Cheese Framework v(" + response.RELEASE + ")"
     }
 }

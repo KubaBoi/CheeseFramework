@@ -78,6 +78,8 @@ async function checkLife() {
             updateInterval = setInterval(update, updateTime);
             clearInterval(textInterval);
             document.getElementById(`restartButt`).disabled = false;
+            buildSettingTable();
+            setRelease();
             alert(`Server has been restarted :)`);
         },
         (err) => {
