@@ -143,15 +143,19 @@ class AdminManager:
         CheeseController.sendResponse(server, (bytes(json.dumps(js), "utf-8"), 200, {"Content-type": "text/html"}))
 
     @staticmethod
-    def __getSettings(server):
-        js = Settings.loadJson()
-        CheeseController.sendResponse(server, (bytes(json.dumps(js), "utf-8"), 200, {"Content-type": "text/html"}))
-
-    @staticmethod
     def __restartServer(server):
         restartThread = threading.Thread(target=AdminManager.__restart, args=(server,))
         restartThread.start()
         CheeseController.sendResponse(server, CheeseController.createResponse({}))
+
+    @staticmethod
+    def __restart(server):
+        time.sleep(0.5)
+        server.server.socket.close()
+        if (os.name == "nt"):
+            subprocess.call(f"{sys.executable} \"{__main__.__file__}\"")
+        else:
+            subprocess.call(f"{sys.executable} \"{__main__.__file__}\"", shell=True)
 
     @staticmethod
     def __shutDown(server):

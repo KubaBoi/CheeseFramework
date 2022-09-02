@@ -974,6 +974,12 @@
     {
         "AdminManager": {
             "file": "adminManager.py",
+            "method": "_AdminManager__restart"
+        }
+    },
+    {
+        "AdminManager": {
+            "file": "adminManager.py",
             "method": "_AdminManager__restartServer"
         }
     },
