@@ -57,7 +57,7 @@ class CheeseBurger:
 
             # check licence
             CheeseBurger.loadLicence()
-            Logger.warning(f"Builded with CheeseFramework v({Metadata.cheeseRelease})")
+            Logger.warning(f"Builded with CheeseFramework v({Metadata.cheeseRelease})", silence=False)
             print()
 
             # connect to database

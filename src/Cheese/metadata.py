@@ -13,9 +13,9 @@ class Metadata:
 
     maxChar = 1114111
 
-    # this functionality has been added in v(1.4.62) 
-    # so if CHEESE_VERSION is missing in metadata the build version is less than 1.4.62
-    cheeseRelease = "ˇ1.4.62" 
+    # this functionality has been added in v(1.4.63) 
+    # so if CHEESE_VERSION is missing in metadata the build version is less than 1.4.63
+    cheeseRelease = "ˇ1.4.63" 
     
     repos = None
     contr = None
