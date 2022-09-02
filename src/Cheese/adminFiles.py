@@ -36,7 +36,8 @@ class AdminFiles:
 </head>
 <body>
     <h1>CHAdmin</h1>
-    <label id="release"></label>
+    <label id="release"></label><br>
+    <label id="appRelease"></label>
     <div id="control" class="controlDiv">
         <button onclick="shutdown()" id="shutdownButt" style="background-color:#ff0000">Shutdown</button>
         <button onclick="restart()" id="restartButt">Restart server</button>
@@ -247,6 +248,8 @@ async function checkLife() {
             updateInterval = setInterval(update, updateTime);
             clearInterval(textInterval);
             document.getElementById(`restartButt`).disabled = false;
+            buildSettingTable();
+            setRelease();
             alert(`Server has been restarted :)`);
         },
         (err) => {
@@ -265,13 +268,16 @@ async function pullChanges() {
 	admin_files_scripts_settings_js = """
 async function buildSettingTable() {
     response = await callEndpoint("GET", "/admin/getSettings");
-    if (!response.ERROR) {
+    if (response.ERROR == null) {
+        var table = document.querySelector("#settingsTable");
+        table.innerHTML = "";
         for (const key in response) {
             if (response.hasOwnProperty(key)) {
                 addSetting(key, response[key]);
             }
         }
         document.title = "CHAdmin - " + response.name;
+        document.getElementById("appRelease").innerHTML = `${response.name} v(${response.version})`;
     }
 }
 
@@ -308,7 +314,7 @@ async function setRelease() {
 
     var response = await getRelease();
     if (!response.ERROR) {
-        lbl.innerHTML = "Cheese Framework (v" + response.RELEASE + ")"
+        lbl.innerHTML = "Cheese Framework v(" + response.RELEASE + ")"
     }
 }"""
 
