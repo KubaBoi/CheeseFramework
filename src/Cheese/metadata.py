@@ -15,7 +15,7 @@ class Metadata:
 
     # this functionality has been added in v(1.4.63) 
     # so if CHEESE_VERSION is missing in metadata the build version is less than 1.4.63
-    cheeseRelease = "ˇ1.4.63" 
+    cheeseRelease = "unknown but less than 1.4.63" 
     
     repos = None
     contr = None
