@@ -60,7 +60,7 @@ function formatDatetime(datetime, includeSeconds=true) {
 
     let year = datetime.getFullYear();
     let date = datetime.getDate();
-    let month = datetime.getMonth();
+    let month = datetime.getMonth()+1;
 
     let hours = datetime.getHours();
     let minutes = datetime.getMinutes();
@@ -80,7 +80,7 @@ function formatDate(datetime, includeYear=true) {
 
     let year = datetime.getFullYear();
     let date = datetime.getDate();
-    let month = datetime.getMonth();
+    let month = datetime.getMonth()+1;
 
     let dateString = `${date}.${month}`;
     if (includeYear) {
