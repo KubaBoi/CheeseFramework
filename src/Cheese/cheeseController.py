@@ -93,10 +93,12 @@ class CheeseController:
 
         `dict` is tested dictionary
         """
+        missingKeys = ""
         for key in keys:
             if (key not in dict):
-                raise BadRequest(f"Wrong json structure: {key} is missing")
-        return
+                missingKeys += key + " "
+        if (missingKeys != ""):
+            raise BadRequest(f"Wrong json structure. Missing keys: {missingKeys}")
 
     @staticmethod
     def getPath(url) -> str:
