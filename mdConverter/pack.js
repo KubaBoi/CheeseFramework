@@ -1934,8 +1934,6 @@ function emojiImg(emoji) {
 
 var debug = false;
 
-window.addEventListener("load", scrollToAfter);
-
 function convert(str) {
     var mdDiv = document.getElementById("md");
     clearTable(mdDiv);
@@ -2019,6 +2017,8 @@ function convert(str) {
     contents();
     changeWelcome();
     images();
+
+    window.addEventListener("load", scrollToAfter);
 }
 
 function headers(str) {
