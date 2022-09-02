@@ -81,6 +81,7 @@ class Metadata:
         Metadata.cleanInits()
         keys = data.keys()
         for key in keys:
+            if (key == "CHEESE_VERSION"): continue
             
             modules = data[key]
             for moduleKey in modules.keys():
