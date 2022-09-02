@@ -1,0 +1,338 @@
+
+/* MDSTYLE.CSS */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: rgb(13, 17, 23);
+    color: rgb(201, 209, 217);
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+}
+
+.d {
+    display: flex;
+}
+
+.main {
+    margin: auto;
+    margin-top: 0;
+    width: 50%;
+    border-color: rgb(48, 54, 61);
+    border-width: 1px;
+    border-style: solid;
+    padding: 50px;
+}
+
+hr {
+    border-color: rgb(48, 54, 61);
+}
+
+code {
+    padding: .2em .4em;
+    margin-bottom: 0.3em;
+    font-size: 85%;
+    background-color: rgb(53, 58, 65);
+    border-radius: 6px;
+    white-space:normal;
+}
+
+pre {
+    position: relative;
+    font-family: Consolas;
+    background-color: rgb(22, 27, 34);
+    border-radius: 5px;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.emojiImg {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.contentImg {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+a {
+    color: rgb(56, 165, 255);
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.contents {
+    margin-left: 0;
+    top: 50px;
+    position: fixed;
+    width: 20%;
+    overflow-y: auto;
+    height: 90%;
+}
+
+.contents p {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.contents li {
+    display: block;
+    position: relative;
+    margin-bottom: 0.3em;
+}
+
+li { 
+    /*display: block;*/
+    position: relative;
+    margin-bottom: 0.3em;
+}
+
+.numberedList {
+    list-style-type: none;
+}
+
+
+
+/*scroll*/
+
+/* width */
+::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+/* STYLE.CSS */
+
+// MDSTYLE.CSS
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: rgb(13, 17, 23);
+    color: rgb(201, 209, 217);
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+}
+
+.d {
+    display: flex;
+}
+
+.main {
+    margin: auto;
+    margin-top: 0;
+    width: 50%;
+    border-color: rgb(48, 54, 61);
+    border-width: 1px;
+    border-style: solid;
+    padding: 50px;
+}
+
+hr {
+    border-color: rgb(48, 54, 61);
+}
+
+code {
+    padding: .2em .4em;
+    margin-bottom: 0.3em;
+    font-size: 85%;
+    background-color: rgb(53, 58, 65);
+    border-radius: 6px;
+    white-space:normal;
+}
+
+pre {
+    position: relative;
+    font-family: Consolas;
+    background-color: rgb(22, 27, 34);
+    border-radius: 5px;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.emojiImg {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.contentImg {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+a {
+    color: rgb(56, 165, 255);
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.contents {
+    margin-left: 0;
+    top: 50px;
+    position: fixed;
+    width: 20%;
+    overflow-y: auto;
+    height: 90%;
+}
+
+.contents p {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.contents li {
+    display: block;
+    position: relative;
+    margin-bottom: 0.3em;
+}
+
+li { 
+    /*display: block;*/
+    position: relative;
+    margin-bottom: 0.3em;
+}
+
+.numberedList {
+    list-style-type: none;
+}
+
+
+
+/*scroll*/
+
+/* width */
+::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+// GENERAL.CSS
+
+.number {
+    color: rgb(91, 108, 156);
+}
+
+.string {
+    color: rgb(153, 109, 189);
+}
+
+.bool {
+    color: rgb(158, 65, 135)
+}
+
+.keyword {
+    color: rgb(255, 148, 25);
+}
+
+.comment {
+    color: rgb(47, 150, 47);
+}
+
+.multiline_comment {
+    color: rgb(182, 69, 69);
+}
+
+.annotation {
+    color: rgb(210, 168, 255);
+}
+
+.class {
+    color: rgb(165, 214, 255);
+}
+
+.function {
+    color: rgb(121, 192, 255);
+}
+
+.cheese_annotation {
+    color: rgb(170, 136, 43);
+}
+
+.function_variable {
+    color: rgb(247, 175, 93);
+}
+
+
+
+
+/* GENERAL.CSS */
+
+.number {
+    color: rgb(91, 108, 156);
+}
+
+.string {
+    color: rgb(153, 109, 189);
+}
+
+.bool {
+    color: rgb(158, 65, 135)
+}
+
+.keyword {
+    color: rgb(255, 148, 25);
+}
+
+.comment {
+    color: rgb(47, 150, 47);
+}
+
+.multiline_comment {
+    color: rgb(182, 69, 69);
+}
+
+.annotation {
+    color: rgb(210, 168, 255);
+}
+
+.class {
+    color: rgb(165, 214, 255);
+}
+
+.function {
+    color: rgb(121, 192, 255);
+}
+
+.cheese_annotation {
+    color: rgb(170, 136, 43);
+}
+
+.function_variable {
+    color: rgb(247, 175, 93);
+}
+
