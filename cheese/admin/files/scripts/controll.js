@@ -14,7 +14,7 @@ function shutdown() {
     }
 }
 
-function restart() {
+async function restart() {
     if (confirm(`Do you really want to restart your application?`)) {
         clearInterval(updateInterval);
         document.getElementById(`restartButt`).disabled = true;
