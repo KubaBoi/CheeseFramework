@@ -152,6 +152,7 @@ class AdminManager:
     def __restart(server):
         time.sleep(0.5)
         server.server.socket.close()
+        time.sleep(1)
         if (os.name == "nt"):
             subprocess.call(f"{sys.executable} \"{__main__.__file__}\"")
         else:
