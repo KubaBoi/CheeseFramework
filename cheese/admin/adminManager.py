@@ -7,6 +7,7 @@ import sys
 import subprocess
 import base64
 import __main__
+import threading
 
 from Cheese.cheeseController import CheeseController
 from Cheese.variables import Variables
@@ -142,12 +143,15 @@ class AdminManager:
         CheeseController.sendResponse(server, (bytes(json.dumps(js), "utf-8"), 200, {"Content-type": "text/html"}))
 
     @staticmethod
+    def __getSettings(server):
+        js = Settings.loadJson()
+        CheeseController.sendResponse(server, (bytes(json.dumps(js), "utf-8"), 200, {"Content-type": "text/html"}))
+
+    @staticmethod
     def __restartServer(server):
-        server.server.socket.close()
-        if (os.name == "nt"):
-            subprocess.call(f"{sys.executable} \"{__main__.__file__}\"")
-        else:
-            subprocess.call(f"{sys.executable} \"{__main__.__file__}\"", shell=True)
+        restartThread = threading.Thread(target=AdminManager.__restart, args=(server,))
+        restartThread.start()
+        CheeseController.sendResponse(server, CheeseController.createResponse({}))
 
     @staticmethod
     def __shutDown(server):

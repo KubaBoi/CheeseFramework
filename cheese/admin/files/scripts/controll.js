@@ -18,13 +18,17 @@ function restart() {
     if (confirm(`Do you really want to restart your application?`)) {
         clearInterval(updateInterval);
         document.getElementById(`restartButt`).disabled = true;
-        apiFunction(`/admin/restart`);
-        prepareRestart();
-        setTimeout(checkLife, updateTime);
+        textInterval = setInterval(function() { loadingText(`Waiting for response from server`); }, 200);
+        let response = await apiFunction(`/admin/restart`);
+        if (response.ERROR == null) {
+            prepareRestart();
+            setTimeout(checkLife, 1000);
+        }
     }
 }
 
 function prepareRestart() {
+    clearInterval(textInterval);
     textInterval = setInterval(function() { loadingText(`Server is restarting`); }, 200);
 }
 var dots = 0;
