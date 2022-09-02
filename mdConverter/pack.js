@@ -2018,7 +2018,7 @@ function convert(str) {
     changeWelcome();
     images();
 
-    window.addEventListener("load", scrollToAfter);
+    setTimeout(scrollToAfter, 1000);
 }
 
 function headers(str) {
