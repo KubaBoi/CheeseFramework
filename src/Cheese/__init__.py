@@ -1,3 +1,5 @@
+#cheese
+
 from Cheese.variables import Variables
 
 print(f"""
