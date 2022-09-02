@@ -1,8 +1,8 @@
 #cheese
 
 import os
-import json
 
+from Cheese.variables import Variables
 from Cheese.resourceManager import ResMan
 from Cheese.Logger import Logger
 from Cheese.metadata import Metadata
@@ -27,6 +27,7 @@ class ProjectBuilder:
     def build(self):
         try:
             self.dictJson = {
+                "CHEESE_VERSION": Variables.release,
                 "CONTROLLERS": {}, 
                 "REPOSITORIES": {}, 
                 "TESTS": {},

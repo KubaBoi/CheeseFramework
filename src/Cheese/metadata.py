@@ -3,7 +3,6 @@
 import os
 import json
 import base64
-import struct
 
 from Cheese.resourceManager import ResMan
 from Cheese.Logger import Logger
@@ -13,6 +12,10 @@ from Cheese.appSettings import Settings
 class Metadata:
 
     maxChar = 1114111
+
+    # this functionality has been added in v(1.4.62) 
+    # so if CHEESE_VERSION is missing in metadata the build version is less than 1.4.62
+    cheeseRelease = "ˇ1.4.62" 
     
     repos = None
     contr = None
@@ -24,6 +27,9 @@ class Metadata:
     def loadMetadata():
         try:
             data = Metadata.read()
+
+            if ("CHEESE_VERSION" in data.keys()):
+                Metadata.cheeseRelease = data['CHEESE_VERSION']
 
             Metadata.repos = data["REPOSITORIES"]
             Metadata.contr = data["CONTROLLERS"]
