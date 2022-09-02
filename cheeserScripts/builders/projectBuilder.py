@@ -70,7 +70,8 @@ class ProjectBuilder:
         queries = 0
         commits = 0
         for key in data.keys():
-            if (key == "SECRETS" or
+            if (key == "CHEESE_VERSION" or
+                key == "SECRETS" or
                 key == "ADMIN" or 
                 key == "SECURITY"): continue
                 
