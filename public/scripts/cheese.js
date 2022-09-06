@@ -506,9 +506,9 @@ function formatDate(datetime, includeYear=true) {
     let date = datetime.getDate();
     let month = datetime.getMonth()+1;
 
-    let dateString = `${date}.${month}`;
+    let dateString = `${date}.${month}.`;
     if (includeYear) {
-        dateString += `.${year}`;
+        dateString += `${year}`;
     }
     return dateString;
 }
