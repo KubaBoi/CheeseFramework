@@ -1,21 +1,32 @@
+#cheese
+
 import json
-from Cheese.cheese import CheeseBurger 
+import os
+
 from Cheese.metadata import Metadata 
 from Cheese.resourceManager import ResMan
+from Cheese.appSettings import Settings
 
 class Decode:
 
-    def decode():
-        CheeseBurger.init()
-
-        key = "jauukfnd" # key to decode data
+    def decode(key):
+        ResMan.setPath(os.getcwd())
+        setattr(Settings, "allowDebug", True)
 
         with open(ResMan.metadata(), "r", encoding="utf-8") as f:
             rawData = f.read() # loads data from file coded base64 
 
         codedData = Metadata.decode64(rawData) # decode base64
-        rawJsonData = Metadata.decode(codedData, key) # decode by your key
+        try:
+            rawJsonData = Metadata.decode(codedData, key) # decode by your key
+        except PermissionError as e:
+            print("Wrong decode key")
+            return
+        except Exception as e:
+            print("Unknown error occured")
+            print(e)
+            return
         jsonData = json.loads(rawJsonData) # loads json from string into dictionary
 
-        with open("metadata.json", "w") as f:
-            f.write(json.dumps(jsonData))
+        with open(ResMan.root("metadata.json"), "w") as f:
+            f.write(json.dumps(jsonData, sort_keys=True, indent=4))

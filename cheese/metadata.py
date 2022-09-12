@@ -225,9 +225,9 @@ class Metadata:
                 code += Metadata.maxChar
             decoded += chr(code)
 
-            if (i == len(key)-1 or len(key) > len(data)):
-                if (decoded == key):
-                    decoded = ""
+            if (i == len(key) or len(key) > len(data)):
+                if (decoded[0:-1] == key and decoded[-1] == "{"):
+                    decoded = "{"
                 else:
                     raise PermissionError("Metadata has not been able to be decoded because decode key is invalid")
         if (key == "Default"):
