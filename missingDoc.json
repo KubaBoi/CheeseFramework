@@ -540,6 +540,12 @@
         }
     },
     {
+        "Decode": {
+            "file": "decode.py",
+            "method": "decode"
+        }
+    },
+    {
         "FileFilter": {
             "file": "Logger.py",
             "method": "filter"
