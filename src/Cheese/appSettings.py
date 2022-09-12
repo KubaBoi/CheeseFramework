@@ -30,13 +30,13 @@ class Settings:
 
     @staticmethod
     def loadJson():
-        with open(os.path.join(ResMan.root(), "appSettings.json"), "r") as f:
+        with open(os.path.join(ResMan.root(), "appSettings.json"), "r", encoding="utf-8") as f:
             ret = json.loads(f.read())
         return ret
 
     @staticmethod
     def saveJson(jsonConf):
-        with open(os.path.join(ResMan.root(), "appSettings.json"), "w") as f:
+        with open(os.path.join(ResMan.root(), "appSettings.json"), "w", encoding="utf-8") as f:
             f.write(json.dumps(jsonConf))
 
     @staticmethod

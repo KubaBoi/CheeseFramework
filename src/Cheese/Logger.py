@@ -224,7 +224,7 @@ class Logger:
                     table += f"<td><button onclick=\"location='/admin/logs/{name}'\">Show log</button></td>"
                     status = f"<td class='fail'>CLOSED</td>"
                 
-                with open(ResMan.joinPath(ResMan.logs(), name), "r") as log:
+                with open(ResMan.joinPath(ResMan.logs(), name), "r", encoding="utf-8") as log:
                     logs = log.readlines()
                     if (len(logs) > 0): 
                         for i in range(1, len(logs)):
@@ -267,7 +267,7 @@ class Logger:
             if (sorted(files)[-1] == logName + ".html"):
                 data = temp
             else:
-                with open(f"{log}", "r") as f:
+                with open(f"{log}", "r", encoding="utf-8") as f:
                     data = temp
                     data = data.replace('class="logTable">', 'class="logTable">' + f.read())
                     data = data.replace("Cheese log - ", "Cheese log - " + 

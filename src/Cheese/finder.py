@@ -7,7 +7,7 @@ class Finder:
     @staticmethod
     def isSomething(file, type):
         if (not file.endswith(".py")): return False
-        with open(file, "r") as f:
+        with open(file, "r", encoding="utf-8") as f:
             data = f.read()
         
         if (data.find("#@" + type) != -1):
@@ -35,7 +35,7 @@ class Finder:
 
     def loadFile(self, file):
         self.file = file
-        with open(file, "r") as f:
+        with open(file, "r", encoding="utf-8") as f:
             dLines= f.readlines()
 
         self.dataLines = []

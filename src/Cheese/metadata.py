@@ -94,11 +94,11 @@ class Metadata:
                 
                 splited = path.split("/")
                 for i, pth in enumerate(splited):
-                    with open(os.path.join(*splited[:i], pth, "__init__.py"), "a") as f:
+                    with open(os.path.join(*splited[:i], pth, "__init__.py"), "a", encoding="utf-8") as f:
                         if (len(splited) == 1 and splited[0] == ""): continue
                         f.write(f"from {'.'.join(splited)} import *\n")
 
-                with open(os.path.join(ResMan.root(), path, "__init__.py"), "a") as f:
+                with open(os.path.join(ResMan.root(), path, "__init__.py"), "a", encoding="utf-8") as f:
                     f.write(f"from {module['FILE'].replace('/', '.')} import {moduleKey}\n")
 
     @staticmethod
@@ -200,7 +200,7 @@ class Metadata:
         key = "Default"
         secPath = ResMan.root("secretPass")
         if (os.path.exists(secPath)):
-            with open(secPath, "r") as f:
+            with open(secPath, "r", encoding="utf-8") as f:
                 key = f.read().strip()
         return key
 
