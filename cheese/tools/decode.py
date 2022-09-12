@@ -30,3 +30,5 @@ class Decode:
 
         with open(ResMan.root("metadata.json"), "w") as f:
             f.write(json.dumps(jsonData, sort_keys=True, indent=4))
+
+        print(f"File has been generated: {ResMan.root('metadata.json')}")
