@@ -12,6 +12,10 @@ missingPath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), "..", "m
 
 sys.path.insert(0, sourcePath)
 
+now = datetime.now(timezone.utc) + timedelta(hours=2)
+releaseDate = now.strftime("%y.%m.%d.%H.%M")
+print(f"Documentation build {releaseDate}")
+
 def findClassNames(lines):
     classes = []
     for line in lines:
@@ -96,8 +100,6 @@ for root, dirs, files in os.walk(sourcePath):
 with open(missingPath, "w") as f:
     f.write(json.dumps(missingDoc, indent=4, sort_keys=True))
 
-now = datetime.now(timezone.utc) + timedelta(hours=2)
-releaseDate = now.strftime("%y.%m.%d.%H.%M")
 with open(docPath, "w") as f:
     f.write("# CheeseFramework documentation\n\n[Back to README](https://kubaboi.github.io/CheeseFramework/)\n\n" +
     ":bangbang: This documentantion is automaticaly generated from code documentation.\n\n" +
@@ -105,8 +107,6 @@ with open(docPath, "w") as f:
     f"Cheese version v({getVersion()})\n\n" + contents + "\n\n" + docStr)
 
 shutil.rmtree(os.path.join(sourcePath, "__pycache__"))
-
-print(f"Documentation build {releaseDate}")
 
 
         
