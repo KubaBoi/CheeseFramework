@@ -338,11 +338,8 @@ class CheeseRepository:
     
     @staticmethod
     def enableAutocommit():
-        CheeseRepository.__autoCommit = True
-
-    @staticmethod
-    def resetCommit():
         CheeseRepository.__commitSql = ""
+        CheeseRepository.__autoCommit = True
 
     @staticmethod
     def toModel(repository, data):
