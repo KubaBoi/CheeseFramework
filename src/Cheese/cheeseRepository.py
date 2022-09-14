@@ -338,6 +338,7 @@ class CheeseRepository:
     
     @staticmethod
     def enableAutocommit():
+        CheeseRepository.__commitSql = ""
         CheeseRepository.__autoCommit = True
 
     @staticmethod
