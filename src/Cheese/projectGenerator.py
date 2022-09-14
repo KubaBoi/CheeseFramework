@@ -5,8 +5,6 @@ import git
 import shutil
 import stat
 
-from Cheese.resourceManager import ResMan
-
 """
 Generates structure of Cheese Application
 """
@@ -15,10 +13,12 @@ class ProjectGenerator:
 
     @staticmethod
     def generate(path, generateFiles):
+        print("Cloning template repo...")
         repo = git.Repo.clone_from("https://github.com/KubaBoi/CheeseFramework.git", path)
 
         repo.git.checkout("template")  
 
+        print("Removing .git")
         for root, dirs, files in os.walk(os.path.join(path, ".git")):  
             for dir in dirs:
                 os.chmod(os.path.join(root, dir), stat.S_IRWXU)
@@ -32,6 +32,7 @@ class ProjectGenerator:
             os.remove(os.path.join(src, "controllers", "HelloWorldController.py"))
             os.remove(os.path.join(src, "repositories", "helloRepository.py"))
 
+        print("Renaming files...")
         with open(os.path.join(path, "mainTemplate.py"), "r", encoding="utf-8") as f:
             data = f.read()
 
@@ -39,3 +40,4 @@ class ProjectGenerator:
             f.write(data)
 
         os.remove(os.path.join(path, "mainTemplate.py"))
+        print("Done :)")

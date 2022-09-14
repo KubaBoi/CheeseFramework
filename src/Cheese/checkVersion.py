@@ -18,7 +18,7 @@ class Updater:
 
         if (vers != aversion):
             print(30*"=")
-            print(f"You have got version {vers} but the latest Cheese is {aversion}")
+            print(f"You have got version {vers} but the latest stable Cheese is {aversion}")
             print("Update Cheese with command:")
             print("")
             print(f"pip install CheeseFramework=={aversion}")
