@@ -1,5 +1,9 @@
 {
-    "00ERRORS": [],
+    "00STATS": {
+        "CLASSES": 37,
+        "METHODS": 187
+    },
+    "01ERRORS": [],
     "AdminFiles": {
         "file": "adminFiles.py",
         "methods": [
