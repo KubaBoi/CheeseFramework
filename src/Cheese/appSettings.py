@@ -14,6 +14,8 @@ class that stores Cheese Application settings
 
 class Settings:
 
+    allowDB = False
+
     # load settings
     @staticmethod 
     def loadSettings():
