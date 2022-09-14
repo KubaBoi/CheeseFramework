@@ -341,6 +341,10 @@ class CheeseRepository:
         CheeseRepository.__autoCommit = True
 
     @staticmethod
+    def resetCommit():
+        CheeseRepository.__commitSql = ""
+
+    @staticmethod
     def toModel(repository, data):
         if (len(data) == 0):
             return None
