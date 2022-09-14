@@ -3,7 +3,7 @@ name: Build
 on:
   push:
     branches:
-      - development
+      - main
 
 jobs:
   build:
@@ -82,7 +82,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
-          git commit -m "${{ steps.docBBuild.outputs.commitMessage }}" -a
+          git commit -m "${{ steps.docBuild.outputs.commitMessage }}" -a
           
       - name: push changes DOC BUILD
         if: github.event.commits[0].message == 'doc build'
