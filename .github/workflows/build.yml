@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.event.commits[0].message == 'test build' || github.event.commits[0].message == 'build' || github.event.commits[0].message == 'doc build'
     steps:
 
       - name: checkout repo content
@@ -43,13 +44,9 @@ jobs:
           echo "::set-output name=commitMessage::$output"
 
       - name: Documentation build
-        if: github.event.commits[0].message == 'test build' || github.event.commits[0].message == 'build'
-        run: python3 .github/docBuild.py
-
-      - name: Only Documentation build
-        if: github.event.commits[0].message == 'doc build'
+        id: docBuild
         run: |
-          output=$(python3 .github/docBuild.py
+          output=$(python3 .github/docBuild.py)
           echo "::set-output name=commitMessage::$output"
         
       - name: Build
@@ -65,7 +62,7 @@ jobs:
         run: python3 -m twine upload dist/* -u ${{ secrets.PYPIUSERNAME }} -p ${{ secrets.PYPIPASSWORD }}
 
       - name: commit files
-        if: github.event.commits[0].message == 'test build' || github.event.commits[0].message == 'build' || github.event.commits[0].message == 'doc build'
+        if: github.event.commits[0].message == 'test build' || github.event.commits[0].message == 'build'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -73,7 +70,22 @@ jobs:
           git commit -m "${{ steps.buildPrepare.outputs.commitMessage }}" -a
           
       - name: push changes
-        if: github.event.commits[0].message == 'test build' || github.event.commits[0].message == 'build' || github.event.commits[0].message == 'doc build'
+        if: github.event.commits[0].message == 'test build' || github.event.commits[0].message == 'build'
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main  
+
+      - name: commit files DOC BUILD
+        if: github.event.commits[0].message == 'doc build'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "${{ steps.docBBuild.outputs.commitMessage }}" -a
+          
+      - name: push changes DOC BUILD
+        if: github.event.commits[0].message == 'doc build'
         uses: ad-m/github-push-action@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
