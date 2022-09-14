@@ -106,5 +106,7 @@ with open(docPath, "w") as f:
 
 shutil.rmtree(os.path.join(sourcePath, "__pycache__"))
 
+print(f"Documentation build {releaseDate}")
+
 
         
