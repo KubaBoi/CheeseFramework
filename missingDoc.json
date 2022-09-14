@@ -1,24 +1,5 @@
 {
-    "00ERRORS": [
-        {
-            "cheeseTests.py": "type object 'Settings' has no attribute 'allowDB'"
-        },
-        {
-            "cheeseServer.py": "type object 'Settings' has no attribute 'allowDB'"
-        },
-        {
-            "cheeseServer.py": "type object 'Settings' has no attribute 'allowDB'"
-        },
-        {
-            "cheeseServer.py": "type object 'Settings' has no attribute 'allowDB'"
-        },
-        {
-            "cheeseRepository.py": "type object 'Settings' has no attribute 'allowDB'"
-        },
-        {
-            "security.py": "type object 'Settings' has no attribute 'allowDB'"
-        }
-    ],
+    "00ERRORS": [],
     "AdminFiles": {
         "file": "adminFiles.py",
         "methods": [
@@ -92,6 +73,45 @@
             "initServer",
             "loadLicence",
             "serveForever"
+        ]
+    },
+    "CheeseHandler": {
+        "file": "cheeseServer.py",
+        "methods": [
+            "_CheeseHandler__log",
+            "do_AUTHHEAD",
+            "do_GET",
+            "do_POST",
+            "end_headers",
+            "finish",
+            "flush_headers",
+            "log_message",
+            "setup"
+        ]
+    },
+    "CheeseRepository": {
+        "file": "cheeseRepository.py",
+        "methods": [
+            "commit",
+            "commitType",
+            "disableAutocommit",
+            "enableAutocommit",
+            "toModel"
+        ]
+    },
+    "CheeseServerMulti": {
+        "file": "cheeseServer.py",
+        "methods": [
+            "server_close"
+        ]
+    },
+    "CheeseTests": {
+        "file": "cheeseTests.py",
+        "methods": [
+            "formatTime",
+            "getTestSign",
+            "oneTest",
+            "testAll"
         ]
     },
     "Cheeser": {
@@ -318,6 +338,12 @@
         "file": "mock.py",
         "methods": [
             "read"
+        ]
+    },
+    "Security": {
+        "file": "security.py",
+        "methods": [
+            "authenticate"
         ]
     },
     "SecurityBuilder": {
