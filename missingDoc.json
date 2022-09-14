@@ -314,26 +314,6 @@
             "preQueries"
         ]
     },
-    "ResMan": {
-        "file": "resourceManager.py",
-        "methods": [
-            "admin",
-            "convertBytes",
-            "error",
-            "getFileName",
-            "getRelativePathFrom",
-            "joinPath",
-            "logs",
-            "metadata",
-            "removeSlash",
-            "resources",
-            "root",
-            "setPath",
-            "src",
-            "tests",
-            "web"
-        ]
-    },
     "RfileMock": {
         "file": "mock.py",
         "methods": [
@@ -363,7 +343,6 @@
         "methods": [
             "loadJson",
             "loadSecrets",
-            "loadSettings",
             "saveJson"
         ]
     },
