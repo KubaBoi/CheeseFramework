@@ -32,7 +32,8 @@ def getVersion():
         if (line.startswith("version")):
             return line.split("=")[1].strip()
 
-missingDoc = []
+missingDoc = {}
+missingDoc["00ERRORS"] = []
 docStr = ""
 contents = "## Contents\n\n"
 for root, dirs, files in os.walk(sourcePath):
@@ -68,7 +69,10 @@ for root, dirs, files in os.walk(sourcePath):
                 for attr in attributes:
                     doc = getattr(cls, attr).__doc__
                     if (doc == None):
-                        missingDoc.append({clsName: {"file": file, "method": attr}})
+                        if (clsName not in missingDoc.keys()):
+                            missingDoc[clsName] = {"file": file, "methods": [attr]}
+                        else:
+                            missingDoc[clsName]["methods"].append(attr)
                     else:
                         docS = ""
                         for line in doc.split("\n"):
@@ -83,8 +87,11 @@ for root, dirs, files in os.walk(sourcePath):
                     docStr += mthStr
                     contents += cont
                     m += 1
-            except:
-                print("Error", file)
+            except Exception as e:
+                print("")
+                print(10*"=" + "Error", file, e)
+                print("")
+                missingDoc["00ERRORS"].append({file: str(e)})
 
 with open(missingPath, "w") as f:
     f.write(json.dumps(missingDoc, indent=4, sort_keys=True))
