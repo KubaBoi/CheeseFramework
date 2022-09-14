@@ -10,6 +10,9 @@ from Cheese.variables import Variables
 from Cheese.appSettings import Settings
 
 class Metadata:
+    """
+    Class that builds and loads application metadata
+    """
 
     maxChar = 1114111
 
@@ -25,6 +28,9 @@ class Metadata:
     postEndpoints = {}
     @staticmethod
     def loadMetadata():
+        """
+        loads metadata
+        """
         try:
             data = Metadata.read()
 
@@ -71,6 +77,9 @@ class Metadata:
 
     @staticmethod
     def cleanInits():
+        """
+        Remove all __init__.py files after import
+        """
         for root, dirs, files in os.walk(ResMan.root()):
             for file in files:
                 if (file == "__init__.py"):
@@ -78,6 +87,9 @@ class Metadata:
 
     @staticmethod
     def createInits(data):
+        """
+        Creates __init__.py files for import
+        """
         Metadata.cleanInits()
         keys = data.keys()
         for key in keys:
@@ -103,6 +115,9 @@ class Metadata:
 
     @staticmethod
     def getObjMethod(methodName, file, className=""):
+        """
+        Returns object of method from controller or repository
+        """
         path = file.split("/")
         parent = __import__(path[0])
         for i in range(1, len(path)):
@@ -114,6 +129,9 @@ class Metadata:
 
     @staticmethod
     def prepareControllers():
+        """
+        Imports controller methods
+        """
         for key in Metadata.contr.keys():
             structure = Metadata.contr[key]
             mainEndpoint = structure["CONTROLLER"]
@@ -135,6 +153,9 @@ class Metadata:
 
     @staticmethod
     def prepareTests():
+        """
+        Imports test methods
+        """
         for key in Metadata.tests.keys():
             structure = Metadata.tests[key]
 
@@ -149,6 +170,9 @@ class Metadata:
 
     @staticmethod
     def findMethod(endpoint, httpMethod):
+        """
+        Finds method by endpoint and http method
+        """
         if (httpMethod.upper() == "GET"):
             if (endpoint in Metadata.getEndpoints):
                 return Metadata.getEndpoints[endpoint]
@@ -160,6 +184,9 @@ class Metadata:
 
     @staticmethod
     def getRepository(userRepository):
+        """
+        Returns repository by class name
+        """
         for repoKey in Metadata.repos.keys():
             repo = Metadata.repos[repoKey]
             if (ResMan.getFileName(repo["FILE"]) == userRepository):
@@ -168,6 +195,9 @@ class Metadata:
 
     @staticmethod
     def getRepositoryFromClass(userRepository):
+        """
+        Returns repository object by class name
+        """
         if (userRepository in Metadata.repos.keys()):
             return Metadata.repos[userRepository]
         raise SyntaxError(f"Repository {userRepository} was not found")
@@ -175,16 +205,25 @@ class Metadata:
 
     @staticmethod
     def getMethod(repository, methodName):
+        """
+        Returns repository's object method
+        """
         if (methodName in repository["METHODS"].keys()):
             return repository["METHODS"][methodName]
         raise SyntaxError(f"Method {methodName} in {repository['FILE']} was not found")
 
     @staticmethod
     def getModel(repository):
+        """
+        Returns name of repository's model
+        """
         return repository["DBMODEL"]
 
     @staticmethod
     def getScheme(repository):
+        """
+        Returns name of repository's db scheme as list
+        """
         schs = repository["DBSCHEME"].replace("(", "").replace(")", "").split(",")
         retScheme = []
         for s in schs:
@@ -193,10 +232,16 @@ class Metadata:
 
     @staticmethod
     def getRawScheme(repository):
+        """
+        Returns name of repository's db scheme
+        """
         return repository["DBSCHEME"].replace("(", "").replace(")", "")
 
     @staticmethod
     def getKey():
+        """
+        Loads secret key
+        """
         key = "Default"
         secPath = ResMan.root("secretPass")
         if (os.path.exists(secPath)):
@@ -206,6 +251,9 @@ class Metadata:
 
     @staticmethod
     def encode(data, key):
+        """
+        Encodes data with key
+        """
         coded = ""
         for i, ch in enumerate(key + data):
             keyIndex = i % len(key)
@@ -217,6 +265,9 @@ class Metadata:
 
     @staticmethod
     def decode(data, key):
+        """
+        Dencodes data with key
+        """
         decoded = ""
         for i, ch in enumerate(data):
             keyIndex = i % len(key)
@@ -236,21 +287,33 @@ class Metadata:
             
     @staticmethod
     def code64(data, coding="utf-8"):
+        """
+        Base64 coding
+        """
         bts = base64.b64encode(data.encode(coding))
         return bts.decode(coding)
 
     @staticmethod
     def decode64(bts, coding="utf-8"):
+        """
+        Base64 decoding
+        """
         return base64.b64decode(bts).decode(coding)
 
     @staticmethod
     def save(data):
+        """
+        Saves metadata in file .metadata
+        """
         with open(ResMan.metadata(), "w", encoding="utf-8") as f:
             data = Metadata.encode(json.dumps(data), Metadata.getKey())
             f.write(Metadata.code64(data))
 
     @staticmethod
     def read():
+        """
+        Reads metadata from file .metadata
+        """
         with open(ResMan.metadata(), "r", encoding="utf-8") as f:
             data = Metadata.decode64(f.read())
             return json.loads(Metadata.decode(data, Metadata.getKey()))

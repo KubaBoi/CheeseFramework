@@ -1,7 +1,7 @@
 {
     "00STATS": {
-        "CLASSES": 37,
-        "METHODS": 187
+        "CLASSES": 36,
+        "METHODS": 167
     },
     "01ERRORS": [],
     "AdminFiles": {
@@ -253,31 +253,6 @@
             "set",
             "underline",
             "warning"
-        ]
-    },
-    "Metadata": {
-        "file": "metadata.py",
-        "methods": [
-            "cleanInits",
-            "code64",
-            "createInits",
-            "decode",
-            "decode64",
-            "encode",
-            "findMethod",
-            "getKey",
-            "getMethod",
-            "getModel",
-            "getObjMethod",
-            "getRawScheme",
-            "getRepository",
-            "getRepositoryFromClass",
-            "getScheme",
-            "loadMetadata",
-            "prepareControllers",
-            "prepareTests",
-            "read",
-            "save"
         ]
     },
     "MockManager": {
