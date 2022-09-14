@@ -7,16 +7,23 @@ class ResMan:
 
     @staticmethod
     def setPath(path):
+        """
+        set root path of project
+        """
         ResMan.path = str(path)
 
-    # return name of file from path
     @staticmethod
     def getFileName(path):
+        """
+        return name of file from path
+        """
         return os.path.basename(path)
 
-    # return relative path from
     @staticmethod
     def getRelativePathFrom(path, fromPath):
+        """
+        return relative path from
+        """
         return path.replace(fromPath, "")
 
     # remove / from start or end
