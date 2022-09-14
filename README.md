@@ -10,6 +10,12 @@
 
 Test version v(1.4.86) - 22.09.14.23.19
 
+## TODO
+
+- [ ] autocommit
+- [ ] models and autocommits
+- [ ] javascript
+
 ## Source code
 
  https://github.com/KubaBoi/CheeseFramework/tree/development 
@@ -726,8 +732,6 @@ def findByIdAndName(id, name):
 ```
 
 ##### 7.2.3.1 Passing model
-
-# :bangbang: This does not work very well YET :bangbang:
 
 If you want to pass an model it is possible.
 
