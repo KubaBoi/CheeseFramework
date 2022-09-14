@@ -47,7 +47,7 @@ jobs:
         run: python3 .github/docBuild.py
 
       - name: Only Documentation build
-        if: github.event.commits[0].message == 'test build' || github.event.commits[0].message == 'build'
+        if: github.event.commits[0].message == 'doc build'
         run: |
           output=$(python3 .github/docBuild.py
           echo "::set-output name=commitMessage::$output"
