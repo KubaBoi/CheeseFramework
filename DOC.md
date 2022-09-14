@@ -4,7 +4,7 @@
 
 :bangbang: This documentantion is automaticaly generated from code documentation.
 
-timestamp: 22.09.15.00.52
+timestamp: 22.09.15.01.26
 
 Cheese version v(1.4.89)
 
@@ -17,136 +17,153 @@ Cheese version v(1.4.89)
 - [Mock](#3-mock)
     - [catchArgs](#31-catchargs)
     - [whenReturn](#32-whenreturn)
-- [HTTPError](#4-httperror)
-    - [with_traceback](#41-with_traceback)
-- [CheeseController](#5-cheesecontroller)
-    - [checkJson](#51-checkjson)
-    - [checkLicense](#52-checklicense)
-    - [createResponse](#53-createresponse)
-    - [getArgs](#54-getargs)
-    - [getClientAddress](#55-getclientaddress)
-    - [getCookies](#56-getcookies)
-    - [getEndpoints](#57-getendpoints)
-    - [getHeaders](#58-getheaders)
-    - [getHeadersDict](#59-getheadersdict)
-    - [getPath](#510-getpath)
-    - [getTime](#511-gettime)
-    - [modulesToJsonArray](#512-modulestojsonarray)
-    - [readArgs](#513-readargs)
-    - [readBytes](#514-readbytes)
-    - [sendResponse](#515-sendresponse)
-    - [serveFile](#516-servefile)
-    - [validateJson](#517-validatejson)
-- [CheeseServerMulti](#6-cheeseservermulti)
-    - [_handle_request_noblock](#61-_handle_request_noblock)
-    - [close_request](#62-close_request)
-    - [fileno](#63-fileno)
-    - [finish_request](#64-finish_request)
-    - [get_request](#65-get_request)
-    - [handle_error](#66-handle_error)
-    - [handle_request](#67-handle_request)
-    - [handle_timeout](#68-handle_timeout)
-    - [process_request](#69-process_request)
-    - [process_request_thread](#610-process_request_thread)
-    - [serve_forever](#611-serve_forever)
-    - [server_activate](#612-server_activate)
-    - [server_bind](#613-server_bind)
-    - [service_actions](#614-service_actions)
-    - [shutdown](#615-shutdown)
-    - [shutdown_request](#616-shutdown_request)
-    - [verify_request](#617-verify_request)
-- [CheeseServer](#7-cheeseserver)
-    - [_handle_request_noblock](#71-_handle_request_noblock)
-    - [close_request](#72-close_request)
-    - [fileno](#73-fileno)
-    - [finish_request](#74-finish_request)
-    - [get_request](#75-get_request)
-    - [handle_error](#76-handle_error)
-    - [handle_request](#77-handle_request)
-    - [handle_timeout](#78-handle_timeout)
-    - [process_request](#79-process_request)
-    - [serve_forever](#710-serve_forever)
-    - [server_activate](#711-server_activate)
-    - [server_bind](#712-server_bind)
-    - [server_close](#713-server_close)
-    - [service_actions](#714-service_actions)
-    - [shutdown](#715-shutdown)
-    - [shutdown_request](#716-shutdown_request)
-    - [verify_request](#717-verify_request)
-- [CheeseHandler](#8-cheesehandler)
-    - [address_string](#81-address_string)
-    - [date_time_string](#82-date_time_string)
-    - [handle](#83-handle)
-    - [handle_expect_100](#84-handle_expect_100)
-    - [handle_one_request](#85-handle_one_request)
-    - [log_date_time_string](#86-log_date_time_string)
-    - [log_error](#87-log_error)
-    - [log_request](#88-log_request)
-    - [parse_request](#89-parse_request)
-    - [send_error](#810-send_error)
-    - [send_header](#811-send_header)
-    - [send_response](#812-send_response)
-    - [send_response_only](#813-send_response_only)
-    - [version_string](#814-version_string)
-- [MockManager](#9-mockmanager)
-    - [prepareResponse](#91-prepareresponse)
-    - [returnMock](#92-returnmock)
-- [CheeseModel](#10-cheesemodel)
-    - [_CheeseModel__getAttrs](#101-_cheesemodel__getattrs)
-    - [convert](#102-convert)
-    - [setAttrs](#103-setattrs)
-    - [toJson](#104-tojson)
-    - [toModel](#105-tomodel)
-- [CheeseRepository](#11-cheeserepository)
-    - [className](#111-classname)
-    - [delete](#112-delete)
-    - [exists](#113-exists)
-    - [find](#114-find)
-    - [findAll](#115-findall)
-    - [findBy](#116-findby)
-    - [findNewId](#117-findnewid)
-    - [findOneBy](#118-findoneby)
-    - [findOneWhere](#119-findonewhere)
-    - [findUserMethod](#1110-findusermethod)
-    - [findUserRepository](#1111-finduserrepository)
-    - [findWhere](#1112-findwhere)
-    - [getTypeOf](#1113-gettypeof)
-    - [getVariables](#1114-getvariables)
-    - [model](#1115-model)
-    - [query](#1116-query)
-    - [queryType](#1117-querytype)
-    - [save](#1118-save)
-    - [startTesting](#1119-starttesting)
-    - [stopTesting](#1120-stoptesting)
-    - [update](#1121-update)
-- [Security](#12-security)
-    - [findRole](#121-findrole)
-    - [fitPatern](#122-fitpatern)
-    - [handleExceptions](#123-handleexceptions)
-    - [prepareString](#124-preparestring)
-    - [validate](#125-validate)
-- [TestError](#13-testerror)
-    - [with_traceback](#131-with_traceback)
-- [MockError](#14-mockerror)
-    - [with_traceback](#141-with_traceback)
-- [BadRequest](#15-badrequest)
+- [ResMan](#4-resman)
+    - [convertBytes](#41-convertbytes)
+    - [error](#42-error)
+    - [getFileName](#43-getfilename)
+    - [getRelativePathFrom](#44-getrelativepathfrom)
+    - [joinPath](#45-joinpath)
+    - [logs](#46-logs)
+    - [metadata](#47-metadata)
+    - [removeSlash](#48-removeslash)
+    - [resources](#49-resources)
+    - [root](#410-root)
+    - [setPath](#411-setpath)
+    - [src](#412-src)
+    - [tests](#413-tests)
+    - [web](#414-web)
+- [HTTPError](#5-httperror)
+    - [with_traceback](#51-with_traceback)
+- [Settings](#6-settings)
+    - [loadSettings](#61-loadsettings)
+- [CheeseController](#7-cheesecontroller)
+    - [checkJson](#71-checkjson)
+    - [checkLicense](#72-checklicense)
+    - [createResponse](#73-createresponse)
+    - [getArgs](#74-getargs)
+    - [getClientAddress](#75-getclientaddress)
+    - [getCookies](#76-getcookies)
+    - [getEndpoints](#77-getendpoints)
+    - [getHeaders](#78-getheaders)
+    - [getHeadersDict](#79-getheadersdict)
+    - [getPath](#710-getpath)
+    - [getTime](#711-gettime)
+    - [modulesToJsonArray](#712-modulestojsonarray)
+    - [readArgs](#713-readargs)
+    - [readBytes](#714-readbytes)
+    - [sendResponse](#715-sendresponse)
+    - [serveFile](#716-servefile)
+    - [validateJson](#717-validatejson)
+- [CheeseServerMulti](#8-cheeseservermulti)
+    - [_handle_request_noblock](#81-_handle_request_noblock)
+    - [close_request](#82-close_request)
+    - [fileno](#83-fileno)
+    - [finish_request](#84-finish_request)
+    - [get_request](#85-get_request)
+    - [handle_error](#86-handle_error)
+    - [handle_request](#87-handle_request)
+    - [handle_timeout](#88-handle_timeout)
+    - [process_request](#89-process_request)
+    - [process_request_thread](#810-process_request_thread)
+    - [serve_forever](#811-serve_forever)
+    - [server_activate](#812-server_activate)
+    - [server_bind](#813-server_bind)
+    - [service_actions](#814-service_actions)
+    - [shutdown](#815-shutdown)
+    - [shutdown_request](#816-shutdown_request)
+    - [verify_request](#817-verify_request)
+- [CheeseServer](#9-cheeseserver)
+    - [_handle_request_noblock](#91-_handle_request_noblock)
+    - [close_request](#92-close_request)
+    - [fileno](#93-fileno)
+    - [finish_request](#94-finish_request)
+    - [get_request](#95-get_request)
+    - [handle_error](#96-handle_error)
+    - [handle_request](#97-handle_request)
+    - [handle_timeout](#98-handle_timeout)
+    - [process_request](#99-process_request)
+    - [serve_forever](#910-serve_forever)
+    - [server_activate](#911-server_activate)
+    - [server_bind](#912-server_bind)
+    - [server_close](#913-server_close)
+    - [service_actions](#914-service_actions)
+    - [shutdown](#915-shutdown)
+    - [shutdown_request](#916-shutdown_request)
+    - [verify_request](#917-verify_request)
+- [CheeseHandler](#10-cheesehandler)
+    - [address_string](#101-address_string)
+    - [date_time_string](#102-date_time_string)
+    - [handle](#103-handle)
+    - [handle_expect_100](#104-handle_expect_100)
+    - [handle_one_request](#105-handle_one_request)
+    - [log_date_time_string](#106-log_date_time_string)
+    - [log_error](#107-log_error)
+    - [log_request](#108-log_request)
+    - [parse_request](#109-parse_request)
+    - [send_error](#1010-send_error)
+    - [send_header](#1011-send_header)
+    - [send_response](#1012-send_response)
+    - [send_response_only](#1013-send_response_only)
+    - [version_string](#1014-version_string)
+- [MockManager](#11-mockmanager)
+    - [prepareResponse](#111-prepareresponse)
+    - [returnMock](#112-returnmock)
+- [CheeseModel](#12-cheesemodel)
+    - [_CheeseModel__getAttrs](#121-_cheesemodel__getattrs)
+    - [convert](#122-convert)
+    - [setAttrs](#123-setattrs)
+    - [toJson](#124-tojson)
+    - [toModel](#125-tomodel)
+- [CheeseRepository](#13-cheeserepository)
+    - [className](#131-classname)
+    - [delete](#132-delete)
+    - [exists](#133-exists)
+    - [find](#134-find)
+    - [findAll](#135-findall)
+    - [findBy](#136-findby)
+    - [findNewId](#137-findnewid)
+    - [findOneBy](#138-findoneby)
+    - [findOneWhere](#139-findonewhere)
+    - [findUserMethod](#1310-findusermethod)
+    - [findUserRepository](#1311-finduserrepository)
+    - [findWhere](#1312-findwhere)
+    - [getTypeOf](#1313-gettypeof)
+    - [getVariables](#1314-getvariables)
+    - [model](#1315-model)
+    - [query](#1316-query)
+    - [queryType](#1317-querytype)
+    - [save](#1318-save)
+    - [startTesting](#1319-starttesting)
+    - [stopTesting](#1320-stoptesting)
+    - [update](#1321-update)
+- [Security](#14-security)
+    - [findRole](#141-findrole)
+    - [fitPatern](#142-fitpatern)
+    - [handleExceptions](#143-handleexceptions)
+    - [prepareString](#144-preparestring)
+    - [validate](#145-validate)
+- [TestError](#15-testerror)
     - [with_traceback](#151-with_traceback)
-- [Unauthorized](#16-unauthorized)
+- [MockError](#16-mockerror)
     - [with_traceback](#161-with_traceback)
-- [PaymentRequired](#17-paymentrequired)
+- [BadRequest](#17-badrequest)
     - [with_traceback](#171-with_traceback)
-- [Forbidden](#18-forbidden)
+- [Unauthorized](#18-unauthorized)
     - [with_traceback](#181-with_traceback)
-- [NotFound](#19-notfound)
+- [PaymentRequired](#19-paymentrequired)
     - [with_traceback](#191-with_traceback)
-- [MethodNotAllowed](#20-methodnotallowed)
+- [Forbidden](#20-forbidden)
     - [with_traceback](#201-with_traceback)
-- [NotAcceptable](#21-notacceptable)
+- [NotFound](#21-notfound)
     - [with_traceback](#211-with_traceback)
-- [Conflict](#22-conflict)
+- [MethodNotAllowed](#22-methodnotallowed)
     - [with_traceback](#221-with_traceback)
-- [ImTeaPot](#23-imteapot)
+- [NotAcceptable](#23-notacceptable)
     - [with_traceback](#231-with_traceback)
+- [Conflict](#24-conflict)
+    - [with_traceback](#241-with_traceback)
+- [ImTeaPot](#25-imteapot)
+    - [with_traceback](#251-with_traceback)
 
 
 ## 1. InternalServerError
@@ -196,15 +213,124 @@ kwargs - dict of arguments singalizing that this is THE case
 
 
 
-## 4. HTTPError
+## 4. ResMan
 
-### 4.1 with_traceback
+### 4.1 convertBytes
+
+
+convert bytes
+
+
+
+### 4.2 error
+
+
+dir for error sites
+
+
+
+### 4.3 getFileName
+
+
+return name of file from path
+
+
+
+### 4.4 getRelativePathFrom
+
+
+return relative path from
+
+
+
+### 4.5 joinPath
+
+
+joins two paths together
+
+
+
+### 4.6 logs
+
+
+logs
+
+
+
+### 4.7 metadata
+
+
+metadata
+
+
+
+### 4.8 removeSlash
+
+
+remove / from start or end
+
+
+
+### 4.9 resources
+
+
+other resources of project
+
+
+
+### 4.10 root
+
+
+root dir of project
+
+
+
+### 4.11 setPath
+
+
+set root path of project
+
+
+
+### 4.12 src
+
+
+all source codes of project
+
+
+
+### 4.13 tests
+
+
+tests
+
+
+
+### 4.14 web
+
+
+dir from which CheeseFramework is able to serve files (index.html)
+
+
+
+## 5. HTTPError
+
+### 5.1 with_traceback
 
 Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 5. CheeseController
+## 6. Settings
+
+### 6.1 loadSettings
+
+
+loads settings
+
+
+
+## 7. CheeseController
 
 
 `CheeseController` is static class for controlling endpoints.
@@ -214,7 +340,7 @@ https://kubaboi.github.io/CheeseFramework/#71-api-controllers
 
 
 
-### 5.1 checkJson
+### 7.1 checkJson
 
 
 raise BadRequest exception if any key is missing in json
@@ -225,14 +351,14 @@ raise BadRequest exception if any key is missing in json
 
 
 
-### 5.2 checkLicense
+### 7.2 checkLicense
 
 
 checks license
 
 
 
-### 5.3 createResponse
+### 7.3 createResponse
 
 
 create response as tuple
@@ -246,7 +372,7 @@ and coded into bytes with `utf-8` coding.
 
 
 
-### 5.4 getArgs
+### 7.4 getArgs
 
 
 return arguments from rest request url
@@ -257,7 +383,7 @@ return arguments from rest request url
 
 
 
-### 5.5 getClientAddress
+### 7.5 getClientAddress
 
 
 return client's address
@@ -266,7 +392,7 @@ return client's address
 
 
 
-### 5.6 getCookies
+### 7.6 getCookies
 
 
 return cookies as dictionary from request header
@@ -275,7 +401,7 @@ return cookies as dictionary from request header
 
 
 
-### 5.7 getEndpoints
+### 7.7 getEndpoints
 
 
 return list of endpoints
@@ -291,7 +417,7 @@ example:
 
 
 
-### 5.8 getHeaders
+### 7.8 getHeaders
 
 
 return requests headers
@@ -300,7 +426,7 @@ return requests headers
 
 
 
-### 5.9 getHeadersDict
+### 7.9 getHeadersDict
 
 
 return request headers as dict
@@ -309,7 +435,7 @@ return request headers as dict
 
 
 
-### 5.10 getPath
+### 7.10 getPath
 
 
 return path without arguments
@@ -325,7 +451,7 @@ example:
 
 
 
-### 5.11 getTime
+### 7.11 getTime
 
 
 return now time and add argument in seconds
@@ -334,7 +460,7 @@ return now time and add argument in seconds
 
 
 
-### 5.12 modulesToJsonArray
+### 7.12 modulesToJsonArray
 
 
 return json array from list of modules
@@ -343,7 +469,7 @@ return json array from list of modules
 
 
 
-### 5.13 readArgs
+### 7.13 readArgs
 
 
 return arguments from body of request as dictionary
@@ -352,7 +478,7 @@ return arguments from body of request as dictionary
 
 
 
-### 5.14 readBytes
+### 7.14 readBytes
 
 
 return bytes from post body
@@ -361,7 +487,7 @@ return bytes from post body
 
 
 
-### 5.15 sendResponse
+### 7.15 sendResponse
 
 
 send response to client
@@ -372,7 +498,7 @@ send response to client
 
 
 
-### 5.16 serveFile
+### 7.16 serveFile
 
 
 sends file located in `/web` directory
@@ -385,7 +511,7 @@ sends file located in `/web` directory
 
 
 
-### 5.17 validateJson
+### 7.17 validateJson
 
 
 return true if all keys are in dictionary
@@ -396,12 +522,12 @@ return true if all keys are in dictionary
 
 
 
-## 6. CheeseServerMulti
+## 8. CheeseServerMulti
 
 Handle requests in a separate thread.
 
 
-### 6.1 _handle_request_noblock
+### 8.1 _handle_request_noblock
 
 Handle one request, without blocking.
 
@@ -411,12 +537,12 @@ blocking in get_request().
 
 
 
-### 6.2 close_request
+### 8.2 close_request
 
 Called to clean up an individual request.
 
 
-### 6.3 fileno
+### 8.3 fileno
 
 Return socket file number.
 
@@ -425,12 +551,12 @@ Interface required by selector.
 
 
 
-### 6.4 finish_request
+### 8.4 finish_request
 
 Finish one request by instantiating RequestHandlerClass.
 
 
-### 6.5 get_request
+### 8.5 get_request
 
 Get the request and client address from the socket.
 
@@ -439,7 +565,7 @@ May be overridden.
 
 
 
-### 6.6 handle_error
+### 8.6 handle_error
 
 Handle an error gracefully.  May be overridden.
 
@@ -448,7 +574,7 @@ The default is to print a traceback and continue.
 
 
 
-### 6.7 handle_request
+### 8.7 handle_request
 
 Handle one request, possibly blocking.
 
@@ -456,7 +582,7 @@ Respects self.timeout.
 
 
 
-### 6.8 handle_timeout
+### 8.8 handle_timeout
 
 Called if no new request arrives within self.timeout.
 
@@ -464,12 +590,12 @@ Overridden by ForkingMixIn.
 
 
 
-### 6.9 process_request
+### 8.9 process_request
 
 Start a new thread to process the request.
 
 
-### 6.10 process_request_thread
+### 8.10 process_request_thread
 
 Same as in BaseServer but as a thread.
 
@@ -478,7 +604,7 @@ In addition, exception handling is done here.
 
 
 
-### 6.11 serve_forever
+### 8.11 serve_forever
 
 Handle one request at a time until shutdown.
 
@@ -488,7 +614,7 @@ another thread.
 
 
 
-### 6.12 server_activate
+### 8.12 server_activate
 
 Called by constructor to activate the server.
 
@@ -497,12 +623,12 @@ May be overridden.
 
 
 
-### 6.13 server_bind
+### 8.13 server_bind
 
 Override server_bind to store the server name.
 
 
-### 6.14 service_actions
+### 8.14 service_actions
 
 Called by the serve_forever() loop.
 
@@ -511,7 +637,7 @@ needs to be run during the loop.
 
 
 
-### 6.15 shutdown
+### 8.15 shutdown
 
 Stops the serve_forever loop.
 
@@ -521,12 +647,12 @@ deadlock.
 
 
 
-### 6.16 shutdown_request
+### 8.16 shutdown_request
 
 Called to shutdown and close an individual request.
 
 
-### 6.17 verify_request
+### 8.17 verify_request
 
 Verify the request.  May be overridden.
 
@@ -535,12 +661,12 @@ Return True if we should proceed with this request.
 
 
 
-## 7. CheeseServer
+## 9. CheeseServer
 
 Handle requests in one thread.
 
 
-### 7.1 _handle_request_noblock
+### 9.1 _handle_request_noblock
 
 Handle one request, without blocking.
 
@@ -550,12 +676,12 @@ blocking in get_request().
 
 
 
-### 7.2 close_request
+### 9.2 close_request
 
 Called to clean up an individual request.
 
 
-### 7.3 fileno
+### 9.3 fileno
 
 Return socket file number.
 
@@ -564,12 +690,12 @@ Interface required by selector.
 
 
 
-### 7.4 finish_request
+### 9.4 finish_request
 
 Finish one request by instantiating RequestHandlerClass.
 
 
-### 7.5 get_request
+### 9.5 get_request
 
 Get the request and client address from the socket.
 
@@ -578,7 +704,7 @@ May be overridden.
 
 
 
-### 7.6 handle_error
+### 9.6 handle_error
 
 Handle an error gracefully.  May be overridden.
 
@@ -587,7 +713,7 @@ The default is to print a traceback and continue.
 
 
 
-### 7.7 handle_request
+### 9.7 handle_request
 
 Handle one request, possibly blocking.
 
@@ -595,7 +721,7 @@ Respects self.timeout.
 
 
 
-### 7.8 handle_timeout
+### 9.8 handle_timeout
 
 Called if no new request arrives within self.timeout.
 
@@ -603,7 +729,7 @@ Overridden by ForkingMixIn.
 
 
 
-### 7.9 process_request
+### 9.9 process_request
 
 Call finish_request.
 
@@ -612,7 +738,7 @@ Overridden by ForkingMixIn and ThreadingMixIn.
 
 
 
-### 7.10 serve_forever
+### 9.10 serve_forever
 
 Handle one request at a time until shutdown.
 
@@ -622,7 +748,7 @@ another thread.
 
 
 
-### 7.11 server_activate
+### 9.11 server_activate
 
 Called by constructor to activate the server.
 
@@ -631,12 +757,12 @@ May be overridden.
 
 
 
-### 7.12 server_bind
+### 9.12 server_bind
 
 Override server_bind to store the server name.
 
 
-### 7.13 server_close
+### 9.13 server_close
 
 Called to clean-up the server.
 
@@ -645,7 +771,7 @@ May be overridden.
 
 
 
-### 7.14 service_actions
+### 9.14 service_actions
 
 Called by the serve_forever() loop.
 
@@ -654,7 +780,7 @@ needs to be run during the loop.
 
 
 
-### 7.15 shutdown
+### 9.15 shutdown
 
 Stops the serve_forever loop.
 
@@ -664,12 +790,12 @@ deadlock.
 
 
 
-### 7.16 shutdown_request
+### 9.16 shutdown_request
 
 Called to shutdown and close an individual request.
 
 
-### 7.17 verify_request
+### 9.17 verify_request
 
 Verify the request.  May be overridden.
 
@@ -678,24 +804,24 @@ Return True if we should proceed with this request.
 
 
 
-## 8. CheeseHandler
+## 10. CheeseHandler
 
-### 8.1 address_string
+### 10.1 address_string
 
 Return the client address.
 
 
-### 8.2 date_time_string
+### 10.2 date_time_string
 
 Return the current date and time formatted for a message header.
 
 
-### 8.3 handle
+### 10.3 handle
 
 Handle multiple requests if necessary.
 
 
-### 8.4 handle_expect_100
+### 10.4 handle_expect_100
 
 Decide what to do with an "Expect: 100-continue" header.
 
@@ -712,7 +838,7 @@ False.
 
 
 
-### 8.5 handle_one_request
+### 10.5 handle_one_request
 
 Handle a single HTTP request.
 
@@ -723,12 +849,12 @@ commands such as GET and POST.
 
 
 
-### 8.6 log_date_time_string
+### 10.6 log_date_time_string
 
 Return the current time formatted for logging.
 
 
-### 8.7 log_error
+### 10.7 log_error
 
 Log an error.
 
@@ -742,7 +868,7 @@ XXX This should go to the separate error log.
 
 
 
-### 8.8 log_request
+### 10.8 log_request
 
 Log an accepted request.
 
@@ -751,7 +877,7 @@ This is called by send_response().
 
 
 
-### 8.9 parse_request
+### 10.9 parse_request
 
 Parse a request (internal).
 
@@ -765,7 +891,7 @@ error response has already been sent back.
 
 
 
-### 8.10 send_error
+### 10.10 send_error
 
 Send and log an error reply.
 
@@ -785,12 +911,12 @@ a piece of HTML explaining the error to the user.
 
 
 
-### 8.11 send_header
+### 10.11 send_header
 
 Send a MIME header to the headers buffer.
 
 
-### 8.12 send_response
+### 10.12 send_response
 
 Add the response header to the headers buffer and log the
 response code.
@@ -801,19 +927,19 @@ version and the current date.
 
 
 
-### 8.13 send_response_only
+### 10.13 send_response_only
 
 Send the response header only.
 
 
-### 8.14 version_string
+### 10.14 version_string
 
 Return the server software version string.
 
 
-## 9. MockManager
+## 11. MockManager
 
-### 9.1 prepareResponse
+### 11.1 prepareResponse
 
 
 Prepares response
@@ -822,35 +948,35 @@ If type is Pointer returns value
 
 
 
-### 9.2 returnMock
+### 11.2 returnMock
 
 
 Mocks repository method
 
 
 
-## 10. CheeseModel
+## 12. CheeseModel
 
 
 ```CheeseModel``` is non-static class for storing data from database.
 
 
 
-### 10.1 _CheeseModel__getAttrs
+### 12.1 _CheeseModel__getAttrs
 
 
 returns every attribute in ```self``` object
 
 
 
-### 10.2 convert
+### 12.2 convert
 
 
 converts lists and CheeseModels into json
 
 
 
-### 10.3 setAttrs
+### 12.3 setAttrs
 
 
 converts ```kwargs``` into model such as ```toModel()``` method
@@ -860,7 +986,7 @@ It will be passed to ```toModel()``` method as ```dict```.
 
 
 
-### 10.4 toJson
+### 12.4 toJson
 
 
 return model data as dictionary
@@ -873,7 +999,7 @@ only attributes from ```scheme```
 
 
 
-### 10.5 toModel
+### 12.5 toModel
 
 
 converts ```dict``` or anything iterable into ```model```
@@ -884,21 +1010,21 @@ it needs to be in same order as ```scheme``` is. (tuple, list...)
 
 
 
-## 11. CheeseRepository
+## 13. CheeseRepository
 
 
 `CheeseRepository` is static class for communication with database
 
 
 
-### 11.1 className
+### 13.1 className
 
 
 return string with name of class
 
 
 
-### 11.2 delete
+### 13.2 delete
 
 
 deletes row from database
@@ -907,7 +1033,7 @@ deletes row from database
 
 
 
-### 11.3 exists
+### 13.3 exists
 
 
 return `true` if there is any row in database
@@ -923,21 +1049,21 @@ SQL: "... WHERE age = 15 AND gender = 'm' ..."
 
 
 
-### 11.4 find
+### 13.4 find
 
 
 return one `CheeseModel` by `Primary key`
 
 
 
-### 11.5 findAll
+### 13.5 findAll
 
 
 return whole table of database as list of `CheeseModel`
 
 
 
-### 11.6 findBy
+### 13.6 findBy
 
 
 `DEPRECATED`
@@ -958,14 +1084,14 @@ SQL: "... WHERE age = 15 ..."
 
 
 
-### 11.7 findNewId
+### 13.7 findNewId
 
 
 find new available `Primary key`
 
 
 
-### 11.8 findOneBy
+### 13.8 findOneBy
 
 
 `DEPRECATED`
@@ -986,7 +1112,7 @@ SQL: "... WHERE age = 15 ..."
 
 
 
-### 11.9 findOneWhere
+### 13.9 findOneWhere
 
 
 return one `CheeseModel`
@@ -1002,21 +1128,21 @@ SQL: "... WHERE age = 15 AND gender = 'm' ..."
 
 
 
-### 11.10 findUserMethod
+### 13.10 findUserMethod
 
 
 finds name of method from user-made repository
 
 
 
-### 11.11 findUserRepository
+### 13.11 findUserRepository
 
 
 finds name of user-made repository
 
 
 
-### 11.12 findWhere
+### 13.12 findWhere
 
 
 return list of `CheeseModel`
@@ -1032,14 +1158,14 @@ SQL: "... WHERE age = 15 AND gender = 'm' ..."
 
 
 
-### 11.13 getTypeOf
+### 13.13 getTypeOf
 
 
 convert arguments
 
 
 
-### 11.14 getVariables
+### 13.14 getVariables
 
 
 creates array of variables from sql
@@ -1050,14 +1176,14 @@ or 46 (.) or 95 (_)
 
 
 
-### 11.15 model
+### 13.15 model
 
 
 return `CheeseModel` with `Primary key`, `modelName` and `scheme`
 
 
 
-### 11.16 query
+### 13.16 query
 
 
 Access point to database. Returns database output.
@@ -1068,14 +1194,14 @@ Access point to database. Returns database output.
 
 
 
-### 11.17 queryType
+### 13.17 queryType
 
 
 
 
 
 
-### 11.18 save
+### 13.18 save
 
 
 creates new row in database
@@ -1084,7 +1210,7 @@ creates new row in database
 
 
 
-### 11.19 startTesting
+### 13.19 startTesting
 
 
 sets repository testing enviroment
@@ -1093,14 +1219,14 @@ sets repository testing enviroment
 
 
 
-### 11.20 stopTesting
+### 13.20 stopTesting
 
 
 stop repository testing enviroment
 
 
 
-### 11.21 update
+### 13.21 update
 
 
 updates row in database
@@ -1109,9 +1235,9 @@ updates row in database
 
 
 
-## 12. Security
+## 14. Security
 
-### 12.1 findRole
+### 14.1 findRole
 
 
 Finds role id
@@ -1122,7 +1248,7 @@ Finds role id
 
 
 
-### 12.2 fitPatern
+### 14.2 fitPatern
 
 
 `auth` is string of authentication
@@ -1131,14 +1257,14 @@ Finds role id
 
 
 
-### 12.3 handleExceptions
+### 14.3 handleExceptions
 
 
 Handles custom exception defined in `securitySettings.json`
 
 
 
-### 12.4 prepareString
+### 14.4 prepareString
 
 
 `dict` is dictionary of replaceable values
@@ -1151,7 +1277,7 @@ Handles custom exception defined in `securitySettings.json`
 
 
 
-### 12.5 validate
+### 14.5 validate
 
 
 Takes validation string and decide if sql is valid or not
@@ -1166,23 +1292,7 @@ Takes validation string and decide if sql is valid or not
 
 
 
-## 13. TestError
-
-### 13.1 with_traceback
-
-Exception.with_traceback(tb) --
-set self.__traceback__ to tb and return self.
-
-
-## 14. MockError
-
-### 14.1 with_traceback
-
-Exception.with_traceback(tb) --
-set self.__traceback__ to tb and return self.
-
-
-## 15. BadRequest
+## 15. TestError
 
 ### 15.1 with_traceback
 
@@ -1190,7 +1300,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 16. Unauthorized
+## 16. MockError
 
 ### 16.1 with_traceback
 
@@ -1198,7 +1308,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 17. PaymentRequired
+## 17. BadRequest
 
 ### 17.1 with_traceback
 
@@ -1206,7 +1316,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 18. Forbidden
+## 18. Unauthorized
 
 ### 18.1 with_traceback
 
@@ -1214,7 +1324,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 19. NotFound
+## 19. PaymentRequired
 
 ### 19.1 with_traceback
 
@@ -1222,7 +1332,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 20. MethodNotAllowed
+## 20. Forbidden
 
 ### 20.1 with_traceback
 
@@ -1230,7 +1340,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 21. NotAcceptable
+## 21. NotFound
 
 ### 21.1 with_traceback
 
@@ -1238,7 +1348,7 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 22. Conflict
+## 22. MethodNotAllowed
 
 ### 22.1 with_traceback
 
@@ -1246,9 +1356,25 @@ Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
 
 
-## 23. ImTeaPot
+## 23. NotAcceptable
 
 ### 23.1 with_traceback
+
+Exception.with_traceback(tb) --
+set self.__traceback__ to tb and return self.
+
+
+## 24. Conflict
+
+### 24.1 with_traceback
+
+Exception.with_traceback(tb) --
+set self.__traceback__ to tb and return self.
+
+
+## 25. ImTeaPot
+
+### 25.1 with_traceback
 
 Exception.with_traceback(tb) --
 set self.__traceback__ to tb and return self.
