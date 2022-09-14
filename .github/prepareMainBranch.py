@@ -87,7 +87,7 @@ for root, dirs, files in os.walk(repoDir):
             with open(os.path.join(root, file), "r") as f:
                 data = f.read()
 
-            if (data.startswith("#cheese")):
+            if (data.startswith("#cheese") or data.startswith("# cheese")):
                 print("Found: " + file)
 
                 for imp in imps:
