@@ -16,6 +16,9 @@ class Security:
 
     @staticmethod
     def authenticate(server, path):
+        """
+        Do the authentication
+        """
         if (not Metadata.authentication["enabled"]):
             return True
 

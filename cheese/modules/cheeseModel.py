@@ -4,7 +4,7 @@ import inspect
 
 class CheeseModel:
     """
-    ```CheeseModel``` is non-static class for storing data from database.
+    `CheeseModel` is non-static class for storing data from database.
     """
     
     def __init__(self, modelName, scheme):
@@ -12,11 +12,11 @@ class CheeseModel:
         Model documentation:
         https://kubaboi.github.io/CheeseFramework/#73-models
 
-        ```modelName``` name of model for better orientation. 
-        It can be changed with ```#@dbmodel ;``` annotation.
+        `modelName` name of model for better orientation. 
+        It can be changed with `#@dbmodel ;` annotation.
 
-        ```scheme``` database scheme as list of strings. 
-        It can be changed with ```#@dbscheme ;``` annotation.
+        `scheme` database scheme as list of strings. 
+        It can be changed with `#@dbscheme ;` annotation.
         """
         self.modelName = modelName
         self.scheme = scheme
@@ -25,11 +25,11 @@ class CheeseModel:
         """
         return model data as dictionary
 
-        ```allData``` 
-        - if ```True``` than in returned json will be 
-        every attribute of object except for ```modelName``` and ```scheme```
-        - if ```False``` than in returned json will be 
-        only attributes from ```scheme```
+        `allData` 
+        - if `True` than in returned json will be 
+        every attribute of object except for `modelName` and `scheme`
+        - if `False` than in returned json will be 
+        only attributes from `scheme`
         """
         scheme = self.scheme
         if (allData):
@@ -61,11 +61,11 @@ class CheeseModel:
 
     def toModel(self, jsn) -> None:
         """
-        converts ```dict``` or anything iterable into ```model```
+        converts `dict` or anything iterable into `model`
 
-        ```jsn``` is an object with data
-        - if it is NOT ```dict``` than it need to be iterable and 
-        it needs to be in same order as ```scheme``` is. (tuple, list...)
+        `jsn` is an object with data
+        - if it is NOT `dict` than it need to be iterable and 
+        it needs to be in same order as `scheme` is. (tuple, list...)
         """
         if (type(jsn).__name__ == "dict"):
             for attr in self.scheme:
@@ -82,16 +82,16 @@ class CheeseModel:
 
     def setAttrs(self, **attrs) -> None:
         """
-        converts ```kwargs``` into model such as ```toModel()``` method
+        converts `kwargs` into model such as `toModel()` method
 
-        ```**attrs``` is an kwargs object. 
-        It will be passed to ```toModel()``` method as ```dict```.
+        `**attrs` is an kwargs object. 
+        It will be passed to `toModel()` method as `dict`.
         """
         self.toModel(attrs)
 
     def __getAttrs(self):
         """
-        returns every attribute in ```self``` object
+        returns every attribute in `self` object
         """
         attributes = inspect.getmembers(self, lambda a:not(inspect.isroutine(a)))
         attributes = [a[0] for a in attributes if not(a[0].startswith('__') and a[0].endswith('__'))]

@@ -12,11 +12,15 @@ class Stats:
         """
         Count of rows in project.
 
-        ```*suffixes``` is list of file suffixes that should be counted.
+        `*suffixes` is list of file suffixes that should be counted.
 
-        Default ```suffixes``` are ```.py```, ```.js```, ```.html```, ```.css```.
+        Default `suffixes` are `.py`, `.js`, `.html`, `.css`.
 
-        ```*suffixes``` are being add to default one not overwrittes them.
+        `*suffixes` are being add to default one not overwrittes them.
+
+        accesible via:
+
+        `python -m Cheese -s`
         """
         Stats.path = os.path.curdir
         Stats.projectName = os.path.basename(os.path.abspath(os.path.curdir))
@@ -42,6 +46,9 @@ class Stats:
 
     @staticmethod
     def countSpecFiles(suffix):
+        """
+        Counts files
+        """
         filesCount = 0
         rows = 0
 

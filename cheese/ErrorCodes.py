@@ -9,6 +9,9 @@ class Error:
     
     @staticmethod
     def init():
+        """
+        Inits prefabs of HTTP error codes
+        """
         Error.BadJson = CheeseController.createResponse({"ERROR": "Wrong json structure"}, 400) # Bad request
         Error.OldPass = CheeseController.createResponse({"ERROR": "Old password"}, 401) # Unauthorized
         Error.BadCred = CheeseController.createResponse({"ERROR": "Wrong credentials"}, 401) # Unauthorized
@@ -18,6 +21,9 @@ class Error:
 
     @staticmethod
     def sendCustomError(server, code, comment, **errorDesc):
+        """
+        Sends error to client
+        """
         error = {
                 "ERROR": {
                     "NAME": comment,
@@ -32,6 +38,9 @@ class Error:
 
     @staticmethod
     def handleError(server, error):
+        """
+        Handles errors during session
+        """
         if (not isinstance(error, HTTPError)):
             Error.logErrorMessage(error)
             error = InternalServerError("An unknown error occured")
@@ -43,6 +52,9 @@ class Error:
 
     @staticmethod
     def logErrorMessage(error):
+        """
+        Logs error into log
+        """
         if (len(error.args) == 0):
             errorMessage = f"\n{Logger.WARNING}{error.__doc__}{Logger.FAIL}"
         else:
@@ -60,6 +72,9 @@ class Error:
 
     @staticmethod
     def logHttpErrorMessage(error):
+        """
+        Logs HTTP errors into log
+        """
         errorMessage = f"""\n{Logger.WARNING}{error.name}{Logger.FAIL}
         {error.code}
         {error.description}

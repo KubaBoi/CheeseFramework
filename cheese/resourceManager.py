@@ -4,6 +4,13 @@ import os
 import math
 
 class ResMan:
+    """
+    Resource manager
+
+    managing resources :D
+
+    bum pam pam
+    """
 
     @staticmethod
     def setPath(path):
