@@ -30,7 +30,6 @@ class ProjectGenerator:
 
         if (not generateFiles):
             os.remove(os.path.join(src, "controllers", "HelloWorldController.py"))
-            os.remove(os.path.join(src, "models", "Hello.py"))
             os.remove(os.path.join(src, "repositories", "helloRepository.py"))
 
         with open(os.path.join(path, "mainTemplate.py"), "r", encoding="utf-8") as f:
