@@ -16,9 +16,11 @@ class Settings:
 
     allowDB = False
 
-    # load settings
     @staticmethod 
     def loadSettings():
+        """
+        loads settings
+        """
         Settings.settings = Settings.loadJson()
         for key in Settings.settings.keys():
             setattr(Settings, key, Settings.settings[key])
