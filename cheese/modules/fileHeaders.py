@@ -20,6 +20,7 @@ class FileHeaders:
         "mp3": "audio/mpeg",
         "gif": "image/gif",
         "png": "image/png",
+        "jpg": "image/jpg",
         "jpeg": "image/jpeg",
         "mp4": "video/mp4",
         "mkv": "video/mp4",
