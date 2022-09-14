@@ -10,6 +10,13 @@ from Cheese.appSettings import Settings
 class Decode:
 
     def decode(key):
+        """
+        Decodes metadata
+
+        accesible via:
+
+        `python -m Cheese -m <key>`
+        """
         ResMan.setPath(os.getcwd())
         setattr(Settings, "allowDebug", True)
 

@@ -29,6 +29,9 @@ class FileHeaders:
 
     @staticmethod
     def getHeader(file):
+        """
+        Finds header for file
+        """
         suffix = file.split(".")[-1]
         if (suffix in FileHeaders.__suffixes):
             return FileHeaders.__suffixes[suffix]

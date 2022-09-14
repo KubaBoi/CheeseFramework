@@ -1,7 +1,7 @@
 {
     "00STATS": {
-        "CLASSES": 36,
-        "METHODS": 167
+        "CLASSES": 29,
+        "METHODS": 145
     },
     "01ERRORS": [],
     "AdminFiles": {
@@ -70,26 +70,11 @@
             "startFigure"
         ]
     },
-    "CheeseBurger": {
-        "file": "cheese.py",
-        "methods": [
-            "init",
-            "initServer",
-            "loadLicence",
-            "serveForever"
-        ]
-    },
     "CheeseHandler": {
         "file": "cheeseServer.py",
         "methods": [
-            "_CheeseHandler__log",
-            "do_AUTHHEAD",
-            "do_GET",
-            "do_POST",
-            "end_headers",
             "finish",
             "flush_headers",
-            "log_message",
             "setup"
         ]
     },
@@ -164,32 +149,10 @@
             "rollback"
         ]
     },
-    "Decode": {
-        "file": "decode.py",
-        "methods": [
-            "decode"
-        ]
-    },
-    "Error": {
-        "file": "ErrorCodes.py",
-        "methods": [
-            "handleError",
-            "init",
-            "logErrorMessage",
-            "logHttpErrorMessage",
-            "sendCustomError"
-        ]
-    },
     "FileFilter": {
         "file": "Logger.py",
         "methods": [
             "filter"
-        ]
-    },
-    "FileHeaders": {
-        "file": "fileHeaders.py",
-        "methods": [
-            "getHeader"
         ]
     },
     "Finder": {
@@ -299,12 +262,6 @@
             "read"
         ]
     },
-    "Security": {
-        "file": "security.py",
-        "methods": [
-            "authenticate"
-        ]
-    },
     "SecurityBuilder": {
         "file": "securityBuilder.py",
         "methods": [
@@ -315,20 +272,6 @@
         "file": "mock.py",
         "methods": [
             "mockPostBody"
-        ]
-    },
-    "Settings": {
-        "file": "appSettings.py",
-        "methods": [
-            "loadJson",
-            "loadSecrets",
-            "saveJson"
-        ]
-    },
-    "Stats": {
-        "file": "stats.py",
-        "methods": [
-            "countSpecFiles"
         ]
     },
     "TestsBuilder": {
