@@ -26,18 +26,22 @@ class ResMan:
         """
         return path.replace(fromPath, "")
 
-    # remove / from start or end
     @staticmethod
     def removeSlash(path, start=True):
+        """
+        remove / from start or end
+        """
         if (path[0] == "/" and start):
             path = path[1:]
         elif (path[-1] == "/" and not start):
             path = path[:-1]
         return path
 
-    # joins two path together
     @staticmethod
     def joinPath(*args):
+        """
+        joins two paths together
+        """
         if (len(args) < 1): return ""
         if (len(args) == 1): return args[0]
 
@@ -52,54 +56,67 @@ class ResMan:
         paths.append(ResMan.removeSlash(args[-1]))
         return os.path.join(*paths)
 
-    # root dir of project
     @staticmethod
     def root(*paths):
+        """
+        root dir of project
+        """
         return ResMan.joinPath(ResMan.path, *paths)
 
-    # all source codes of project
     @staticmethod
     def src(*paths):
+        """
+        all source codes of project
+        """
         return ResMan.root("src", *paths) 
 
-    # other resources of project
     @staticmethod
     def resources(*paths):
+        """
+        other resources of project
+        """
         return ResMan.root("resources", *paths)
 
-    # logs
     @staticmethod
     def logs(*paths):
+        """
+        logs
+        """
         return ResMan.root("logs", *paths)
 
-    # tests
     @staticmethod
     def tests(*paths):
+        """
+        tests
+        """
         return ResMan.src("tests", *paths)
-
-    # dir from which CheeseFramework is able to serve files (index.html) 
+ 
     @staticmethod
     def web(*paths):
+        """
+        dir from which CheeseFramework is able to serve files (index.html)
+        """
         return ResMan.root("web", *paths)
 
-    # dir for error sites
     @staticmethod
     def error(*paths):
+        """
+        dir for error sites
+        """
         return ResMan.web("errors", *paths)
 
-    # admin
-    @staticmethod
-    def admin(*paths):
-        return ResMan.root(".admin", *paths)
-
-    # metadata
     @staticmethod
     def metadata():
+        """
+        metadata
+        """
         return ResMan.root(".metadata")
 
-    # convert bytes
     @staticmethod
     def convertBytes(bytes):
+        """
+        convert bytes
+        """
         if bytes == 0:
             return "0B"
         size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
