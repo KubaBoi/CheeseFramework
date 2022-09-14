@@ -37,7 +37,7 @@ def getVersion():
             return line.split("=")[1].strip()
 
 missingDoc = {}
-missingDoc["00ERRORS"] = []
+missingDoc["01ERRORS"] = []
 docStr = ""
 contents = "## Contents\n\n"
 for root, dirs, files in os.walk(sourcePath):
@@ -95,7 +95,17 @@ for root, dirs, files in os.walk(sourcePath):
                 print("")
                 print(10*"=" + "Error", file, e)
                 print("")
-                missingDoc["00ERRORS"].append({file: str(e)})
+                missingDoc["01ERRORS"].append({file: str(e)})
+
+methodsCount = 0
+for key in missingDoc.keys():
+    if (key == "01ERRORS"): continue
+    methodsCount += len(missingDoc[key]["methods"])
+
+missingDoc["00STATS"] = {
+    "CLASSES": len(missingDoc.keys())-1,
+    "METHODS": methodsCount
+}
 
 with open(missingPath, "w") as f:
     f.write(json.dumps(missingDoc, indent=4, sort_keys=True))
