@@ -53,6 +53,7 @@ https://kubaboi.github.io/CheeseFramework/
         - [Methods of controller](#712-methods-of-controller)
         - [Method arguments](#713-method-arguments)
         - [Example controller](#714-example-controller)
+        - [CheeseController methods](#715-cheesecontroller-methods)
     - [Repositories](#72-repositories)
         - [Create repository](#721-create-repository)
         - [Methods of repository](#722-methods-of-repository)
@@ -414,15 +415,15 @@ Ok ... this may looks little confusing. But it is actually pretty simple. This i
 - validation of credentials with `validation`
     - sql in this part needs to return anything (not empty response)
     - for example above would finall sql looks like this:
-```sql
-select case when exists 
-    (select * from passwords 
-    where password = 'heslo12' and login = 'Joe') 
-then cast(1 as bit) 
-else cast(0 as bit) end
-```
+    ```sql
+    select case when exists 
+        (select * from passwords 
+        where password = 'heslo12' and login = 'Joe') 
+    then cast(1 as bit) 
+    else cast(0 as bit) end
+    ```
     - variables from `Authorization` header need to have same name as in `patern` and need to be wrapped in `$$` characters
-- if credentials are valid it will try to find role id via `roleId` sql
+- if credentials (and every additional check) are valid it will try to find role id via `roleId` sql
     - `roleId` sql just finds value from database
     - than use this value as key for `roles` dictionary
 - endpoint validation 
@@ -487,6 +488,8 @@ This will be about how to write `controllers` and `repositories` .
 
 Controllers are classes that handle requested endpoints. I recommend to create one folder just for your controllers but it is not necessary (or use the generated one ofc).
 
+There is documentation of `CheeseController` class https://kubaboi.github.io/CheeseFramework/doc.html#5-cheesecontroller
+
 #### 7.1.1 Create controller
 
 As I said, controllers are classes. So create class that inherits from CheeseController.
@@ -500,10 +503,7 @@ class apiController(CheeseController):
 
 #### 7.1.2 Methods of controller
 
-There is sctrict scheme how should method in controller looks so it can handle endpoint.
-Method have to be static, so add `@staticmethod` annotation above method definition.
-Method have to be anotated. Annotation for endpoints contains HTTP method (right now only `GET` and `POST`) and endpoint.
-Method have to have 3 arguments: server, path, auth.
+There is sctrict scheme how should method in controller looks so it can handle endpoint. Method has to be static, so add `@staticmethod` annotation above method definition. Method has to be anotated. Annotation for endpoints contains HTTP method (right now only `GET` and `POST`) and endpoint. Method has to have 3 arguments: `server`, `path`, `auth`.
 
 ```python
 #@post /apiEndpoint;
@@ -511,13 +511,34 @@ Method have to have 3 arguments: server, path, auth.
 def getFiles(server, path, auth):
 ```
 
+Every method needs to return object created via `CheeseController.createResponse()`. We will talk about `CheeseController` methods later.
+
+If your method solves content and headers itself you can return `CheeseNone()` object. 
+
 #### 7.1.3 Method arguments
 
-Those arguments are passed by server handler. `server` is instance of server handler ( `BaseHTTPRequestHandler` ). 
+Those arguments are passed by server handler. 
+
+`server` is instance of server handler ( `BaseHTTPRequestHandler` ). 
 
 `path` is string variable and it contains `url` without host and port. So for url `http://localhost:8000/hello/world?name=helloboi` the `path` will looks like this `/hello/world?name=helloboi` .
 
-`auth` is some object defined by you during Authentication.
+`auth` is object defined during Authentication. It will looks like this:
+
+```json
+{
+    // role node is defined in ./securitySettings
+    "role": {
+        "value": 0,
+        "name": "Admin"
+    },
+    "login": {
+        "login": "login",
+        "password": "password" // this will be probably removed
+    },
+    "userData": "tuple" // this is tuple of user's data from database (user's whole row) 
+}
+```
 
 #### 7.1.4 Example controller
 
@@ -532,10 +553,10 @@ Controller will handle two endpoints:
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from cheese.modules.cheeseController import CheeseController
+from cheese.modules.cheeseController import CheeseController as cc
 
 #@controller /calculator;
-class CalculatorController(CheeseController):
+class CalculatorController(cc):
 
     """
     sum two numbers in request body and return result
@@ -554,7 +575,7 @@ class CalculatorController(CheeseController):
     def sum(server, path, auth):
 
         #reads arguments from body of request 
-        args = CheeseController.readArgs(server)
+        args = cc.readArgs(server)
                 
         #arguments
         num1 = int(args["NUM1"])
@@ -562,7 +583,7 @@ class CalculatorController(CheeseController):
 
         result = num1 + num2
 
-        return CheeseController.createResponse({"RESPONSE": result}, 200)
+        return cc.createResponse({"RESPONSE": result}, 200)
 
     """
     substract two numbers in request path and return result
@@ -580,7 +601,7 @@ class CalculatorController(CheeseController):
     def sub(server, path, auth):
     
         #reads arguments from endpoint path 
-        args = CheeseController.getArgs(server)
+        args = cc.getArgs(server)
         
         #arguments
         num1 = int(args["num1"])
@@ -588,7 +609,7 @@ class CalculatorController(CheeseController):
         
         result = num1 - num2
         
-        return CheeseController.createResponse({"RESPONSE": result}, 200)
+        return cc.createResponse({"RESPONSE": result}, 200)
 ```
 
 ### 7.2 Repositories
@@ -749,8 +770,12 @@ There are some prebuilded methods for saving, updating, removing and find new id
     - finds all rows of table
 - `find(primaryKey)`
     - finds one model by `primaryKey`
-- `findBy(columnName, value)`
-    - finds all rows with `value` of column `columnName`
+- `findWhere(**columns)`
+    - finds all rows with `value` of columns
+    - `**columns` is kwargs so dict where `keys` are column names and its `values` are ... ehm values 
+- `findOneWhere(**columns)`
+    - finds one model with `value` of columns
+    - `**columns` is same as in `findWhere` 
 - `findNewId()`
     - finds new ID (free one)
 - `save(obj)`
@@ -759,6 +784,9 @@ There are some prebuilded methods for saving, updating, removing and find new id
     - updates values in database by id of `obj`
 - `delete(obj)`
     - deletes row from database by id of `obj`
+- `exists(**columns)`
+    - return `true` if at least one row exists
+    - `**columns` is same as in `findWhere` 
 - `model()`
     - returns new instance of `CheeseModel` and finds to it free id via `findNewId()`
 
