@@ -1,7 +1,7 @@
 
 var debug = false;
 
-function convert(str) {
+function convert(str, separateContents=true) {
     var mdDiv = document.getElementById("md");
     clearTable(mdDiv);
 
@@ -22,9 +22,6 @@ function convert(str) {
     
     // check boxes -> [ ] || [x]
     str = rplcReg(str, /\[(?<checkBox>[ x])\]/g, "$checkBox.checkBox$");
-
-    // contents
-    //str = rplcReg()
 
     // list -> - something
     str = rplcReg(str, /^((?<![a-zA-Z0-9])(?<spaces>[ ]*)- )(?<li>.*)/gm, "<li style=margin-left:$spaces.length$%;>$li$</li>");
@@ -81,7 +78,7 @@ function convert(str) {
 
     mdDiv.innerHTML = str;
 
-    contents();
+    if (separateContents) contents();
     changeWelcome();
     images();
 

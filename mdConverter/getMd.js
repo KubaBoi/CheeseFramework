@@ -1,9 +1,9 @@
 
 var mdUrl = "";
-async function getMd(url) {
+async function getMd(url, separateContents=true) {
     mdUrl = url;
     var response = await callEndpoint("GET", url);
-    convert(response);
+    convert(response, separateContents);
 }
 
 async function source() {
