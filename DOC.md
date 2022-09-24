@@ -4,9 +4,9 @@
 
 :bangbang: This documentantion is automaticaly generated from code documentation.
 
-timestamp: 22.09.24.19.26
+timestamp: 22.09.24.19.29
 
-Cheese version v(1.4.92)
+Cheese version v(1.4.93)
 
 ## Contents
 
@@ -22,7 +22,7 @@ Cheese version v(1.4.92)
     - [convertBytes](#41-convertbytes)
     - [error](#42-error)
     - [getFileName](#43-getfilename)
-    - [getParentName](#44-getparentname)
+    - [getParentDir](#44-getparentdir)
     - [getRelativePathFrom](#45-getrelativepathfrom)
     - [joinPath](#46-joinpath)
     - [logs](#47-logs)
@@ -304,10 +304,10 @@ return name of file from path
 
 
 
-### 4.4 getParentName
+### 4.4 getParentDir
 
 
-return name of parent directory
+return parent directory
 
 
 

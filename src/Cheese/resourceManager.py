@@ -27,9 +27,9 @@ class ResMan:
         return os.path.basename(path)
 
     @staticmethod
-    def getParentName(path):
+    def getParentDir(path):
         """
-        return name of parent directory
+        return parent directory
         """
         return os.path.pardir(path)
 
