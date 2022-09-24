@@ -4,9 +4,9 @@
 
 :bangbang: This documentantion is automaticaly generated from code documentation.
 
-timestamp: 22.09.24.19.06
+timestamp: 22.09.24.19.26
 
-Cheese version v(1.4.91)
+Cheese version v(1.4.92)
 
 ## Contents
 
@@ -22,17 +22,18 @@ Cheese version v(1.4.91)
     - [convertBytes](#41-convertbytes)
     - [error](#42-error)
     - [getFileName](#43-getfilename)
-    - [getRelativePathFrom](#44-getrelativepathfrom)
-    - [joinPath](#45-joinpath)
-    - [logs](#46-logs)
-    - [metadata](#47-metadata)
-    - [removeSlash](#48-removeslash)
-    - [resources](#49-resources)
-    - [root](#410-root)
-    - [setPath](#411-setpath)
-    - [src](#412-src)
-    - [tests](#413-tests)
-    - [web](#414-web)
+    - [getParentName](#44-getparentname)
+    - [getRelativePathFrom](#45-getrelativepathfrom)
+    - [joinPath](#46-joinpath)
+    - [logs](#47-logs)
+    - [metadata](#48-metadata)
+    - [removeSlash](#49-removeslash)
+    - [resources](#410-resources)
+    - [root](#411-root)
+    - [setPath](#412-setpath)
+    - [src](#413-src)
+    - [tests](#414-tests)
+    - [web](#415-web)
 - [HTTPError](#5-httperror)
     - [with_traceback](#51-with_traceback)
 - [Settings](#6-settings)
@@ -303,77 +304,84 @@ return name of file from path
 
 
 
-### 4.4 getRelativePathFrom
+### 4.4 getParentName
+
+
+return name of parent directory
+
+
+
+### 4.5 getRelativePathFrom
 
 
 return relative path from
 
 
 
-### 4.5 joinPath
+### 4.6 joinPath
 
 
 joins two paths together
 
 
 
-### 4.6 logs
+### 4.7 logs
 
 
 logs
 
 
 
-### 4.7 metadata
+### 4.8 metadata
 
 
 metadata
 
 
 
-### 4.8 removeSlash
+### 4.9 removeSlash
 
 
 remove / from start or end
 
 
 
-### 4.9 resources
+### 4.10 resources
 
 
 other resources of project
 
 
 
-### 4.10 root
+### 4.11 root
 
 
 root dir of project
 
 
 
-### 4.11 setPath
+### 4.12 setPath
 
 
 set root path of project
 
 
 
-### 4.12 src
+### 4.13 src
 
 
 all source codes of project
 
 
 
-### 4.13 tests
+### 4.14 tests
 
 
 tests
 
 
 
-### 4.14 web
+### 4.15 web
 
 
 dir from which CheeseFramework is able to serve files (index.html)
