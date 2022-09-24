@@ -38,6 +38,8 @@ class ResMan:
         """
         remove / from start or end
         """
+        if (path == ""): return path
+
         if (path[0] == "/" and start):
             path = path[1:]
         elif (path[-1] == "/" and not start):
