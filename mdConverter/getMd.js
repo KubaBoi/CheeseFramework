@@ -29,7 +29,8 @@ async function source() {
 }
 
 document.addEventListener('keydown', (event) => {
-    if (event.key == "p") {
+    if (event.ctrlKey && event.key === 'p') {
+        event.preventDefault();
         source();
     }
 }, false);
