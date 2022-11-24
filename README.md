@@ -12,9 +12,9 @@ Test version v(1.4.93) - 22.09.24.19.29
 
 ## TODO
 
-- [ ] autocommit
-- [ ] models and autocommits
-- [ ] javascript
+- [x] autocommit
+- [x] models and autocommits
+- [x] javascript
 
 ## Source code
 
