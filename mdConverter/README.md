@@ -1,10 +1,11 @@
 # MD Converter
 
-For better understading check: http://frogie.cz:7970
+For better understanding check: http://frogie.cz:7970
 
 To use:
 
-```
+```html
+<meta charset="UTF-8">
 <link rel="stylesheet" href="https://kubaboi.github.io/CheeseFramework/mdConverter/style.css">
 
 <div id="d" class="d">
