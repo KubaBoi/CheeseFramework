@@ -155,7 +155,7 @@ function images() {
 }
 
 function tables(str) {
-    str = rplcReg(str, /\|(?<content>[a-zA-Z0-9 \|\%\*\`\"\'\!\:\;\?\(\)\[\]\/\\\_\,\.\-]+)\|([ ]*)\n/, "<tr>$content$</tr>");
+    str = rplcReg(str, /\|(?<content>[\w ěščřžýáíéúůňťóďĚŠČŘŽÝÁÍÉÚŮŇŤÓĎ\>\|\%\*\`\"\'\!\:\;\?\(\)\[\]\/\\\,\.\-]+)\|([ ]*)\n/, "<tr>$content$</tr>");
     let lines = str.split("\n");
     for (let i = 0; i < lines.length; i++) {
         let line = lines[i];
