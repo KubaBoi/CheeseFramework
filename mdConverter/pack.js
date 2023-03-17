@@ -1,4 +1,216 @@
 
+// MDCONVERTER.JS
+
+var debug = false;
+
+function convert(str, separateContents=true) {
+    var mdDiv = document.getElementById("md");
+    clearTable(mdDiv);
+
+    str = str.replaceAll("\r\n", "\n");
+
+    // tables
+    str = tables(str);
+
+    // hrefs within md document -> [title](#headerId) 
+    str = rplcReg(str, /\[(?<title>.+)\]\((?<href>#.*)\)/g, '<a href="$href.lowerCase$">$title$</a>');
+    
+    // hrefs to another sites -> [title](url)
+    str = rplcReg(str, /\[(?<title>.+)\]\((?<href>.*)\)/g, '<a href="$href$" target=_blank>$title$</a>');
+
+    // images -> ![title](imgSrc)
+    str = rplcReg(str, /\!\[(?<title>.*)\]\((?<src>.*)\)/g, '<img src="$src$" title=$title$>');
+    
+    // urls
+    str = rplcReg(str, /(?<url>(?<!"|'|>)https*\:\/\/[a-zA-Z0-9\#\?\=\_\/\.\:\%\-]*)(?!"|'|<)/, '<a href="$url.strip$" target=_blank>$url.strip$</a>');
+
+    // one line codes -> `code` | ```code```
+    str = rplcReg(str, /\`{1,3}(?<code>[a-zA-Z0-9\#\@\&\?\/\:\=\"\'\(\)\.\,\*\[\]\%\{\}\- ]+)\`{1,3}/g, "<code>$code$</code>");
+    
+    // check boxes -> [ ] || [x]
+    str = rplcReg(str, /\[(?<checkBox>[ x])\]/g, "$checkBox.checkBox$");
+
+    // list -> - something
+    str = rplcReg(str, /^((?<![a-zA-Z0-9])(?<spaces>[ ]*)- )(?<li>.*)/gm, "<li style=margin-left:$spaces.length$%;>$li$</li>");
+
+    // numbered list
+    str = rplcReg(str, /^((?<![a-zA-Z0-9])(?<spaces>[ ]*)(?<number>[0-9\.]+).{1} )(?<li>.*)/gm, "<li style=margin-left:$spaces.length$%; class='numberedList'>$number$. $li$</li>");
+
+    //str = str.rplcRegAll(/(?<!\")[ ]*https\:\/\/.*(?=!<\/) /g, urls);
+    str = rplcReg(str, /\`{3}(?<codeType>[a-z]+)/g, "<pre class=language-$codeType$>");
+    str = rplcReg(str, /\`{3}/g, "</pre>");
+
+    mdDiv.innerHTML = str;
+
+    formatCode();
+
+    str = mdDiv.innerHTML;
+
+    str = headers(str);
+
+    /** emojis -> :emoji:
+     * list in emojis.js (https://github.com/KubaBoi/CheeseFramework/blob/webServices/mdConverter/emojis.js)
+     * credit https://github.com/privatenumber/gh-emojis
+     */
+    str = rplcReg(str, /:(?<emoji>[a-z0-9_\-\+]+):/g, "$emoji.emoji$");
+
+    lines = str.split("\n");
+    str = "";
+    for (let i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        if (line.match(/^(\<)/) == null) {
+            if (i < lines.length-1) {
+                if (line == "" && lines[i+1] != "") {
+                    str += "<br><br>";
+                    continue;
+                }
+                else if (lines[i+1] == "") {
+                    str += `${line}<br><br>`
+                    i++;
+                    continue;
+                }
+            }
+            str += line;
+        }
+        else {
+            if (line.match(/\<pre.*/) != null) {
+                while (line.match(/\<\/pre\>/) == null) {
+                    str += line + "\n";
+                    line = lines[++i];
+                }
+            }
+            str += line;
+        }
+    }
+
+    mdDiv.innerHTML = str;
+
+    if (separateContents) contents();
+    changeWelcome();
+    images();
+
+    setTimeout(scrollToAfter, 1000);
+}
+
+function headers(str) {
+    var lines = str.split("\n");
+
+    var newStr = "";
+    var paragraph = "";
+    var parId = "";
+
+    var mouseEvents = ""; // "onmouseover=onScrollDiv(this) onmousemove=onScrollDiv(this)";
+
+    for (let i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        if (line.startsWith("#")) {
+            if (paragraph != "") {
+                newStr += `<div id=${parId}Id ${mouseEvents}>${paragraph}</div>`;
+                paragraph = "";
+            }
+            parId = rplcReg(line, /((?<!\>)(?<hdr>#+)) (?<title>.*)/g, "$title.id$");
+            line = rplcReg(line, /((?<!\>)(?<hdr>#+)) (?<title>.*)/g, "<h$hdr.len$ id=$title.id$>$title$</h$hdr.len$>");
+            if (line.startsWith("<h1") || line.startsWith("<h2")) {
+                line += "<hr>";
+            }
+        }
+        paragraph += line + "\n";
+    }
+    newStr += `<div id=${parId}Id ${mouseEvents}>${paragraph}</div>`;
+    return newStr;
+}
+
+function contents() {
+    var contentsDiv = document.getElementById("contentsId");
+    if (contentsDiv == null) return;
+    contentsDiv.remove();
+    contentsDiv.classList.add("contents");
+
+    var cont = contentsDiv.innerHTML;
+    var lines = cont.split("<br>")[2].split("</li>");
+
+    contentsDiv.innerHTML = "<p>Contents</p>";
+    
+    for (let i = 0; i < lines.length; i++) {
+        var index = rplcReg(lines[i], /.*\<a href="#(?<index>\d+)-.*/, "$index$");
+        var dotIndex = "";
+        for (let o = 0; o < index.length; o++) {
+            dotIndex += index[o] + ".";
+        }
+        var line = lines[i].split("<a");
+        contentsDiv.innerHTML += `${line[0]}${dotIndex} <a${line[1]}</li>`;
+    }
+
+    document.body.appendChild(contentsDiv);
+}
+
+function images() {
+    var imgs = document.body.getElementsByTagName("img");
+    for (let i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        if (!img.classList.contains("emojiImg")) {
+            img.classList.add("contentImg");
+        }
+    }
+}
+
+function tables(str) {
+    str = rplcReg(str, /\|(?<content>[a-zA-Z0-9 \|\%\*\`\"\'\!\:\;\?\(\)\[\]\/\\\_\,\.\-]+)\|([ ]*)\n/, "<tr>$content$</tr>");
+    let lines = str.split("\n");
+    for (let i = 0; i < lines.length; i++) {
+        let line = lines[i];
+        if (!line.startsWith("<tr>")) 
+            continue;
+        
+        let rows = line.split("</tr>");
+        let newLine = "";
+        for (let o = 0; o < rows.length; o++) {
+            let row = rows[o].replace("<tr>", "");
+
+            let isDelimiter = true;
+            for (let o = 0; o < row.length; o++) {
+                if (row[o] != "|" && row[o] != " " && row[o] != "-") {
+                    isDelimiter = false;
+                    break;
+                }
+            }
+            if (isDelimiter) continue;
+
+            newLine += "<tr>";
+            if (o >= rows.length - 1) {
+                newLine += `<td>${row.replaceAll("|", "</td><td>")}</td></tr>`;
+                continue;
+            }
+            let cells = row.split("|");
+            let nextCells = rows[o + 1].replace("<tr>", "").split("|");
+            for (let o = 0; o < cells.length; o++) {
+                let cell = cells[o];
+                if (o >= nextCells.length) {
+                    newLine += `<td>${cell}</td>`;
+                    continue;
+                }
+                let nextCell = nextCells[o];
+                if (nextCell.trim() == "---") 
+                    newLine += `<th>${cell}</th>`;
+                else
+                    newLine += `<td>${cell}</td>`;
+            }
+            newLine += "</tr>";
+        }
+        str = str.replaceAll(line, `<table>${newLine}</table>\n`);
+    }
+    return str;
+}
+
+function scrollToAfter() {
+    let url = new URL(window.location.href);
+    let hash = url.hash;
+    if (hash != "") {
+        window.location = hash;
+    }
+}
+
+
 // GETMD.JS
 
 var mdUrl = "";
@@ -38,49 +250,10 @@ document.addEventListener('keydown', (event) => {
 }, false);
 
 
-// CUSTOM.JS
+// ONSCROLLMAN.JS
 
-function changeWelcome() {
-    var docDiv = document.getElementById("documentationId");
-    if (docDiv == null) return;
-    var str = `
-        <h2 id="documentation">Documentation</h2>
-        Yeeey you are here :heart_eyes: 
-        <br>That's amazing, thank you. All source codes for this .md to .html converter
-        are <a href="https://github.com/KubaBoi/CheeseFramework/tree/webServices/mdConverter">here</a>.<br>
-        <br>
-        <a href="https://kubaboi.github.io/CheeseFramework/doc.html" target="_blank">Complete method and classes documentation</a>
-    `;
-
-    docDiv.innerHTML = rplcReg(str, /:(?<emoji>[a-z0-9_\-\+]+):/g, "$emoji.emoji$");
-}
-
-
-// CODEFORMATER.JS
-
-function formatCode() {
+function onScrollDiv(e) {
     
-    var pres = document.body.getElementsByTagName("pre");
-    for (let i = 0; i < pres.length; i++) {
-        var pre = pres[i];
-        var clsList = pre.classList;
-
-        if (clsList.contains("language-json")) {
-            pre.innerHTML = formatJson(pre.innerHTML);
-        }
-        else if (clsList.contains("language-html")) {
-            pre.innerHTML = formatHtml(pre.innerHTML);
-        }
-        else if (clsList.contains("language-assembler")) {
-            pre.innerHTML = formatAsm(pre.innerHTML);
-        }
-        else {
-            pre.innerHTML = formatPython(pre.innerHTML);
-        }
-        /*else if (clsList.contains("language-sql")) {
-            pre.innerHTML = formatSql(pre.innerHTML);
-        }*/
-    }
 }
 
 
@@ -187,6 +360,24 @@ function emojiImg(emoji) {
     ]);
 
     return emojiObj.outerHTML;
+}
+
+
+// CUSTOM.JS
+
+function changeWelcome() {
+    var docDiv = document.getElementById("documentationId");
+    if (docDiv == null) return;
+    var str = `
+        <h2 id="documentation">Documentation</h2>
+        Yeeey you are here :heart_eyes: 
+        <br>That's amazing, thank you. All source codes for this .md to .html converter
+        are <a href="https://github.com/KubaBoi/CheeseFramework/tree/webServices/mdConverter">here</a>.<br>
+        <br>
+        <a href="https://kubaboi.github.io/CheeseFramework/doc.html" target="_blank">Complete method and classes documentation</a>
+    `;
+
+    docDiv.innerHTML = rplcReg(str, /:(?<emoji>[a-z0-9_\-\+]+):/g, "$emoji.emoji$");
 }
 
 
@@ -1997,170 +2188,89 @@ const EMOJIS = {
 }
 
 
-// ONSCROLLMAN.JS
+// CODEFORMATER.JS
 
-function onScrollDiv(e) {
+function formatCode() {
     
+    var pres = document.body.getElementsByTagName("pre");
+    for (let i = 0; i < pres.length; i++) {
+        var pre = pres[i];
+        var clsList = pre.classList;
+
+        if (clsList.contains("language-json")) {
+            pre.innerHTML = formatJson(pre.innerHTML);
+        }
+        else if (clsList.contains("language-html")) {
+            pre.innerHTML = formatHtml(pre.innerHTML);
+        }
+        else if (clsList.contains("language-assembler")) {
+            pre.innerHTML = formatAsm(pre.innerHTML);
+        }
+        else {
+            pre.innerHTML = formatPython(pre.innerHTML);
+        }
+        /*else if (clsList.contains("language-sql")) {
+            pre.innerHTML = formatSql(pre.innerHTML);
+        }*/
+    }
 }
 
 
-// MDCONVERTER.JS
+// ASSEMBLER.JS
 
-var debug = false;
+var varsAsm = ["DB", "DW", "DD", "DQ", "DT", "RESB", "RESW", "RESD", "TIMES"];
+var typesAsm = ["BYTE", "WORD", "DWORD", "QWORD", "TBYTE"];
+var regsAsm = ["AL", "AH", "SI", "DI", "AX", "EAX", "RAX"];
 
-function convert(str, separateContents=true) {
-    var mdDiv = document.getElementById("md");
-    clearTable(mdDiv);
+var instAsm = [
+    "MOV", "JMP", "JZ", 
+    "CMP", 
+    "LODSB", "LODSW", "LODSD", 
+    "INC", "DEC", "ADD", "SUB",
+    "RET"];
 
-    // hrefs within md document -> [title](#headerId) 
-    str = rplcReg(str, /\[(?<title>.+)\]\((?<href>#.*)\)/g, '<a href="$href.lowerCase$">$title$</a>');
-    
-    // hrefs to another sites -> [title](url)
-    str = rplcReg(str, /\[(?<title>.+)\]\((?<href>.*)\)/g, '<a href="$href$" target=_blank>$title$</a>');
-
-    // images -> ![title](imgSrc)
-    str = rplcReg(str, /\!\[(?<title>.*)\]\((?<src>.*)\)/g, '<img src="$src$" title=$title$>');
-    
-    // urls
-    str = rplcReg(str, /(?<url>(?<!"|'|>)https*\:\/\/[a-zA-Z0-9\#\?\=\_\/\.\:\%\-]*)(?!"|'|<)/, '<a href="$url.strip$" target=_blank>$url.strip$</a>');
-
-    // one line codes -> `code` | ```code```
-    str = rplcReg(str, /\`{1,3}(?<code>[a-zA-Z0-9\#\@\&\?\/\:\=\"\'\(\)\.\,\*\[\]\%\{\}\- ]+)\`{1,3}/g, "<code>$code$</code>");
-    
-    // check boxes -> [ ] || [x]
-    str = rplcReg(str, /\[(?<checkBox>[ x])\]/g, "$checkBox.checkBox$");
-
-    // list -> - something
-    str = rplcReg(str, /^((?<![a-zA-Z0-9])(?<spaces>[ ]*)- )(?<li>.*)/gm, "<li style=margin-left:$spaces.length$%;>$li$</li>");
-
-    // numbered list
-    str = rplcReg(str, /^((?<![a-zA-Z0-9])(?<spaces>[ ]*)(?<number>[0-9\.]+).{1} )(?<li>.*)/gm, "<li style=margin-left:$spaces.length$%; class='numberedList'>$number$. $li$</li>");
-
-    //str = str.rplcRegAll(/(?<!\")[ ]*https\:\/\/.*(?=!<\/) /g, urls);
-    str = rplcReg(str, /\`{3}(?<codeType>[a-z]+)/g, "<pre class=language-$codeType$>");
-    str = rplcReg(str, /\`{3}/g, "</pre>");
-
-    mdDiv.innerHTML = str;
-
-    formatCode();
-
-    str = mdDiv.innerHTML;
-
-    str = headers(str);
-
-    /** emojis -> :emoji:
-     * list in emojis.js (https://github.com/KubaBoi/CheeseFramework/blob/webServices/mdConverter/emojis.js)
-     * credit https://github.com/privatenumber/gh-emojis
-     */
-    str = rplcReg(str, /:(?<emoji>[a-z0-9_\-\+]+):/g, "$emoji.emoji$");
+function formatAsm(str) {
 
     var lines = str.split("\n");
     str = "";
     for (let i = 0; i < lines.length; i++) {
         var line = lines[i];
-        if (line.match(/^(\<)/) == null) {
-            if (i < lines.length-1) {
-                if (line == "" && lines[i+1] != "") {
-                    str += "<br><br>";
-                    continue;
-                }
-                else if (lines[i+1] == "") {
-                    str += `${line}<br><br>`
-                    i++;
-                    continue;
-                }
-            }
-            str += line;
+
+        // one line comments
+        line = rplcReg(line, /(?<!\>)(?<comment>;.*)/, "<span class=comment>$comment$</span>", 1);
+     
+        for (let o = 0; o < varsAsm.length; o++) {
+            let vr = varsAsm[o];
+            let re = new RegExp(`(?<vr>${vr}|${vr.toLowerCase()}) (?<value>[a-zA-Z0-9]+)`);
+            line = rplcReg(line, re, `<span class=keyword>$vr.upperCase$</span> <span class=class>$value$</span>`, 1);
         }
-        else {
-            if (line.match(/\<pre.*/) != null) {
-                while (line.match(/\<\/pre\>/) == null) {
-                    str += line + "\n";
-                    line = lines[++i];
-                }
-            }
-            str += line;
+
+        for (let o = 0; o < typesAsm.length; o++) {
+            let type = typesAsm[o];
+            let re = new RegExp(` (?<type>${type}|${type.toLowerCase()}) `);
+            line = rplcReg(line, re,  " <span class=function_variable>$type.lowerCase$</span> ", 1);
         }
+
+        for (let o = 0; o < instAsm.length; o++) {
+            let inst = instAsm[o];
+            let re = new RegExp(`(?<inst>${inst}|${inst.toLowerCase()})`);
+            line = rplcReg(line, re,  "<span class=multiline_comment>$inst.upperCase$</span>", 1);
+        }
+
+        for (let o = 0; o < regsAsm.length; o++) {
+            let reg = regsAsm[o];
+            let re = new RegExp(` (?<reg>${reg}|${reg.toLowerCase()}) `);
+            line = rplcReg(line, re,  " <span class=annotation>$reg.upperCase$</span> ", 1);
+
+            re = new RegExp(` (?<reg>${reg}|${reg.toLowerCase()}),`);
+            line = rplcReg(line, re,  " <span class=annotation>$reg.upperCase$</span>,", 1);
+        }
+
+        str += line + "<br>";
     }
 
-    mdDiv.innerHTML = str;
-
-    if (separateContents) contents();
-    changeWelcome();
-    images();
-
-    setTimeout(scrollToAfter, 1000);
-}
-
-function headers(str) {
-    var lines = str.split("\n");
-
-    var newStr = "";
-    var paragraph = "";
-    var parId = "";
-
-    var mouseEvents = ""; // "onmouseover=onScrollDiv(this) onmousemove=onScrollDiv(this)";
-
-    for (let i = 0; i < lines.length; i++) {
-        var line = lines[i];
-        if (line.startsWith("#")) {
-            if (paragraph != "") {
-                newStr += `<div id=${parId}Id ${mouseEvents}>${paragraph}</div>`;
-                paragraph = "";
-            }
-            parId = rplcReg(line, /((?<!\>)(?<hdr>#+)) (?<title>.*)/g, "$title.id$");
-            line = rplcReg(line, /((?<!\>)(?<hdr>#+)) (?<title>.*)/g, "<h$hdr.len$ id=$title.id$>$title$</h$hdr.len$>");
-            if (line.startsWith("<h1") || line.startsWith("<h2")) {
-                line += "<hr>";
-            }
-        }
-        paragraph += line + "\n";
-    }
-    newStr += `<div id=${parId}Id ${mouseEvents}>${paragraph}</div>`;
-    return newStr;
-}
-
-function contents() {
-    var contentsDiv = document.getElementById("contentsId");
-    if (contentsDiv == null) return;
-    contentsDiv.remove();
-    contentsDiv.classList.add("contents");
-
-    var cont = contentsDiv.innerHTML;
-    var lines = cont.split("<br>")[2].split("</li>");
-
-    contentsDiv.innerHTML = "<p>Contents</p>";
-    
-    for (let i = 0; i < lines.length; i++) {
-        var index = rplcReg(lines[i], /.*\<a href="#(?<index>\d+)-.*/, "$index$");
-        var dotIndex = "";
-        for (let o = 0; o < index.length; o++) {
-            dotIndex += index[o] + ".";
-        }
-        var line = lines[i].split("<a");
-        contentsDiv.innerHTML += `${line[0]}${dotIndex} <a${line[1]}</li>`;
-    }
-
-    document.body.appendChild(contentsDiv);
-}
-
-function images() {
-    var imgs = document.body.getElementsByTagName("img");
-    for (let i = 0; i < imgs.length; i++) {
-        var img = imgs[i];
-        if (!img.classList.contains("emojiImg")) {
-            img.classList.add("contentImg");
-        }
-    }
-}
-
-function scrollToAfter() {
-    let url = new URL(window.location.href);
-    let hash = url.hash;
-    if (hash != "") {
-        window.location = hash;
-    }
-}
+    return str;
+} 
 
 
 // JSON.JS
@@ -2223,87 +2333,6 @@ function getType(value) {
     return `${bracket}<span class=${cls}>${value.trim()}</span>${comma}`;
 }
 
-
-
-// ASSEMBLER.JS
-
-var varsAsm = ["DB", "DW", "DD", "DQ", "DT", "RESB", "RESW", "RESD", "TIMES"];
-var typesAsm = ["BYTE", "WORD", "DWORD", "QWORD", "TBYTE"];
-var regsAsm = ["AL", "AH", "SI", "DI", "AX", "EAX", "RAX"];
-
-var instAsm = [
-    "MOV", "JMP", "JZ", 
-    "CMP", 
-    "LODSB", "LODSW", "LODSD", 
-    "INC", "DEC", "ADD", "SUB",
-    "RET"];
-
-function formatAsm(str) {
-
-    var lines = str.split("\n");
-    str = "";
-    for (let i = 0; i < lines.length; i++) {
-        var line = lines[i];
-
-        // one line comments
-        line = rplcReg(line, /(?<!\>)(?<comment>;.*)/, "<span class=comment>$comment$</span>", 1);
-     
-        for (let o = 0; o < varsAsm.length; o++) {
-            let vr = varsAsm[o];
-            let re = new RegExp(`(?<vr>${vr}|${vr.toLowerCase()}) (?<value>[a-zA-Z0-9]+)`);
-            line = rplcReg(line, re, `<span class=keyword>$vr.upperCase$</span> <span class=class>$value$</span>`, 1);
-        }
-
-        for (let o = 0; o < typesAsm.length; o++) {
-            let type = typesAsm[o];
-            let re = new RegExp(` (?<type>${type}|${type.toLowerCase()}) `);
-            line = rplcReg(line, re,  " <span class=function_variable>$type.lowerCase$</span> ", 1);
-        }
-
-        for (let o = 0; o < instAsm.length; o++) {
-            let inst = instAsm[o];
-            let re = new RegExp(`(?<inst>${inst}|${inst.toLowerCase()})`);
-            line = rplcReg(line, re,  "<span class=multiline_comment>$inst.upperCase$</span>", 1);
-        }
-
-        for (let o = 0; o < regsAsm.length; o++) {
-            let reg = regsAsm[o];
-            let re = new RegExp(` (?<reg>${reg}|${reg.toLowerCase()}) `);
-            line = rplcReg(line, re,  " <span class=annotation>$reg.upperCase$</span> ", 1);
-
-            re = new RegExp(` (?<reg>${reg}|${reg.toLowerCase()}),`);
-            line = rplcReg(line, re,  " <span class=annotation>$reg.upperCase$</span>,", 1);
-        }
-
-        str += line + "<br>";
-    }
-
-    return str;
-} 
-
-
-// HTML.JS
-
-function formatHtml(str) {
-
-    var lines = str.split("\n");
-    str = "";
-
-    for (let i = 0; i < lines.length; i++) {
-        var line = lines[i];
-        
-        line = line.replaceAll("<", "&lt;");
-        line = line.replaceAll(">", "&gt;");
-
-        line = line.replaceAll("&lt;script", "&lt;<span class=keyword>script</span>");
-        line = line.replaceAll("&lt;/script&gt;", "&lt;<span class=keyword>/script</span>&gt;");
-
-        line = rplcReg(line, /\&lt;\!--(?<comment>.*)--\&gt;/, "<span class=comment>&lt;!--$comment$--&gt;</span>");
-
-        str += line + " <br>";
-    }
-    return str;
-}
 
 
 // PYTHON.JS
@@ -2396,4 +2425,28 @@ function args(args, cls="function_variable") {
     return newStr;
 }
 
+
+
+// HTML.JS
+
+function formatHtml(str) {
+
+    var lines = str.split("\n");
+    str = "";
+
+    for (let i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        
+        line = line.replaceAll("<", "&lt;");
+        line = line.replaceAll(">", "&gt;");
+
+        line = line.replaceAll("&lt;script", "&lt;<span class=keyword>script</span>");
+        line = line.replaceAll("&lt;/script&gt;", "&lt;<span class=keyword>/script</span>&gt;");
+
+        line = rplcReg(line, /\&lt;\!--(?<comment>.*)--\&gt;/, "<span class=comment>&lt;!--$comment$--&gt;</span>");
+
+        str += line + " <br>";
+    }
+    return str;
+}
 

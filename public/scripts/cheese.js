@@ -1,43 +1,4 @@
 
-// ARRAYS.JS
-
-function removeFromArray(array, item) {
-    let index = array.indexOf(item);
-    removeFromArrayByIndex(array, index);
-}
-
-function removeFromArrayByIndex(array, index) {
-    if (index == -1) return;
-    array.splice(index, 1);
-}
-
-
-// COOKIES.JS
-
-function setCookie(cname, cvalue, exdays) {
-  const d = new Date();
-  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-  let expires = "expires="+ d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-  let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
-  for(let i = 0; i <ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-
-
 // PRISM.JS
 /* PrismJS 1.28.0
 https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+clike+javascript+bash+json+json5+markdown+powerquery+python */
@@ -53,6 +14,99 @@ Prism.languages.json={property:{pattern:/(^|[^\\])"(?:\\.|[^\\"\r\n])*"(?=\s*:)/
 Prism.languages.powerquery={comment:{pattern:/(^|[^\\])(?:\/\*[\s\S]*?\*\/|\/\/.*)/,lookbehind:!0,greedy:!0},"quoted-identifier":{pattern:/#"(?:[^"\r\n]|"")*"(?!")/,greedy:!0},string:{pattern:/(?:#!)?"(?:[^"\r\n]|"")*"(?!")/,greedy:!0},constant:[/\bDay\.(?:Friday|Monday|Saturday|Sunday|Thursday|Tuesday|Wednesday)\b/,/\bTraceLevel\.(?:Critical|Error|Information|Verbose|Warning)\b/,/\bOccurrence\.(?:All|First|Last)\b/,/\bOrder\.(?:Ascending|Descending)\b/,/\bRoundingMode\.(?:AwayFromZero|Down|ToEven|TowardZero|Up)\b/,/\bMissingField\.(?:Error|Ignore|UseNull)\b/,/\bQuoteStyle\.(?:Csv|None)\b/,/\bJoinKind\.(?:FullOuter|Inner|LeftAnti|LeftOuter|RightAnti|RightOuter)\b/,/\bGroupKind\.(?:Global|Local)\b/,/\bExtraValues\.(?:Error|Ignore|List)\b/,/\bJoinAlgorithm\.(?:Dynamic|LeftHash|LeftIndex|PairwiseHash|RightHash|RightIndex|SortMerge)\b/,/\bJoinSide\.(?:Left|Right)\b/,/\bPrecision\.(?:Decimal|Double)\b/,/\bRelativePosition\.From(?:End|Start)\b/,/\bTextEncoding\.(?:Ascii|BigEndianUnicode|Unicode|Utf16|Utf8|Windows)\b/,/\b(?:Any|Binary|Date|DateTime|DateTimeZone|Duration|Function|Int16|Int32|Int64|Int8|List|Logical|None|Number|Record|Table|Text|Time)\.Type\b/,/\bnull\b/],boolean:/\b(?:false|true)\b/,keyword:/\b(?:and|as|each|else|error|if|in|is|let|meta|not|nullable|optional|or|otherwise|section|shared|then|try|type)\b|#(?:binary|date|datetime|datetimezone|duration|infinity|nan|sections|shared|table|time)\b/,function:{pattern:/(^|[^#\w.])[a-z_][\w.]*(?=\s*\()/i,lookbehind:!0},"data-type":{pattern:/\b(?:any|anynonnull|binary|date|datetime|datetimezone|duration|function|list|logical|none|number|record|table|text|time)\b/,alias:"class-name"},number:{pattern:/\b0x[\da-f]+\b|(?:[+-]?(?:\b\d+\.)?\b\d+|[+-]\.\d+|(^|[^.])\B\.\d+)(?:e[+-]?\d+)?\b/i,lookbehind:!0},operator:/[-+*\/&?@^]|<(?:=>?|>)?|>=?|=>?|\.\.\.?/,punctuation:/[,;\[\](){}]/},Prism.languages.pq=Prism.languages.powerquery,Prism.languages.mscript=Prism.languages.powerquery;
 Prism.languages.python={comment:{pattern:/(^|[^\\])#.*/,lookbehind:!0,greedy:!0},"string-interpolation":{pattern:/(?:f|fr|rf)(?:("""|''')[\s\S]*?\1|("|')(?:\\.|(?!\2)[^\\\r\n])*\2)/i,greedy:!0,inside:{interpolation:{pattern:/((?:^|[^{])(?:\{\{)*)\{(?!\{)(?:[^{}]|\{(?!\{)(?:[^{}]|\{(?!\{)(?:[^{}])+\})+\})+\}/,lookbehind:!0,inside:{"format-spec":{pattern:/(:)[^:(){}]+(?=\}$)/,lookbehind:!0},"conversion-option":{pattern:/![sra](?=[:}]$)/,alias:"punctuation"},rest:null}},string:/[\s\S]+/}},"triple-quoted-string":{pattern:/(?:[rub]|br|rb)?("""|''')[\s\S]*?\1/i,greedy:!0,alias:"string"},string:{pattern:/(?:[rub]|br|rb)?("|')(?:\\.|(?!\1)[^\\\r\n])*\1/i,greedy:!0},function:{pattern:/((?:^|\s)def[ \t]+)[a-zA-Z_]\w*(?=\s*\()/g,lookbehind:!0},"class-name":{pattern:/(\bclass\s+)\w+/i,lookbehind:!0},decorator:{pattern:/(^[\t ]*)@\w+(?:\.\w+)*/m,lookbehind:!0,alias:["annotation","punctuation"],inside:{punctuation:/\./}},keyword:/\b(?:_(?=\s*:)|and|as|assert|async|await|break|case|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|match|nonlocal|not|or|pass|print|raise|return|try|while|with|yield)\b/,builtin:/\b(?:__import__|abs|all|any|apply|ascii|basestring|bin|bool|buffer|bytearray|bytes|callable|chr|classmethod|cmp|coerce|compile|complex|delattr|dict|dir|divmod|enumerate|eval|execfile|file|filter|float|format|frozenset|getattr|globals|hasattr|hash|help|hex|id|input|int|intern|isinstance|issubclass|iter|len|list|locals|long|map|max|memoryview|min|next|object|oct|open|ord|pow|property|range|raw_input|reduce|reload|repr|reversed|round|set|setattr|slice|sorted|staticmethod|str|sum|super|tuple|type|unichr|unicode|vars|xrange|zip)\b/,boolean:/\b(?:False|None|True)\b/,number:/\b0(?:b(?:_?[01])+|o(?:_?[0-7])+|x(?:_?[a-f0-9])+)\b|(?:\b\d+(?:_\d+)*(?:\.(?:\d+(?:_\d+)*)?)?|\B\.\d+(?:_\d+)*)(?:e[+-]?\d+(?:_\d+)*)?j?(?!\w)/i,operator:/[-+%=]=?|!=|:=|\*\*?=?|\/\/?=?|<[<=>]?|>[=>]?|[&|^~]/,punctuation:/[{}[\];(),.:]/},Prism.languages.python["string-interpolation"].inside.interpolation.inside.rest=Prism.languages.python,Prism.languages.py=Prism.languages.python;
 
+
+
+// TIME.JS
+function nowTime() {
+    var now = new Date();
+    var date = new Date(now.getTime());
+
+    var hours = date.getHours();
+    var minutes = "0" + date.getMinutes();
+    var seconds = "0" + date.getSeconds();
+
+    return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+
+}
+
+function getTimestamp(strTime=null, nullIsNow=true) {
+    if (strTime == "") strTime = null;
+    if (!nullIsNow && strTime == null) {
+        return "";
+    }
+    else if (nullIsNow && strTime == null) {
+        strTime = new Date();
+    }
+    return new Date(strTime).toISOString().slice(0,16);
+}
+
+/**
+ * @deprecated Use getTimestamp. getTime will return only time part of date since CheeseFramework 1.4.0
+ */
+function getTime(strTime=null, nullIsNow=true) {
+    console.warn(`WARNING! Obsolete function called. Function getTime() has been deprecated, 
+please use the new getTimestamp() function instead! Function will return time part of datetime stamp since 1.4.0`);
+
+    if (strTime == "") strTime = null;
+    if (!nullIsNow && strTime == null) {
+        return null;
+    }
+    return new Date(strTime).toISOString().slice(0,16);
+    //return new Date(strTime).toISOString().slice(10,16);
+}
+
+function getDate(strTime=null, nullIsNow=true) {
+    if (strTime == "") strTime = null;
+    if (!nullIsNow && strTime == null) {
+        return null;
+    }
+    return new Date(strTime).toISOString().substring(0,10);
+}
+
+function formatTime(rootSeconds) {
+    var hours   = Math.floor(rootSeconds / 3600);
+    var minutes = Math.floor((rootSeconds - (hours * 3600)) / 60);
+    var seconds = rootSeconds - (hours * 3600) - (minutes * 60);
+
+    str = "";
+    if (hours > 0) str += `${hours}h`;
+    if (minutes > 0) str += ` ${minutes}m`;
+    if (seconds > 0) str += ` ${seconds}s`;
+    return str;
+}
+
+function formatDatetime(datetime, includeSeconds=true) {
+
+    let year = datetime.getFullYear();
+    let date = datetime.getDate();
+    let month = datetime.getMonth()+1;
+
+    let hours = datetime.getHours();
+    let minutes = datetime.getMinutes();
+    let seconds = datetime.getSeconds();
+
+    if (`${minutes}`.length == 1) minutes = `0${minutes}`;
+    if (`${seconds}`.length == 1) seconds = `0${seconds}`;
+
+    let dateString = `${date}.${month}.${year} ${hours}:${minutes}`;
+    if (includeSeconds) {
+        dateString += `:${seconds}`;
+    }
+    return dateString;
+}
+
+function formatDate(datetime, includeYear=true) {
+
+    let year = datetime.getFullYear();
+    let date = datetime.getDate();
+    let month = datetime.getMonth()+1;
+
+    let dateString = `${date}.${month}.`;
+    if (includeYear) {
+        dateString += `${year}`;
+    }
+    return dateString;
+}
 
 
 // ELEMENTMANAGER.JS
@@ -224,47 +278,154 @@ function removeAlert() {
 }
 
 
-// TABLEBUILDER.JS
-
-function clearTable(table) {
-    table.innerHTML = "";
+// STRINGFORMATER.JS
+function stringShorter(str, maxChars) {
+    if (str.length > maxChars) 
+        return str.slice(0, maxChars) + "...";
+    return str;
 }
 
-function addRow(table, cells, rowAttributes=[]) {
-    var row = createElement("tr", table, "", rowAttributes);
-    for (let i = 0; i < cells.length; i++) {
-        if (!cells[i].attributes)
-            cells[i].attributes = [];
-        createElement("td", row, cells[i].text, cells[i].attributes);
-    }
-    return row;
+
+// COOKIES.JS
+
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-function addHeader(table, cells, rowAttributes=[]) {
-    var row = createElement("tr", table, "", rowAttributes);
-    for (let i = 0; i < cells.length; i++) {
-        if (!cells[i].attributes)
-            cells[i].attributes = [];
-        createElement("th", row, cells[i].text, cells[i].attributes);
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
     }
-    return row;
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }
 
-function insertRow(table, rowIndex, cells, rowAttributes=[]) {
-    var row = table.insertRow(rowIndex);
 
-    for (let i = 0; i < rowAttributes.length; i++) {
-        row.setAttribute(rowAttributes[i].name, rowAttributes[i].value);
-    }
-
-    for (let i = 0; i < cells.length; i++) {
-        if (!cells[i].attributes) {
-            cells[i].attributes = [];
+// LOADPAGE.JS
+// startArray are divs that are nnecessary for first run
+// divArray are others that do not need to be now
+async function loadPage(startArray, doAfter=null, afterArray=[]) {
+    for (let i = 0; i < startArray.length; i++) {
+        var name = startArray[i];
+        var response = await callEndpoint("GET", "/webParts/" + name + ".html")
+        if (!response.ERROR) {
+            var div = document.getElementById(name + "Div");
+            div.innerHTML = response;
         }
-        createElement("td", row, cells[i].text, cells[i].attributes);
     }
 
-    return row;
+    if (doAfter != null)
+        doAfter();
+    
+    for (let i = 0; i < afterArray.length; i++) {
+        var name = afterArray[i];
+        var response = await callEndpoint("GET", "/webParts/" + name + ".html")
+        if (!response.ERROR) {
+            var div = document.getElementById(name + "Div");
+            div.innerHTML = response;
+        }
+    }
+}
+
+async function getHtml(name, path, parentId, attributeClass="") {
+    var response = await callEndpoint("GET",
+         "/webParts/" + path + name + ".html")
+    if (!response.ERROR) {
+        var parent = document.getElementById(parentId);
+        var div = createElement("div", parent, "", 
+        [
+            {"name": "id", "value": name + "Div"},
+            {"name": "class", "value": attributeClass} 
+        ]);
+        div.innerHTML = response;
+        return div;
+    }
+    else {
+        return null;
+    }
+}
+
+
+// COMMUNICATION.JS
+
+var debug = true;
+var authorization = "";
+function sendPost(url, jsonRequest, output, callback) {
+    var xmlHttp = new XMLHttpRequest(); 
+    
+    if (output) console.log("SENDING", nowTime(), url, jsonRequest);
+
+    xmlHttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+            json = JSON.parse(this.responseText);
+            if(output) console.log("RESPONSE", nowTime(), url, json);
+            if(callback) callback(json);
+        }
+    };
+    xmlHttp.open("POST", url);
+    xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    if (authorization != "") {
+        xmlHttp.setRequestHeader("Authorization", window.btoa(authorization));
+    }
+    xmlHttp.send(jsonRequest);
+}
+
+function sendGet(url, output, callback) {
+    var xmlHttp = new XMLHttpRequest();
+
+    if (output) console.log("SENDING", nowTime(), url);
+
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4) {
+            try {
+                json = JSON.parse(this.responseText);
+            }
+            catch {
+                json = this.responseText;
+            }
+            if(output) console.log("RESPONSE", nowTime(), url, json);
+            if(callback) callback(json);
+        }
+    }
+    xmlHttp.open("GET", url); 
+    xmlHttp.setRequestHeader("Content-Type", "text/plain;charset=UTF-8;");
+    if (authorization != "") {
+        xmlHttp.setRequestHeader("Authorization", window.btoa(authorization));
+    }
+    xmlHttp.send();
+}
+
+function callEndpoint(type, url, request=null) {
+    if (type == "GET") {
+        return new Promise(resolve => {
+            sendGet(url, debug, function(response) {
+                resolve(response);
+            });
+        });
+    } else if (type == "POST") {
+        var request = JSON.stringify(request);
+        return new Promise(resolve => {
+            sendPost(url, request, debug, function(response) {
+                resolve(response);
+            });
+        });
+    }
+    else {
+        console.log("Unknown type (Had to be GET or POST");
+        console.log(type);
+        return null;
+    }
 }
 
 
@@ -368,224 +529,6 @@ function autocomplete(inp, arr) {
 }
 
 
-// TIME.JS
-function nowTime() {
-    var now = new Date();
-    var date = new Date(now.getTime());
-
-    var hours = date.getHours();
-    var minutes = "0" + date.getMinutes();
-    var seconds = "0" + date.getSeconds();
-
-    return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-
-}
-
-function getTimestamp(strTime=null, nullIsNow=true) {
-    if (strTime == "") strTime = null;
-    if (!nullIsNow && strTime == null) {
-        return "";
-    }
-    else if (nullIsNow && strTime == null) {
-        strTime = new Date();
-    }
-    return new Date(strTime).toISOString().slice(0,16);
-}
-
-/**
- * @deprecated Use getTimestamp. getTime will return only time part of date since CheeseFramework 1.4.0
- */
-function getTime(strTime=null, nullIsNow=true) {
-    console.warn(`WARNING! Obsolete function called. Function getTime() has been deprecated, 
-please use the new getTimestamp() function instead! Function will return time part of datetime stamp since 1.4.0`);
-
-    if (strTime == "") strTime = null;
-    if (!nullIsNow && strTime == null) {
-        return null;
-    }
-    return new Date(strTime).toISOString().slice(0,16);
-    //return new Date(strTime).toISOString().slice(10,16);
-}
-
-function getDate(strTime=null, nullIsNow=true) {
-    if (strTime == "") strTime = null;
-    if (!nullIsNow && strTime == null) {
-        return null;
-    }
-    return new Date(strTime).toISOString().substring(0,10);
-}
-
-function formatTime(rootSeconds) {
-    var hours   = Math.floor(rootSeconds / 3600);
-    var minutes = Math.floor((rootSeconds - (hours * 3600)) / 60);
-    var seconds = rootSeconds - (hours * 3600) - (minutes * 60);
-
-    str = "";
-    if (hours > 0) str += `${hours}h`;
-    if (minutes > 0) str += ` ${minutes}m`;
-    if (seconds > 0) str += ` ${seconds}s`;
-    return str;
-}
-
-function formatDatetime(datetime, includeSeconds=true) {
-
-    let year = datetime.getFullYear();
-    let date = datetime.getDate();
-    let month = datetime.getMonth()+1;
-
-    let hours = datetime.getHours();
-    let minutes = datetime.getMinutes();
-    let seconds = datetime.getSeconds();
-
-    if (`${minutes}`.length == 1) minutes = `0${minutes}`;
-    if (`${seconds}`.length == 1) seconds = `0${seconds}`;
-
-    let dateString = `${date}.${month}.${year} ${hours}:${minutes}`;
-    if (includeSeconds) {
-        dateString += `:${seconds}`;
-    }
-    return dateString;
-}
-
-function formatDate(datetime, includeYear=true) {
-
-    let year = datetime.getFullYear();
-    let date = datetime.getDate();
-    let month = datetime.getMonth()+1;
-
-    let dateString = `${date}.${month}.`;
-    if (includeYear) {
-        dateString += `${year}`;
-    }
-    return dateString;
-}
-
-
-// LOADPAGE.JS
-// startArray are divs that are nnecessary for first run
-// divArray are others that do not need to be now
-async function loadPage(startArray, doAfter=null, afterArray=[]) {
-    for (let i = 0; i < startArray.length; i++) {
-        var name = startArray[i];
-        var response = await callEndpoint("GET", "/webParts/" + name + ".html")
-        if (!response.ERROR) {
-            var div = document.getElementById(name + "Div");
-            div.innerHTML = response;
-        }
-    }
-
-    if (doAfter != null)
-        doAfter();
-    
-    for (let i = 0; i < afterArray.length; i++) {
-        var name = afterArray[i];
-        var response = await callEndpoint("GET", "/webParts/" + name + ".html")
-        if (!response.ERROR) {
-            var div = document.getElementById(name + "Div");
-            div.innerHTML = response;
-        }
-    }
-}
-
-async function getHtml(name, path, parentId, attributeClass="") {
-    var response = await callEndpoint("GET",
-         "/webParts/" + path + name + ".html")
-    if (!response.ERROR) {
-        var parent = document.getElementById(parentId);
-        var div = createElement("div", parent, "", 
-        [
-            {"name": "id", "value": name + "Div"},
-            {"name": "class", "value": attributeClass} 
-        ]);
-        div.innerHTML = response;
-        return div;
-    }
-    else {
-        return null;
-    }
-}
-
-
-// STRINGFORMATER.JS
-function stringShorter(str, maxChars) {
-    if (str.length > maxChars) 
-        return str.slice(0, maxChars) + "...";
-    return str;
-}
-
-
-// COMMUNICATION.JS
-
-var debug = true;
-var authorization = "";
-function sendPost(url, jsonRequest, output, callback) {
-    var xmlHttp = new XMLHttpRequest(); 
-    
-    if (output) console.log("SENDING", nowTime(), url, jsonRequest);
-
-    xmlHttp.onreadystatechange = function() {
-        if (this.readyState == 4) {
-            json = JSON.parse(this.responseText);
-            if(output) console.log("RESPONSE", nowTime(), url, json);
-            if(callback) callback(json);
-        }
-    };
-    xmlHttp.open("POST", url);
-    xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    if (authorization != "") {
-        xmlHttp.setRequestHeader("Authorization", window.btoa(authorization));
-    }
-    xmlHttp.send(jsonRequest);
-}
-
-function sendGet(url, output, callback) {
-    var xmlHttp = new XMLHttpRequest();
-
-    if (output) console.log("SENDING", nowTime(), url);
-
-    xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4) {
-            try {
-                json = JSON.parse(this.responseText);
-            }
-            catch {
-                json = this.responseText;
-            }
-            if(output) console.log("RESPONSE", nowTime(), url, json);
-            if(callback) callback(json);
-        }
-    }
-    xmlHttp.open("GET", url); 
-    xmlHttp.setRequestHeader("Content-Type", "text/plain;charset=UTF-8;");
-    if (authorization != "") {
-        xmlHttp.setRequestHeader("Authorization", window.btoa(authorization));
-    }
-    xmlHttp.send();
-}
-
-function callEndpoint(type, url, request=null) {
-    if (type == "GET") {
-        return new Promise(resolve => {
-            sendGet(url, debug, function(response) {
-                resolve(response);
-            });
-        });
-    } else if (type == "POST") {
-        var request = JSON.stringify(request);
-        return new Promise(resolve => {
-            sendPost(url, request, debug, function(response) {
-                resolve(response);
-            });
-        });
-    }
-    else {
-        console.log("Unknown type (Had to be GET or POST");
-        console.log(type);
-        return null;
-    }
-}
-
-
 // CLICKMANAGER.JS
 var testingDoubleClick = false;
 var testingDoubleClickTimeout = null;
@@ -622,5 +565,62 @@ function singleClickDone(wanted, func) {
 
 function doubleClickDone(func) {
     func();
+}
+
+
+// ARRAYS.JS
+
+function removeFromArray(array, item) {
+    let index = array.indexOf(item);
+    removeFromArrayByIndex(array, index);
+}
+
+function removeFromArrayByIndex(array, index) {
+    if (index == -1) return;
+    array.splice(index, 1);
+}
+
+
+// TABLEBUILDER.JS
+
+function clearTable(table) {
+    table.innerHTML = "";
+}
+
+function addRow(table, cells, rowAttributes=[]) {
+    var row = createElement("tr", table, "", rowAttributes);
+    for (let i = 0; i < cells.length; i++) {
+        if (!cells[i].attributes)
+            cells[i].attributes = [];
+        createElement("td", row, cells[i].text, cells[i].attributes);
+    }
+    return row;
+}
+
+function addHeader(table, cells, rowAttributes=[]) {
+    var row = createElement("tr", table, "", rowAttributes);
+    for (let i = 0; i < cells.length; i++) {
+        if (!cells[i].attributes)
+            cells[i].attributes = [];
+        createElement("th", row, cells[i].text, cells[i].attributes);
+    }
+    return row;
+}
+
+function insertRow(table, rowIndex, cells, rowAttributes=[]) {
+    var row = table.insertRow(rowIndex);
+
+    for (let i = 0; i < rowAttributes.length; i++) {
+        row.setAttribute(rowAttributes[i].name, rowAttributes[i].value);
+    }
+
+    for (let i = 0; i < cells.length; i++) {
+        if (!cells[i].attributes) {
+            cells[i].attributes = [];
+        }
+        createElement("td", row, cells[i].text, cells[i].attributes);
+    }
+
+    return row;
 }
 
