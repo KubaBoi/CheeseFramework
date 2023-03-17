@@ -5,6 +5,11 @@ function convert(str, separateContents=true) {
     var mdDiv = document.getElementById("md");
     clearTable(mdDiv);
 
+    str = str.replaceAll("\r\n", "\n");
+
+    // tables
+    str = tables(str);
+
     // hrefs within md document -> [title](#headerId) 
     str = rplcReg(str, /\[(?<title>.+)\]\((?<href>#.*)\)/g, '<a href="$href.lowerCase$">$title$</a>');
     
@@ -47,7 +52,7 @@ function convert(str, separateContents=true) {
      */
     str = rplcReg(str, /:(?<emoji>[a-z0-9_\-\+]+):/g, "$emoji.emoji$");
 
-    var lines = str.split("\n");
+    lines = str.split("\n");
     str = "";
     for (let i = 0; i < lines.length; i++) {
         var line = lines[i];
@@ -145,6 +150,54 @@ function images() {
             img.classList.add("contentImg");
         }
     }
+}
+
+function tables(str) {
+    str = rplcReg(str, /\|(?<content>[a-zA-Z0-9 \|\%\*\`\"\'\!\:\;\?\(\)\[\]\/\\\_\,\.\-]+)\|([ ]*)\n/, "<tr>$content$</tr>");
+    let lines = str.split("\n");
+    for (let i = 0; i < lines.length; i++) {
+        let line = lines[i];
+        if (!line.startsWith("<tr>")) 
+            continue;
+        
+        let rows = line.split("</tr>");
+        let newLine = "";
+        for (let o = 0; o < rows.length; o++) {
+            let row = rows[o].replace("<tr>", "");
+
+            let isDelimiter = true;
+            for (let o = 0; o < row.length; o++) {
+                if (row[o] != "|" && row[o] != " " && row[o] != "-") {
+                    isDelimiter = false;
+                    break;
+                }
+            }
+            if (isDelimiter) continue;
+
+            newLine += "<tr>";
+            if (o >= rows.length - 1) {
+                newLine += `<td>${row.replaceAll("|", "</td><td>")}</td></tr>`;
+                continue;
+            }
+            let cells = row.split("|");
+            let nextCells = rows[o + 1].replace("<tr>", "").split("|");
+            for (let o = 0; o < cells.length; o++) {
+                let cell = cells[o];
+                if (o >= nextCells.length) {
+                    newLine += `<td>${cell}</td>`;
+                    continue;
+                }
+                let nextCell = nextCells[o];
+                if (nextCell.trim() == "---") 
+                    newLine += `<th>${cell}</th>`;
+                else
+                    newLine += `<td>${cell}</td>`;
+            }
+            newLine += "</tr>";
+        }
+        str = str.replaceAll(line, `<table>${newLine}</table>\n`);
+    }
+    return str;
 }
 
 function scrollToAfter() {
