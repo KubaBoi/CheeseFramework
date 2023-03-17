@@ -1,0 +1,19 @@
+# MD Converter
+
+To use:
+
+```
+<link rel="stylesheet" href="https://kubaboi.github.io/CheeseFramework/mdConverter/style.css">
+
+<div id="d" class="d">
+    <div id="md" class="main"></div>
+</div>
+
+<script src="https://kubaboi.github.io/CheeseFramework/public/scripts/cheese.js"></script>
+<script src="https://kubaboi.github.io/CheeseFramework/mdConverter/pack.js"></script>
+
+<script>
+// false if you do not want to create contents table
+getMd("url of md file.md", false);
+</script>
+```
