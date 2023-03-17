@@ -1,5 +1,7 @@
 # MD Converter
 
+For better understading check: http://http://frogie.cz:7970
+
 To use:
 
 ```
