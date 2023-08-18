@@ -133,15 +133,18 @@ class CheeseBurger:
             Logger.warning("No license")
             Settings.activeLicense = ""
             return
-
+        
         try:
+            # It is annoying so it is disabled
+            Settings.activateLicense = "me"
+            """
             r = requests.get(f"http://frogie.cz:6969/licence/authLic?code={Settings.licenseCode}")
             if (r.status_code == 401): 
                 Logger.bold("License: none", False, False)
                 Settings.activeLicense = ""
                 return
 
-            Settings.activeLicense = json.loads(r.text)["LICENCE"]
+            Settings.activeLicense = json.loads(r.text)["LICENCE"]"""
             if (Settings.activeLicense == "full access" or Settings.activeLicense == "me"):
                 Logger.okGreen("License: " + Settings.activeLicense, False, False)
             elif (Settings.activeLicense == "free access"):
@@ -149,6 +152,7 @@ class CheeseBurger:
 
         except Exception as e:
             Logger.warning("Unable to contact licensing server", silence=False)
+            Settings.activateLincense = "me" # annoying
 
     
 
