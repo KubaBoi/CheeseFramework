@@ -6,7 +6,7 @@
 
 [![Release Build](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml/badge.svg?branch=main)](https://github.com/KubaBoi/CheeseFramework/actions/workflows/realeaseDate.yml)
 
-### Version v(1.4.94) - 23.08.18.18.20
+### Version v(1.4.95) - 23.08.18.18.43
 
 Test version v(1.4.95) - 23.08.18.18.40
 
