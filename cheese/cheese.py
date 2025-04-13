@@ -2,8 +2,6 @@
 
 import os
 import sys
-import requests
-import json
 from traceback import format_exc
 
 from Cheese.projectBuilder import ProjectBuilder
@@ -56,7 +54,6 @@ class CheeseBurger:
             Logger.bold(10*"=" + f"Start in file {ResMan.path}" + 10*"=", False, False)
 
             # check licence
-            CheeseBurger.loadLicence()
             Logger.warning(f"Builded with CheeseFramework v({Metadata.cheeseRelease})", silence=False)
             print()
 
@@ -118,40 +115,6 @@ class CheeseBurger:
             Logger.fail("UNKNOWN ERROR WHILE RUNNING SERVER ", e)
         Logger.info(f"Server Stops - {Settings.host}:{Settings.port}", silence=False)
         sys.exit()
-
-    @staticmethod
-    def loadLicence():
-        """
-        Loads licence
-        """
-        Settings.activeLicense = "me"
-        return
-        if (not hasattr(Settings, "licenseCode")):
-            Logger.warning("No license")
-            Settings.activeLicense = ""
-            return
-
-        if (Settings.licenseCode == ""): 
-            Logger.warning("No license")
-            Settings.activeLicense = ""
-            return
-        
-        try:
-            r = requests.get(f"http://frogie.cz:6969/licence/authLic?code={Settings.licenseCode}")
-            if (r.status_code == 401): 
-                Logger.bold("License: none", False, False)
-                Settings.activeLicense = ""
-                return
-
-            Settings.activeLicense = json.loads(r.text)["LICENCE"]
-            if (Settings.activeLicense == "full access" or Settings.activeLicense == "me"):
-                Logger.okGreen("License: " + Settings.activeLicense, False, False)
-            elif (Settings.activeLicense == "free access"):
-                Logger.warning("License: " + Settings.activeLicense, False, False)
-
-        except Exception as e:
-            Logger.warning("Unable to contact licensing server", silence=False)
-            Settings.activateLincense = ""
 
     
 

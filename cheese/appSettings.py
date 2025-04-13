@@ -24,8 +24,6 @@ class Settings:
         setattr(Settings, "host", s.getsockname()[0])
         s.close()
 
-        Settings.activeLicense = "None"
-
     @staticmethod
     def loadJson():
         """
